@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px 8px 40px;
+}
+
+.headerContainer{
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+}
+
+.titleText{
+    color: var(--Text-Text-Description-01, #6F7269);
+    /* Ago microfinance/body/regular */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.5px; /* 159.375% */ 
+}
+.spanPrefix{
+    color: var(--Text-Text-Secondary, #151E00);
+    /* Ago microfinance/H6/medium */
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 160% */ 
+}
+.spanPostfix{
+    color: var(--Text-Text-Description-01, #6F7269);
+    /* Ago microfinance/H6/regular */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; 
+}
+

@@ -1,0 +1,12 @@
+.provider{
+  display: flex;
+  margin-right: 2rem;
+  gap: 16px;
+  align-items: end;
+}
+.submitButtonContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+}

@@ -1,0 +1,17 @@
+/* styles.module.css or your preferred stylesheet */
+.scrollbar-hide {
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 11 */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background-color: transparent; /* color of the thumb */
+}
+
+.scrollbar-hide:hover::-webkit-scrollbar-thumb {
+  background-color: #003a49; /* color of the thumb on hover */
+}

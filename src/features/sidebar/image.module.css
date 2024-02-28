@@ -1,0 +1,17 @@
+
+.container{
+   display: flex;
+   gap: 16px; 
+}  
+
+.appname{
+    display: flex;
+    gap: 8px; 
+    align-items: center;
+ }   
+
+ .highlight{
+    display: flex;
+    gap: 8px; 
+    align-items: center;
+ }  

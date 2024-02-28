@@ -1,0 +1,244 @@
+.captionl {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 16px; /* 171.429% */
+}
+.captionr {
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}
+.captionm {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; /* 171.429% */
+}
+.captionb {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; /* 171.429% */
+}
+
+.bodyl {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px; /* 171.429% */
+}
+.bodyr {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 171.429% */
+}
+.bodym {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+}
+.bodyb {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+}
+
+/* statement/H6 */
+.h6l {
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 32px;
+}
+.h6r {
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+}
+.h6m {
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
+.h6b {
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* statement/H5 */
+.h5l {
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 40px;
+}
+.h6r {
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+}
+.h5m {
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+.h5b {
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+/* statement/H4 */
+.h4l {
+  font-family: Roboto;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 40px;
+}
+.h4r {
+  font-family: Roboto;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+}
+.h4m {
+  font-family: Roboto;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+.h4b {
+  font-family: Roboto;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+/* statement/H3 */
+.h3l {
+  font-family: Roboto;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 56px;
+}
+.h3r {
+  font-family: Roboto;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 56px;
+}
+.h3m {
+  font-family: Roboto;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+.h3b {
+  font-family: Roboto;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+/* statement/H2 */
+.h2l {
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 56px;
+}
+.h2r {
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 56px;
+}
+.h2m {
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+.h2b {
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+/* statement/H2 */
+.h1r {
+  font-family: Roboto;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 80px;
+}
+.h1r {
+  font-family: Roboto;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 80px;
+}
+.h1m {
+  font-family: Roboto;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 80px;
+}
+.h1b {
+  font-family: Roboto;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 80px;
+}

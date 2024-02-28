@@ -1,0 +1,14 @@
+.customSeach {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid hsl(0, 0%, 80%);
+  width: 364px;
+  height: 32px;
+  padding: 10px;
+}
+.icon {
+  margin-left: 10px;
+}

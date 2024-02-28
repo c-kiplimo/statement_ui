@@ -1,0 +1,6 @@
+type Permission = {
+   
+    name: string
+
+};
+

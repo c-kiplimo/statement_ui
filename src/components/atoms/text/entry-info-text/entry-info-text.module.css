@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.entryInfoTitle {
+  color: var(--Text-Text-Secondary, #151e00);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.entryInfoDescription {
+  color: var(--Text-Text-Description-01, #6f7269);
+
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+}

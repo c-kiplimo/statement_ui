@@ -1,0 +1,39 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  flex: 1;
+  border-radius: 4px;
+  /* padding: 10px; */
+  border: 0.5px solid;
+  border-color: inherit;
+  opacity: 0.8;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-icon {
+  left: 10px;
+}
+
+.right-icon {
+  right: 10px;
+}

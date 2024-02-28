@@ -1,0 +1,13 @@
+.inputLabel {
+  color: var(--Text-Text-Secondary, #151e00);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25.5px;
+}
+
+/* Use a descendant combinator (space) between class names */
+.customSelect .ant-select .ant-select-selector {
+  border: none;
+}

@@ -1,0 +1,62 @@
+.accountSetupActivityContainer {
+  display: flex;
+  width: 860px;
+  height: 920px;
+  padding: 24px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 47px;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.accuntSetupUserDetails {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+}
+
+.accountContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+}
+
+.activitysetupheadertabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+}
+.activitysetupheader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  align-self: stretch;
+  width: 100%;
+}
+.setupCardContainer {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  border-radius: 4px;
+  border: 0.5px solid #979992;
+  background-color: #ffffff;
+  width: 796px;
+  height: 500px;
+}
+.setupCardRadio {
+  display: flex;
+  align-items: flex-start;
+  gap: 100px;
+}
+.setupCardDate {
+  display: flex;
+  gap: 10px;
+}

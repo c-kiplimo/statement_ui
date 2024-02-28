@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  color: var(--Text-Text-Secondary, #151e00);
+}
+.description {
+  color: var(--Text-Text-Description-01, #6f7269);
+}

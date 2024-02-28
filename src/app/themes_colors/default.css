@@ -1,0 +1,46 @@
+:root {
+--primary : #0C0387;
+
+--secondary-brand-color-secondary:#00BDF3;
+
+
+--functional-colors-danger: #F30039;
+--functional-colors-success: #17D05B;
+
+--functional-colors-info: #4272DD;
+
+
+--functional-light-colors-danger-100: #FDCCD7;
+--functional-light-colors-danger-200: #FBB3C4;
+
+--functional-light-colors-success-100: #D1F6DE;
+--functional-light-colors-success-200: #B9F1CE;
+
+--functional-light-colors-info-100: #D9E3F8;
+--functional-light-colors-info-200: #C6D5F5;
+
+--functional-light-colors-warning-100: #FFF2E0;
+--functional-colors-warning: #FFBD66;
+--functional-light-colors-warning-200: #FFEBD1;
+
+
+--tint-colors-tint-300: #54545F;
+--tint-colors-tint-200: #696972;
+--tint-colors-tint-100: #939299;
+
+--shade-colors-shade-300: #161525;
+--shade-colors-shade-200: #28273B;
+--shade-colors-shade-100: #120E49
+
+--neutral-colors-100: #FFFDFD;
+--neutral-colors-200:#F5F5F5;
+--neutral-colors-300: #EFEFEF;
+--neutral-colors-400: #E9E9EA;
+
+--black: #000;
+--grey: #E6E6E6;
+--white: #FFF;
+}
+
+
+
