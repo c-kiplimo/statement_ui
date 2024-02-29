@@ -13,12 +13,15 @@ pnpm dev
 ```
 
 ## Important Info
-The projects uses 
+
+The projects uses
+
 - ant design components
 - module.css
 - inline styles.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## General rules for pushing changes
 
 Before pushing the changes to remote origin always ensure you branch has the latest changes from the master (always update your branch with latest changes)
@@ -55,8 +58,6 @@ Always give good description when creating a pull request to describe which has 
 
 ```
 
-
-
 ## FOLDER STRUCTURE
 
 - public
@@ -77,7 +78,7 @@ Always give good description when creating a pull request to describe which has 
 
           2. They are capable of managing states
 
-          3. They are specific to a module 
+          3. They are specific to a module
           ```
 
   - components. ( This are reusable components across the projects [contains our atom , molecule and widgets]). They take data as a prop among other props. they never make any external calls
@@ -87,19 +88,24 @@ Always give good description when creating a pull request to describe which has 
   - services. [contains services ,this include all api calls pure typescript function and no react components]
   - types. [contains a defination/dictionary of types ]
   - utils. [supporting reusable functions pure type script]
+
 ## git branch naming
 
- - feature branch -- ft-[branch name]
- - bug branch   --  bug-[branch name]
- - test branch  --- test-[branch-name] 
- - Spike branch --  spike-[branch name]
- - documentation -- doc-[branch-name"]
+- feature branch -- ft-[branch name]
+- bug branch -- bug-[branch name]
+- test branch --- test-[branch-name]
+- Spike branch -- spike-[branch name]
+- documentation -- doc-[branch-name"]
 
 ## LINKS
 
-https://ant.design/components/overview/
+## UI DEVELOPMENT
 
-https://nextjs.org/docs/getting-started/project-structure
+- Use module.css to style your components
+- Provide away to override module.css by using inline styles.
+- Each component should define the properties it takes. (properties are configurable items(keys) that the component takes)
+- A component should have maximum of 2 inline style properties passed as a prop, incase of more than 2, decompose the component and have it take child component as prop.
+- Keep component as small as possible.
 
 ## Learn More
 
@@ -108,6 +114,10 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+- https://ant.design/components/overview/
+
+- https://nextjs.org/docs/getting-started/project-structure
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
