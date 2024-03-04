@@ -4,6 +4,7 @@ import Icon from '@ant-design/icons/lib/components/Icon'
 import SpecialIcon from '../../atoms/icon/SpecialIcon'
 import InfoTitle from '../../atoms/text/entry-info-title'
 import VerticalInfoDescription from '../../atoms/text/vertical-info-description'
+import SpecialIconContent from '../../atoms/icon/special.icon.content'
 
 const iconItem = (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +33,9 @@ const iconItem = (
     </svg>
 )
 
+const iconClicked = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    alert("println ")
+}
 const eyeIcon = (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 10" fill="none">
     <path d="M11.9205 4.64387C10.6159 1.88727 8.64373 0.5 6 0.5C3.35489 0.5 1.38413 1.88727 0.0794706 4.64525C0.0271401 4.75639 0 4.87778 0 5.00069C0 5.1236 0.0271401 5.24499 0.0794706 5.35613C1.38413 8.11273 3.35627 9.5 6 9.5C8.6451 9.5 10.6159 8.11273 11.9205 5.35475C12.0265 5.13114 12.0265 4.87163 11.9205 4.64387ZM6 8.50613C3.78014 8.50613 2.15482 7.37699 1.00842 5C2.15482 2.62301 3.78014 1.49387 6 1.49387C8.21985 1.49387 9.84517 2.62301 10.9916 5C9.84655 7.37699 8.22123 8.50613 6 8.50613ZM5.94495 2.57055C4.60726 2.57055 3.52279 3.65828 3.52279 5C3.52279 6.34172 4.60726 7.42945 5.94495 7.42945C7.28264 7.42945 8.36711 6.34172 8.36711 5C8.36711 3.65828 7.28264 2.57055 5.94495 2.57055ZM5.94495 6.54601C5.09306 6.54601 4.40357 5.85445 4.40357 5C4.40357 4.14555 5.09306 3.45399 5.94495 3.45399C6.79683 3.45399 7.48632 4.14555 7.48632 5C7.48632 5.85445 6.79683 6.54601 5.94495 6.54601Z" fill="#34383C" />
 </svg>)
@@ -40,7 +44,7 @@ const CurrencySummaryCard = () => {
         <div className={styles.container}>
             <div className={styles.summarytitle}>
                 <div className={styles.icon}>
-                    <SpecialIcon iconItem={iconItem}></SpecialIcon>
+                    <SpecialIcon iconItem={iconItem} content={<p>paragraph </p>}></SpecialIcon>
                 </div>
                 <div className={styles.textdescription}>
                     <VerticalInfoDescription title='Kenya Shillings' description='Available Balance' />
@@ -63,7 +67,7 @@ const CurrencySummaryCard = () => {
                     />
                 </div>
                 <div className={styles.viewMoreIcon}>
-                    <SpecialIcon iconItem={eyeIcon} />
+                    <SpecialIcon iconItem={eyeIcon} content={<SpecialIconContent text={'Provided Text !'} />} onClick={iconClicked} />
                 </div>
 
             </div>
