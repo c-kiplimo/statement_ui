@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react'
 
-type countryIcon={
+type imageIcon={
     icon:ReactNode,
     iconStyle?: CSSProperties,
 }
@@ -31,7 +31,7 @@ export const svgIcon = (<svg width="32" height="32" viewBox="0 0 32 32" fill="no
 </svg>);
 
 
-function CountryIcon( prop: countryIcon) {
+function ImageIcon( prop: imageIcon) {
   return (
     <div>
       {prop.icon}
@@ -39,4 +39,4 @@ function CountryIcon( prop: countryIcon) {
   )
 }
 
-export default CountryIcon
+export default ImageIcon
