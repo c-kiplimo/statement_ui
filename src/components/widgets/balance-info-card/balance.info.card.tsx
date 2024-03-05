@@ -6,7 +6,8 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 
 function BalanceInfoCard() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  
 
   function handleClick() {
     setIsVisible(!isVisible);
@@ -22,11 +23,10 @@ function BalanceInfoCard() {
 
         <div className={styles.eyeContent}>
           <div className={isVisible ? styles.displayContent : styles.hideContent}>
-            <VerticalInfoDescription title='354,500.00' description='KES'/>
+            <VerticalInfoDescription title='354,500.00' description='KES' titleStyle={{fontWeight:'bold'}}/>
           </div>
           <div className={styles.eyeicon}>
-            {/* {isVisible && (<EyeInvisibleOutlined onClick={handleClick}/>)} */}
-            {!isVisible && (<EyeOutlined onClick={handleClick}/>)}
+            <EyeOutlined onClick={handleClick} style={{}}/>
           </div>
         </div>
       

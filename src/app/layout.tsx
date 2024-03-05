@@ -1,6 +1,8 @@
 import "./globals.css";
 import "@/src/app/themes_colors/default.css";
 import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
+
 
 import MenuContextProvider from "@/src/app/(context)/MenuContext";
 import { ColorProvider } from "@/src/app/(context)/ColorContext";
@@ -19,13 +21,18 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight:['100', '300', '500','700','900']
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html className={inter.className} lang="en">
+    <html className={`${inter.className} ${roboto.className}`} lang="en">
       <body>
         <AuthenticationProvider>
           <AccountStatementContextProvider>
