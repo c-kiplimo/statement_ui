@@ -1,39 +1,39 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 32px;
-    gap: 16px;
-    margin: 0 auto;
-    width: 266px;
-    height: 128px;
-    background: #FFFFFF;
-    border: 1px solid #E6E6E6;
-    border-radius: 8px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 32px;
+  gap: 16px;
+  margin: 0 auto;
+  width: 266px;
+  height: 128px;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
 }
-.icondiv{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+.icondiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
 }
-.icon{
-    width: 32px;
-    height: 32px;
-    border-radius: 50px; 
+.icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
 }
-.eyeContent{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    width: 202px;
-    height: 40px;
+.eyeContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  width: 202px;
+  height: 40px;
 }
-.displayContent{
-    display: block;
+.displayContent {
+  display: block;
 }
-.hideContent{
-    opacity: 0.03; 
+.hideContent {
+  opacity: 0.03;
 }
