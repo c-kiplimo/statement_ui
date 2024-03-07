@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.description{
+ color: var(--Text-Text-Description-01);
+
+}
