@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 .container {
   display: flex;
   align-items: flex-start;
@@ -8,3 +10,39 @@
  color: var(--Text-Text-Description-01);
 
 }
+=======
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex: 1 0 0;
+    }
+
+    .text{
+color: var(--Accent-Accent-Danger, #F30039);
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 24px;
+    }
+
+    .description{
+color: var(--Neutral-Grey-900, #E6E6E6);
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+    }
+>>>>>>> f28d287 (recent transactions widget)
+=======
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: 1 0 0;
+}
+>>>>>>> 55f0fa9 (updated font,format and card content declared as properties)

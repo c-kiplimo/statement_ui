@@ -6,6 +6,7 @@ import InfoTitle from "../../atoms/text/entry-info-title";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import SpecialIconContent from "../../atoms/icon/special.icon.content";
 
+
 const iconItem = (
   <svg
     width="32"

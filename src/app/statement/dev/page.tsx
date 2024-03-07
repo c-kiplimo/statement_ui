@@ -1,27 +1,19 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import SummaryItem from "@/src/components/widgets/summary-items/summary-items";
-import { ArrowRightOutlined, RetweetOutlined } from "@ant-design/icons";
+import RecentTransactionItem from "@/src/components/widgets/recent-Transaction-Item/recent.transaction.item";
+import { SpotifyOutlined } from "@ant-design/icons";
 
 const Dev = () => {
+ 
   return (
     <Fragment>
-      <div
-        style={{ background: "var(--Background-Background-Primary, #F5F5F5)" }}
-      >
-        <SummaryItem
-          svgIcon={<RetweetOutlined />}
-          summaryTitle="Opening Balance"
-          titleDescription="(No 10)"
-          amount="$560725"
-          svgIcons={
-            <ArrowRightOutlined
-              style={{ transform: "rotate(-48deg)", color: "#4272DD" }}
-            />
-          }
-          percentage="2.45%"
-          date="This month"
+     <div>
+        <RecentTransactionItem
+          title="Spotify"
+          date="21 Dec, 2023"
+          amount="-49.00"
+          icon={<SpotifyOutlined/>}
         />
       </div>
     </Fragment>
