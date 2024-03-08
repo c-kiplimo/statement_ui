@@ -20,12 +20,20 @@ details for your test configuration
 - [ ] Test A
 - [ ] Test B
 
-##### Checklist:
+**Check And Confirm All The Option**
+
+#### PR Push And Review Checklist:
+
+- [ ] I don't have any commented out code and blocks
+- [ ] I have formatted my code and have no formating issue. (use plugins)
+- [ ] I have checked and confirmed, am only pushing my changes . No changes by mistake or unknown changes
+- [ ] I have no unknown changes as part of this PR
+
+##### Standards Checklist:
 
 - [ ] This review follows the Meraki and Labs Code Review Principal
 - [ ] I have performed a self-review of my own code
 - [ ] I have made corresponding changes to the documentation. Updated documents are linked below:
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
-
 - [ ] New and existing unit tests pass locally with my changes
