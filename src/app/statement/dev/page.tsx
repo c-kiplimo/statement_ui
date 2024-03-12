@@ -1,20 +1,28 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import RecentTransactionItem from "@/src/components/widgets/recent-Transaction-Item/recent.transaction.item";
-import { SpotifyOutlined } from "@ant-design/icons";
+import RadioButton from "@/src/components/atoms/radio/radioButton";
 
 const Dev = () => {
- 
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (e: any) => {
+    const newValue = e.target.value;
+    setSelectedOption((prevValue) => (prevValue === newValue ? "" : newValue));
+  };
+
   return (
     <Fragment>
-     <div>
-        <RecentTransactionItem
-          title="Spotify"
-          date="21 Dec, 2023"
-          amount="-49.00"
-          icon={<SpotifyOutlined/>}
+      <div style={{ display: "flex", marginTop: "10px" }}>
+        <RadioButton
+          id="option1"
+          name="options"
+          value="option1"
+          label="Option 1"
+          checked={selectedOption === "option1"}
+          onChange={handleOptionChange}
         />
+        <label>Test</label>
       </div>
     </Fragment>
   );
