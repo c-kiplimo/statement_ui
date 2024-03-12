@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  width: 488px;
+  height: 76px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.infoSection {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 12px;
+  width: 209px;
+  height: 44px;
+}
+.containerActive {
+  border: 1px solid var(--Functional-Colors-Info, #4272dd);
+}
