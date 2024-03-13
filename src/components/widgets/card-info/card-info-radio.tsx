@@ -15,7 +15,6 @@ type RadioGroupProps = {
   name: string;
   items: RadioItem[];
   value: string | null;
-  onChange: (value: string | null) => void;
 };
 
 const CustomRadio = ({
@@ -25,9 +24,12 @@ const CustomRadio = ({
   name,
   items,
   value,
-  onChange,
 }: RadioGroupProps) => {
   const [selectedValue, setSelectedValue] = useState(true);
+  
+  const handleChange =()=>{
+    console.log(selectedValue,"selected");    
+    setSelectedValue(!selectedValue)}
   return (
     <div
       className={styles.container}
@@ -40,13 +42,13 @@ const CustomRadio = ({
         <VerticalInfoDescription title={label} description={description} />
       </div>
       {items.map((item) => (
-        <div key={item.id} onClick={() => onChange(item.value)}>
+        <div key={item.id}>
           <RadioButton
             id={item.id}
             name={name}
             value={item.value}
             checked={selectedValue}
-            onChange={() => onChange(item.value)}
+            onClick={handleChange}
           />
         </div>
       ))}

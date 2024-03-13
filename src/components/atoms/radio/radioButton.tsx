@@ -10,7 +10,7 @@ type RadioButtonProps = {
   label?: string;
   required?: boolean;
   checked?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
 } & RadioProps;
 
 const RadioButton: React.FC<RadioButtonProps> = ({
