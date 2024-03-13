@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./radioButton.module.css";
 import { RadioProps } from "antd";
-import { RadioProps } from "antd";
 
 type RadioButtonProps = {
   id: string;
@@ -29,7 +28,6 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   useEffect(() => {
     setChecked(checked);
   });
->>>>>>> ab45090 (Selection card widget)
   return (
     <div className={styles.radioContainer}>
       <input
