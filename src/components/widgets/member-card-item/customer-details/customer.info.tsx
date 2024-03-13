@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import styles from "./customer.details.module.css";
+import styles from "./customer.info.module.css";
 import Text from "@/src/components/atoms/text/vertical-info-description";
 
 type CustomerDetailsProps = {
