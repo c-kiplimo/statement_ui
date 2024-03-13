@@ -26,10 +26,11 @@ const CustomRadio = ({
   value,
 }: RadioGroupProps) => {
   const [selectedValue, setSelectedValue] = useState(true);
-  
-  const handleChange =()=>{
-    console.log(selectedValue,"selected");    
-    setSelectedValue(!selectedValue)}
+
+  const handleChange = () => {
+    console.log(selectedValue, "selected");
+    setSelectedValue(!selectedValue);
+  };
   return (
     <div
       className={styles.container}
