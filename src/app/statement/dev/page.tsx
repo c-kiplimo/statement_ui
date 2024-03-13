@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
 import CustomRadio from "@/src/components/widgets/card-info/card-info-radio";
 
@@ -44,6 +44,15 @@ const Dev = () => {
           items={[{ value: "Master Card ****4322", id: "visa" }]}
           name="card-info"
           value={selectedOption}
+      <div style={{ display: "flex", marginTop: "10px", background: "Yellow", width: "250px", height: "32px" }} onClick={() => {
+        setSelected(!selected)
+      }}>
+        <RadioButton
+          id="option1"
+          name="options"
+          value="option1"
+          label="Option 1"
+          checked={selected}
           onChange={handleOptionChange}
         />
       </div>

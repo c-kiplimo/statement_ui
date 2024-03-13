@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./radioButton.module.css";
 import { RadioProps } from "antd";
 
@@ -10,6 +11,8 @@ type RadioButtonProps = {
   label?: string;
   required?: boolean;
   checked?: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+} & RadioProps;
   onClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
 } & RadioProps;
 
@@ -17,8 +20,17 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   id,
   name,
   value,
-  checked,
+  checked
 }) => {
+  const [radioChecked, setChecked] = useState(checked)
+
+  function handleChange(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
+    setChecked(!radioChecked)
+  }
+
+  useEffect(() => {
+    setChecked(checked)
+  })
   const [radioChecked, setChecked] = useState(checked);
 
   function handleChange(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
@@ -36,6 +48,8 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         id={id}
         name={name}
         value={value}
+        defaultChecked={radioChecked}
+        onClick={handleChange}
         defaultChecked={radioChecked}
         onClick={handleChange}
       />
