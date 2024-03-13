@@ -1,4 +1,5 @@
-import React, { ReactNode, useState } from "react";
+'use-client'
+import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./card-info-radio.module.css";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import RadioButton from "../../atoms/radio/radioButton";
@@ -8,53 +9,102 @@ type RadioItem = {
   id: string;
 };
 
-type RadioGroupProps = {
+type SelectionCardProps = {
+  id?: string
   icon: ReactNode;
   label: string;
   description: string;
   name: string;
-  items: RadioItem[];
   value: string | null;
+  onSelection?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+
 };
 
-const CustomRadio = ({
+const SelectionCard = ({
   icon,
   label,
   description,
-  name,
-  items,
-  value,
-}: RadioGroupProps) => {
-  const [selectedValue, setSelectedValue] = useState(true);
+  onSelection
+}: SelectionCardProps) => {
 
-  const handleChange = () => {
-    console.log(selectedValue, "selected");
-    setSelectedValue(!selectedValue);
+  const [selectedValue, setSelectedValue] = useState(false);
+  const [isActive, setActive] = useState(false);
+
+  const onSelected = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+
+    let selected = !selectedValue
+    setSelectedValue(selected);
+    if (selected === true) {
+      setActive(true)
+    } else {
+      setActive(false)
+    }
+    onSelection?.(event)
   };
+
+
   return (
     <div
-      className={styles.container}
-      onClick={() => {
-        setSelectedValue(!selectedValue);
-      }}
+      className={`${styles.container} ${isActive ? styles.containerActive : ''}`}
+      onClick={onSelected}
     >
       <div className={styles.infoSection}>
-        <div className={styles.numberIcon}>{icon}</div>
-        <VerticalInfoDescription title={label} description={description} />
+        <SelectionCard.Icon icon={icon} />
+        <SelectionCard.Info label={label} description={description} />
       </div>
-      {items.map((item) => (
-        <div key={item.id}>
-          <RadioButton
-            id={item.id}
-            name={name}
-            value={item.value}
-            checked={selectedValue}
-            onClick={handleChange}
-          />
-        </div>
-      ))}
+      <SelectionCard.RadioButton defaultChecked={selectedValue} />
     </div>
   );
 };
 
-export default CustomRadio;
+/**
+ * Selection Card Icon 
+ */
+type SelectionCardIconProp = {
+  icon: ReactNode
+}
+
+SelectionCard.Icon = ({ icon }: SelectionCardIconProp) => {
+  return (<div className={styles.numberIcon}>{icon}</div>)
+}
+
+/**
+ * Selection Card Info 
+ */
+
+type SelectionCardInfonProp = {
+  label: String
+  description: String
+}
+SelectionCard.Info = ({ label, description }: SelectionCardInfonProp) => {
+  return (
+    <VerticalInfoDescription title={label} description={description} />
+  )
+}
+
+
+/**
+ * Selection Card Radio Button
+ */
+
+type SelectionCardRadioButtonProp = {
+  defaultChecked: boolean
+}
+
+
+
+SelectionCard.RadioButton = (props: SelectionCardRadioButtonProp) => {
+
+  const onChange = (event: any) => {
+
+  }
+
+  return (
+    <RadioButton
+      checked={props.defaultChecked}
+      onChange={onChange}
+    />
+  )
+}
+
+export default SelectionCard;
