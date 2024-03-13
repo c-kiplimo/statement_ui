@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import React, { useEffect, useState } from "react";
 import styles from "./radioButton.module.css";
 import { RadioProps } from "antd";
 import { RadioProps } from "antd";
@@ -19,17 +18,18 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   id,
   name,
   value,
-  checked
+  checked,
 }) => {
-  const [radioChecked, setChecked] = useState(checked)
+  const [radioChecked, setChecked] = useState(checked);
 
   function handleChange(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
-    setChecked(!radioChecked)
+    setChecked(!radioChecked);
   }
 
   useEffect(() => {
-    setChecked(checked)
-  })
+    setChecked(checked);
+  });
+>>>>>>> ab45090 (Selection card widget)
   return (
     <div className={styles.radioContainer}>
       <input
@@ -38,8 +38,6 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         id={id}
         name={name}
         value={value}
-        defaultChecked={radioChecked}
-        onClick={handleChange}
         defaultChecked={radioChecked}
         onClick={handleChange}
       />
