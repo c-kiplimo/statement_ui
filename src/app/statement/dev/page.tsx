@@ -45,10 +45,11 @@ const Dev = () => {
           name="card-info"
           value={selectedOption}
           onSelection={(event) => {
-            console.log(event);
+            console.log(event)
           }}
         />
       </div>
+
     </Fragment>
   );
 };
