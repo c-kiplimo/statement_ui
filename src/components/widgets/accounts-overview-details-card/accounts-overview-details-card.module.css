@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 16px 40px 16px 32px;
+    gap: 16px;
+    width: 957px;
+    height: fit-content;
+    background: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    border-radius: 8px;
+}
+.accountTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.accountsContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: 16px;
+}
+.icon{
+    padding: 8px;
+    border-radius: 21px;
+}
+.hidden{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+
+
+
+
+
+
