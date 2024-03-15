@@ -4,7 +4,6 @@ import Text from "@/src/components/atoms/text/vertical-info-description";
 import FundsAllocation from "@/src/components/widgets/member-card-item/funds.alocation";
 import CustomerDetails from "@/src/components/widgets/member-card-item/customer.info";
 import { RightCircleOutlined } from "@ant-design/icons";
-import image from "@/public/Ellipse.png";
 
 type MemberCardDescription = {
   title: string;
