@@ -5,7 +5,6 @@ import FundsAllocation from "@/src/components/widgets/member-card-item/funds.alo
 import CustomerDetails from "@/src/components/widgets/member-card-item/customer.info";
 import { RightCircleOutlined } from "@ant-design/icons";
 
-
 type MemberCardDescription = {
   title: string;
   title2: string;
