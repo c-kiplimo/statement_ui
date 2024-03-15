@@ -3,7 +3,8 @@ import styles from "./customer.info.module.css";
 import Text from "@/src/components/atoms/text/vertical-info-description";
 
 type CustomerDetailsProps = {
-  image: string;
+  src: string;
+  alt?: string;
   title: string;
   amount: string;
   arrow: any;
@@ -15,7 +16,7 @@ const CustomerDetails = (props: CustomerDetailsProps) => {
     <div className={styles.container} onClick={props.onClick}>
       <div className={styles.description}>
         <div className={styles.icon}>
-          <img src={props.image} alt={props.image} />
+          <img src={props.src} alt={props.alt} />
         </div>
         <div className={styles.custname}>
           <Text
