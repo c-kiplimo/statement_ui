@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
 import CashFlow from "@/src/components/widgets/cashFlow/cashFlow";
 import { DownloadOutlined } from "@ant-design/icons";
@@ -19,15 +19,13 @@ const Dev = () => {
             <CashFlow.Icon
               icon={
                 <DownloadOutlined
-                  size={32}
+                  size={16}
                   style={{
                     color: "white",
-                    backgroundColor: "#84BD00",
-                    padding: "8px",
-                    borderRadius: "50%",
                   }}
                 />
               }
+              iconStyle={{ backgroundColor: " var(--brand-brand-primary)" }}
             />
           }
           title="Money In"
@@ -35,7 +33,6 @@ const Dev = () => {
           borderColor="var(--brand-brand-primary)"
         ></CashFlow>
       </div>
-
     </Fragment>
   );
 };

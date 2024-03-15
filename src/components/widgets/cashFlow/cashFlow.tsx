@@ -26,9 +26,9 @@ function CashFlow(props: CashFlowProps) {
       onClick={handleClick}
       style={{ borderColor: selectedValue ? props.borderColor : "var(--grey)" }}
     >
-      <div className={styles.icon}>
+      
         <CashFlow.Icon icon={props.icon} iconStyle={{ color: "white" }} />
-      </div>
+      
       <CashFlow.Info
         title={props.title}
         titleStyle={{ fontWeight: "400", fontSize: "16px", color: "#6F7269" }}
@@ -50,7 +50,11 @@ type CashFlowIconProps = {
   iconStyle?: CSSProperties;
 };
 CashFlow.Icon = (props: CashFlowIconProps) => {
-  return <ImageIcon icon={props.icon} iconStyle={props.iconStyle} />;
+  return (
+    <div className={styles.icon} style={props.iconStyle}>
+      {props.icon}
+    </div>
+  );
 };
 
 type CashFlowInfoProps = {
