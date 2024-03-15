@@ -1,8 +1,7 @@
 "use client";
 import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import SelectionCard from "@/src/components/widgets/card-info/card-info-radio";
-import RadioButton from "@/src/components/atoms/radio/radioButton";
+import MemberCard from "@/src/components/widgets/member-card-item/member.card";
 
 const Dev = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -37,19 +36,7 @@ const Dev = () => {
 
   return (
     <Fragment>
-      <div style={{ marginTop: "10px" }}>
-        <SelectionCard
-          icon={cardIcon}
-          label="Master Card ****4322"
-          description="Expires 09/2023"
-          name="card-info"
-          value={selectedOption}
-          onSelection={(event) => {
-            console.log(event);
-          }}
-        />
-      </div>
-
+      <MemberCard title="Member Card" title2="View more" />
     </Fragment>
   );
 };
