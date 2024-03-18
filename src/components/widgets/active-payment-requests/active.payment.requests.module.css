@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 8px;
+    width: 590px;
+    height: 186px;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+.participants{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+.payment{
+    display: flex;
+    justify-content: space-between;
+}
+.images{
+    display: flex; 
+    box-sizing: border-box; 
+    list-style: none; 
+    margin: 0px; 
+    padding: 0px; 
+    flex-flow: wrap;
+}
+.images li{
+    margin-inline-end:-6px; 
+    border-radius:50%;
+    border: 2px solid #FFFFFF;
+}
+
+
+
