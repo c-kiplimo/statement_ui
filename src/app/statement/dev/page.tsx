@@ -1,12 +1,34 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import MemberCard from "@/src/components/widgets/member-card-item/member.card";
+import CashFlow from "@/src/components/widgets/cashFlow/cashFlow";
+import { DownloadOutlined } from "@ant-design/icons";
 
 const Dev = () => {
+  const handleCashFlowClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {};
   return (
     <Fragment>
-      <MemberCard title="Member Card" title2="View more" />
+      <div>
+        <CashFlow
+          onClick={handleCashFlowClick}
+          icon={
+            <CashFlow.Icon
+              icon={
+                <DownloadOutlined
+                  size={16}
+                  style={{
+                    color: "white",
+                  }}
+                />
+              }
+              iconStyle={{ backgroundColor: " var(--brand-brand-primary)" }}
+            />
+          }
+          title="Money In"
+          description="$37,890"></CashFlow>
+      </div>
     </Fragment>
   );
 };
