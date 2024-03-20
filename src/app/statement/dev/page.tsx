@@ -1,41 +1,68 @@
 "use client";
 import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import CashFlowCard from "@/src/components/widgets/cashFlowCard/cashFlowCard";
+import PaymentMethod from "@/src/components/widgets/payment-method/payment.method";
+import { CaretDownOutlined } from "@ant-design/icons";
+
+const iconsvg = (
+  <svg
+    width="31"
+    height="22"
+    viewBox="0 0 21 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect y="0.5" width="21" height="21" rx="10.5" fill="#4272DD" />
+    <path
+      d="M13.1094 13.2266H15.4453C15.3984 13.9922 15.1875 14.6719 14.8125 15.2656C14.4427 15.8594 13.9245 16.3229 13.2578 16.6562C12.5964 16.9896 11.7995 17.1562 10.8672 17.1562C10.138 17.1562 9.48438 17.0312 8.90625 16.7812C8.32812 16.526 7.83333 16.1615 7.42188 15.6875C7.01562 15.2135 6.70573 14.6406 6.49219 13.9688C6.27865 13.2969 6.17188 12.5443 6.17188 11.7109V10.9219C6.17188 10.0885 6.28125 9.33594 6.5 8.66406C6.72396 7.98698 7.04167 7.41146 7.45312 6.9375C7.86979 6.46354 8.36719 6.09896 8.94531 5.84375C9.52344 5.58854 10.1693 5.46094 10.8828 5.46094C11.8307 5.46094 12.6302 5.63281 13.2812 5.97656C13.9375 6.32031 14.4453 6.79427 14.8047 7.39844C15.1693 8.0026 15.388 8.6901 15.4609 9.46094H13.1172C13.0911 9.0026 13 8.61458 12.8438 8.29688C12.6875 7.97396 12.4505 7.73177 12.1328 7.57031C11.8203 7.40365 11.4036 7.32031 10.8828 7.32031C10.4922 7.32031 10.151 7.39323 9.85938 7.53906C9.56771 7.6849 9.32292 7.90625 9.125 8.20312C8.92708 8.5 8.77865 8.875 8.67969 9.32812C8.58594 9.77604 8.53906 10.3021 8.53906 10.9062V11.7109C8.53906 12.2995 8.58333 12.8177 8.67188 13.2656C8.76042 13.7083 8.89583 14.0833 9.07812 14.3906C9.26562 14.6927 9.50521 14.9219 9.79688 15.0781C10.0938 15.2292 10.4505 15.3047 10.8672 15.3047C11.3568 15.3047 11.7604 15.2266 12.0781 15.0703C12.3958 14.9141 12.638 14.6823 12.8047 14.375C12.9766 14.0677 13.0781 13.6849 13.1094 13.2266Z"
+      fill="white"
+    />
+  </svg>
+);
+
+const logosvg = (
+  <svg
+    width="40"
+    height="24"
+    viewBox="0 0 40 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M14.5918 2.56689H25.4072V21.4335H14.5918V2.56689Z"
+      fill="#FF5F00"
+    />
+    <path
+      d="M15.279 12C15.279 8.16672 17.133 4.76666 19.9827 2.5666C17.8885 0.966633 15.2448 0 12.3607 0C5.52781 0 0 5.36659 0 12C0 18.6333 5.52781 24 12.3605 24C15.2446 24 17.8883 23.0334 19.9827 21.4332C17.133 19.2666 15.279 15.8333 15.279 12Z"
+      fill="#EB001B"
+    />
+    <path
+      d="M40.0003 12C40.0003 18.6333 34.4725 24 27.6398 24C24.7557 24 22.112 23.0334 20.0176 21.4332C22.9017 19.2333 24.7214 15.8333 24.7214 12C24.7214 8.16672 22.8673 4.76666 20.0176 2.5666C22.1118 0.966633 24.7557 0 27.6398 0C34.4725 0 40.0003 5.39999 40.0003 12Z"
+      fill="#F79E1B"
+    />
+  </svg>
+);
 
 const Dev = () => {
-  const buttons = [
-    { label: "1D" },
-    { label: "7D" },
-    { label: "1M" },
-    { label: "1Y" },
-  ];
+  
 
-  const handleClick: any = () => {};
-  const [activeButton, setActiveButton] = useState<string | null>(null);
-
-  const handleButtonClick = (label: string) => {
-    setActiveButton((prevActiveButton) => {
-      if (prevActiveButton === label) {
-        return null;
-      } else {
-        return label;
-      }
-    });
-  };
-
-  const textData = [
-    { text: "Money in", textInfo: "$1,276.00" },
-    { text: "Money out", textInfo: "$4,050.10" },
-  ];
   return (
     <Fragment>
-      <CashFlowCard
-        title="Cash Flow"
-        buttons={buttons}
-        texts={textData}
-        onButtonClick={handleButtonClick}
-      ></CashFlowCard>
+      <PaymentMethod
+        cardName={"VISA"}
+        cardTtype={"Debit card"}
+        cardNumber={"5674 9947 9101 2518"}
+        cardLimit={"Overall period"}
+        issueDate={"03/04/2019"}
+        expiryDate={"03/04/2023"}
+        custName={"John Doe"}
+        chips={"/image 6.png"}
+        chips1={"/Vector.png"}
+        cardLogo={logosvg}
+        title={"Card Details"}
+        icon={iconsvg}
+        CaretDownOutlined={<CaretDownOutlined />}
+      />
     </Fragment>
   );
 };
