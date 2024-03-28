@@ -1,0 +1,35 @@
+.formInformation {
+  display: flex;
+  flex-wrap: wrap;
+  width: 394px;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 400;
+}
+.divstyle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.formInformation input,
+.formInformation select {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  width: 189px;
+  background: #ececed;
+  border: none;
+  outline: none;
+  padding: 8px;
+  color: #6f7269;
+}
+.formInformation label {
+  margin-top: 8px;
+  color: #151e00;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
