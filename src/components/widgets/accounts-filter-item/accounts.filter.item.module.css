@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: 541px;  */
+    padding: 0px 0px 16px;
+    border-bottom: 1px solid #E6E6E6;
+    }
+    
+    .titleIcons{
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    }
