@@ -10,6 +10,7 @@ type RadioButtonProps = {
   label?: string;
   required?: boolean;
   checked?: boolean;
+  backgroundcolor?:string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 } & RadioProps;
 
@@ -17,6 +18,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   id,
   name,
   value,
+  backgroundcolor,
   checked = false,
   onChange,
 }) => {
@@ -46,6 +48,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         checked={radioChecked}
         onClick={handleClick}
         onChange={handleChange}
+        style={{backgroundColor: radioChecked ? backgroundcolor: ''}}
       />
     </div>
   );
