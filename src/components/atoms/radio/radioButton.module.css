@@ -1,19 +1,11 @@
-.radioContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .radioButton {
-  display: flex;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ccc;
+  border-radius: 50%; 
   cursor: pointer;
-  background-color: red;
 }
-
-.radioButton:checked {
-  border: 2px solid #4272dd;
-  background-color: #4272dd;
+.radioButton:checked::before {
+  display: block;
 }

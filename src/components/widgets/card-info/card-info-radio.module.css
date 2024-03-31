@@ -19,5 +19,5 @@
   height: 44px;
 }
 .containerActive {
-  border: 1px solid var(--Functional-Colors-Info, #4272dd);
+  border: 1px solid;
 }
