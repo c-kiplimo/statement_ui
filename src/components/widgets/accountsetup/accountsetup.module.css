@@ -11,6 +11,7 @@
   background: #ffffff;
   box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .titleContainer {
@@ -74,19 +75,18 @@
 }
 
 .details {
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 32px 0px;
-gap: 56px;
-width: 821px;
-height: 136px;
-border-radius: 4px;
-flex: none;
-order: 1;
-align-self: stretch;
-flex-grow: 0;
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 32px 0px;
+  gap: 56px;
+  width: 821px;
+  height: 136px;
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
 .querry {
@@ -96,7 +96,7 @@ flex-grow: 0;
   order: 0;
   align-self: stretch;
   flex-grow: 0;
-  color: #1A2600;
+  color: #1a2600;
 }
 
 .header {
@@ -156,10 +156,8 @@ flex-grow: 0;
   order: 1;
   align-self: stretch;
   flex-grow: 0;
-  color: #6F7269;
-
+  color: #6f7269;
 }
-
 
 .formcontainer {
   display: flex;
@@ -172,22 +170,17 @@ flex-grow: 0;
   flex: none;
   order: 1;
   flex-grow: 1;
-
 }
 
-.radioContainer{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 16px;
-width: 356px;
-height: 72px;
-flex: none;
-order: 0;
-flex-grow: 0;
-}
-
-.radioText{
-color:red
+.radioContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 356px;
+  height: 72px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
