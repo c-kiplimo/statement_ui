@@ -31,7 +31,7 @@ const SelectionCard = (props:SelectionCardProps) => {
         <SelectionCard.Icon icon={props.icon} />
         <SelectionCard.Info label={props.label} description={props.description} />
       </div>
-      <SelectionCard.RadioButton checked={isActive} />
+      <SelectionCard.RadioButton checked={isActive} backgroundColor={props.borderColor}/>
     </div>
   );
 };
@@ -42,8 +42,8 @@ type SelectionCardIconProp = {
   icon: ReactNode;
 };
 
-SelectionCard.Icon = ({ icon }: SelectionCardIconProp) => {
-  return <div className={styles.numberIcon}>{icon}</div>;
+SelectionCard.Icon = (props: SelectionCardIconProp) => {
+  return <div className={styles.numberIcon}>{props.icon}</div>;
 };
 
 type SelectionCardInfoProp = {
@@ -51,16 +51,17 @@ type SelectionCardInfoProp = {
   description: string;
 };
 
-SelectionCard.Info = ({ label, description }: SelectionCardInfoProp) => {
+SelectionCard.Info = (props: SelectionCardInfoProp) => {
   return (
-    <VerticalInfoDescription title={label} description={description} />
+    <VerticalInfoDescription title={props.label} description={props.description} />
   );
 };
 
 type SelectionCardRadioButtonProp = {
   checked: boolean;
+  backgroundColor:string;
 };
 
-SelectionCard.RadioButton = ({ checked }: SelectionCardRadioButtonProp) => {
-  return <RadioButton  checked={checked} />;
+SelectionCard.RadioButton = (props: SelectionCardRadioButtonProp) => {
+  return <RadioButton backgroundcolor={props.backgroundColor} checked={props.checked} />;
 };
