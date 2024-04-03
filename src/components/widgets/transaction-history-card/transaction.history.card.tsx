@@ -1,9 +1,9 @@
-import React, { CSSProperties, ReactNode } from "react";
-import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
-import {DeleteOutlined,FilterOutlined,SortAscendingOutlined} from "@ant-design/icons";
-import styles from "./transaction.history.module.css";
-import TransactionTable from "../../atoms/table/home/transaction.table";
-import CustomButton from "../../atoms/button/custom.button";
+import React, { CSSProperties, ReactNode } from 'react'
+import VerticalInfoDescription from '../../atoms/text/vertical-info-description'
+import { DeleteOutlined, FilterOutlined, SortAscendingOutlined } from '@ant-design/icons'
+import styles from './transaction.history.module.css'
+import TransactionTable from '../../atoms/table/home/transaction.table'
+import CustomButton from '../../atoms/button/custom.button'
 
 interface DataType {
   key: React.Key;
