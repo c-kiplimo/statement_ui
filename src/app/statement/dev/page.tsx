@@ -1,7 +1,9 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import TransactionHistoryTable from "@/src/components/widgets/transaction-history-card/transaction.history.card";
+import TotalAvailableBalanceCard from "@/src/components/widgets/total-available-balance-card/total.available.balance.card";
+
+
 
 const data= [
   {
@@ -79,9 +81,7 @@ const Dev = () => {
   
   return (
     <Fragment>
-      <div className="p-9 bg-slate-100">
-        <TransactionHistoryTable data={data} option={option} cardTitle={"Transaction History"} deleteBtnlabel={"Delete"} filterBtnlabel={"Filter"} sortBtnlabel={"Sort"}/>
-      </div>
+     <TotalAvailableBalanceCard/>
     </Fragment>
   );
 };
