@@ -1,0 +1,86 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 32px 24px;
+  gap: 16px;
+  width: 647px;
+  height: 460px;
+  background: #ffffff;
+  border: 0.5px solid #e6e6e6;
+  box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 583px;
+  height: 354px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 583px;
+  height: 72px;
+}
+
+.headerTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 583px;
+  height: 32px;
+}
+
+.closeBtn {
+  width: 16px;
+  height: 16px;
+}
+
+.headerDesc {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 583px;
+  height: 32px;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 583px;
+}
+
+.input {
+  padding: 8px 16px;
+  gap: 8px;
+  width: 583px;
+  height: 40px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 112px;
+  height: 40px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
