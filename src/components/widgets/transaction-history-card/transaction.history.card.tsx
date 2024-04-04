@@ -5,6 +5,7 @@ import styles from "./transaction.history.module.css";
 import TransactionTable from "../../atoms/table/home/transaction.table";
 import CustomButton from "../../atoms/button/custom.button";
 
+
 interface DataType {
   key: React.Key;
   account: string;
@@ -16,12 +17,19 @@ interface DataType {
   icon?: ReactNode;
 }
 
+interface DataTypes{
+  key:number,
+  value:string,
+  period:string
+}
+
 type transactionHistoryprops = {
   cardTitle: string;
   deleteBtnlabel: string;
   filterBtnlabel: string;
   sortBtnlabel: string;
   data: DataType[];
+  option: DataTypes[];
 };
 
 const TransactionHistoryTable = (props: transactionHistoryprops) => {
@@ -40,18 +48,18 @@ const TransactionHistoryTable = (props: transactionHistoryprops) => {
           />
         </div>
         <div className={styles.headerIcons}>
-          <TransactionHistoryTable.Selection />
+          <TransactionHistoryTable.Selection options={props.option}/>
           <TransactionHistoryTable.Icon
             label={props.deleteBtnlabel}
-            icon={<DeleteOutlined />}
+            icon={<img src="/delete.svg"/>}
           />
           <TransactionHistoryTable.Icon
             label={props.filterBtnlabel}
-            icon={<FilterOutlined />}
+            icon= {<img src="/funnel.svg"/>}
           />
           <TransactionHistoryTable.Icon
             label={props.sortBtnlabel}
-            icon={<SortAscendingOutlined />}
+            icon={<img src="/sort.svg"/>}
           />
         </div>
       </div>
@@ -96,12 +104,19 @@ TransactionHistoryTable.Icon = (props: iconProps) => (
     }}
   />
 );
-type selectionProps = {};
-TransactionHistoryTable.Selection = (props: selectionProps) => (
-  <select name="period" id="period" className={styles.selection}>
-    <option value="period" defaultChecked>
-      Period
-    </option>
-    <option value="month">1 Month</option>
-  </select>
-);
+
+type selectionProps = {
+  options:DataTypes[];
+};
+
+TransactionHistoryTable.Selection = (props: selectionProps) => {
+  return (
+  <div>
+    <select name="period" id="period" className={styles.selection} >
+    {props.options.map((option)=>(
+      <option value={option.value}>{option.period}</option>
+    ))}
+    </select>
+    
+  </div>
+)};
