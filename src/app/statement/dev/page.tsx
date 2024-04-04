@@ -58,13 +58,29 @@ const data= [
     status: 'Failed',
   },
 ];
-
+const option = [
+  {
+    key:1,
+    value:'period',
+    period:'Period'
+  },
+  {
+    key:1,
+    value:'onemonth',
+    period:'1 Month'
+  },
+  {
+    key:1,
+    value:'onemonth',
+    period:'2 Month'
+  }
+]
 const Dev = () => {
   
   return (
     <Fragment>
       <div className="p-9 bg-slate-100">
-        <TransactionHistoryTable data={data} cardTitle={"Transaction History"} deleteBtnlabel={"Delete"} filterBtnlabel={"Filter"} sortBtnlabel={"Sort"}/>
+        <TransactionHistoryTable data={data} option={option} cardTitle={"Transaction History"} deleteBtnlabel={"Delete"} filterBtnlabel={"Filter"} sortBtnlabel={"Sort"}/>
       </div>
     </Fragment>
   );
