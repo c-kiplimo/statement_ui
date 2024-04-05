@@ -6,7 +6,7 @@ import { CloseOutlined } from "@ant-design/icons";
 type restrictionProps = {
   title: string;
   name: string;
-  description: string; 
+  description: string;
   placeholder1: string;
   placeholder2: string;
   submitbutton: string;
