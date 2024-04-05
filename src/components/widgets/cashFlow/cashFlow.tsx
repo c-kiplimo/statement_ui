@@ -10,6 +10,7 @@ type CashFlowProps = {
   description: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   borderColor?: string;
+  backgroundcolor: string;
 };
 
 const cx = classnames.bind(styles);
@@ -24,7 +25,10 @@ function CashFlow(props: CashFlowProps) {
   const isActive = cx("container", { "container-active": selectedValue });
   return (
     <div className={isActive} onClick={handleClick}>
-      <CashFlow.Icon icon={props.icon} iconStyle={{ color: "white" }} />
+      <CashFlow.Icon
+        icon={props.icon}
+        iconStyle={{ color: "white", backgroundColor: props.backgroundcolor }}
+      />
 
       <CashFlow.Info
         title={props.title}
