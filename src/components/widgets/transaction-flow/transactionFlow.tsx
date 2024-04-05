@@ -15,7 +15,7 @@ const TransactionCard = (props: TransactionProps) => {
   return (
     <div className={styles.container} onClick={props.onClick}>
       <div className={styles.info}>
-        <TransactionCard.Icon icon={props.icon} />
+        <TransactionCard.Icon icon={props.icon} iconStyle={{background:props.strokeColor}}/>
         <TransactionCard.Text
           title={props.title}
           titleStyle={{

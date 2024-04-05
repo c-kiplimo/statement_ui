@@ -5,7 +5,7 @@ import Text from "@/src/components/atoms/text/vertical-info-description";
 type cardDescription = {
   amount: string;
   title: string;
-  date: string;
+  date?: string;
   icon: ReactNode;
   description:string
   onClick?: (e: any) => {};
