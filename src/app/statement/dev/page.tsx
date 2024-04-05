@@ -1,79 +1,43 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import RecentTransactionsCard from "@/src/components/widgets/recent-transaction-history/recent.transaction.history";
+import CardtypeDetailsInfo from "@/src/components/widgets/cardtype-details-info/cardtype.details.info";
 
-const optiondata = [
-  {
-    key: 1,
-    value: "onemonth",
-    option: "This Month",
-  },
-  {
-    key: 2,
-    value: "twomonth",
-    option: "2 Month",
-  },
-  {
-    key: 3,
-    value: "threemonth",
-    option: "3 Month",
-  },
-];
-
-const transaction = [
+const cardData = [
   {
     id: 1,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024",
-    icon: <img src="/spotify.svg" alt="spotify" />,
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****4322",
+    accountInfo: "Expires 09/2023",
   },
   {
     id: 2,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Tue, 21 Jan,2024 ",
-    description: "Dec 21, 2021",
-    icon: <img src="/DocumentRemove.svg" alt="spotify" />,
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****7921",
+    accountInfo: "Expires 10/2023",
   },
   {
     id: 3,
-    amount: "150.88",
-    title: "Alex Kog - > Alef bet gimmel",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****9344",
+    accountInfo: "Expires11/2023",
   },
   {
     id: 4,
-    amount: "-49.55",
-    title: "Netflix",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024  ",
-    icon: <img src="/DocumentRemoved.svg" alt="spotify" />,
-  },
-  {
-    id: 5,
-    amount: "150.88",
-    title: "John Doe - > Mpesa transaction",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****1527",
+    accountInfo: "Expires 12/2024",
   },
 ];
 const Dev = () => {
-  
   return (
     <Fragment>
-      <div className="p-9 bg-slate-100">
-        <RecentTransactionsCard
-          title={"Recent Transactons"}
-          options={optiondata}
-          transactions={transaction}
-        />
-      </div>
+      <CardtypeDetailsInfo
+        cardTitle={"Cards"}
+        filterIcon={<img src="/funnel.svg" />}
+        addIcon={<img src="/plussIcon.svg" alt="add" />}
+        cardTypedata={cardData}
+      />
     </Fragment>
   );
 };
