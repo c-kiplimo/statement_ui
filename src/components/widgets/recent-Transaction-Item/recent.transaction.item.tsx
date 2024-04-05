@@ -7,6 +7,7 @@ type cardDescription = {
   title: string;
   date: string;
   icon: ReactNode;
+  description:string
   onClick?: (e: any) => {};
 };
 const RecentTransactionItem = (props: cardDescription) => {
@@ -23,7 +24,7 @@ const RecentTransactionItem = (props: cardDescription) => {
         <div className={styles.text}>
           <Text
             title={props.title}
-            description={props.date}
+            description={props.description}
             descriptionStyle={{ color: "#6f726" }}
           />
         </div>

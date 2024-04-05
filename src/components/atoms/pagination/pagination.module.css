@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+.pageNumber {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pages {
+  margin: 0 5px;
+}
+.pageNavigation {
+  color: #333;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.arrowButton {
+  color: #333;
+  text-decoration: none;
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 0px 8px;
+}
+.arrowButton[disabled] {
+  background-color: rgb(239, 234, 234);
+  color: beige;
+}
+.active {
+  border-color: #007bff;
+}
