@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  width: 540.5px;
+  gap: 16px;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+}
+
+.button {
+  align-self: center;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: 300px;
+  }
+}
