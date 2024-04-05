@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 16px;
+  width: 1010px;
+  height: auto;
+  background: #ffffff;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 8px 0px;
+  gap: 24px;
+  width: 962px;
+  height: auto;
+  background: #ffffff;
+  border-radius: 12px;
+}
