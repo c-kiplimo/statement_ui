@@ -5,6 +5,7 @@
   gap: 16px;
   width: auto;
   align-items: flex-start;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 360px) {
