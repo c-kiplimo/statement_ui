@@ -6,7 +6,7 @@ import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 import AcctTable from "../../atoms/table/acctsummarytable";
 
 interface AccountDetail {
-  key: string;
+  key: number;
   accountName: string;
   accountNumber: string;
   currentBalance: string;
@@ -16,8 +16,8 @@ interface AccountsDetailsProps {
   svgIcon: ReactNode;
   accountTitle: string;
   amount: string;
-  onclick?:(event:any)=>void;
-  svgIconStyle:CSSProperties;
+  onclick?: (event: any) => void;
+  svgIconStyle?: CSSProperties;
   data: AccountDetail[];
 }
 
