@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import styles from "./custom.search.module.css";
-
 type SearchInputProps = {
   placeholder?: string;
   inputStle: CSSProperties;
@@ -9,7 +8,6 @@ type SearchInputProps = {
   onChange?: (e: any) => void;
   onClick?: (e: any) => void;
 };
-
 const CustomSearchInput = (props: SearchInputProps) => {
   return (
     <div className={styles.container}>
@@ -23,5 +21,4 @@ const CustomSearchInput = (props: SearchInputProps) => {
     </div>
   );
 };
-
 export default CustomSearchInput;
