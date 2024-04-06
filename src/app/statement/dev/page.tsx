@@ -2,76 +2,53 @@
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
 import RecentTransactionsCard from "@/src/components/widgets/recent-transaction-history/recent.transaction.history";
+import AccountsSummaryItem from "@/src/components/widgets/accounts-summary-item/accounts.summary.item";
 
-const optiondata = [
-  {
-    key: 1,
-    value: "onemonth",
-    option: "This Month",
-  },
-  {
-    key: 2,
-    value: "twomonth",
-    option: "2 Month",
-  },
-  {
-    key: 3,
-    value: "threemonth",
-    option: "3 Month",
-  },
-];
-
-const transaction = [
+const data = [
   {
     id: 1,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024",
-    icon: <img src="/spotify.svg" alt="spotify" />,
+    icon: <img src="/deposit.svg" alt="" />,
+    accountName: "Deposits Accounts(8)",
+    accountBalance: "$50,000",
+    bgcolor: "",
+    imgcolor: "#17D05B",
   },
   {
     id: 2,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Tue, 21 Jan,2024 ",
-    description: "Dec 21, 2021",
-    icon: <img src="/DocumentRemove.svg" alt="spotify" />,
+    icon: <img src="/checking.svg" alt="" />,
+    accountName: "Checking Accounts(2)",
+    accountBalance: "$35,000",
+    bgcolor: "",
+    imgcolor: "#4272DD",
   },
   {
     id: 3,
-    amount: "150.88",
-    title: "Alex Kog - > Alef bet gimmel",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
+    icon: <img src="/saving.svg" alt="" />,
+    accountName: "Saving accounts(2)",
+    accountBalance: "$30,000",
+    bgcolor: "",
+    imgcolor: "#F30039",
   },
   {
     id: 4,
-    amount: "-49.55",
-    title: "Netflix",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024  ",
-    icon: <img src="/DocumentRemoved.svg" alt="spotify" />,
-  },
-  {
-    id: 5,
-    amount: "150.88",
-    title: "John Doe - > Mpesa transaction",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
+    icon: <img src="/loans.svg" alt="" />,
+    accountName: "Loans (4)",
+    accountBalance: "$35,000",
+    bgcolor: "",
+    imgcolor: "#FFBD66",
   },
 ];
+
 const Dev = () => {
-  
   return (
     <Fragment>
       <div className="p-9 bg-slate-100">
-        <RecentTransactionsCard
-          title={"Recent Transactons"}
-          options={optiondata}
-          transactions={transaction}
+        <AccountsSummaryItem
+          cardTitle={"Summary"}
+          placeholder={"Search"}
+          buttonname={"Filter"}
+          icon={<img src="/funnel.svg" />}
+          accountData={data}
         />
       </div>
     </Fragment>
