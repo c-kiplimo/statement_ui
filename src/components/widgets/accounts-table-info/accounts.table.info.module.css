@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 32px;
+  width: 1021px;
+  background: #ffffff;
+  border-radius: 12px;
+}
+.header {
+  padding: 0px 0px 16px;
+  gap: 10px;
+  width: 100%;
+  border-bottom: 1px solid #e6e6e6;
+}
+.accountsinputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerbtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+.button:active,
+.button:focus {
+  border-color: #84bd00;
+  color: #84bd00;
+}
+@media (max-width: 1124px) {
+  .container {
+    width: 850px;
+    background-color: #ffffff;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 550px;
+    background-color: #ffffff;
+  }
+}
+
+@media (max-width: 620px) {
+  .container {
+    width: 350px;
+    background-color: #ffffff;
+  }
+  .accountsinputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
