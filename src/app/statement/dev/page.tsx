@@ -1,56 +1,43 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import SavingAccountBalance from "@/src/components/widgets/saving-account-balances/saving.account.balance";
+import CardtypeDetailsInfo from "@/src/components/widgets/cardtype-details-info/cardtype.details.info";
 
-const accountBalances = [
+const cardData = [
   {
     id: 1,
-    titleIcon: <img src="/openingbal.svg" />,
-    summaryTitle: "Opening Balance",
-    titleDescription: "(No 10)",
-    amount: "$560,025",
-    arrowIcon: <img src="/openingarrowIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****4322",
+    accountInfo: "Expires 09/2023",
   },
   {
     id: 2,
-    titleIcon: <img src="/spending.svg" />,
-    summaryTitle: "Spending",
-    titleDescription: "(No 100)",
-    amount: "$560,025",
-    arrowIcon: <img src="/spendingarrowIcon.svg" />,
-    percentage: "+0.47%",
-    date: "This Month",
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****7921",
+    accountInfo: "Expires 10/2023",
   },
   {
     id: 3,
-    titleIcon: <img src="/received.svg" />,
-    summaryTitle: "Received",
-    titleDescription: "(No 10)",
-    amount: "$560,025",
-    arrowIcon: <img src="/arrowLeftIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****9344",
+    accountInfo: "Expires11/2023",
   },
   {
     id: 4,
-    titleIcon: <img src="/closing.svg" />,
-    summaryTitle: "Closing Balance",
-    titleDescription: "(No 10)",
-    amount: "$700,000",
-    arrowIcon: <img src="/closingarrowIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****1527",
+    accountInfo: "Expires 12/2024",
   },
 ];
 const Dev = () => {
   return (
     <Fragment>
-      <div className="p-9 bg-slate-100">
-        <SavingAccountBalance accounBalances={accountBalances} />
-      </div>
+      <CardtypeDetailsInfo
+        cardTitle={"Cards"}
+        filterIcon={<img src="/funnel.svg" />}
+        addIcon={<img src="/plussIcon.svg" alt="add" />}
+        cardTypedata={cardData}
+      />
     </Fragment>
   );
 };
