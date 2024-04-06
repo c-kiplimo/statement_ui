@@ -1,88 +1,53 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import AccountsTableInfo from "@/src/components/widgets/accounts-table-info/accounts.table.info";
+import GraphItem from "@/src/components/widgets/graph-item/graph.item";
 const data = [
   {
-    id: 1,
-    accountIcon: <img src="/saving.svg" />,
-    accountTitle: "Saving account(2)",
-    amount: "$35,000",
-    accountsbreakdownInfo: [
-      {
-        key: 1,
-        accountName: "Free checking",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-      {
-        key: 2,
-        accountName: "Minor Saving",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-    ],
+    name: "Dec",
+    Revenue: 13000,
+    NetIncome: 5000,
+  },
+  {
+    name: "Jan",
+    Revenue: 21000,
+    NetIncome: 9000,
+  },
+  {
+    name: "Feb",
+    Revenue: 20000,
+    NetIncome: 15800,
   },
 
   {
-    id: 2,
-    accountIcon: <img src="/loans.svg" />,
-    accountTitle: "Loans(4)",
-    amount: "$35,000",
-    accountsbreakdownInfo: [
-      {
-        key: 1,
-        accountName: "Free checking",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-      {
-        key: 2,
-        accountName: "Minor Saving",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-    ],
+    name: "Mar",
+    Revenue: 22000,
+    NetIncome: 13000,
   },
   {
-    id: 3,
-    accountIcon: <img src="/checking.svg" />,
-    accountTitle: "Checking accounts(2)",
-    amount: "$35,000",
-    accountsbreakdownInfo: [
-      {
-        key: 1,
-        accountName: "Free checking",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-      {
-        key: 2,
-        accountName: "Minor Saving",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-    ],
+    name: "Apr",
+    Revenue: 20000,
+    NetIncome: 9000,
   },
   {
-    id: 4,
-    accountIcon: <img src="/deposit.svg" />,
-    accountTitle: "Deposit accounts(8)",
-    amount: "$50,000",
-    accountsbreakdownInfo: [
-      {
-        key: 1,
-        accountName: "Free checking",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-      {
-        key: 2,
-        accountName: "Minor Saving",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-    ],
+    name: "May",
+    Revenue: 21000,
+    NetIncome: 10000,
+  },
+  {
+    name: "Jun",
+    Revenue: 30000,
+    NetIncome: 18000,
+  },
+  {
+    name: "Jul",
+    Revenue: 38000,
+    NetIncome: 20000,
+  },
+  {
+    name: "Aug",
+    Revenue: 32000,
+    NetIncome: 15000,
   },
 ];
 
@@ -90,10 +55,12 @@ const Dev = () => {
   return (
     <Fragment>
       <div className="p-9 bg-slate-100">
-        <AccountsTableInfo
-          accountsData={data}
-          title={"Accounts"}
-          inputPlaceholder={"Search"}
+        <GraphItem
+          data={data}
+          balanceTitle={"Current Balance"}
+          amount={"$21,850.50"}
+          moneyIntitle={"Money In"}
+          moneyoutTitle={"Money Out"}
         />
       </div>
     </Fragment>
