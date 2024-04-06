@@ -1,94 +1,55 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import CashflowCardHome from "@/src/components/widgets/cash-flow-card-home/cashflow.card.home";
-import AccountTransactionSummary from "@/src/components/widgets/accounts-transactions-summary/accounts.transactions.summary";
+import SavingAccountBalance from "@/src/components/widgets/saving-account-balances/saving.account.balance";
 
-const data = [
+const accountBalances = [
   {
     id: 1,
-    icon: <img src="/spotifie.svg" />,
-    title: "Paypal",
-    description: "$47,000",
-    percentage: 60,
-    strokecolor: "#FFBD66",
+    titleIcon: <img src="/openingbal.svg" />,
+    summaryTitle: "Opening Balance",
+    titleDescription: "(No 10)",
+    amount: "$560,025",
+    arrowIcon: <img src="/openingarrowIcon.svg" />,
+    percentage: "2.45%",
+    date: "This Month",
   },
   {
     id: 2,
-    icon: <img src="/spotifie.svg" />,
-    title: "Paypal",
-    description: "$47,000",
-    percentage: 25,
-    strokecolor: "#4272DD",
-  },
-];
-
-const optiondata = [
-  {
-    key: 1,
-    value: "onemonth",
-    option: "This Month",
-  },
-  {
-    key: 2,
-    value: "twomonth",
-    option: "2 Month",
-  },
-  {
-    key: 3,
-    value: "threemonth",
-    option: "3 Month",
-  },
-];
-
-const transactionData = [
-  {
-    id: 1,
-    icon: <img src="/spotify.svg" />,
-    title: "Spotify",
-    date: "Tue, 21 Jan,2024",
-    amount: "20.00",
-  },
-  {
-    id: 2,
-    icon: <img src="/udemy.svg" />,
-    title: "Udemy",
-    date: "Tue, 21 Jan,2024",
-    amount: "-35.00",
+    titleIcon: <img src="/spending.svg" />,
+    summaryTitle: "Spending",
+    titleDescription: "(No 100)",
+    amount: "$560,025",
+    arrowIcon: <img src="/spendingarrowIcon.svg" />,
+    percentage: "+0.47%",
+    date: "This Month",
   },
   {
     id: 3,
-    icon: <img src="/paypal.svg" />,
-    title: "Pay Pal",
-    date: "Tue, 21 Jan,2024",
-    amount: "47,000.12",
+    titleIcon: <img src="/received.svg" />,
+    summaryTitle: "Received",
+    titleDescription: "(No 10)",
+    amount: "$560,025",
+    arrowIcon: <img src="/arrowLeftIcon.svg" />,
+    percentage: "2.45%",
+    date: "This Month",
+  },
+  {
+    id: 4,
+    titleIcon: <img src="/closing.svg" />,
+    summaryTitle: "Closing Balance",
+    titleDescription: "(No 10)",
+    amount: "$700,000",
+    arrowIcon: <img src="/closingarrowIcon.svg" />,
+    percentage: "2.45%",
+    date: "This Month",
   },
 ];
 const Dev = () => {
   return (
     <Fragment>
-      <div className="p-9 bg-slate-100 flex gap-4">
-        <div className="">
-          <AccountTransactionSummary
-            headerTitle={"Recent Transactions"}
-            options={optiondata}
-            data={transactionData}
-          />
-        </div>
-
-        <div>
-          <CashflowCardHome
-            headerTitle={"Cash Flow"}
-            moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
-            moneyInTitle={"Money In"}
-            moneyInbalance={"$37,890"}
-            moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-            moneyOutTitle={"Mooney Out"}
-            moneyOutbalance={"$37,890"}
-            progressdata={data}
-            options={optiondata}
-          />
-        </div>
+      <div className="p-9 bg-slate-100">
+        <SavingAccountBalance accounBalances={accountBalances} />
       </div>
     </Fragment>
   );
