@@ -1,43 +1,56 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import CardtypeDetailsInfo from "@/src/components/widgets/cardtype-details-info/cardtype.details.info";
+import RecentTransactionsCard from "@/src/components/widgets/recent-transaction-history/recent.transaction.history";
+import AccountsSummaryItem from "@/src/components/widgets/accounts-summary-item/accounts.summary.item";
 
-const cardData = [
+const data = [
   {
     id: 1,
-    icon: <img src="/Visa.svg" alt="Visa" />,
-    accountName: "Master Card ****4322",
-    accountInfo: "Expires 09/2023",
+    icon: <img src="/deposit.svg" alt="" />,
+    accountName: "Deposits Accounts(8)",
+    accountBalance: "$50,000",
+    bgcolor: "",
+    imgcolor: "#17D05B",
   },
   {
     id: 2,
-    icon: <img src="/Master.svg" alt="Visa" />,
-    accountName: "Master Card ****7921",
-    accountInfo: "Expires 10/2023",
+    icon: <img src="/checking.svg" alt="" />,
+    accountName: "Checking Accounts(2)",
+    accountBalance: "$35,000",
+    bgcolor: "",
+    imgcolor: "#4272DD",
   },
   {
     id: 3,
-    icon: <img src="/Visa.svg" alt="Visa" />,
-    accountName: "Master Card ****9344",
-    accountInfo: "Expires11/2023",
+    icon: <img src="/saving.svg" alt="" />,
+    accountName: "Saving accounts(2)",
+    accountBalance: "$30,000",
+    bgcolor: "",
+    imgcolor: "#F30039",
   },
   {
     id: 4,
-    icon: <img src="/Master.svg" alt="Visa" />,
-    accountName: "Master Card ****1527",
-    accountInfo: "Expires 12/2024",
+    icon: <img src="/loans.svg" alt="" />,
+    accountName: "Loans (4)",
+    accountBalance: "$35,000",
+    bgcolor: "",
+    imgcolor: "#FFBD66",
   },
 ];
+
 const Dev = () => {
   return (
     <Fragment>
-      <CardtypeDetailsInfo
-        cardTitle={"Cards"}
-        filterIcon={<img src="/funnel.svg" />}
-        addIcon={<img src="/plussIcon.svg" alt="add" />}
-        cardTypedata={cardData}
-      />
+      <div className="p-9 bg-slate-100">
+        <AccountsSummaryItem
+          cardTitle={"Summary"}
+          placeholder={"Search"}
+          buttonname={"Filter"}
+          icon={<img src="/funnel.svg" />}
+          accountData={data}
+        />
+      </div>
     </Fragment>
   );
 };
