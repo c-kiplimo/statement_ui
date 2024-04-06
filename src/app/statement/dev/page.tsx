@@ -18,7 +18,6 @@ const data = [
     Revenue: 20000,
     NetIncome: 15800,
   },
-
   {
     name: "Mar",
     Revenue: 22000,
@@ -50,7 +49,6 @@ const data = [
     NetIncome: 15000,
   },
 ];
-
 const Dev = () => {
   return (
     <Fragment>
