@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 40px 24px;
+  gap: 32px;
+  width: 1010px;
+  height: auto;
+  background: #ffffff;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.moneyoptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 79px;
+  height: 26px;
+}
+.customdot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+@media (max-width: 1124px) {
+  .container {
+    width: 930px;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 630px;
+  }
+}
+
+@media (max-width: 620px) {
+  .container {
+    width: 430px;
+  }
+}
