@@ -1,0 +1,13 @@
+.tableContainer{
+width: 993px;
+height: fit-content;
+background-color:white;
+align-items: flex-end;
+}
+.paginationContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+
