@@ -1,6 +1,7 @@
 .container {
   width: 930px;
   height: fit-content;
+  background-color: #FFFFFF;
 }
 @media (max-width: 1124px) {
   .container {

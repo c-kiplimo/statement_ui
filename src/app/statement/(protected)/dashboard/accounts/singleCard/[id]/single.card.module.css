@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 1021px;
+  height: 1256px;
+  left: 364px;
+  top: 83px;
+}

@@ -97,7 +97,7 @@
   gap: 101px;
 
   width: 363px;
-  height: 56px;
+  height: auto;
   flex: none;
   order: 1;
   align-self: stretch;
@@ -106,7 +106,7 @@
 }
 
 .acct {
-  width: 154px;
+  width: auto;
   height: 24px;
   font-family: "Roboto";
   font-style: normal;
@@ -120,7 +120,7 @@
 }
 
 .custname {
-  width: 85px;
+  width: auto;
   height: 32px;
   font-family: "Roboto";
   font-style: normal;
@@ -134,7 +134,7 @@
 }
 
 .visa {
-  width: 45px;
+  width: auto;
   height: 32px;
   font-family: "Roboto";
   font-style: normal;

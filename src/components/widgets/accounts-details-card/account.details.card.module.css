@@ -1,24 +1,20 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    padding: 16px 24px 32px;
-    gap: 24px;
-    width: 541px;
-    height: max-content;
-    background: #FFFFFF;
-    border: 1px solid #E6E6E6;
-    border-radius: 12px;
-    }
-    .button{
-        align-self: center;
-        cursor: progress;
-    }
-
-    @media (max-width: 640px) {
-     .container{
-            width: 300px;
-        }
-    }
-
-
-
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  gap: 24px;
+  width: 541px;
+  height: max-content;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+}
+.button {
+  align-self: center;
+  cursor: progress;
+}
+@media (max-width: 640px) {
+  .container {
+    width: 550px;
+  }
+}

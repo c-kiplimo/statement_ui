@@ -87,6 +87,7 @@ const cardArray = [
     accountInfo: "View your Fixed account",
   },
 ];
+
 type AccountDetailsCardProps = {
   headerTitle: string;
   filterIcon: ReactNode;
@@ -106,8 +107,6 @@ const AccountDetailsCard = (props: AccountDetailsCardProps) => {
     setSelectedOption((prevValue) =>
       prevValue === newValue ? null : String(newValue)
     );
-    console.log("Selected value", selectedOption);
-    console.log("value", newValue);
   };
 
   return (
@@ -121,8 +120,11 @@ const AccountDetailsCard = (props: AccountDetailsCardProps) => {
       </div>
       <div className={styles.cardBody}>
         {cardArray.map((account) => (
-          <Link href={""} key={account.id}>
-            <div className="mt-3">
+          <Link
+            href={"/statement/dashboard/accounts/singleAccount/" + account.id}
+            key={account.id}
+          >
+            <div className="mt-2">
               <SelectionCard
                 id={account.id.toString()}
                 icon={account.icon}
@@ -183,16 +185,18 @@ type BtnProps = {
 
 AccountDetailsCard.ViewButton = (props: BtnProps) => (
   <div>
-    <Button
-      buttonName={props.buttonname}
-      buttonStyle={{
-        padding: props.padding,
-        width: props.width,
-        height: props.height,
-        backgroundColor: props.backgroundColor,
-        color: props.color,
-        borderRadius: props.borderRadius,
-      }}
-    />
+    <Link href={"/statement/dashboard/accounts/viewmore"}>
+      <Button
+        buttonName={props.buttonname}
+        buttonStyle={{
+          padding: props.padding,
+          width: props.width,
+          height: props.height,
+          backgroundColor: props.backgroundColor,
+          color: props.color,
+          borderRadius: props.borderRadius,
+        }}
+      />
+    </Link>
   </div>
 );

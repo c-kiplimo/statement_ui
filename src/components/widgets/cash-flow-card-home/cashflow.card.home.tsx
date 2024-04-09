@@ -123,7 +123,7 @@ CashflowCardHome.Progress = (props: progressProp) => {
   return (
     <div>
       {props.progressdata.map((progress) => (
-        <div className="mb-2">
+        <div className="mb-1">
           <TransactionCard
             icon={progress.icon}
             title={progress.title}
