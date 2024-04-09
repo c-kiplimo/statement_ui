@@ -4,6 +4,7 @@ import styles from "./cardtype.details.info.module.css";
 import SelectionCard from "../card-info/card-info-radio";
 import Button from "../../atoms/button/custom.button";
 import Link from "next/link";
+import CustomSearchInput from "../../atoms/input/custom-search-input";
 
 interface DataTypes {
   id: number;
@@ -21,12 +22,19 @@ type CardtypeDetailsInfoProps = {
 
 const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [filterSelected,setFilterSelected ] = useState(false);
+
 
   const handleOptionChange = (newValue: number | null) => {
     setSelectedOption((prevValue) =>
       prevValue === newValue ? null : String(newValue)
     );
   };
+
+  const selectFilter = ()=>{
+    setFilterSelected(!filterSelected);   
+     
+  }
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -34,7 +42,11 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
           headerTitle={props.cardTitle}
           filterIcon={props.filterIcon}
           addIcon={props.addIcon}
+          onClick={selectFilter}
         />
+      </div>
+      <div className={filterSelected ? styles.filterSelected : styles.search}>
+        <CustomSearchInput inputStle={{outline:'none', width:'250px', }} iconStyles={{color:'gray'}} placeholder="Filter Keyword" />
       </div>
       <div className={styles.body}>
         {props.cardTypedata.map((account) => (

@@ -4,6 +4,8 @@ import styles from "./account.details.card.module.css";
 import Button from "../../atoms/button/custom.button";
 import SelectionCard from "../card-info/card-info-radio";
 import Link from "next/link";
+import CustomSearchInput from "../../atoms/input/custom-search-input";
+import { log } from "console";
 
 const cardArray = [
   {
@@ -102,6 +104,12 @@ type AccountDetailsCardProps = {
 };
 const AccountDetailsCard = (props: AccountDetailsCardProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [filterSelected,setFilterSelected ] = useState(false);
+
+  const selectFilter = ()=>{
+    setFilterSelected(!filterSelected);   
+     
+  }
 
   const handleOptionChange = (newValue: number | null) => {
     setSelectedOption((prevValue) =>
@@ -116,7 +124,11 @@ const AccountDetailsCard = (props: AccountDetailsCardProps) => {
           headerTitle={props.headerTitle}
           filterIcon={props.filterIcon}
           addIcon={props.addIcon}
+          onClick={selectFilter}
         />
+      </div>
+      <div className={filterSelected ? styles.filterSelected : styles.search}>
+        <CustomSearchInput inputStle={{outline:'none', width:'300px', }} iconStyles={{color:'gray'}} placeholder="Filter Keyword" />
       </div>
       <div className={styles.cardBody}>
         {cardArray.map((account) => (
@@ -163,12 +175,14 @@ type titleProps = {
   filterIconStyle?: CSSProperties;
   addIcon: ReactNode;
   addIconStyle?: CSSProperties;
+  onClick?:(e:any)=>void
 };
 AccountDetailsCard.Title = (props: titleProps) => (
   <AccountsFilterItem
     headerTitle={props.headerTitle}
     filterIcon={props.filterIcon}
     addIcon={props.addIcon}
+    onClick={props.onClick}
   />
 );
 
