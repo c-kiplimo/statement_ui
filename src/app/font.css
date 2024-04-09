@@ -63,6 +63,39 @@
   line-height: 24px; /* 171.429% */
 }
 
+.bl1 {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px; /* 171.429% */
+}
+.br1 {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 171.429% */
+}
+.bm1 {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+}
+.bb1 {
+  /* statement/Body/regular */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+}
+
 /* statement/H6 */
 .h6l {
   font-family: Roboto;

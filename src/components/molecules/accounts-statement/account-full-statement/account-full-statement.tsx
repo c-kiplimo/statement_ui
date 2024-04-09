@@ -1,5 +1,4 @@
 import ViewEyeIcon from '@/src/components/atoms/view-eye-icon/view-eye-icon';
-import AccountSearchResults from '../../account-search-results/account-search-results';
 import DateCard from '../../shared/statement-core/pickdate/pickdate.submit';
 import TableDisplay from '../accounts-table/account-statement-table';
 import { Tag } from 'antd';
@@ -8,6 +7,7 @@ import { AccountStatementRequestHandler } from '@/src/services/account/account.s
 import { useAccountStatementContext } from '@/src/app/(context)/account-statement-context';
 import { useCoreProps, useTokens } from '@/src/app/(context)/ColorContext';
 import { Dayjs } from 'dayjs';
+import AccountSearchResults from '@/src/components/widgets/account-search-results/account-search-results';
 
 const AccountStatementTab = () => {
   const [startDate, setStartDate] = useState<string | null>('2023-12-28');
