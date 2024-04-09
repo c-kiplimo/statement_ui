@@ -26,6 +26,9 @@
   padding-top: 16px;
   opacity: 0;
 }
+.sublink a {
+  color: white;
+}
 .sublink.sublinkOpen {
   opacity: 1;
   transition: opacity 10s ease 1s;
@@ -52,6 +55,14 @@
 .siderTitleText {
   display: flex;
   align-items: center;
+}
+.menucontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 /**
   OPEN BAR MOBILE BAR
@@ -100,6 +111,10 @@
 .mainMenuText svg {
   fill: white;
   margin-top: 4px;
+}
+.section {
+  color: var(--Text-Text-Description-02, #979992);
+  margin-left: 8px;
 }
 
 .opened .menuText {
@@ -169,6 +184,12 @@
 }
 .closed .mainMenuText a {
   color: white;
+}
+.closed .menucontainer {
+  padding-top: 0px;
+}
+.closed .section {
+  visibility: hidden;
 }
 .closed .menuLink {
   color: var(--Default-White, #fff);
