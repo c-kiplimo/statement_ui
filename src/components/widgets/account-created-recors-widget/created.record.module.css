@@ -13,6 +13,7 @@
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(149, 154, 136, 0.15);
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .column {
@@ -59,6 +60,7 @@
   width: 60px;
   height: 54px;
   flex: none;
+  cursor: pointer;
 }
 
 .iconstyle {

@@ -18,11 +18,12 @@ time:string;
 acctbal:string
 timefrequency:string;
 default:string
+onClick?:()=>void
 }
 
 const Createdrecord = (props:recordsProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={props.onClick}>
 
       <div className={styles.bodydiv}>
         
@@ -55,8 +56,8 @@ const Createdrecord = (props:recordsProps) => {
         </table>
       </div>
       <div className={styles.icondiv}>
-      <div className={styles.iconstyle}>{props.hideicon}</div> 
-      <div className={styles.iconstyle}>{props.editicon}</div> 
+      <div className={styles.iconstyle} onClick={props.onClick}>{props.hideicon}</div> 
+      <div className={styles.iconstyle} onClick={props.onClick}>{props.editicon}</div> 
       </div>
     </div>
   );
