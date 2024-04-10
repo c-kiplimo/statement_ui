@@ -16,6 +16,19 @@
   cursor: pointer;
 }
 
+.bodydiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 109px;
+  margin: 20px;
+  width: 819.5px;
+  height: 72px;
+  flex: none;
+  }
+
 .column {
   width: 200px;
   text-align: left;
