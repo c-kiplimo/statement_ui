@@ -1,12 +1,12 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "@/src/components/molecules/shared/statement-core/statement.container.hoc";
-import CustdetailsnotFound from "./cust.details.notFound";
+import Custdetailsfound from "./cust.details.found";
 
 const Dev = () => {
   return (
     <Fragment>
-      <CustdetailsnotFound />
+      <Custdetailsfound />
     </Fragment>
   );
 };
