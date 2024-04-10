@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { Radio, Input, RadioChangeEvent } from "antd";
-import Styles from "./accountsetup.module.css";
+import Styles from "./cust.details.search.module.css";
 
 type accountSetupprops = {
   title: string;
@@ -78,7 +78,7 @@ const Accountsetup = (props: accountSetupprops) => {
           </div>
         )}
         <div className={Styles.searchbutton}>
-          <div className={Styles.icon}>{props.icon}</div>
+          <div className={Styles.icon} style={{color:"white"}}>{props.icon}</div>
         </div>
       </div>
     </div>

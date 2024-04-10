@@ -2,22 +2,22 @@ import React, { ReactNode } from 'react';
 import styles from "./created.record.module.css";
 
 type recordsProps={
-hideicon:ReactNode;
-editicon:ReactNode;
+hideicon?:ReactNode;
+editicon?:ReactNode;
 creationDate:string;
 acctNumber:string;
 numberofTimes:string;
-fileformart:string;
+fileformart?:string;
 acctStatus:string;
 date:string;
 status:string;
 custName:string;
 duration:string;
-filetype:string;
-time:string;
-acctbal:string
-timefrequency:string;
-default:string
+filetype?:string;
+time?:string;
+acctbal?:string
+timefrequency?:string;
+default?:string
 onClick?:()=>void
 }
 
@@ -57,7 +57,6 @@ const Createdrecord = (props:recordsProps) => {
       </div>
       <div className={styles.icondiv}>
       <div className={styles.iconstyle} onClick={props.onClick}>{props.hideicon}</div> 
-      <div className={styles.iconstyle} onClick={props.onClick}>{props.editicon}</div> 
       </div>
     </div>
   );
