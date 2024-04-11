@@ -9,7 +9,11 @@ import {
   MyFormItemGroup,
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
+<<<<<<< HEAD
 import Modal from "@/src/components/widgets/modals/modal";
+=======
+import Modal from "@/src/components/widgets/modals/reusable_modal";
+>>>>>>> fce2e74 (Adding OTP Verifier)
 import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
 import { useRouter } from "next/navigation";
 import { resetPasswordHandler } from "@/src/services/auth/reset-password";
