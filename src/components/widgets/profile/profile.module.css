@@ -1,47 +1,37 @@
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: flex-start;
-  padding: 24px 96px 96px;
-  gap: 48px;
-  position: absolute;
-  width: 743px;
-  height: 657px;
-  left: 401px;
-  top: 117px;
-  background: #ffffff;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  width: 552px;
-  height: 537px;
-}
-
-.body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 32px;
+  width: 544px;
+  height: 440px;
 }
 
 .header {
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   align-items: flex-start;
   gap: 8px;
   width: 552px;
   height: 32px;
+  justify-content: center;
 }
 
 .logCard {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 551px;
+  height: 376px;
+}
+
+.submitBtn {
+  display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 8px 0px;
+  align-items: center;
+  padding: 8px 32px;
   gap: 8px;
-  background: #ffffff;
+  width: 114px;
+  height: 40px;
 }

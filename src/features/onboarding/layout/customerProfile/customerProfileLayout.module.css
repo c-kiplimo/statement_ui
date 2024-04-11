@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 96px 96px;
+  gap: 8px;
+  position: absolute;
+  width: 100%;
+  max-width: 743px;
+  max-height: 657px;
+  left: 160px;
+  top: 16px;
+}

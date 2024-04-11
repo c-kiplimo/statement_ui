@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useState } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import styles from "./selectionItem.module.css";
 import classNames from "classnames";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";

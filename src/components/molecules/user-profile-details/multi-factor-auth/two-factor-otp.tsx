@@ -2,7 +2,7 @@
 import { Button } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useTokens } from "@/src/app/(context)/ColorContext";
-import OTPInputContainer from "@/src/components/atoms/input/otp/otp";
+import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
 
 type TwoFactorOtpInputProps = {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;

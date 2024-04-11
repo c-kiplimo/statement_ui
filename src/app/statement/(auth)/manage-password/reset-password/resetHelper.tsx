@@ -1,24 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
-'use client';
+"use client";
 
-import { Button, Form, Input, notification } from 'antd';
-import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
-import { useTokens } from '@/src/app/(context)/ColorContext';
+import { Button, Form, Input, notification } from "antd";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 import {
   MyFormItemGroup,
   MyFormItem,
-} from '@/src/components/molecules/shared-features/form_builder_component';
-import Modal from '@/src/components/atoms/Ui/reusable_modal';
-import OTPInputContainer from '@/src/components/atoms/input/otp/otp';
-import { useRouter } from 'next/navigation';
-import { resetPasswordHandler } from '@/src/services/auth/reset-password';
+} from "@/src/components/molecules/shared-features/form_builder_component";
+import Modal from "@/src/components/widgets/modals/modal";
+import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
+import { useRouter } from "next/navigation";
+import { resetPasswordHandler } from "@/src/services/auth/reset-password";
 
 const ResetPasswordHelper = () => {
   const tokenColor = useTokens();
-  const [value, valueChanged] = useState('');
-  const [email, setEmail] = useState('');
-  const [userId, setUserId] = useState('');
+  const [value, valueChanged] = useState("");
+  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const { resetPasswordService, validateOtpService } = resetPasswordHandler();
@@ -33,21 +33,21 @@ const ResetPasswordHelper = () => {
 
   const onFinish = async (values: any) => {
     const response = await resetPasswordService(email);
-    console.log('response', response);
+    console.log("response", response);
     const userId = response.userId;
-    localStorage.setItem('userId', userId);
-    console.log('userId', userId);
+    localStorage.setItem("userId", userId);
+    console.log("userId", userId);
     setUserId(userId);
     openModalHandler();
   };
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log('otp', value);
-    console.log('userId', userId);
+    console.log("otp", value);
+    console.log("userId", userId);
     const response = await validateOtpService(value, userId);
     router.push(
-      '/statement/authentication/manage-password/create-new-password',
+      "/statement/authentication/manage-password/create-new-password"
     );
   };
 
@@ -71,9 +71,9 @@ const ResetPasswordHelper = () => {
     stopTimer();
 
     notification.info({
-      message: 'OTP Resent',
+      message: "OTP Resent",
       description:
-        'A new OTP has been sent to your email. Please check your email.',
+        "A new OTP has been sent to your email. Please check your email.",
     });
   }
 
@@ -89,7 +89,7 @@ const ResetPasswordHelper = () => {
   return (
     <>
       <Form
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         name="sign"
         layout="vertical"
         onFinish={onFinish}
@@ -99,7 +99,7 @@ const ResetPasswordHelper = () => {
           We will send you a password reset link connected to your existing
           account
         </p>
-        <MyFormItemGroup prefix={['city_gender']}>
+        <MyFormItemGroup prefix={["city_gender"]}>
           <div className="space-y-5">
             <MyFormItem name="email" label="Your email">
               <Input
@@ -113,7 +113,7 @@ const ResetPasswordHelper = () => {
               <Link href="/authentication/signIn">
                 <Button
                   style={{
-                    padding: '0',
+                    padding: "0",
                     color: tokenColor.default.black,
                   }}
                   type="link"
@@ -122,15 +122,15 @@ const ResetPasswordHelper = () => {
                 </Button>
               </Link>
 
-              <div style={{ width: '100%' }}>
+              <div style={{ width: "100%" }}>
                 <Button
                   onClick={onFinish}
                   style={{
-                    width: '100%',
+                    width: "100%",
                     color: tokenColor.default.white,
-                    backgroundColor: 'var(--brand-brand-primary)',
-                    height: '42px',
-                    cursor: 'pointer',
+                    backgroundColor: "var(--brand-brand-primary)",
+                    height: "42px",
+                    cursor: "pointer",
                   }}
                 >
                   Continue
@@ -143,12 +143,12 @@ const ResetPasswordHelper = () => {
 
       <Modal isOpen={showModal} onDismiss={closeModalHanlder} title="">
         <div className="w-[695px] flex justify-center">
-          <div style={{ width: '70%' }}>
+          <div style={{ width: "70%" }}>
             <div className="text-center">
               <h1 className="otp-title-text text-left">Enter OTP to verify</h1>
               <div className="otp-leading-text-description my-8 text-left">
                 Please enter the verification code just sent to your email
-                <span className="otp-email-link-text" style={{ margin: '5px' }}>
+                <span className="otp-email-link-text" style={{ margin: "5px" }}>
                   <Link href="#">abbymba@email.com</Link>
                 </span>
               </div>
@@ -178,19 +178,19 @@ const ResetPasswordHelper = () => {
                 style={{ color: tokenColor.text.description_01 }}
                 className=" mt-5 w-52 text-left"
               >
-                Time Remaining :{' '}
+                Time Remaining :{" "}
                 <strong style={{ color: tokenColor.default.black }}>
                   {formatTime(timer)} minutes remaining
                 </strong>
               </p>
 
               <div
-                style={{ marginTop: '2rem', minWidth: '100%' }}
+                style={{ marginTop: "2rem", minWidth: "100%" }}
                 className="digitGroup"
               >
                 <Button
                   style={{
-                    padding: '0',
+                    padding: "0",
                     color: tokenColor.text.description_01,
                   }}
                   type="link"
@@ -208,11 +208,11 @@ const ResetPasswordHelper = () => {
                     type="submit"
                     onClick={handleSubmit}
                     style={{
-                      height: '40px',
-                      borderRadius: '5px',
-                      minWidth: '250px',
+                      height: "40px",
+                      borderRadius: "5px",
+                      minWidth: "250px",
                       color: tokenColor.default.white,
-                      backgroundColor: 'var(--brand-brand-primary)',
+                      backgroundColor: "var(--brand-brand-primary)",
                     }}
                   >
                     Verify

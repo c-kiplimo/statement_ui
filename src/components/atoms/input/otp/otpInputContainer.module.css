@@ -1,0 +1,21 @@
+.otpContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    gap: 4px;
+    padding: 4px;
+    text-align: center;
+    color: var(--brand-primary);
+    border: 1px solid #979992;
+    border-radius: 4px;
+  }
+  

@@ -31,16 +31,10 @@ export const carPhysicaldData: CardData = [
 
 export const items = [
   {
-    title: "Check Details",
-    description: "Customer details",
+    title: "Search Details",
   },
   {
-    title: "OTP Delivery Option",
-    description: "Select delivery option",
-  },
-  {
-    title: "OTP Details",
-    description: "Confirm with OTP",
+    title: "Verify Identity",
   },
 ];
 

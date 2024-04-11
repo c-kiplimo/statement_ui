@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { authServiceHandler } from '@/src/services/auth/auth.service';
-import OTPInputContainer from '@/src/components/atoms/input/otp/otp';
-import { useTokens } from '@/src/app/(context)/ColorContext';
-import { useAuthContext } from '@/src/app/(context)/authentication-context';
-import FormBuilder from '@/src/components/molecules/shared-features/form_builder';
-import { Button } from 'antd';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useRef, useState } from 'react';
-import { userDetails } from '@/src/services/auth-user-details';
+import { authServiceHandler } from "@/src/services/auth/auth.service";
+import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
+import { useTokens } from "@/src/app/(context)/ColorContext";
+import { useAuthContext } from "@/src/app/(context)/authentication-context";
+import FormBuilder from "@/src/components/molecules/shared-features/form_builder";
+import { Button } from "antd";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import { userDetails } from "@/src/services/auth-user-details";
 
 type OtpVerifytProps = {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
@@ -18,7 +18,7 @@ type OtpVerifytProps = {
 const EnterOtpToVerify = (props: OtpVerifytProps) => {
   const user_details = userDetails();
   const firstName = user_details?.firstName;
-  const [value, valueChanged] = useState('');
+  const [value, valueChanged] = useState("");
   const { token } = useAuthContext();
   const { requestOtpService, verifyOtpService } = authServiceHandler();
 
@@ -36,7 +36,7 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
       // const otpVerificationResponse = await verifyOtpService(accessToken, otp);
       // router.push('/statement/dashboard');
     } catch (error) {
-      console.error('Error during OTP verification:', error);
+      console.error("Error during OTP verification:", error);
     }
   };
 
@@ -58,7 +58,7 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
     event.preventDefault();
     timerChanged(300);
     stopTimer();
-    requestOtpService(token?.accessToken || '');
+    requestOtpService(token?.accessToken || "");
   }
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
         <h1 className="otp-title-text text-left">Enter OTP to verify</h1>
         <div className="otp-leading-text-description my-8 text-left">
           Please enter the verification code just sent to your email
-          <span className="otp-email-link-text" style={{ margin: '5px' }}>
+          <span className="otp-email-link-text" style={{ margin: "5px" }}>
             <Link href="#">{firstName}</Link>
           </span>
         </div>
@@ -103,18 +103,18 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
           style={{ color: tokenColor.text.description_01 }}
           className=" mt-5 w-52 text-left"
         >
-          Time Remaining :{' '}
+          Time Remaining :{" "}
           <strong style={{ color: tokenColor.default.black }}>
             {formatTime(timer)} minutes remaining
           </strong>
         </p>
 
         <div
-          style={{ marginTop: '2rem', minWidth: '100%' }}
+          style={{ marginTop: "2rem", minWidth: "100%" }}
           className="digitGroup"
         >
           <Button
-            style={{ padding: '0', color: tokenColor.text.description_01 }}
+            style={{ padding: "0", color: tokenColor.text.description_01 }}
             type="link"
             onClick={(event) => {
               props.onClick(event);
@@ -126,18 +126,18 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
           <div
             style={{
               backgroundColor: tokenColor.default.white,
-              minWidth: '100%',
+              minWidth: "100%",
             }}
           >
             <button
               type="submit"
               onClick={handleSubmit}
               style={{
-                height: '40px',
-                borderRadius: '5px',
-                minWidth: '250px',
+                height: "40px",
+                borderRadius: "5px",
+                minWidth: "250px",
                 color: tokenColor.default.white,
-                backgroundColor: 'var(--brand-brand-primary)',
+                backgroundColor: "var(--brand-brand-primary)",
               }}
             >
               Verify
