@@ -5,12 +5,13 @@ import { userDetails } from "@/src/services/auth-user-details";
 import { useRouter } from "next/navigation";
 import Navbar from "../../../components/molecules/shared-features/navbar/navbar";
 import CustomSidebar from "../../../components/molecules/dashboard/sidebar/Custom_sidebar";
-import { sidebarItems } from "./routes";
+
 
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { MulaPaySideBar } from "@/src/components/widgets/sidebar/msidebar";
 import { MenuData } from "@/src/constants/siderbar.docs";
+import { sidebarItems } from "../(protected)/routes";
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (

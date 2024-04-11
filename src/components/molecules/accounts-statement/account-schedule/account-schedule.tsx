@@ -2,7 +2,6 @@ import { useTokens } from '@/src/app/(context)/ColorContext';
 import { Modal, Tag } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import PrimaryButton from '@/src/components/atoms/button/primary-button/primary-button';
-import AccountSearchResults from '../../account-search-results/account-search-results';
 import {
   addIcon,
   editIcon,
@@ -12,6 +11,7 @@ import { AccountSchedulesHandler } from '@/src/services/account/account.schedule
 import { useAccountStatementContext } from '@/src/app/(context)/account-statement-context';
 import moment from 'moment';
 import ModalContent from './modal-content';
+import AccountSearchResults from '@/src/components/widgets/account-search-results/account-search-results';
 const AccountScheduleTable = () => {
   const [accountSchedules, setAccountSchedules] = useState<AccountSchedule>();
   const { accountId } = useAccountStatementContext();
@@ -117,10 +117,10 @@ const AccountScheduleTable = () => {
       content: accountSchedules?.frequency,
       additionalContent: accountSchedules?.startTime
         ? new Date(accountSchedules.startTime).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-          })
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        })
         : null,
     },
     {

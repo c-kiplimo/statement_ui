@@ -1,0 +1,199 @@
+@import url("./sider.closed.module.css");
+
+/**
+   NEW MOBILE BANKING
+ 
+**/
+
+.menuIcon path {
+  fill: #fff;
+}
+
+.mainMenuText {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+  cursor: pointer;
+}
+.sublink {
+  display: flex;
+  padding-left: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 16px;
+  opacity: 0;
+}
+.sublink.sublinkOpen {
+  opacity: 1;
+  transition: opacity 10s ease 1s;
+}
+.siderController {
+  align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+  padding-top: 8px;
+}
+
+.siderTitle {
+  display: flex;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 8px;
+  color: white;
+  gap: 16px;
+  padding-top: 16px;
+  cursor: pointer;
+}
+
+.siderTitleText {
+  display: flex;
+  align-items: center;
+}
+/**
+  OPEN BAR MOBILE BAR
+**/
+
+.opened {
+}
+
+.opened .menuIcon {
+  padding-top: 8px;
+  margin-left: 28px;
+}
+
+.opened.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 250px;
+  background: var(--Brand-Brand-Secondary, #003a49);
+  height: 100vh;
+  transition: width 200ms;
+}
+.opened .menuLink {
+  color: var(--Default-White, #fff);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-self: flex-start;
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+  padding-top: 16px;
+}
+
+.opened .mainMenuText {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+  cursor: pointer;
+  transition-timing-function: ease-in;
+}
+.opened .mainMenuText a {
+  color: white;
+}
+.mainMenuText svg {
+  fill: white;
+  margin-top: 4px;
+}
+
+.opened .menuText {
+  color: var(--Default-White, #fff);
+  height: fit-content;
+  padding: 4px 16px 8px 16px;
+  white-space: nowrap;
+  height: fit-content; /* Position the child in the middle of the parent vertically */
+  z-index: 99;
+  width: fit-content;
+}
+
+@media (max-width: 550px) {
+  .container {
+    background: var(--Brand-Brand-Secondary, #003a49);
+    min-height: 100vh;
+    max-width: 72px;
+    min-width: 10vh;
+    width: 30vh;
+    display: inline-flex;
+    padding: 36px 0px 0px 0px;
+    flex-direction: column;
+    align-items: center;
+    gap: 41px;
+  }
+  .linkText {
+    visibility: hidden;
+  }
+}
+
+/**
+  CLOSED BAR MOBILE BAR
+**/
+
+.closed.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 72px;
+  background: var(--Brand-Brand-Secondary, #003a49);
+  height: 100vh;
+  transition:
+    width 500ms,
+    height 500ms;
+}
+.closed .menuIcon {
+  padding-top: 8px;
+  margin-left: 28px;
+}
+
+.closed .menuText {
+  color: var(--Default-White, #fff);
+  left: 70%;
+  position: absolute;
+  width: 150px;
+  height: fit-content;
+  padding: 4px 16px 8px 16px;
+  white-space: nowrap;
+  height: fit-content; /* Position the child in the middle of the parent vertically */
+  z-index: 99;
+  opacity: 0;
+  background: var(--Brand-Brand-Secondary, #003a49);
+  width: fit-content;
+}
+.closed .mainMenuText {
+  justify-self: end;
+}
+.closed .mainMenuText a {
+  color: white;
+}
+.closed .menuLink {
+  color: var(--Default-White, #fff);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-self: flex-start;
+  gap: 30px;
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+  padding-top: 16px;
+}
+.closed .menuLink:hover .menuText {
+  opacity: 1;
+  transition: opacity cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition-timing-function: ease;
+}
+.closed .withSublink {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.closed .siderTitle {
+  padding-right: 0px;
+}
+.closed .withSublink:hover .sublink {
+}
