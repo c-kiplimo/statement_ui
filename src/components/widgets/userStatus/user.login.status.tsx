@@ -10,10 +10,10 @@ type StatusProps = {
   timezone: string;
   icon: ReactNode;
   lastSeenTime: string;
-  accounts:string;
-  users:string;
-  activities:string;
-  restrictions:string;
+  button1: string;
+  button2: string;
+  button3: string;
+  button4: string;
   onClick?: () => void;
 };
 
@@ -54,19 +54,27 @@ const LastLogin = (props: StatusProps) => {
         </div>
       </div>
 
-
       <div className={styles.lowerdiv}>
         <div className={styles.account} onClick={props.onClick}>
-          <div className={styles.text}>Accounts</div>
+          <div className={styles.text}>
+            <button>{props.button1}</button>
+          </div>
         </div>
         <div className={styles.users} onClick={props.onClick}>
-          <div className={styles.text}>Users</div>
+          <div className={styles.text}>
+            {" "}
+            <button>{props.button2}</button>
+          </div>
         </div>
         <div className={styles.activities} onClick={props.onClick}>
-          <div className={styles.text}>Activity</div>
+          <div className={styles.text}>
+            <button>{props.button3}</button>
+          </div>
         </div>
         <div className={styles.restrictions} onClick={props.onClick}>
-          <div className={styles.text}>Restrictions</div>
+          <div className={styles.text}>
+            <button>{props.button4}</button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,21 +1,22 @@
-import React, { ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import styles from "./add.item.module.css";
 
+type sortProps = {
+  title: string;
+  icon: ReactNode;
+  iconStyle: CSSProperties;
+  titleStyle: CSSProperties;
+};
 
-
-type sortProps={
-    title:string;
-    icon:ReactNode;
-}
-
-const AddItem = (props:sortProps) => {
+const AddItem = (props: sortProps) => {
   return (
     <div className={styles.container}>
-        <div className={styles.icondiv}>
+      <div className={styles.icondiv} style={props.iconStyle}>
         {props.icon}
       </div>
-      <div className={styles.textdiv}>{props.title}</div>
-      
+      <div className={styles.textdiv} style={props.titleStyle}>
+        {props.title}
+      </div>
     </div>
   );
 };
