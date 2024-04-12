@@ -19,7 +19,7 @@ const AtmCard = (props: atmCard) => {
         <div className={styles.header}>
           <div className={styles.textChip}>
             <div className={styles.text}>
-              <Text title={props.cardType} titleStyle={{ color: "white" }} />
+              <Text title={props.cardType} titleStyle={{ color: "white", width:'fit-content' }} />
             </div>
             <div className={styles.chips}>
               <img src={props.chips} />

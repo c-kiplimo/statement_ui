@@ -1,234 +1,156 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useTokens } from "@/src/app/(context)/ColorContext";
-import { ColumnsType } from "antd/es/table";
-import { Space } from "antd";
-import qs from "qs";
-import HomeMenu from "@/src/components/molecules/dashboard/menu_item/home_menu";
-import Account from "@/src/components/molecules/dashboard/acounts/account";
-import Card from "@/src/components/molecules/dashboard/cards/card";
-import { DeleteOutlined } from "@ant-design/icons";
-import Button from "@/src/components/atoms/button/button";
-import Activities from "@/src/components/molecules/dashboard/activities/activities";
-import { ProfileHandler } from "@/src/services/userprofile/profile.service";
-import { useLocalSession } from "../../../../hooks/useSession";
+import AccountDetailsCard from "@/src/components/widgets/accounts-details-card/account.details.card";
+import CardtypeDetailsInfo from "@/src/components/widgets/cardtype-details-info/cardtype.details.info";
+import TotalAvailableBalanceCard from "@/src/components/widgets/total-available-balance-card/total.available.balance.card";
+import TransactionHistoryTable from "@/src/components/widgets/transaction-history-card/transaction.history.card";
+import styles from "./home.module.css";
 
-const getRandomuserParams = (params: any) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
+const cardTypesData = [
+  {
+    id: 1,
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****4322",
+    accountInfo: "Expires 09/2023",
+  },
+  {
+    id: 2,
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****7921",
+    accountInfo: "Expires 10/2023",
+  },
+  {
+    id: 3,
+    icon: <img src="/Visa.svg" alt="Visa" />,
+    accountName: "Master Card ****9344",
+    accountInfo: "Expires11/2023",
+  },
+  {
+    id: 4,
+    icon: <img src="/Master.svg" alt="Visa" />,
+    accountName: "Master Card ****1527",
+    accountInfo: "Expires 12/2024",
+  },
+];
 
-const Dashboard = () => {
-  const session = useLocalSession("");
-
-  const [profile, setProfile] = useState<CustomerProfile>();
-
-  console.log("server " + session);
-
-  const token = useTokens();
-  const [isChecked, setIsChecked] = useState(false);
-
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 10,
-    },
-  });
-
-  const handleDelete = (record: any) => {
-    console.log("Delete clicked for:", record);
-  };
-
-  interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-    description: string;
-    date: string;
-    join: string;
-  }
-
-  const columns: ColumnsType<DataType> = [
-    { title: "Group", dataIndex: "name", key: "name" },
-    { title: "Description", dataIndex: "age", key: "age" },
-    { title: "Status", dataIndex: "address", key: "address" },
-    { title: "Date Created", dataIndex: "date", key: "date" },
-    { title: "Joined On", dataIndex: "join", key: "join" },
-    {
-      title: "Action",
-      dataIndex: "",
-      key: "x",
-      render: (text, record) => (
-        <Space>
-          <Button
-            icon={<DeleteOutlined />}
-            label="Delete"
-            bgColor={token.default.white}
-            borderColor={token.border.primary}
-            textColor={token.default.black}
-            onClick={() => handleDelete(record)}
-            style={{}}
-          />
-        </Space>
-      ),
-    },
-  ];
-
-  const datae: DataType[] = [
-    {
-      key: 1,
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description:
-        "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
-      date: "12/03/2023",
-      join: "12/03/2023",
-    },
-    {
-      key: 2,
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-      date: "12/03/2023",
-      join: "12/03/2023",
-    },
-    {
-      key: 3,
-      name: "Not Expandable",
-      age: 29,
-      address: "Jiangsu No. 1 Lake Park",
-      description: "This not expandable",
-      date: "12/03/2023",
-      join: "12/03/2023",
-    },
-    {
-      key: 4,
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      description:
-        "My name is Joe Black, I am 32 years old, living in Sydney No. 1 Lake Park.",
-      date: "12/03/2023",
-      join: "12/03/2023",
-    },
-  ];
-  const fetchProfileData = () => {
-    const { profileService } = ProfileHandler();
-    //getUserId
-    let userId = "user123";
-
-    profileService(userId).then((data) => {
-      console.log("data ====>" + JSON.stringify(data));
-    });
-
-    setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-          },
-        });
-      });
-  };
-
-  const fetchProfileDatails = () => {
-    const profileHandler = ProfileHandler();
-    //getUserId
-    let userId = "124";
-
-    profileHandler.profileDataService(userId).then((data) => {
-      console.log("data ====>" + JSON.stringify(data));
-    });
-
-    setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-          },
-        });
-      });
-  };
-
-  useEffect(() => {
-    fetchProfileData();
-  }, [JSON.stringify(tableParams)]);
-  const handleTableChange = (pagination: any, filters: any, sorter: any) => {
-    setTableParams({
-      pagination,
-      filters,
-      ...sorter,
-    });
-
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-    }
-  };
-
+const transactionTabledata = [
+  {
+    key: "1",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Failed",
+  },
+  {
+    key: "2",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Failed",
+  },
+  {
+    key: "3",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Completed",
+  },
+  {
+    key: "4",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Pending",
+  },
+  {
+    key: "5",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Completed",
+  },
+  {
+    key: "6",
+    account: "John Brown",
+    dateTime: "July 25, 2024\n\n11:00 PM",
+    number: "124 902 223 ",
+    description: "Received money",
+    currency: "KES",
+    status: "Failed",
+  },
+];
+const options = [
+  {
+    key: 1,
+    value: "period",
+    period: "Period",
+  },
+  {
+    key: 1,
+    value: "onemonth",
+    period: "1 Month",
+  },
+  {
+    key: 1,
+    value: "onemonth",
+    period: "2 Month",
+  },
+];
+function page() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: "16px",
-        alignSelf: "stretch",
-      }}
-      className="frame-1058"
-    >
-      <div
-        style={{
-          display: "inline-flex",
-          padding: "17px 24px",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: "24px",
-          width: "100%",
-        }}
-        className="menu-header"
-      >
-        <HomeMenu />
-        <div
-          className="frame-1054"
-          style={{
-            display: "flex",
-            gap: "16px",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            alignSelf: "stretch",
-          }}
-        >
-          <Account />
-          <Card />
+    <div className="p-9 bg-slate-100">
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <TotalAvailableBalanceCard />
         </div>
-        <Activities />
+
+        <div className={styles.accounts}>
+          <div>
+            <AccountDetailsCard
+              headerTitle={"Accounts"}
+              filterIcon={<img src="/funnel.svg" />}
+              addIcon={<img src="/plusIcon.svg" />}
+              buttonName={"View More"}
+              padding={"8px"}
+              width={"138px"}
+              height={"40px"}
+              backgroundColor={"#EFF2E6"}
+              color={"#84BD00"}
+              borderRadius={"27px"}
+            />
+          </div>
+          <div>
+            <CardtypeDetailsInfo
+              cardTitle={"Cards"}
+              filterIcon={<img src="/funnel.svg" />}
+              addIcon={<img src="/plussIcon.svg" alt="add" />}
+              cardTypedata={cardTypesData}
+            />
+          </div>
+        </div>
+
+        <div className={styles.table}>
+          <TransactionHistoryTable
+            data={transactionTabledata}
+            option={options}
+            cardTitle={"Transaction History"}
+            deleteBtnlabel={"Delete"}
+            filterBtnlabel={"Filter"}
+            sortBtnlabel={"Sort"}
+          />
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default Dashboard;
+export default page;

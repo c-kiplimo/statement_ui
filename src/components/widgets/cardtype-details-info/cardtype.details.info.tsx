@@ -38,7 +38,7 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
       </div>
       <div className={styles.body}>
         {props.cardTypedata.map((account) => (
-          <Link href={""} key={account.id}>
+          <Link href={"/statement/dashboard/accounts/singleCard/" + account.id} key={account.id}>
             <div className="mt-3">
               <SelectionCard
                 id={account.id.toString()}
@@ -56,6 +56,7 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
       </div>
 
       <div className={styles.button}>
+        <Link href={"/statement/dashboard/accounts/viewmore"}>
         <Button
           buttonName={"View More"}
           buttonStyle={{
@@ -67,6 +68,7 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
             borderRadius: "27px",
           }}
         />
+        </Link>
       </div>
     </div>
   );

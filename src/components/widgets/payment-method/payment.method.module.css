@@ -92,3 +92,21 @@
   height: 52px;
   border-bottom: 1px solid #e6e6e6;
 }
+
+@media only screen and (max-width: 720px) {
+  .container{
+    height: auto;
+    width: 550px;
+  }
+  .bodycontainer {
+    display: flex;
+  flex-direction: column;
+  padding: 0px;
+  align-items: flex-start;
+  height: auto;
+  }
+  .card{
+    display: none;
+  }
+}
+

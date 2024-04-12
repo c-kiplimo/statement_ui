@@ -4,7 +4,16 @@ import styles from "./payment.method.module.css";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import CardDetails from "../../atoms/forms/form";
 import AtmCard from "./atm.card";
+import Button from "../../atoms/dropDownButton/button";
+import { CaretDownOutlined } from "@ant-design/icons";
 
+const options = [
+  {
+    key:1,
+    value:'card',
+    option:'Card'
+  },
+]
 type paymentmethodProps = {
   cardName: string;
   cardTtype: string;
@@ -26,14 +35,10 @@ const PaymentMethod = (props: paymentmethodProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.drptcontainer}>
-        <div className={styles.dropdown}>{props.CaretDownOutlined}</div>
-        <div className={styles.text} onClick={props.onClick}>
-          Card
-        </div>
-        <div className={styles.icon}>{props.icon}</div>
+        <Button icon={<CaretDownOutlined />} options={options} textColor={"#6F7269"} iconColor={"#6F7269"} bgColor={"#F5F5F5"} icon1={props.icon}/>
       </div>
       <div className={styles.bodycontainer}>
-        <div>
+        <div className={styles.card}>
           <AtmCard
             cardName={props.cardName}
             cardNumber={props.cardNumber}

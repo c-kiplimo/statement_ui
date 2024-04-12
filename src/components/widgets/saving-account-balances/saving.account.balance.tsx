@@ -17,16 +17,17 @@ const accountOptions = [
     option: "Current Account",
   },
   {
-    key: 1,
+    key: 3,
     value: "fixedAccount",
     option: "Fixed Account",
   },
   {
-    key: 1,
-    value: "savingAccount",
+    key: 4,
+    value: "moneyMarketFund",
     option: "Money Market Fund",
   },
 ];
+
 type DataType = {
   id: number;
   titleIcon: ReactNode;
@@ -37,8 +38,9 @@ type DataType = {
   percentage: string;
   date: string;
 };
+
 type SavingAccountBalanceProps = {
-  accounBalances: DataType[];
+  accountBalances: DataType[];
 };
 
 const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
@@ -47,6 +49,7 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -76,41 +79,45 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
           />
         </div>
       </div>
-      <div className={styles.body}>
-        {props.accounBalances.map((balances) => (
-          <div className={styles.content}>
+      <div className={styles.month}>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {props.accountBalances.map((balance) => (
+          <div key={balance.id}>
             <SummaryItem
-              svgIcon={balances.titleIcon}
-              summaryTitle={balances.summaryTitle}
-              titleDescription={balances.titleDescription}
-              amount={balances.amount}
-              svgIcons={balances.arrowIcon}
-              percentage={balances.percentage}
-              date={balances.date}
+              svgIcon={balance.titleIcon}
+              summaryTitle={balance.summaryTitle}
+              titleDescription={balance.titleDescription}
+              amount={balance.amount}
+              svgIcons={balance.arrowIcon}
+              percentage={balance.percentage}
+              date={balance.date}
             />
           </div>
         ))}
+      </div>
       </div>
     </div>
   );
 };
 
 export default SavingAccountBalance;
+
 SavingAccountBalance.SelectAccount = () => (
   <Button
     icon={<CaretDownOutlined />}
     options={accountOptions}
-    textColor={"#6F7269"}
-    iconColor={"#6F7269"}
-    bgColor={"#F5F5F5"}
-    icon1={<img src="/savingss.svg" />}
+    textColor="#6F7269"
+    iconColor="#6F7269"
+    bgColor="#F5F5F5"
+    icon1={<img src="/savingss.svg" alt="icon" />}
   />
 );
+
 type ButtonProps = {
   buttonName: string;
   isActive: boolean;
   buttonStyles?: CSSProperties;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: () => void;
 };
 
 SavingAccountBalance.Btn = (props: ButtonProps) => (

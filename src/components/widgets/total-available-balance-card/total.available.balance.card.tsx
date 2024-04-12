@@ -39,7 +39,7 @@ const balanceArray = [
 
 const TotalAvailableBalanceCard = () => {
   return (
-    <div className={`${styes.container} md:w-32`}>
+    <div className={'grid grid-cols-2 sm:align-middle md:grid-cols-3 lg:grid-cols-4 gap-4'}>
       {balanceArray.map((balance) => (
         <div key={balance.id} className="">
           <BalanceInfoCard

@@ -1,9 +1,10 @@
-import React, { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties, ReactNode, useState } from "react";
 import AccountsOverviewDetailsCard from "../accounts-overview-details-card/accounts-overview-details-card";
 import styles from "./accounts.table.info.module.css";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import CustomSearchInput from "../../atoms/input/custom-search-input";
 import { TableOutlined, UnorderedListOutlined } from "@ant-design/icons";
+
 interface AccountDetail {
   key: number;
   accountName: string;
@@ -18,26 +19,6 @@ interface DataType {
   amount: string;
   accountsbreakdownInfo: AccountDetail[];
 }
-const data = [
-  {
-    id: 1,
-    accountIcon: <img src="/saving.svg" />,
-    accountTitle: "Saving account(2)",
-    amount: "$35,000",
-    accountsbreakdownInfo: [
-      {
-        accountName: "Free checking",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-      {
-        accountName: "Minor Saving",
-        accountNumber: "4556 677 888",
-        currentBalance: "$5,6000",
-      },
-    ],
-  },
-];
 
 type accountsTableProps = {
   accountsData: DataType[];
@@ -46,6 +27,12 @@ type accountsTableProps = {
 };
 
 const AccountsTableInfo = (props: accountsTableProps) => {
+  const [isGridView, setIsGridView] = useState(false);
+
+  const toggleGridView = () => {
+    setIsGridView(!isGridView);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -59,16 +46,19 @@ const AccountsTableInfo = (props: accountsTableProps) => {
           <AccountsTableInfo.Buttons
             buttonIcon={<TableOutlined />}
             buttonName="Grid"
+            onClick={toggleGridView}
           />
           <AccountsTableInfo.Buttons
             buttonIcon={<UnorderedListOutlined />}
             buttonName="List"
+            onClick={toggleGridView}
           />
         </div>
       </div>
-      <div className={styles.body}>
+      <div className={isGridView ? styles.gridBody : styles.body}>
         {props.accountsData.map((accounts) => (
           <AccountsOverviewDetailsCard
+            key={accounts.id}
             svgIcon={accounts.accountIcon}
             accountTitle={accounts.accountTitle}
             amount={accounts.amount}
@@ -107,10 +97,16 @@ AccountsTableInfo.Search = (props: SearchProps) => (
 type ButtonProps = {
   buttonIcon: ReactNode;
   buttonName: string;
+  onClick?: () => void;
   buttonStyles?: CSSProperties;
 };
 AccountsTableInfo.Buttons = (props: ButtonProps) => (
-  <button type="button" style={props.buttonStyles} className={styles.button}>
+  <button
+    type="button"
+    style={props.buttonStyles}
+    className={styles.button}
+    onClick={props.onClick}
+  >
     {" "}
     <span>{props.buttonIcon}</span> {props.buttonName}{" "}
   </button>
