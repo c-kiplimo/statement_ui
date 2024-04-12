@@ -6,13 +6,13 @@ import DateCard from '@/src/components/molecules/shared/statement-core/pickdate/
 import StatementSelectionContainer from '@/src/components/molecules/shared/statement-core/statement.accounts.selection';
 import CardProvider from '@/src/components/molecules/shared/statement-core/card/statement.cards.provider';
 import StatementWrapper from '../../../../../components/molecules/shared/statement-core/statement.wrapper';
-import AccountSearchResults from '@/src/components/molecules/account-search-results/account-search-results';
 import ViewEyeIcon from '@/src/components/atoms/view-eye-icon/view-eye-icon';
 import { Tag } from 'antd';
 import TableDisplay from '@/src/components/molecules/accounts-statement/accounts-table/account-statement-table';
 import { useAccountStatementContext } from '@/src/app/(context)/account-statement-context';
 import { Dayjs } from 'dayjs';
 import withContainer from '@/src/components/molecules/shared/statement-core/statement.container.hoc';
+import AccountSearchResults from '@/src/components/widgets/account-search-results/account-search-results';
 
 const SwiftStatementModule = () => {
   const [startDate, setStartDate] = useState<string | null>('2023-12-28');

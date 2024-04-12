@@ -1,0 +1,15 @@
+.siderTitle {
+  display: flex;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-top: 8px;
+  color: white;
+  gap: 16px;
+  padding-top: 16px;
+  cursor: pointer;
+}
+
+.siderTitleText {
+  display: flex;
+  align-items: center;
+}
