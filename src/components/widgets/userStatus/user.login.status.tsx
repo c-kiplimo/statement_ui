@@ -17,6 +17,8 @@ type StatusProps = {
   onClick?: () => void;
 };
 
+
+
 const options = [
   {
     key: 1,
@@ -33,15 +35,18 @@ const LastLogin = (props: StatusProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.upperdiv}>
-        <div className={styles.icondiv}>{props.icon}</div>
         <div className={styles.locaTiontimeDetails}>
-          <div className={styles.username}>
-            <div className={styles.usernametext}>{props.userName}</div>{" "}
+          <div className={styles.icondiv}>{props.icon}</div>
+          <div>
+            <div className={styles.username}>
+              <div className={styles.usernametext}>{props.userName}</div>{" "}
+            </div>
+            <div className={styles.usermail}>{props.mail}</div>
+            <div className={styles.location}>{props.town}</div>
+            <div className={styles.timezone}>{props.timezone}</div>
           </div>
-          <div className={styles.usermail}>{props.mail}</div>
-          <div className={styles.location}>{props.town}</div>
-          <div className={styles.timezone}>{props.timezone}</div>
         </div>
+
         <div className={styles.status}>
           <div className={styles.lastseen}>{props.lastSeenTime}</div>
           <Button
