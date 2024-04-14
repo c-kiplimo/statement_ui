@@ -13,6 +13,18 @@
   align-self: center;
   cursor: progress;
 }
+.search{
+  display: none;
+  width: 250px;
+
+}
+.filterSelected{
+  display: block;
+  width: 250px;
+  margin-bottom: -25px;
+  margin-top: -15px;
+}
+
 @media (max-width: 640px) {
   .container {
     width: 550px;

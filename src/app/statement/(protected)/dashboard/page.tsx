@@ -35,7 +35,7 @@ const cardTypesData = [
 const transactionTabledata = [
   {
     key: "1",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
@@ -44,7 +44,7 @@ const transactionTabledata = [
   },
   {
     key: "2",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
@@ -53,7 +53,7 @@ const transactionTabledata = [
   },
   {
     key: "3",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
@@ -62,7 +62,7 @@ const transactionTabledata = [
   },
   {
     key: "4",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
@@ -71,7 +71,7 @@ const transactionTabledata = [
   },
   {
     key: "5",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
@@ -80,7 +80,7 @@ const transactionTabledata = [
   },
   {
     key: "6",
-    account: "John Brown",
+    account: "Account",
     dateTime: "July 25, 2024\n\n11:00 PM",
     number: "124 902 223 ",
     description: "Received money",
