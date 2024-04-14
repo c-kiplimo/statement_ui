@@ -1,18 +1,10 @@
 import React from "react";
 import CustomTable from "../widgets/table/table";
-import { Select } from "antd";
-import {
-  EditOutlined,
-  EyeOutlined,
-  MinusOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import styles from "./users.status.module.css";
+import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
+import styles from "./activities.status.module.css";
 import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 
-const { Option } = Select;
-
-interface DataType {
+interface ActivityData {
   id: React.Key;
   createdOn: string;
   userName: string;
@@ -21,51 +13,61 @@ interface DataType {
   icons: React.ReactNode;
 }
 
-interface Datatype {
+interface CustomColumn {
   title: string;
-  dataIndex: keyof DataType;
-  render?: (text: any, record: DataType) => React.ReactNode;
+  dataIndex: keyof ActivityData;
+  render?: (text: any, record: ActivityData, index: number) => React.ReactNode;
 }
 
-const columns: Datatype[] = [
+const columns: CustomColumn[] = [
   {
-    title: "Created On",
+    title: "Date",
     dataIndex: "createdOn",
-    render: (text, record) => <span className={styles.createdOn}>{text}</span>,
+    render: (text) => <span className={styles.date}>{text}</span>,
   },
-
   {
-    title: "User Name",
+    title: "Activity Name",
     dataIndex: "userName",
+    render: (text) => <span className={styles.ActivityName}>{text}</span>,
   },
   {
-    title: "Role",
+    title: "Description",
     dataIndex: "role",
     render: (text, record) => (
-      <Select
-        className={styles.selectdiv}
-        defaultValue={text}
-        onChange={(value) => handleRoleChange(value, record.id)}
-      >
-        <Option value="Admin">Admin</Option>
-        <Option value="Viewer">Viewer</Option>
-      </Select>
+      <span className={styles.description}>{text}</span>
     ),
   },
   {
     title: "Status",
     dataIndex: "status",
-    render: (text, record) => (
-      <span
-        className={styles.activediv}
-        style={{
-          color: record.status === "Disabled" ? "red" : "",
-          background: record.status === "Disabled" ? "#FEDEE5" : "",
-        }}
-      >
-        {text}
-      </span>
-    ),
+    render: (text, record) => {
+      let color = "";
+      let backgroundColor = "";
+
+      switch (record.status) {
+        case "Completed":
+          color = "#17D05B";
+          backgroundColor = "#DFF0D8";
+          break;
+        case "Pending":
+          color = "orange";
+          backgroundColor = "#FCF8E3";
+          break;
+        default:
+          color = "";
+          backgroundColor = "";
+          break;
+      }
+
+      return (
+        <span
+          style={{ color: color, backgroundColor: backgroundColor }}
+          className={styles.status}
+        >
+          {text}
+        </span>
+      );
+    },
   },
   {
     title: "",
@@ -73,40 +75,40 @@ const columns: Datatype[] = [
   },
 ];
 
-const data: DataType[] = [
+const data: ActivityData[] = [
   {
     id: 1,
     createdOn: "23-05-2023 10:45 a.m",
-    userName: "Abia Mbabazi",
-    role: "Admin",
+    userName: "Downloaded statement",
+    role: "Description",
     status: "Active",
     icons: (
       <div className={styles.icons}>
-        <EyeOutlined /> <MinusOutlined /> <EditOutlined />
+        <EyeOutlined />
       </div>
     ),
   },
   {
     id: 2,
-    createdOn: "2024-04-10",
-    userName: "Luqman Doe",
-    role: "Admin",
-    status: "Disabled",
+    createdOn: "23-05-2023 10:45 a.m",
+    userName: "Downloaded statement",
+    role: "Description",
+    status: "Completed",
     icons: (
       <div className={styles.icons}>
-        <EyeOutlined /> <MinusOutlined /> <EditOutlined />
+        <EyeOutlined />
       </div>
     ),
   },
   {
     id: 3,
-    createdOn: "2024-04-10",
-    userName: "Delle Rasaq",
-    role: "Admin",
-    status: "Disabled",
+    createdOn: "23-05-2023 10:45 a.m",
+    userName: "Downloaded statement",
+    role: "Description",
+    status: "Pending",
     icons: (
       <div className={styles.icons}>
-        <EyeOutlined /> <MinusOutlined /> <EditOutlined />
+        <EyeOutlined />
       </div>
     ),
   },
@@ -114,7 +116,7 @@ const data: DataType[] = [
 
 const handleRoleChange = (value: string, id: React.Key) => {};
 
-const Accountsstatus = () => {
+const ActivitiesStatus = () => {
   return (
     <div className={styles.container}>
       <LastLogin
@@ -131,12 +133,12 @@ const Accountsstatus = () => {
       />
       <CustomTable
         data={data}
-        titleText={"User Overview"}
+        titleText={"Account Activity "}
         searchIcon={<img src="/searchicon.svg" alt="searchicon" />}
         sortIcon={<img src="/sort.svg" alt="sort" />}
         filterIcon={<img src="/funnel.svg" alt="funnel" />}
         addIcon={<PlusOutlined />}
-        pageSize={1}
+        pageSize={4}
         total={10}
         columns={columns}
       />
@@ -144,4 +146,4 @@ const Accountsstatus = () => {
   );
 };
 
-export default Accountsstatus;
+export default ActivitiesStatus;

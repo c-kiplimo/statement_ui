@@ -1,0 +1,135 @@
+.container{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+padding: 32px 0px;
+gap: 24px;
+position: relative;
+width: 568px;
+height: 336px;
+background: #FFFFFF;
+box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+}
+
+.counceIcon{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 485px;
+height: 16px;
+}
+
+.body{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 32px 0px;
+gap: 24px;
+width: 568px;
+height: 336px;
+background: #FFFFFF;
+box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+}
+.title{
+width: 341px;
+height: 32px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 32px;
+text-align: center;
+color: #151E00;
+}
+
+.confirm{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 341px;
+height: 26px;
+flex: none;
+align-self: center;
+}
+
+.confirmText{
+width: 298px;
+height: 26px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 26px;
+color: #6F7269;
+}
+
+.titleText{
+width: 341px;
+height: 32px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 30px;
+line-height: 32px;
+text-align: center;
+color: #151E00;
+}
+
+.options{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+width: 215px;
+height: 42px;
+}
+
+.yes{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 90px;
+height: 42px;
+border-radius: 4px;
+border: 1px solid #F30039;
+}
+
+.Nodiv{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 85px;
+height: 42px;
+border: 1px solid #F30039;
+border-radius: 4px;
+flex: none;
+}
+
+.Nodiv.clicked {
+    background-color: red;
+    color: #fff; 
+    border-color: red;
+  }
+
+  .yes.clicked {
+    background-color: red;
+    color: #fff; 
+    border-color: red;
+  }

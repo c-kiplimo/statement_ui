@@ -67,7 +67,6 @@ const LastLogin = (props: StatusProps) => {
         </div>
         <div className={styles.users} onClick={props.onClick}>
           <div className={styles.text}>
-            {" "}
             <button>{props.button2}</button>
           </div>
         </div>

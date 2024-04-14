@@ -1,14 +1,12 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "@/src/components/molecules/shared/statement-core/statement.container.hoc";
-import RestrictionsOverview from "./restrictions-overview/restrictions.overview";
-
-
+import ActivitiesStatus from "./activities/activities.status";
 
 const Dev = () => {
   return (
     <Fragment>
-      <RestrictionsOverview/>
+      <ActivitiesStatus />
     </Fragment>
   );
 };
