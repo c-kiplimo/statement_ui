@@ -496,12 +496,13 @@ body {
 }
 
 .get-help-link {
-  color: var(--nhif-1200);
+  color: var(--tint-colors-tint-200);
   /* font-family: Lato; */
-  font-size: "16px";
+  font-family: Roboto;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 500;
-  line-height: "24px";
+  font-weight: 700;
+  line-height: 24px;
 }
 
 /* label,

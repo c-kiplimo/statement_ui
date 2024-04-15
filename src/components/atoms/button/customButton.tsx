@@ -5,10 +5,11 @@ interface CustomButtonProps {
   icon?: React.ReactElement;
   bgColor?: string;
   textColor?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  type?:"button" | "reset" | "submit" | undefined,
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -20,6 +21,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   disabled = false,
   className,
   style,
+  type
 }) => {
   return (
     <button
@@ -31,6 +33,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       }}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {icon && <span className="mr-2">{icon}</span>}
       {text}

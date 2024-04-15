@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 import Link from "next/link";
+=======
+>>>>>>> c16cc33 (Removing commits)
 import React, { CSSProperties } from "react";
 
 type TexterProps = {
   className: string;
   text: string;
+<<<<<<< HEAD
   href?: string;
   linkText?: string;
   textStyle?: CSSProperties;
@@ -27,6 +31,16 @@ const Texter = ({
         )}
       </p>
     </>
+=======
+  textStyle?: CSSProperties;
+};
+
+const Texter = ({ className, text, textStyle }: TexterProps) => {
+  return (
+    <p className={className} style={textStyle}>
+      {text}
+    </p>
+>>>>>>> c16cc33 (Removing commits)
   );
 };
 
