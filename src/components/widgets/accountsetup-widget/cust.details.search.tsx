@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Radio, Input, RadioChangeEvent } from "antd";
 import Styles from "./cust.details.search.module.css";
+import Link from "next/link";
 
 type accountSetupprops = {
   title: string;
@@ -42,7 +43,7 @@ const Accountsetup = (props: accountSetupprops) => {
               value="account"
               style={{ color: "#6F7269", fontFamily: "Roboto" }}
             >
-              {props.account}{" "}
+              {props.account}
             </Radio>
 
             <Radio
@@ -77,8 +78,13 @@ const Accountsetup = (props: accountSetupprops) => {
             />
           </div>
         )}
+
         <div className={Styles.searchbutton}>
-          <div className={Styles.icon} style={{color:"white"}}>{props.icon}</div>
+          <Link href="/statement/accountsetup/search-pages/search-found">
+            <div className={Styles.icon} style={{ color: "white" }}>
+              {props.icon}
+            </div>
+          </Link>
         </div>
       </div>
     </div>

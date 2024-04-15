@@ -18,8 +18,8 @@ const RestrictionPage = () => {
         button1={"Accounts"}
         button2={"Users"}
         button3={"Activity"}
-        button4={"Restrictions"}
-      />
+        button4={"Restrictions"} 
+        titleDescription={""}      />
 
       <div className={styles.addRestrictiondiv}>
         <div className={styles.searchDiv}>

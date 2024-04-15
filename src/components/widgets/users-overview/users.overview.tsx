@@ -83,6 +83,8 @@ const Usersoverview = (props: usersoverviewProps) => {
           <AddItem
             title={"Add user"}
             icon={<img src="/plusIcon.svg" alt="plusIcon" />}
+            iconStyle={{ color: "gray" }}
+            titleStyle={{ color: "gray" }}
           />
         </div>
       </div>

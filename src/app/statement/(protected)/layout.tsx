@@ -15,11 +15,11 @@ import { MenuData } from "@/src/constants/siderbar.docs";
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
-      <div style={{ "display": "flex", flexDirection: "row", "height": "100vh" }}>
+      <div style={{ "display": "flex", flexDirection: "row", "height": "100vh"}}>
         <nav>
           <MulaPaySideBar items={MenuData} />
         </nav>
-        <main>
+        <main style={{width:"100%"}}>
           {children}
         </main>
       </div>

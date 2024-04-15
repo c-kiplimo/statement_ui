@@ -36,7 +36,7 @@ height: 336px;
 background: #FFFFFF;
 box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
 border-radius: 8px;
-
+background-color: #151E00;
 }
 .title{
 width: 341px;
@@ -56,14 +56,16 @@ flex-direction: row;
 align-items: flex-start;
 padding: 0px;
 gap: 10px;
-width: 341px;
+width: fit-content;
 height: 26px;
 flex: none;
 align-self: center;
 }
 
 .confirmText{
-width: 298px;
+  display: flex;
+  flex-direction: row;
+width: fit-content;
 height: 26px;
 font-family: 'Roboto';
 font-style: normal;
@@ -71,6 +73,7 @@ font-weight: 400;
 font-size: 16px;
 line-height: 26px;
 color: #6F7269;
+
 }
 
 .titleText{

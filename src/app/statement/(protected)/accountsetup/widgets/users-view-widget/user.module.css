@@ -1,0 +1,99 @@
+.container{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 32px;
+gap: 54px;
+width: 1013px;
+height: fit-content;
+background-color: #FFFFFF;
+}
+
+
+.cancel{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 993px;
+height: 16px;
+}
+
+.userDetails{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 32px;
+width: 934px;
+height: 186px;
+}
+
+.icon{
+width: 139px;
+height: 144px;
+}
+
+.detailsStatus{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 40px;
+width: 763px;
+height: 186px;
+}
+
+.details{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+width: 517px;
+height: 186px;
+}
+
+.headDiv{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+width: 517px;
+height: 48px;                           
+}
+.status{
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+padding: 0px;
+gap: 8px;
+width: 206px;
+height: 68px;
+}
+
+.lastSeen{
+width: 206px;
+height: 26px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 26px;
+color: #6F7269;
+}
+
+.groupsDiv{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 4px 4px 8px;
+gap: 85px;
+width: 981px;
+height: 52px;
+border-bottom: 1px solid #E6E6E6;
+align-self: stretch;
+}
