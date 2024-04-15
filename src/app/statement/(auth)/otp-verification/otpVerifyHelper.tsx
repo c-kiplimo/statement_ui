@@ -1,5 +1,5 @@
 import { authServiceHandler } from "@/src/services/auth/auth.service";
-import OTPInputContainer from "@/src/components/atoms/input/otp/otp";
+import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import FormBuilder from "@/src/components/molecules/shared-features/form_builder";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
@@ -17,17 +17,15 @@ type OtpVerifytProps = {
 };
 
 function OtpVerifyHelper(props: OtpVerifytProps) {
-
   const [value, valueChanged] = useState("");
-  const [myUser,setMyUser] = useState<User>()
+  const [myUser, setMyUser] = useState<User>();
   const [timer, timerChanged] = useState(300);
   const interValRef = useRef<number>(0);
-
 
   const tokenColor = useTokens();
   const router = useRouter();
 
-  const { storeToken, getToken,getLoggedInUser } = AuthServiceProvider();
+  const { storeToken, getToken, getLoggedInUser } = AuthServiceProvider();
   const { requestOtpService, verifyOtpService } = authServiceHandler();
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +52,8 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
           });
 
           router.push("/statement/dashboard");
-        }).catch(error => {
+        })
+        .catch((error) => {
           if (error.response.status == 400) {
             notification.error({
               message: error.response.data.error,
@@ -63,7 +62,8 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
           } else {
             notification.error({
               message: "Error",
-              description: "An error occurred during OTP verification. Please try again.",
+              description:
+                "An error occurred during OTP verification. Please try again.",
             });
           }
         });
@@ -92,9 +92,6 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
     }
   }
 
-
- 
-
   const formatTime = (time: number) => {
     const secs = Math.floor(time) % 60;
     const mins = Math.floor(time / 60) % 60;
@@ -105,13 +102,10 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
     window.clearInterval(interValRef.current);
   };
 
-
-
   useEffect(() => {
-    console.log("=====>"+JSON.stringify(getLoggedInUser()))
-    setMyUser(getLoggedInUser)
+    console.log("=====>" + JSON.stringify(getLoggedInUser()));
+    setMyUser(getLoggedInUser);
   }, [myUser?.email]);
-
 
   useEffect(() => {
     interValRef.current = window.setInterval(() => {
@@ -124,7 +118,6 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
   }, [timer]);
 
   return (
-
     <FormBuilder>
       <div className="text-center">
         <h1 className="otp-title-text text-left">Enter OTP to verify</h1>
@@ -140,7 +133,8 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
             value={value}
             onChange={(e: string) => {
               valueChanged(e);
-            } } />
+            }}
+          />
         </div>
 
         <div className="otp-leading-text-description text-left">

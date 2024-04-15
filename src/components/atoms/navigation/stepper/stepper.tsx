@@ -1,11 +1,11 @@
-import React from "react";
-import { Steps } from "antd";
-import styles from "./stepper.module.css";
+import React, { ReactNode } from 'react';
+import { Steps } from 'antd';
+import styles from './stepper.module.css';
 
 const { Step } = Steps;
 
 type StepperProps = {
-  steps: { title: string }[];
+  steps: { title: ReactNode }[]; 
   current: number;
   onChange: (current: number) => void;
 };
@@ -17,18 +17,9 @@ const Stepper = ({ steps, current, onChange }: StepperProps) => {
 
   return (
     <div className={styles.stepperContainer}>
-      <Steps
-        current={current}
-        size="small"
-        direction="horizontal"
-        className={`${styles.customSteps} bodyr`}
-      >
+      <Steps current={current}  direction="horizontal" className="bodyr">
         {steps.map((step, index) => (
-          <Step
-            key={index}
-            title={step.title}
-            onClick={() => handleStepClick(index)}
-          />
+          <Step key={index} title={step.title} onClick={() => handleStepClick(index)} />
         ))}
       </Steps>
     </div>

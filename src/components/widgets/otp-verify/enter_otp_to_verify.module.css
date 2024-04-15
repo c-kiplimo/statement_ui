@@ -1,0 +1,46 @@
+.otpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: auto;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  width: 275px;
+  height: 40px;
+}
+
+.otpBody {
+  width: 318px;
+  height: 131px;
+}
+
+.otpPrompt {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.otpInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 56px;
+  gap: 16px;
+  width: 100%;
+}
+
+.timer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 159px;
+  height: 24px;
+}

@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./profileForm.module.css";
-import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
-import { CloseOutlined } from "@ant-design/icons";
-import Label from "../../atoms/label/label";
-import { Select, Input } from "antd";
+import { Label } from "../../atoms/label/label";
+import { Select, Input, Button } from "antd";
 import FormBuilder from "../../molecules/shared-features/form_builder";
-import PrimaryButton from "../../atoms/button/primary-button/primary-button";
 
 const { Option } = Select;
 
@@ -16,21 +13,38 @@ type FormField = {
   placeholder: string;
   options?: string[];
   htmlFor?: string;
+  value?: string;
 };
 
 type CustomerProfileProps = {
-  header: string;
-  headerDesc: string;
   fields: FormField[];
+  onChange: (value: string) => void;
 };
 
-const CustomerProfile = (props: CustomerProfileProps) => {
+const CustomerProfile = ({ fields, onChange }: CustomerProfileProps) => {
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
-  const [formVisible, setFormVisible] = useState(true);
+  useEffect(() => {
+    // Populate formData with initial values from fields
+    const initialFormData = fields.reduce(
+      (acc: { [key: string]: string }, field) => {
+        acc[field.id] = field.value || "";
+        return acc;
+      },
+      {}
+    );
+    setFormData(initialFormData);
+  }, [fields]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const isAnyFieldEmpty = fields.some((field) => !formData[field.id]);
+
+    if (isAnyFieldEmpty) {
+      alert("Please fill in all fields");
+      return;
+    }
+
     console.log("Form submitted with data:", formData);
   };
 
@@ -39,36 +53,20 @@ const CustomerProfile = (props: CustomerProfileProps) => {
       ...prevValues,
       [identifier]: value,
     }));
-  };
 
-  const handleClose = () => {
-    setFormVisible(false);
+    if (identifier === "account-number") {
+      onChange(value); // Update accountNumber in parent component
+    }
   };
-
-  if (!formVisible) {
-    return null;
-  }
 
   return (
-    <div className={styles.container}>
-      <FormBuilder onSubmit={handleSubmit}>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <div className={styles.headerTitle}>
-              <VerticalInfoDescription
-                title={props.header}
-                titleStyle={{ fontWeight: "500", fontSize: "20px" }}
-              />
-              <span className={styles.closeBtn} onClick={handleClose}>
-                <CloseOutlined size={16} />
-              </span>
-            </div>
-            <VerticalInfoDescription
-              title={props.headerDesc}
-              titleStyle={{ fontWeight: "400", fontSize: "12px" }}
-            />
-          </div>
-          {props.fields.map((field) => (
+    <>
+      <FormBuilder
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-center items-center gap-y-10 w-583 h-354 cursor-pointer"
+      >
+        <div className={styles.formBody}>
+          {fields.map((field) => (
             <div key={field.id} className={styles.inputField}>
               <Label htmlFor={field.htmlFor || field.id} label={field.label} />
               {field.type === "select" ? (
@@ -76,6 +74,7 @@ const CustomerProfile = (props: CustomerProfileProps) => {
                   placeholder={field.placeholder}
                   style={{ width: "100% " }}
                   onChange={(value) => handleChange(field.id, value)}
+                  value={formData[field.id]}
                 >
                   {field.options &&
                     field.options.map((option) => (
@@ -98,17 +97,21 @@ const CustomerProfile = (props: CustomerProfileProps) => {
               )}
             </div>
           ))}
-          <div className={styles.submitBtn}>
-            <PrimaryButton
-              htmlType="submit"
-              customStyles={{ backgroundColor: "#84bd00", color: "white" }}
-            >
-              Submit
-            </PrimaryButton>
-          </div>
+        </div>
+        <div className={styles.submitBtn}>
+          <Button
+            style={{ backgroundColor: "var(--brand-brand-primary)" }}
+            type="primary"
+            htmlType="submit"
+            className="bg-primary mt-5 text-white px-9 py-2
+            bg-green-900 text-white rounded cursor-pointer"
+            onSubmit={handleSubmit}
+          >
+            Search
+          </Button>
         </div>
       </FormBuilder>
-    </div>
+    </>
   );
 };
 

@@ -1,20 +1,20 @@
-import Modal from '@/src/components/atoms/Ui/reusable_modal';
-import CompoundIndividualBusinessBtn from '@/src/components/atoms/navigation/compound-individual-business-btn';
-import IconButton from '@/src/components/atoms/navigation/CustomerOnboardingButton';
-import { useActiveStep } from '@/src/app/(context)/ActiveStepContext';
-import { useTokens } from '@/src/app/(context)/ColorContext';
-import Image from 'next/image';
-import React, { Fragment, useState } from 'react';
-import { SEARCH_CUSTOMER_URL } from '../../../../../constants/environment';
-import { onBoardingHandler } from '@/src/services/auth/onboarding.service';
+import Modal from "@/src/components/widgets/modals/modal";
+import CompoundIndividualBusinessBtn from "@/src/components/atoms/navigation/compound-individual-business-btn";
+import IconButton from "@/src/components/atoms/navigation/CustomerOnboardingButton";
+import { useActiveStep } from "@/src/app/(context)/ActiveStepContext";
+import { useTokens } from "@/src/app/(context)/ColorContext";
+import Image from "next/image";
+import React, { Fragment, useState } from "react";
+import { SEARCH_CUSTOMER_URL } from "../../../../../constants/environment";
+import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
 
 const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
   const token = useTokens();
   const { searchCustomerService } = onBoardingHandler();
   const [showModal, setShowModal] = useState(false);
-  const [accountNumber, setAccountNumber] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('kenya');
-  const [searchType, setSearchType] = useState('ACCOUNT_NUMBER');
+  const [accountNumber, setAccountNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("kenya");
+  const [searchType, setSearchType] = useState("ACCOUNT_NUMBER");
 
   const openModalHanlder = () => {
     setShowModal(true);
@@ -26,21 +26,21 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
   };
 
   const formSubmitHandler = async () => {
-    if (accountNumber === '') {
-      alert('Please fill all inputs');
+    if (accountNumber === "") {
+      alert("Please fill all inputs");
     } else {
       try {
         const URL = `${SEARCH_CUSTOMER_URL}${searchType}/${accountNumber}/${selectedCountry}`;
         const result = await searchCustomerService(URL);
-        console.log('result', result);
-        alert('Successful form submit');
+        console.log("result", result);
+        alert("Successful form submit");
         setShowModal(false);
-        setAccountNumber('');
+        setAccountNumber("");
         onModalData(accountNumber);
         // Process the result if needed
       } catch (error) {
         // Handle the error
-        console.error('API call failed:', error);
+        console.error("API call failed:", error);
         // Show an appropriate error message to the user
       }
     }
@@ -118,7 +118,7 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
             className="flex flex-col gap-6"
           >
             <p style={{ color: token.text.secondary }}>
-              On board to any country of your choice{' '}
+              On board to any country of your choice{" "}
             </p>
             <div className="flex flex-col justify-center items-start gap-3">
               <label style={{ color: token.text.secondary }}>
@@ -137,7 +137,7 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
               </select>
             </div>
             <p style={{ color: token.text.secondary }}>
-              Provide Account Number to get started{' '}
+              Provide Account Number to get started{" "}
             </p>
             <div className="flex flex-col justify-center items-start gap-3">
               <label style={{ color: token.text.secondary }}>
@@ -155,7 +155,7 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
 
             <div className="flex justify-center items-center gap-4">
               <button
-                style={{ backgroundColor: 'var(--brand-brand-primary)' }}
+                style={{ backgroundColor: "var(--brand-brand-primary)" }}
                 className="px-9 py-2 bg-green-900 text-white rounded-sm"
                 type="submit"
                 onClick={() => formSubmitHandler()}

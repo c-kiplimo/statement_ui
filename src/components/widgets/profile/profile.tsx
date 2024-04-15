@@ -1,87 +1,122 @@
-import React, { CSSProperties, ReactNode, useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import styles from "./profile.module.css";
-import Stepper from "../../atoms/navigation/stepper/stepper";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
-import SelectionItem from "../selectionItem/selectionItem";
+import SelectionItem from "../selection-item/selectionItem";
+import {
+  ContactsOutlined,
+  IdcardOutlined,
+  UserAddOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
+import Modal from "../modals/modal";
+import CustomerProfile from "../profileForm/profileForm";
 
-type ProfileProps = {
-  profileSteps: { title: string }[];
-  header: string;
-  headerDesc?: string;
-  cardData: {
-    id: number;
-    icon: ReactNode;
-    CardTitle: string;
-    CardDescription: string;
-  }[];
-};
+const LoginCard = [
+  {
+    id: 1,
+    icon: <UserAddOutlined />,
+    CardTitle: "Customer  Number",
+    CardDescription: "View Statements",
+  },
+  {
+    id: 2,
+    icon: <UsergroupAddOutlined />,
+    CardTitle: "Account  Number",
+    CardDescription: "Manage corporate users",
+  },
+  {
+    id: 3,
+    icon: <IdcardOutlined />,
+    CardTitle: "ID Number",
+    CardDescription: "Use your National id number",
+  },
+  {
+    id: 4,
+    icon: <ContactsOutlined />,
+    CardTitle: "Passport  Number",
+    CardDescription: "Use your National id number",
+  },
+];
 
-const Profile = ({
-  profileSteps,
-  header,
-  headerDesc,
-  cardData,
-}: ProfileProps) => {
-  const [currentStep, setCurrentStep] = useState(0);
+const fields = [
+  {
+    id: "country",
+    label: "Which country?",
+    type: "select",
+    placeholder: "Select country",
+    options: ["Kenya", "Rwanda", "USA", "Europe"],
+    htmlFor: "country",
+  },
+  {
+    id: "account-number",
+    label: "Account number",
+    type: "text",
+    placeholder: "Enter your account number",
+  },
+];
 
-  const handleStepChange = (step: number) => {
-    setCurrentStep(step);
+const Profile = () => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [accountNumber, setAccountNumber] = useState("");
+
+  const handleOptionChange = (newValue: string | null) => {
+    setSelectedOption(newValue);
+    openModalHandler();
   };
 
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const handleOptionChange = (newValue: number | null) => {
-    setSelectedOption((prevValue) =>
-      prevValue === newValue ? null : String(newValue)
-    );
+  const openModalHandler = () => {
+    setShowModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setShowModal(false);
+  };
+
+  const handleAccountNumberChange = (value: string) => {
+    setAccountNumber(value);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <Profile.Stepper
-          currentStep={currentStep}
-          steps={profileSteps}
-          onStepChange={handleStepChange}
+      <div className={styles.header}>
+        <VerticalInfoDescription
+          title="Select the option you prefer for onboarding"
+          titleStyle={{ fontWeight: "700", fontSize: "20px" }}
         />
-        <div className={styles.body}>
-          <div className={styles.header}>
-            <Profile.Header
-              title={header}
-              description={headerDesc}
-              titleStyle={{ fontWeight: "700", fontSize: "20px" }}
+      </div>
+      {LoginCard.map((card) => (
+        <SelectionItem
+          key={card.id}
+          id={card.id.toString()}
+          icon={card.icon}
+          text={card.CardTitle}
+          textDesc={card.CardDescription}
+          onClick={handleOptionChange}
+          activeCardId={selectedOption}
+        />
+      ))}
+      {/* Modal */}
+      {showModal && (
+        <Modal
+          isOpen={showModal}
+          onDismiss={closeModalHandler}
+          title="Provide Details to allow us create your profile"
+          description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
+        >
+          <div className="my-4 w-[695px] max-w-full">
+            <CustomerProfile
+              fields={fields}
+              onChange={handleAccountNumberChange}
             />
           </div>
-
-          {cardData.map((data, index) => (
-            <div key={index} className={styles.logCard}>
-              <SelectionItem
-                id={data.id.toString()}
-                icon={data.icon}
-                text={data.CardTitle}
-                textDesc={data.CardDescription}
-                activeCardId={selectedOption}
-                onClick={() => handleOptionChange(data.id)}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+        </Modal>
+      )}
     </div>
   );
 };
 
 export default Profile;
-
-type StepProps = {
-  currentStep: number;
-  steps: { title: string }[];
-  onStepChange: (step: number) => void;
-};
-Profile.Stepper = ({ currentStep, steps, onStepChange }: StepProps) => {
-  return (
-    <Stepper steps={steps} current={currentStep} onChange={onStepChange} />
-  );
-};
 
 type HeaderProps = {
   title: string;
