@@ -56,15 +56,15 @@ const CustomTable: React.FC<CustomTableProps> = ({
       <div className={styles.headerdiv}>
         <div className={styles.textdiv}>{titleText}</div>
         <div className={styles.atomsdiv}>
+        <Search title={"Search"} icon={searchIcon} />
           <Filter title={"Filter"} icon={filterIcon} />
           <Sort title={"Sort"} icon={sortIcon} />
           <AddItem
-            title={"Add User"}
+            title={"Add Restriction"}
             icon={addIcon}
             iconStyle={{ color: "gray" }}
             titleStyle={{ color: "gray" }}
           />
-          <Search title={"Search"} icon={searchIcon} />
         </div>
       </div>
       <Table
