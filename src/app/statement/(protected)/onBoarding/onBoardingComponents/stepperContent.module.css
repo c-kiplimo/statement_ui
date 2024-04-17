@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 96px 96px;
+  gap: 48px;
+  position: absolute;
+  width: 736px;
+  height: 600px;
+  left: 464px;
+  top: 72px;
+  background: var(--white);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 551px;
+  height: 537px;
+}
+
+.stepperCard {
+  display: flex;
+  align-items: center;
+  padding: 16px 0px;
+  width: 551px;
+  height: 57px;
+}
+
+.stepperContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 551px;
+  height: fit-content;
+}

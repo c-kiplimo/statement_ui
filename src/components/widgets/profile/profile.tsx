@@ -1,7 +1,5 @@
-import React, { CSSProperties, useState } from "react";
+import React, { useState } from "react";
 import styles from "./profile.module.css";
-import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
-import SelectionItem from "../selection-item/selectionItem";
 import {
   ContactsOutlined,
   IdcardOutlined,
@@ -14,6 +12,8 @@ import Modal from "../modals/modal";
 import Modal from "../modals/reusable_modal";
 >>>>>>> fce2e74 (Adding OTP Verifier)
 import CustomerProfile from "../profileForm/profileForm";
+import Texter from "../../atoms/text/texter";
+import SelectionItem from "../selectionItem/selectionItem";
 
 const LoginCard = [
   {
@@ -109,62 +109,39 @@ const Profile = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <VerticalInfoDescription
-          title="Select the option you prefer for onboarding"
-          titleStyle={{ fontWeight: "700", fontSize: "20px" }}
+        <Texter
+          text="Select the option you prefer for to use for onboarding?"
+          className="h6b"
         />
       </div>
-      {LoginCard.map((card) => (
-        <SelectionItem
-          key={card.id}
-          id={card.id.toString()}
-          icon={card.icon}
-          text={card.CardTitle}
-          textDesc={card.CardDescription}
-          onClick={handleOptionChange}
-          activeCardId={selectedOption}
-        />
-      ))}
-      {/* Modal */}
-      {showModal && (
-        <Modal
-          isOpen={showModal}
-          onDismiss={closeModalHandler}
-          title="Provide Details to allow us create your profile"
-          description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
-        >
-          <div className="my-4 w-[695px] max-w-full">
-            <CustomerProfile
-              fields={fields}
-              onChange={handleAccountNumberChange}
-            />
-          </div>
-        </Modal>
-      )}
+      <div className={styles.logCard}>
+        {LoginCard.map((card) => (
+          <SelectionItem
+            key={card.id}
+            id={card.id.toString()}
+            icon={card.icon}
+            text={card.CardTitle}
+            textDesc={card.CardDescription}
+            onClick={handleOptionChange}
+            activeCardId={selectedOption}
+          />
+        ))}
+        {/* Modal */}
+        {showModal && (
+          <Modal isOpen={showModal} onDismiss={closeModalHandler}>
+            <div className={styles.modalWindow}>
+              <CustomerProfile
+                title="Provide Details to allow us create your profile"
+                description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
+                fields={fields}
+                onChange={handleAccountNumberChange}
+              />
+            </div>
+          </Modal>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Profile;
-
-type HeaderProps = {
-  title: string;
-  titleStyle?: CSSProperties;
-  description?: string;
-  descStyle?: CSSProperties;
-};
-Profile.Header = ({
-  title,
-  titleStyle,
-  description,
-  descStyle,
-}: HeaderProps) => {
-  return (
-    <VerticalInfoDescription
-      title={title}
-      titleStyle={titleStyle}
-      description={description}
-      descriptionStyle={descStyle}
-    />
-  );
-};
