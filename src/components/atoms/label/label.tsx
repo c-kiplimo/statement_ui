@@ -1,28 +1,50 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 type LabelProps = {
+  className?: string;
   htmlFor: string;
-  label?: string;
-  required?: boolean;
-  additionalProps?: React.LabelHTMLAttributes<HTMLLabelElement>;
+  label: string;
+  link?: string;
   style?: React.CSSProperties;
-  children?: React.ReactNode;
-  marginBottom?: string;
 };
 const Label: React.FC<LabelProps> = ({
+  className,
   htmlFor,
   label,
-  required,
+  link,
   style,
-  children,
-  marginBottom,
-  ...additionalProps
 }) => {
   return (
-    <label htmlFor={htmlFor} {...additionalProps} style={style}>
-      {label} {required && <span className="text-red-500">*</span>}
+    <label htmlFor={htmlFor} className={className} style={style}>
+      {label}
+      <Link href="/authentication/signUp" className="text-gray-600">
+        <span className="sign-up-check-box-nhif-link">{link}</span>
+      </Link>
     </label>
   );
 };
 
-export default Label;
+type LabelDescProps = {
+  className?: string;
+  htmlFor: string;
+  label: string;
+  labelDesc?: string;
+};
+
+
+const LabelDesc: React.FC<LabelDescProps> = ({
+  htmlFor,
+  className,
+  label,
+  labelDesc,
+}) => {
+  return (
+    <label htmlFor={htmlFor} className={className}>
+      {label}
+      <span className={className}>{labelDesc}</span>
+    </label>
+  );
+};
+
+export { Label, LabelDesc };
