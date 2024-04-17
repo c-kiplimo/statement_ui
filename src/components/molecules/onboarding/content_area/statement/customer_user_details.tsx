@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import Modal from "@/src/components/widgets/modals/modal";
+=======
+import Modal from "@/src/components/widgets/modals/reusable_modal";
+>>>>>>> fce2e74 (Adding OTP Verifier)
 import CompoundIndividualBusinessBtn from "@/src/components/atoms/navigation/compound-individual-business-btn";
 import IconButton from "@/src/components/atoms/navigation/CustomerOnboardingButton";
 import { useActiveStep } from "@/src/app/(context)/ActiveStepContext";

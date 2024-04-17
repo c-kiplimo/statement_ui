@@ -1,9 +1,32 @@
+<<<<<<< HEAD
+=======
+/* Modal Styles */
+.modal {
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+>>>>>>> fce2e74 (Adding OTP Verifier)
 .modalWrapper {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   padding: 32px;
   gap: 24px;
   width: 100%;
@@ -17,10 +40,23 @@
   left: 460px;
   background: var(--white);
   border: 0.5px solid var(--neutral-grey-900);
+=======
+  padding: 8px 32px 24px;
+  gap: 16px;
+  width: 100%;
+  max-width: 647px;
+  height: 400px;
+  position: relative;
+  bottom: 56px;
+  left: 40px;
+  background: #ffffff;
+  border: 0.5px solid #e6e6e6;
+>>>>>>> fce2e74 (Adding OTP Verifier)
   box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
+<<<<<<< HEAD
 .icon {
   position: absolute;
   right: 24px;
@@ -29,6 +65,8 @@
   cursor: pointer;
 }
 
+=======
+>>>>>>> fce2e74 (Adding OTP Verifier)
 .modalContent {
   display: flex;
   flex-direction: column;
@@ -40,6 +78,7 @@
   height: 200px;
 }
 
+<<<<<<< HEAD
 .header {
   display: flex;
   flex-direction: column;
@@ -50,6 +89,8 @@
   height: 72px;
 }
 
+=======
+>>>>>>> fce2e74 (Adding OTP Verifier)
 .modal-close {
   background: none;
   border: none;

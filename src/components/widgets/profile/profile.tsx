@@ -8,7 +8,11 @@ import {
   UserAddOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
+<<<<<<< HEAD
 import Modal from "../modals/modal";
+=======
+import Modal from "../modals/reusable_modal";
+>>>>>>> fce2e74 (Adding OTP Verifier)
 import CustomerProfile from "../profileForm/profileForm";
 
 const LoginCard = [
@@ -54,6 +58,7 @@ const fields = [
     placeholder: "Enter your account number",
   },
 ];
+<<<<<<< HEAD
 
 const Profile = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -75,8 +80,32 @@ const Profile = () => {
 
   const handleAccountNumberChange = (value: string) => {
     setAccountNumber(value);
+=======
+
+const Profile = () => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [accountNumber, setAccountNumber] = useState("");
+
+  const handleOptionChange = (newValue: string | null) => {
+    setSelectedOption(newValue);
+    openModalHandler();
+>>>>>>> fce2e74 (Adding OTP Verifier)
   };
 
+  const openModalHandler = () => {
+    setShowModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setShowModal(false);
+  };
+
+  const handleAccountNumberChange = (value: string) => {
+    setAccountNumber(value);
+  };
+
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>

@@ -1,16 +1,12 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import Modal from "@/src/components/widgets/modals/modal";
+import EnterOtpToVerify from "@/src/components/widgets/otp-verify/enter_otp_to_verify";
 
 const Dev = () => {
   return (
     <Fragment>
-      <Modal
-        isOpen={true}
-        title="Modal Test"
-        description="This is a test modal"
-      />
+      <EnterOtpToVerify/>
     </Fragment>
   );
 };
