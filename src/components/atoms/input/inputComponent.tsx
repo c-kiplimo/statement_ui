@@ -7,6 +7,7 @@ type inputProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  required?: boolean;
 };
 
 const InputComponent = ({
@@ -15,6 +16,7 @@ const InputComponent = ({
   value,
   onChange,
   placeholder,
+  required,
 }: inputProps) => {
   return (
     <input
@@ -23,6 +25,7 @@ const InputComponent = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
+      required={required}
     />
   );
 };
