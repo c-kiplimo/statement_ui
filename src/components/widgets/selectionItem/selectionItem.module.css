@@ -3,25 +3,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 16px 16px 16px 24px;
+  padding: 16px 24px;
   gap: 8px;
-  width: 552px;
+  width: 544px;
   height: 72px;
-  background: #ffffff;
-  border: 1px solid #e6e6e6;
+  background: var(--white);
+  border: 1px solid var(--neutral-grey-900);
   border-radius: 3px;
 }
 
 .containerActive {
-  background: #f3f5ee;
+  background: var(--statement-primary-tint-02);
   border: 0.5px solid var(--brand-brand-primary);
 }
 
 .wrapper {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 512px;
+  gap: 102px;
+  width: 511px;
   height: 44px;
 }
 
@@ -29,6 +31,8 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  width: 208px;
+  height: 44px;
 }
 
 .icon {

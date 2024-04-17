@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* Modal Styles */
 .modal {
@@ -21,11 +22,15 @@
 
 >>>>>>> fce2e74 (Adding OTP Verifier)
 .modalWrapper {
+=======
+.modalContent {
+>>>>>>> fe0ae73 (Adding profile creation page)
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
 <<<<<<< HEAD
   padding: 32px;
   gap: 24px;
@@ -33,12 +38,17 @@
   bottom: 10%;
   max-width: 656px;
   height: 480px;
+=======
+  padding: 8px 32px 24px;
+  gap: 16px;
+>>>>>>> fe0ae73 (Adding profile creation page)
   position: fixed;
-  /* bottom: 56px;
-  left: 40px; */
-  top: 100px;
+  width: 656px;
+  height: fit-content;
   left: 460px;
+  top: 200px;
   background: var(--white);
+<<<<<<< HEAD
   border: 0.5px solid var(--neutral-grey-900);
 =======
   padding: 8px 32px 24px;
@@ -52,6 +62,9 @@
   background: #ffffff;
   border: 0.5px solid #e6e6e6;
 >>>>>>> fce2e74 (Adding OTP Verifier)
+=======
+  border: 0.5px solid #e6e6e6;
+>>>>>>> fe0ae73 (Adding profile creation page)
   box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -65,6 +78,7 @@
   cursor: pointer;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> fce2e74 (Adding OTP Verifier)
 .modalContent {
@@ -79,6 +93,8 @@
 }
 
 <<<<<<< HEAD
+=======
+>>>>>>> fe0ae73 (Adding profile creation page)
 .header {
   display: flex;
   flex-direction: column;

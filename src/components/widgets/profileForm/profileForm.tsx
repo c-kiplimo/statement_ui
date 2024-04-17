@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./profileForm.module.css";
 import { Label } from "../../atoms/label/label";
 import { Select, Input, Button } from "antd";
-import FormBuilder from "../../molecules/shared-features/form_builder";
+import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 
 const { Option } = Select;
 
@@ -17,15 +18,17 @@ type FormField = {
 };
 
 type CustomerProfileProps = {
+  title:string;
+  description:string;
   fields: FormField[];
   onChange: (value: string) => void;
 };
 
-const CustomerProfile = ({ fields, onChange }: CustomerProfileProps) => {
+const CustomerProfile = ({title,description, fields, onChange }: CustomerProfileProps) => {
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
+  const token = useTokens();
 
   useEffect(() => {
-    // Populate formData with initial values from fields
     const initialFormData = fields.reduce(
       (acc: { [key: string]: string }, field) => {
         acc[field.id] = field.value || "";
@@ -61,7 +64,18 @@ const CustomerProfile = ({ fields, onChange }: CustomerProfileProps) => {
 
   return (
     <>
-      <FormBuilder
+      <div className={styles.header}>
+          <VerticalInfoDescription
+            title={title}
+            description={description}
+            titleStyle={{
+              color: token.text.secondary,
+              fontSize: "20px",
+              fontWeight: "700",
+            }}
+          />
+        </div>
+      <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-y-10 w-583 h-354 cursor-pointer"
       >
@@ -110,7 +124,7 @@ const CustomerProfile = ({ fields, onChange }: CustomerProfileProps) => {
             Search
           </Button>
         </div>
-      </FormBuilder>
+      </form>
     </>
   );
 };
