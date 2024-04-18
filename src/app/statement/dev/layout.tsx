@@ -20,7 +20,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
         <nav>
           <MulaPaySideBar items={MenuData} />
         </nav>
-        <main>
+        <main style={{width:'100%'}}>
           {children}
         </main>
       </div>
