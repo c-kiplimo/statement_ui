@@ -1,0 +1,169 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  position: absolute;
+  width: 176px;
+  height: 24px;
+  left: 1200px;
+  top: 16px;
+  cursor: pointer;
+}
+
+.signinFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+  position: absolute;
+  width: 350px;
+  height: 469px;
+  left: 680px;
+  top: 80px;
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 32px;
+  width: 350px;
+  height: 368px;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 318px;
+  height: 96px;
+}
+
+.title {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 318px;
+  height: 40px;
+}
+
+.titleDesc {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 318px;
+  height: 48px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 318px;
+  height: 136px;
+}
+
+.formFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  width: 318px;
+  height: 136px;
+}
+
+.formInputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  width: 318px;
+  height: 96px;
+}
+
+.input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 8px;
+  gap: 8px;
+  width: 319px;
+  height: 40px;
+  opacity: 0.8;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  color: #6f7269;
+}
+
+.formConsent {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  gap: 88px;
+}
+
+.checkBox {
+  display: flex;
+  gap: 4px;
+}
+
+.checkLabel {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+  gap: 8px;
+  width: 104px;
+  height: 16px;
+  color: #6f7269;
+}
+
+.recover {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+  margin-left: auto;
+}
+
+.recoverLink {
+  text-align: right;
+  color: #151e00;
+  cursor: pointer;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 24px;
+  width: 318px;
+  height: 40px;
+  opacity: 0.8;
+  border-radius: 4px;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px 16px;
+  gap: 8px;
+  width: 256px;
+  height: 24px;
+  margin-left: auto;
+  text-align: right;
+  color: var(--tint-colors-tint-200);
+}

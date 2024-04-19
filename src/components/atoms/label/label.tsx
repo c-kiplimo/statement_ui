@@ -32,10 +32,6 @@ type LabelDescProps = {
   labelDesc?: string;
 };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fe0ae73 (Adding profile creation page)
 const LabelDesc: React.FC<LabelDescProps> = ({
   htmlFor,
   className,
