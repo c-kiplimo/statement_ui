@@ -4,8 +4,14 @@
   align-items: flex-start;
   padding: 0px;
   gap: 24px;
-  width: 1021px;
-  height: 1256px;
+  width: 100%;
+  height: fit-content;
   left: 364px;
   top: 83px;
+}
+.table{
+  width: 100%;
+}
+.card{
+  width: 100%;
 }

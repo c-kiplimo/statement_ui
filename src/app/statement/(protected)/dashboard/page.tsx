@@ -65,7 +65,7 @@ function page() {
         </div>
 
         <div className={styles.accounts}>
-          <div>
+          <div className={styles.carddetails}>
             <AccountDetailsCard
               headerTitle={"Accounts"}
               filterIcon={<img src="/funnel.svg" />}
@@ -79,7 +79,7 @@ function page() {
               borderRadius={"27px"} 
               cardDetailsData={accountdata}            />
           </div>
-          <div>
+          <div className={styles.cardstype}>
             <CardtypeDetailsInfo
               cardTitle={"Cards"}
               filterIcon={<img src="/funnel.svg" />}

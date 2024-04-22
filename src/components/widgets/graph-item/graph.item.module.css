@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 16px 40px 24px;
   gap: 32px;
-  width: 1010px;
+  width: 100%;
   height: auto;
   background: #ffffff;
 }
@@ -33,6 +33,10 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+
+.graph{
+  width: 100%;
 }
 @media (max-width: 1124px) {
   .container {

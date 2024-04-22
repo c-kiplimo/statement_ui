@@ -4,7 +4,7 @@
   align-items: flex-start;
   padding: 0px;
   gap: 24px;
-  width: 1021px;
+  width: 100%;
   height: fit-content;
 }
 .headerContent {
@@ -12,10 +12,20 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 24px;
-  width: 1021px;
+  width: 100%;
   height: fit-content;
   background: #ffffff;
   border-radius: 16px;
+}
+.cardoverview{
+  width: 50%;
+}
+.summary{
+  width: 50%;
+}
+
+.accountsTable{
+  width: 100%;
 }
 
 @media (max-width: 768px) {
