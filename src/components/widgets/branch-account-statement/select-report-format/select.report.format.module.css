@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px 16px;
+  gap: 16px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.optionvaluesData {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 16px;
+  width: 100%;
+  border-bottom: 0.5px solid #e6e6e6;
+}
+
+.selecthead {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 24px 16px 24px 24px;
+  gap: 16px;
+  width: 100%;
+  border-bottom: 1px solid #e6e6e6;
+  border-radius: 4px 4px 0px 0px;
+}
+.selecttext {
+  color: #6f7269;
+}
