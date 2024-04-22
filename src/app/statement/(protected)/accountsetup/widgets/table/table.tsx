@@ -1,19 +1,17 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Table } from "antd";
 import type { TableColumnsType } from "antd";
 import styles from "./table.module.css";
-import AddItem from "@/src/components/atoms/add-item/add.item";
-import Search from "@/src/components/atoms/search/search";
-import Filter from "@/src/components/atoms/filter/filter";
-import Sort from "@/src/components/atoms/sort/sort";
+
 
 interface DataType {
   id: React.Key;
-  createdOn: string;
-  userName: string;
-  role: string;
-  status: string;
-  icons: ReactNode;
+  createdOn?: any;
+  userName?:string;
+  role?: string;
+  status?: string;
+  icons?:React.ReactNode;
+  settings?:React.ReactNode;
 }
 
 interface Datatype {
@@ -25,11 +23,6 @@ interface Datatype {
 interface CustomTableProps {
   columns: Datatype[];
   data: DataType[];
-  titleText: string;
-  searchIcon: ReactNode;
-  sortIcon: ReactNode;
-  filterIcon: ReactNode;
-  addIcon: ReactNode;
   pageSize: number;
   total: number;
 }
@@ -37,11 +30,6 @@ interface CustomTableProps {
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
   data,
-  titleText,
-  searchIcon,
-  sortIcon,
-  filterIcon,
-  addIcon,
   pageSize,
   total,
 }) => {
@@ -53,20 +41,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerdiv}>
-        <div className={styles.textdiv}>{titleText}</div>
-        <div className={styles.atomsdiv}>
-        <Search title={"Search"} icon={searchIcon} />
-          <Filter title={"Filter"} icon={filterIcon} />
-          <Sort title={"Sort"} icon={sortIcon} />
-          <AddItem
-            title={"Add Restriction"}
-            icon={addIcon}
-            iconStyle={{ color: "gray" }}
-            titleStyle={{ color: "gray" }}
-          />
-        </div>
-      </div>
+      
       <Table
         columns={antdColumns}
         pagination={{

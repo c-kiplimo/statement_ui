@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import styles from "./created.record.module.css";
+import Link from "next/link";
 
 type recordsProps = {
   hideicon?: ReactNode;
@@ -31,7 +32,6 @@ const Createdrecord = (props: recordsProps) => {
               <th className={styles.column}>{props.creationDate}</th>
               <th className={styles.column}>{props.acctNumber}</th>
               <th className={styles.column}>{props.numberofTimes}</th>
-              <th className={styles.column}>{props.fileformart}</th>
               <th className={styles.column}>{props.acctStatus}</th>
             </tr>
           </thead>
@@ -46,12 +46,8 @@ const Createdrecord = (props: recordsProps) => {
               <td className={styles.description}>
                 <span className={styles.text}>{props.duration}</span>
               </td>
-              <td className={styles.description}>
-                <span className={styles.text}>{props.filetype}</span>
-              </td>
               <td className={styles.state}>
-                {" "}
-                <span className={styles.active}>{props.status}</span>{" "}
+                <span className={styles.active}>{props.status}</span>
               </td>
             </tr>
 
@@ -73,9 +69,12 @@ const Createdrecord = (props: recordsProps) => {
         </table>
       </div>
       <div className={styles.icondiv}>
-        <div className={styles.iconstyle} onClick={props.onClick}>
+
+        <Link href={"/statement/accountsetup/accounts"}>
+        <button className={styles.iconstyle} onClick={props.onClick}>
           {props.hideicon}
-        </div>
+        </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,13 +1,9 @@
-.continer {
+.container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
   padding: 0px;
   gap: 34px;
-  position: absolute;
-  width: 1041px;
+  width: 100%;
   height: 766px;
-  left: 339px;
-  top: 147px;
 }

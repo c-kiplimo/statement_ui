@@ -66,3 +66,40 @@
   height: 44px;
   flex: none;
 }
+
+.atomsdiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 573px;
+  height: 32px;
+}
+
+.headerdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 32px 0px 16px 16px;
+  gap: 285px;
+  width: 1130px;
+  height: 80px;
+  align-self: stretch;
+  justify-content: space-between;
+}
+
+.textdiv {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 32px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+  color: #151e00;
+}
+

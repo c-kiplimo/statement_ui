@@ -4,6 +4,7 @@ import Accountsetup from "@/src/components/widgets/accountsetup-widget/cust.deta
 import { SearchOutlined } from "@ant-design/icons";
 import Createdrecord from "@/src/components/widgets/account-created-recors-widget/created.record";
 
+
 const Custdetailsfound = () => {
   return (
     <div className={styles.container}>

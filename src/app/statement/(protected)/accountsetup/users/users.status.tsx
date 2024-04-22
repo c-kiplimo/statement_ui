@@ -5,21 +5,25 @@ import {
   EditOutlined,
   EyeOutlined,
   MinusOutlined,
-  PlusOutlined,
 } from "@ant-design/icons";
 import styles from "./users.status.module.css";
 import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
+import Search from "@/src/components/atoms/search/search";
+import Filter from "@/src/components/atoms/filter/filter";
+import Sort from "@/src/components/atoms/sort/sort";
 
 const { Option } = Select;
 
 interface DataType {
   id: React.Key;
-  createdOn: string;
-  userName: string;
-  role: string;
-  status: string;
-  icons: React.ReactNode;
+  createdOn?: string;
+  userName?: string;
+  role?: string;
+  status?: string;
+  icons?: React.ReactNode;
 }
+
+
 
 interface Datatype {
   title: string;
@@ -31,7 +35,7 @@ const columns: Datatype[] = [
   {
     title: "Created On",
     dataIndex: "createdOn",
-    render: (text, record) => <span className={styles.createdOn}>{text}</span>,
+    render: (text) => <span className={styles.createdOn}>{text}</span>,
   },
 
   {
@@ -127,19 +131,21 @@ const Accountsstatus = () => {
         button1={"Accounts"}
         button2={"Users"}
         button3={"Activity"}
-        button4={"Restrictions"}
-      />
+        button4={"Restrictions"} titleDescription={""}      />
+
+<div className={styles.headerdiv}>
+        <div className={styles.textdiv}>Users Overview</div>
+        <div className={styles.atomsdiv}>
+          <Search title={"Search"} icon={<img src="/searchicon.svg" alt="searchicon" />} />
+          <Filter title={"Filter"} icon={<img src="/funnel.svg" alt="funnel" />} />
+          <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
+        </div>
+      </div>
       <CustomTable
         data={data}
-        titleText={"User Overview"}
-        searchIcon={<img src="/searchicon.svg" alt="searchicon" />}
-        sortIcon={<img src="/sort.svg" alt="sort" />}
-        filterIcon={<img src="/funnel.svg" alt="funnel" />}
-        addIcon={<PlusOutlined />}
-        pageSize={1}
+        pageSize={3}
         total={10}
-        columns={columns}
-      />
+        columns={columns}/>
     </div>
   );
 };
