@@ -552,6 +552,18 @@ a {
     color-scheme: dark;
   }
 }
+/* AuthFlow SideBar styles */
+.main-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.description {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
 
 /* cards css style */
 .file-input-card {
