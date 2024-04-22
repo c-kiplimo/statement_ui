@@ -11,7 +11,7 @@ const data = await handler.fetchCustomerActivities( value)
     
     let activities:DataFetcher[] = data.map(activities=>({
         id:activities.activityId,
-        createdOn:activities.template,
+        createdOn:activities.createdAt,
         userName:activities.name,
         status:activities.status,
         role:activities.description,

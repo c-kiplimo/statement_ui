@@ -1,0 +1,155 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 32px 40px;
+    width: 100%;
+    height: 701px;
+    background: #ffffff;
+    box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
+    border-radius: 2px;
+  }
+  
+  .iconsdiv {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 4px;
+    gap: 10px;
+    width: 32px;
+    height: 28px;
+    border: 0.5px solid #979992;
+    border-radius: 4px;
+    color: #979992;
+  }
+  
+  .icons {
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+  }
+  
+  .activediv {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4px 16px;
+    gap: 15px;
+    width: 102px;
+    height: 32px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    color: #979992;
+  }
+  
+  .selectdiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+    width: fit-content;
+    color: red;
+    height: 24px;
+    border: none;
+  }
+  
+  .createdOn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+    width: 81px;
+    height: 44px;
+    flex: none;
+  }
+
+  .userName{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+width: 168px;
+height: 24px;
+color:#6F7269;
+margin-bottom: 20px;
+  }
+  
+  .atomsdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+    width: 573px;
+    height: 32px;
+  }
+  
+  .headerdiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 32px 0px 16px 16px;
+    gap: 285px;
+    width: 100%;
+    height: 80px;
+    align-self: stretch;
+    justify-content: space-between;
+  }
+  
+  .textdiv {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 5px;
+gap: 10px;
+width: fit-content;
+height: 32px;
+  }
+  
+  .currency{
+    width: 81px;
+    height: 24px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: #6F7269;
+     }
+    
+     .account{
+    width: 81px;
+    height: fit-content;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6F7269;
+     } 
+     
+     
+     .date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 16px;
+        width: 81px;
+        height: 44px;
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #6f7269;
+      }

@@ -1,18 +1,22 @@
 import React, { ReactNode } from "react";
 import styles from "./created.record.module.css";
-import Link from "next/link";
+
 
 export type DataSearch =  {
   customerName: string;
   industry: string;
   customerType: string;
   customerStatus: string;
+  id?:string,
+
 }
 
 type AccountSearch = {
   hideicon?: ReactNode;
   editicon?: ReactNode;
-  data:DataSearch[];
+  data: DataSearch[];
+  
+  columnNames: string[];
   onClick?: () => void;
 };
 
@@ -23,10 +27,11 @@ const Createdrecord = (props: AccountSearch) => {
         <table className={styles.recordTable}>
           <thead>
             <tr className={styles.column}>
-              <th className={styles.column}>Customer Name</th>
-              <th className={styles.column}>Industry</th>
-              <th className={styles.column}>Customer Type</th>
-              <th className={styles.column}>Status</th>
+              {props.columnNames.map((columnName, index) => (
+                <th key={index} className={styles.column}>
+                  {columnName}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -43,19 +48,23 @@ const Createdrecord = (props: AccountSearch) => {
                 </td>
                 <td className={styles.state}>
                   <span className={styles.active}>{item.customerStatus}</span>
+
                 </td>
+                <td>
+                <div className={styles.icondiv}>
+      <a href={`/statement/accountsetup/user-profile/` + item.id}>
+          <button className={styles.iconstyle} onClick={props.onClick}>
+            {props.hideicon}
+          </button>
+          </a>
+      </div>
+      </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className={styles.icondiv}>
-        <Link href={"/statement/accountsetup/accounts"}>
-          <button className={styles.iconstyle} onClick={props.onClick}>
-            {props.hideicon}
-          </button>
-        </Link>
-      </div>
+     
     </div>
   );
 };

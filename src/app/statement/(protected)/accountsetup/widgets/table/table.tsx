@@ -2,10 +2,11 @@ import React from "react";
 import { Table } from "antd";
 import type { TableColumnsType } from "antd";
 import styles from "./table.module.css";
-import { columns } from "@/src/app/statement/(auth)/data";
 
-export interface DataFetcher{
+export interface DataFetcher {
+  settingsClicked?: any;
   id: React.Key;
+  entryId?:number;
   createdOn?: any;
   userName?: string;
   role?: string;
@@ -13,6 +14,7 @@ export interface DataFetcher{
   icons?: React.ReactNode;
   settings?: React.ReactNode;
   currency?: string;
+  description?:string;
 }
 
 interface Datatype {
@@ -20,7 +22,6 @@ interface Datatype {
   dataIndex: string;
   render?: (text: any, record: DataFetcher, index: number) => React.ReactNode;
 }
-
 
 interface CustomTableProps {
   columns: Datatype[];
@@ -33,9 +34,7 @@ interface CustomTableProps {
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
   data,
-  pageSize,
-  total,
-  pagination = true, 
+ 
 }) => {
   const antdColumns: TableColumnsType<DataFetcher> = columns.map((column) => ({
     title: column.title,
@@ -45,16 +44,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
   return (
     <div className={styles.container}>
-      
       <Table
         columns={antdColumns}
-        pagination={pagination ? { 
-          pageSize: pageSize,
-          total: total,
-          showSizeChanger: true,
-          pageSizeOptions: ["4", "10", "20", "50"],
-        } : false}
+        pagination={{ pageSize: 4 }}
         dataSource={data}
+        rowKey="id" 
       />
     </div>
   );

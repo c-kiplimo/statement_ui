@@ -18,18 +18,6 @@ const Activities = () => {
   const firstName = user_details?.firstName;
   const userId = firstName;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { profileService, profileDataService } = await ProfileHandler();
-      const response = await profileService(userId);
-      const profileId = response.payload[0]?.profileId;
-      //const profileData = await profileDataService(profileId);
-      //console.log(profileData);
-      //setProfileData(profileData);
-    };
-
-    fetchData();
-  }, []);
 
   interface DataType {
     key: React.Key;
@@ -97,7 +85,6 @@ const Activities = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      {/* <CustomerSetupActivitySearchBar /> */}
       <Table
         style={{ width: "100%" }}
         columns={columns}

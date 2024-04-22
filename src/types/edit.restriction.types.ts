@@ -1,6 +1,6 @@
  
 type EdidRestriction ={
-   restrictionId:number,
+   restrictionId: string,
    name: string,
    customerId:number,
    description:string,

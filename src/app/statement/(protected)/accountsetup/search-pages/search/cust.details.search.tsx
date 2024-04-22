@@ -1,24 +1,37 @@
 import React, { useState } from "react";
 import styles from "./cust.details.search.module.css";
 import { SearchOutlined } from "@ant-design/icons";
+import { Spin } from "antd"; 
 import Accountsetup from "@/src/components/widgets/accountsetup-widget/cust.details.search";
-import CustdetailsnotFound from "../search-not-found/cust.details.notFound";
 import Createdrecord, { DataSearch } from "@/src/components/widgets/account-created-recors-widget/created.record";
-import { customerCardDetailsAction } from "@/src/lib/actions/searchAccount.action";
+import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
+import CustdetailsnotFound from "../search-not-found/cust.details.notFound";
 
 
-const AccountsetupPage =  () => {
-  
-  const [data, setData] =useState<DataSearch[]>([])
+const AccountsetupPage = () => {
+  const [data, setData] = useState<DataSearch[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<React.ReactNode | null>(null);
 
-  async function handleClick() {
-    const search: DataSearch[] = await customerCardDetailsAction('CUSTOMER_NUMBER','1');
+  async function handleClick(searchOption: string, searchValue: string) {
+    setLoading(true);
+    setError(null);
 
-    setData(search)
+    try {
+      const search: DataSearch[] = await customerCardDetailsAction(
+        searchOption,
+        searchValue
+      );
+
+      setData(search);
+    } catch (error) {
+      setError(<CustdetailsnotFound />);
+      console.error();
+    } finally {
+      setLoading(false);
+    }
   }
 
-
-  
   return (
     <div className={styles.container}>
       <Accountsetup
@@ -28,19 +41,24 @@ const AccountsetupPage =  () => {
         }
         option={"Do you want to search by ?"}
         icon={<SearchOutlined />}
-        account={"Account Number"} 
-        customer={"Customer Number"} 
+        account={"Account Number"}
+        customer={"Customer Number"}
         onClick={handleClick}
       />
-
-       
-       <div>
-
-        {
-          data.length > 0 && <Createdrecord data={data} hideicon={<img src="/hide.svg" alt="hide"/>}/>
-        }
-        
-       </div>
+      <Spin className={styles.loading} spinning={loading}> 
+        {error && <div> {error}</div>}
+        {!loading && !error && (
+          <div>
+            {data.length > 0 ? (
+              <Createdrecord
+                data={data}
+                hideicon={<img src="/hide.svg" alt="hide" />}
+                columnNames={["Customer Name", "Industry", "Customer Type", "Status"]}
+              />
+            ) : null}
+          </div>
+        )}
+      </Spin>
     </div>
   );
 };

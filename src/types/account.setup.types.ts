@@ -1,4 +1,5 @@
 type AccountSetup = {
+  length: number;
   customerId: number;
   customerName?: string;
   deptAcctOfficer: string;

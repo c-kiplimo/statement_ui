@@ -39,7 +39,7 @@
   align-items: flex-start;
   margin-top: 6px;
   padding: 4px 16px;
-  width: 77px;
+  width: fit-content;
   height: 32px;
   background: #e0ffeb;
   border-radius: 4px;

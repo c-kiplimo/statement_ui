@@ -1,27 +1,29 @@
 "use client";
 import React, { Fragment, useEffect} from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import { useProfile } from "../(protected)/context/useProfileContext";
-import { notification } from "antd";
+import BranchAccountStatement from "@/src/components/widgets/branch-account-statement/branch.account.statement";
+import Accountstype from "@/src/components/widgets/acconts-configuration/configuration-form/accounts.configuration";
+import StatementAccounts from "@/src/components/widgets/acconts-configuration/config-acct-fetch/account";
+import { AccountProfileProvider } from "../(protected)/accountsetup/context/account.contex";
+
 
 const Dev = () => {
-  const {profileInfo}=useProfile();
-  useEffect(() => {
-    if (profileInfo) {
-      console.log("Profile Data:", profileInfo);
-    } else {
-      notification.error({
-        message: "Error",
-        description: "Profile data not found.",
-      });
-    }
-  }, [profileInfo]); 
   return (
     <Fragment>
-      <div>
-        <h1 className="h1b">Welcome {profileInfo?.profileName}!</h1>
-        <p className="h2m">Your profile Id: {profileInfo?.profileId}</p>
-      </div>
+      <AccountProfileProvider>
+      <Accountstype
+        fileformartHeader={"Statement Frequency"}
+        optiona={"Monthly"}
+        optionb={"Bi Weekly"}
+        optionc={"Weekly"}
+        optiond={"Daily"}
+        date={"Start date"}
+        time={"Time"}
+        dateIcon={<img src="/calendar.svg" alt="calendar" />}
+        timeIcon={<img src="/time.svg" alt="time"/>}  />
+</AccountProfileProvider>
+
+
     </Fragment>
   );
 };

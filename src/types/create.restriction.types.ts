@@ -1,9 +1,9 @@
 type CreateRestriction ={
-    restrictionId: number,
-       name:string,
-       customerId:number,
-       description:string,
-       status: string,
-       rules: string,
-       createdAt: string
+   restrictionId?: number,
+   name: string,
+   customerId?: string,
+   description: string,
+   status?: string,
+   rules?: string,
+   createdAt?: string
     }

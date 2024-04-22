@@ -1,8 +1,7 @@
 'use client';
-
-import ContactCard from '@/src/components/atoms/cards/contactCard';
 import { useTokens } from '@/src/app/(context)/ColorContext';
 import { InfoCircleFilled } from '@ant-design/icons';
+import ContactCard from '../../atoms/cards/contact.card';
 
 const AccountSettingsCards = () => {
   const token = useTokens();

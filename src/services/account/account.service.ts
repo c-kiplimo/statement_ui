@@ -1,4 +1,4 @@
-import { ACCOUNT_OVERVIEW_URL, CUSTOMER_RESTRICTIONS_URL, USER_ACCOUNTS_OVERVIEW } from "@/src/constants/environment";
+import { ACCOUNT_OVERVIEW_URL, CUSTOMER_RESTRICTIONS_URL, USER_ACCOUNTS_OVERVIEW, USER_ACCOUNTS_URL } from "@/src/constants/environment";
 import { CUSTOMER_ACCOUNT_URL } from "@/src/constants/environment";
 import { ACCOUNT_RESTRICTIONS_URL } from "@/src/constants/environment";
 import axios, { AxiosResponse } from "axios";
@@ -69,6 +69,8 @@ const getAccountByCustomerId =async(
         customerId: number
     ): Promise<CustomerRestrictions[]> => {
         const customerRestrictionsUrl = `${CUSTOMER_RESTRICTIONS_URL}/${customerId}`;
+     
+
         try {
             const response = await axios.get<CustomerRestrictions[]>(customerRestrictionsUrl, {
                 headers: {
@@ -76,7 +78,9 @@ const getAccountByCustomerId =async(
                 },
             }).then((res) => {
             let apiResponse = res.data
-    
+
+            console.log("Fetched customer restrictions data:", apiResponse);
+
             if (apiResponse) {
                 let apiRes = apiResponse;
                 let customerRestrictionsUrl: CustomerRestrictions[] = [
@@ -91,6 +95,45 @@ const getAccountByCustomerId =async(
         }catch (error) {
             throw error;
         }
+
+        
+};
+
+
+
+
+
+
+
+const fetchUserAcounts = async (
+    customerId: number
+): Promise<CustomerRestrictions[]> => {
+    const customerRestrictionsUrl = `${USER_ACCOUNTS_URL}/${customerId}`;
+
+    try {
+        const response = await axios.get<CustomerRestrictions[]>(customerRestrictionsUrl, {
+            headers: {
+                'X-RequestId': '3456778909',
+            },
+        }).then((res) => {
+        let apiResponse = res.data
+
+        if (apiResponse) {
+            let apiRes = apiResponse;
+            let customerRestrictionsUrl: CustomerRestrictions[] = [
+                ...apiRes,
+            ];
+            return customerRestrictionsUrl;
+        } else {
+            throw new Error(apiResponse);
+        }
+        });
+        return response;
+    }catch (error) {
+        throw error;
+    }
+
+    
 };
 
 

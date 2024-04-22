@@ -1,34 +1,56 @@
-import React, { useState } from "react";
-import CustomTable from "../widgets/table/table";
+import React, { useState, useEffect, useContext, useCallback } from "react";
+import CustomTable, { DataFetcher } from "../widgets/table/table";
 import { EyeOutlined, SettingOutlined } from "@ant-design/icons";
 import styles from "./accounts.module.css";
-import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
 import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import { AccountAction } from "@/src/lib/actions/accounts.action";
-
-interface ActivityData {
-  id: React.Key;
-  createdOn: string;
-  currency: string;
-  userName: string;
-  status: string;
-  settings?: React.ReactNode;
-  icons?: React.ReactNode;
-}
+import { useAccountProfileContext } from '../context/account.contex'; 
 
 
+type UserIdProps = {
+  userId?: number;
+};
 
-const ActivitiesStatus = async () => {
+const AccountsPage = (props: UserIdProps) => {
   const [settingsClicked, setSettingsClicked] = useState<number | null>(null);
+  const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
+  const {accountId,updateAccount}=useAccountProfileContext();
 
+  console.log(accountId);
+  
 
-  let incomingDta = await AccountAction(1)
-  const handleSettingsClick = (index: number) => {
-    setSettingsClicked(index);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (props.userId !== undefined) {
+        try {
+          const data = await AccountAction(props.userId);
+          setIncomingData(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+
+        }
+      }
+    };
+
+    fetchData();
+  }, [props.userId]);
+
+  const handleSettingsClick = useCallback((id: number) => {
+    setIncomingData(prevData =>
+      prevData.map(item =>
+        item.id === id ? { ...item, settingsClicked: !item.settingsClicked } : item
+      )
+    );
+    setSettingsClicked(id);
+    console.log(id)
+    updateAccount (settingsClicked!)
+  }, [settingsClicked]);
+
+  console.log(settingsClicked);
+  
 
   const columns = [
     {
@@ -44,9 +66,7 @@ const ActivitiesStatus = async () => {
     {
       title: "Account Name",
       dataIndex: "userName",
-      render: (text: any) => (
-        <span className={styles.ActivityName}>{text}</span>
-      ),
+      render: (text: any) => <span className={styles.ActivityName}>{text}</span>,
     },
     {
       title: "Status",
@@ -60,6 +80,8 @@ const ActivitiesStatus = async () => {
           case "Pending":
             color = "orange";
             break;
+          default:
+            color = "black";
         }
         return (
           <span style={{ color: color }} className={styles.status}>
@@ -72,86 +94,55 @@ const ActivitiesStatus = async () => {
       title: "Settings",
       dataIndex: "settings",
       render: (text: any, record: any, index: number) => (
-        <button 
-          key={`settings-${record.id}`}
-          className={`${styles.settingsButton} ${
-            settingsClicked === index
-              ? styles.settingsButtonClicked
-              : styles.test
-          }`}
-          onClick={() => handleSettingsClick(index)}
-        >
-          {text}
-          <SettingOutlined />
-          setup
-        </button>
+        <Link href="/statement/dev" key={`settings-${record.id}`}>
+          <button
+            className={`${styles.settingsButton} ${
+              settingsClicked === record.id
+                ? styles.settingsButtonClicked
+                : styles.test
+            }`}
+            onClick={() => handleSettingsClick(record.id)}
+          >
+            {text}
+            <SettingOutlined />
+            setup
+          </button>
+        </Link>
       ),
     },
     {
       title: "",
       dataIndex: "icons",
       render: () => (
-        <Link href={"/statement/accountsetup/accounts/account-deletion"}> 
-        <button className={styles.iconsdiv}>
-          <EyeOutlined />
-        </button>
+        <Link href={"/statement/accountsetup/account-profile"}>
+          <button className={styles.iconsdiv}>
+            <EyeOutlined />
+          </button>
         </Link>
       ),
     },
-  ]
+  ];
 
   return (
     <div className={styles.container}>
-      <div className={styles.topdiv}>
-        <LastLogin
-          userName={"Meraki System Tech"}
-          mail={"Banking Industry"}
-          town={"Kampala Uganda"}
-          timezone={"( GMT -11:46) Greenwich mean Time zone"}
-          icon={<img src="/teamusericon.png" alt="teamusericon" />}
-          lastSeenTime={"Last login on 45 minutes ago"}
-          button1={
-            <Link href="/statement/accountsetup/accounts">
-              Accounts
-            </Link>
-          }
-          button3={
-            <Link href="/statement/accountsetup/users">
-              Users
-            </Link>
-          }
-          button2={
-            <Link href="/statement/accountsetup/activities">
-              Activity
-            </Link>
-          }
-          button4={
-            <Link href="/statement/accountsetup/restrictions/restrictions-overview">
-              Restrictions
-            </Link>
-          }
-          titleDescription={"Corporate customer"}
-        />
-      </div>
-
       <div className={styles.tableHeader}>
         <div className={styles.headerdiv}>
           <div className={styles.textdiv}>Accounts</div>
           <div className={styles.atomsdiv}>
             <Search
-              title={"Search"}
+              title="Search"
               icon={<img src="/searchicon.svg" alt="searchicon" />}
             />
             <Filter
-              title={"Filter"}
+              title="Filter"
               icon={<img src="/funnel.svg" alt="funnel" />}
             />
-            <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
+            <Sort title="Sort" icon={<img src="/sort.svg" alt="sort" />} />
           </div>
         </div>
         <CustomTable
-          data={incomingDta}
-          pageSize={2}
+          data={incomingData}
+          pageSize={5}
           total={10}
           columns={columns}
         />
@@ -160,4 +151,4 @@ const ActivitiesStatus = async () => {
   );
 };
 
-export default ActivitiesStatus;
+export default AccountsPage;
