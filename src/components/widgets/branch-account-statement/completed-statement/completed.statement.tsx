@@ -2,8 +2,9 @@ import React, { CSSProperties, ReactNode, useState } from "react";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import styles from "./completed.statement.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Pagination } from "antd";
+import { Modal, Pagination } from "antd";
 import StatementTable from "../activity-history-table/activity.history.table";
+import AccountDetailTable from "../account-detail-table/account.detail.table";
 
 const completedstatementdata = [
   {
@@ -44,11 +45,17 @@ const completedstatementdata = [
   },
 ];
 
-function handleClick() {
-  alert("The Component Building Is In Progress");
-}
-
 function CompletedStatement() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div>
       <div className={styles.body}>
@@ -82,6 +89,16 @@ function CompletedStatement() {
         <div className={styles.pagination}>
           <Pagination defaultCurrent={6} total={100} />
         </div>
+      </div>
+      <div className={styles.modalcontent}>
+      <Modal
+        width={'70%'}
+        open={isModalVisible}
+        onCancel={closeModal}
+        footer={null}
+      >
+        <AccountDetailTable/>
+      </Modal>
       </div>
     </div>
   );

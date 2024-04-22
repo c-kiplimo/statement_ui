@@ -34,3 +34,7 @@
   justify-content: flex-end;
   padding: 16px;
 }
+
+.modalcontent{
+  width: 100%;
+}
