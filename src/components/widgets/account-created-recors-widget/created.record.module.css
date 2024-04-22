@@ -60,13 +60,13 @@
 }
 
 .icondiv {
-display: flex;
-flex-direction: row;
-align-items: center;
-gap: 12px;
-margin-right: 36px;
-width: 24px;
-height: 54px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  margin-right: 36px;
+  width: 24px;
+  height: 54px;
 }
 
 .iconstyle {
@@ -81,4 +81,3 @@ height: 54px;
   border-radius: 12px;
   flex: none;
 }
-

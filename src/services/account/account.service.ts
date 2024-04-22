@@ -1,4 +1,4 @@
-import { ACCOUNT_OVERVIEW_URL, USER_ACCOUNTS_OVERVIEW } from "@/src/constants/environment";
+import { ACCOUNT_OVERVIEW_URL, CUSTOMER_RESTRICTIONS_URL, USER_ACCOUNTS_OVERVIEW } from "@/src/constants/environment";
 import { CUSTOMER_ACCOUNT_URL } from "@/src/constants/environment";
 import { ACCOUNT_RESTRICTIONS_URL } from "@/src/constants/environment";
 import axios, { AxiosResponse } from "axios";
@@ -63,40 +63,70 @@ const getAccountByCustomerId =async(
     } catch (error) {
        throw error;
     }
-}
+};
+
+    const fetchCustomerRestrictions = async (
+        customerId: number
+    ): Promise<CustomerRestrictions[]> => {
+        const customerRestrictionsUrl = `${CUSTOMER_RESTRICTIONS_URL}/${customerId}`;
+        try {
+            const response = await axios.get<CustomerRestrictions[]>(customerRestrictionsUrl, {
+                headers: {
+                    'X-RequestId': '3456778909',
+                },
+            }).then((res) => {
+            let apiResponse = res.data
+    
+            if (apiResponse) {
+                let apiRes = apiResponse;
+                let customerRestrictionsUrl: CustomerRestrictions[] = [
+                    ...apiRes,
+                ];
+                return customerRestrictionsUrl;
+            } else {
+                throw new Error(apiResponse);
+            }
+            });
+            return response;
+        }catch (error) {
+            throw error;
+        }
+};
+
+
+
+
+
+
 const fetchAccountRestrictions = async (
-    accountId: string
+    accountId: number
 ): Promise<AccountRestrictions[]> => {
     const accountRestrictionsUrl = `${ACCOUNT_RESTRICTIONS_URL}/${accountId}`;
+    
     try {
         const response = await axios.get<AccountRestrictions[]>(accountRestrictionsUrl, {
             headers: {
                 'X-RequestId': '3456778909',
             },
-        }).then((res) => {
-        let apiResponse = res.data
-
-        if (apiResponse) {
-            let apiRes = apiResponse;
-            let accountRestrictions: AccountRestrictions[] = [
-                ...apiRes,
-            ];
-            return accountRestrictions;
-        } else {
-            throw new Error(apiResponse);
-        }
         });
-        return response;
-    }catch (error) {
+
+        if (response.data) {
+            return response.data;
+        } else {
+            throw new Error('Empty response from the server');
+        }
+    } catch (error) {
         throw error;
     }
 };
 
 
+
     return {
+        fetchAccountRestrictions,
         getAccountOverview,
         getAccountByCustomerId,
-        fetchAccountRestrictions
+        fetchCustomerRestrictions
     };
 }
 export { AccountHandler };

@@ -59,7 +59,7 @@ export const MenuData: SideNavMenu[] = [
       },
       {
         title: "Account Setup",
-        path: "/statement/account-setup",
+        path: "/statement/accountsetup",
         icon: SwiftStatementIcon,
         opened: false,
       },

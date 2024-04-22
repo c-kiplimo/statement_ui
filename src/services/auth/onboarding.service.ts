@@ -8,6 +8,9 @@ import {
 } from "@/src/constants/environment";
 
 const onBoardingHandler = () => {
+
+
+
   const { getToken } = AuthServiceProvider();
   let tokenDetails = getToken();
   
@@ -18,6 +21,7 @@ const onBoardingHandler = () => {
           "X-RequestId": "2345678",
         },
       });
+      console.log(response);
       return response;
     } catch (error) {
       console.error("Search Customer failed:", error);
