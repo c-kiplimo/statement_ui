@@ -14,8 +14,6 @@ import {
 import { AUTH_URL_LOGIN } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 
-
-
 const LoginForm = () => {
   const router = useRouter();
   const { storeToken } = AuthServiceProvider();
@@ -30,8 +28,8 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (values: LoginProps) => {
-      const response = await loginService(AUTH_URL_LOGIN, values)
-      .then((response)=>{
+    const response = await loginService(AUTH_URL_LOGIN, values)
+      .then((response) => {
         const tokenData = {
           accessToken: response.data?.access_token,
           refreshToken: response.data?.refresh_token,
@@ -42,16 +40,18 @@ const LoginForm = () => {
         storeToken(tokenData);
         console.log("saving");
         return tokenData;
-      }).then(tokenData=>{
-       return requestOtpService(tokenData.accessToken)
-  
-      }).then(data=>{
+      })
+      .then((tokenData) => {
+        return requestOtpService(tokenData.accessToken);
+      })
+      .then((data) => {
         notification.info({
           message: "OTP Generated",
           description: "A new OTP has been generated. Please check your email.",
         });
         router.push("/statement/authentication/otp-verification");
-      }).catch(error=>{
+      })
+      .catch((error) => {
         console.error("Login failed:", error);
         notification.error({
           message: "Login Failed",

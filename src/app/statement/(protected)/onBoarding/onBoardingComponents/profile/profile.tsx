@@ -7,10 +7,10 @@ import {
   UserAddOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import Modal from "../modals/modal";
-import CustomerProfile from "../profileForm/profileForm";
-import Texter from "../../atoms/text/texter";
-import SelectionItem from "../selectionItem/selectionItem";
+import CustomerProfile from "../../../../../../components/widgets/profileForm/profileForm";
+import Texter from "../../../../../../components/atoms/text/texter";
+import SelectionItem from "../../../../../../components/widgets/selectionItem/selectionItem";
+import { Modal } from "antd";
 
 const LoginCard = [
   {
@@ -98,17 +98,20 @@ const Profile = () => {
             activeCardId={selectedOption}
           />
         ))}
-        {/* Modal */}
+        
         {showModal && (
-          <Modal isOpen={showModal} onDismiss={closeModalHandler}>
-            <div className={styles.modalWindow}>
-              <CustomerProfile
-                title="Provide Details to allow us create your profile"
-                description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
-                fields={fields}
-                onChange={handleAccountNumberChange}
-              />
-            </div>
+          <Modal
+            open={showModal}
+            onCancel={closeModalHandler}
+            footer={null}
+            className={styles.modal}
+          >
+            <CustomerProfile
+              title="Provide Details to allow us create your profile"
+              description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
+              fields={fields}
+              onChange={handleAccountNumberChange}
+            />
           </Modal>
         )}
       </div>

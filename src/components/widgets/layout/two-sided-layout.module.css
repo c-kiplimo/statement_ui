@@ -1,24 +1,35 @@
-.container{
-    display: flex;
-    box-sizing: border-box;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    max-width: 1440px;
-    max-height: 1024px;
-    background-color: brown;
+.container {
+  box-sizing: border-box;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 
-.sidebar{
-    display: flex;
-    flex: 1;
-    width: 100%;
-    max-width: 440px;
-    background-color: var(--brand-brand-secondary);
+.sidebar {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
 }
 
-.content{
-    display: flex;
-    flex: 4;
-    background-color:var(--white);
+.content {
+  display: flex;
+  width: 100%;
+  background-color: var(--white);
+}
+
+.linkHeader {
+  display: flex;
+  align-self: flex-end;
+  align-items: flex-start;
+  gap: 4px;
+  width: 176px;
+  height: 24px;
+  position: absolute;
+  top: 28px;
+  left: 1500px;
+  cursor: pointer;
 }

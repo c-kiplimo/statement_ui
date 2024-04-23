@@ -6,7 +6,7 @@ import styles from "./onBoardingComponents/stepperContent.module.css";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import Stepper from "@/src/components/atoms/navigation/stepper/stepper";
 import StepperContent from "@/src/components/atoms/navigation/stepper/stepper-content";
-import Profile from "@/src/components/widgets/profile/profile";
+import Profile from "@/src/app/statement/(protected)/onBoarding/onBoardingComponents/profile/profile";
 import AccountFound from "@/src/components/widgets/account-found/account-found";
 
 const TestOnBoarding = () => {

@@ -49,7 +49,7 @@ const NewPasswordHelper = () => {
       try {
         const response = await setNewPasswordService(password, userId);
         console.log('response', response);
-        router.push('/statement/authentication/signIn');
+        router.push('/statement/sign-in');
       } catch (error) {
         console.error('Error setting new password:', error);
         // Add user-friendly error handling here

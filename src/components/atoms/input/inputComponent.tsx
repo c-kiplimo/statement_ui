@@ -1,11 +1,11 @@
 import React from "react";
 
 type inputProps = {
-  id: string;
+  id?: string;
   className: string;
   type: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
 };

@@ -9,7 +9,7 @@ type LinkProps = {
   href?: string | URL;
   linkText?: string;
   textStyle?: React.CSSProperties;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
 const TexterLink = ({

@@ -1,75 +1,22 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/* Modal Styles */
-.modal {
-  box-sizing: border-box;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 40;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
->>>>>>> fce2e74 (Adding OTP Verifier)
-.modalWrapper {
-=======
 .modalContent {
->>>>>>> fe0ae73 (Adding profile creation page)
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  padding: 32px;
-  gap: 24px;
-  width: 100%;
-  bottom: 10%;
-  max-width: 656px;
-  height: 480px;
-=======
   padding: 8px 32px 24px;
   gap: 16px;
->>>>>>> fe0ae73 (Adding profile creation page)
   position: fixed;
   width: 656px;
   height: fit-content;
   left: 460px;
   top: 200px;
   background: var(--white);
-<<<<<<< HEAD
-  border: 0.5px solid var(--neutral-grey-900);
-=======
-  padding: 8px 32px 24px;
-  gap: 16px;
-  width: 100%;
-  max-width: 647px;
-  height: 400px;
-  position: relative;
-  bottom: 56px;
-  left: 40px;
-  background: #ffffff;
   border: 0.5px solid #e6e6e6;
->>>>>>> fce2e74 (Adding OTP Verifier)
-=======
-  border: 0.5px solid #e6e6e6;
->>>>>>> fe0ae73 (Adding profile creation page)
   box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
-<<<<<<< HEAD
 .icon {
   position: absolute;
   right: 24px;
@@ -78,23 +25,6 @@
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> fce2e74 (Adding OTP Verifier)
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
-  padding: 4px;
-  width: 583px;
-  height: 200px;
-}
-
-<<<<<<< HEAD
-=======
->>>>>>> fe0ae73 (Adding profile creation page)
 .header {
   display: flex;
   flex-direction: column;
@@ -105,8 +35,6 @@
   height: 72px;
 }
 
-=======
->>>>>>> fce2e74 (Adding OTP Verifier)
 .modal-close {
   background: none;
   border: none;

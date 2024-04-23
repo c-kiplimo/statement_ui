@@ -1,22 +1,32 @@
-import TexterLink from "@/src/components/atoms/text/texterLink";
 import React, { useState } from "react";
 import styles from "./signInHelper.module.css";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
-import InputComponent from "@/src/components/atoms/input/inputComponent";
-import CheckboxComponent from "@/src/components/atoms/checkbox/checkBox";
-import { Label } from "@/src/components/atoms/label/label";
 import Link from "next/link";
 import { Modal } from "antd";
 import VerifyMailComponent from "./verify-mail";
+import { AUTH_URL_LOGIN } from "@/src/constants/environment";
+import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
+import { useRouter } from "next/navigation";
+import { authServiceHandler } from "@/src/services/auth/auth.service";
+import { Button, Form, Input, notification } from "antd";
+import {
+  MyFormItemGroup,
+  MyFormItem,
+} from "@/src/components/molecules/shared-features/form_builder_component";
 
 const SignInHelper = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    checkbox: false,
-  });
+  const router = useRouter();
+  const { storeToken } = AuthServiceProvider();
+  const { loginService, requestOtpService } = authServiceHandler();
 
+  type LoginProps = {
+    login: {
+      username: string;
+      password: string;
+      confirm?: boolean;
+    };
+  };
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const openModal = () => {
@@ -27,103 +37,140 @@ const SignInHelper = () => {
     setIsModalVisible(false);
   };
 
-  const handleChange = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
+  const onSubmit = async (values: LoginProps) => {
+    const response = await loginService(AUTH_URL_LOGIN, values)
+      .then((response) => {
+        const tokenData = {
+          accessToken: response.data?.access_token,
+          refreshToken: response.data?.refresh_token,
+          tokenType: response.data?.token_type,
+          expiresIn: response.data?.expires_in,
+        };
+        storeToken(tokenData);
+        console.log("saving");
+        return tokenData;
+      })
+      .then((tokenData) => {
+        return requestOtpService(tokenData.accessToken);
+      })
+      .then((data) => {
+        notification.info({
+          message: "OTP Generated",
+          description: "A new OTP has been generated. Please check your email.",
+        });
+        router.push("/statement/otp-verification");
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        notification.error({
+          message: "Login Failed",
+          description: "Invalid email or password. Please try again.",
+        });
+      });
   };
 
-  const handleCheckboxChange = (value: any) => {
-    setUser({ ...user, checkbox: value });
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted successfully");
+  const redirectToCreateAccount = (
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.preventDefault();
+    openModal();
+    setTimeout(() => {
+      router.push("/statement/create-account");
+    }, 1000);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.link}>
-        <TexterLink
-          text="Having trouble? "
-          className="bodyr"
-          linkText="Get help"
-          linkClassName="get-help-link"
-          href="#"
-        />
-      </div>
       <div className={styles.signinFrame}>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.formBody}>
-            <div className={styles.formHeader}>
-              <Texter text="Sign in" className={`${styles.title} h5b`} />
-              <Texter
-                text="Please sign in to your account to access the partner portal"
-                className={`${styles.titleDesc} bodyr`}
-              />
-            </div>
-
-            <div className={styles.form}>
-              <div className={styles.formFrame}>
-                <div className={styles.formInputs}>
-                  <InputComponent
-                    className={`${styles.input} bodyr`}
-                    id="email"
-                    type="email"
-                    value={user.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    placeholder="Email"
-                    required={true}
-                  />
-                  <InputComponent
-                    className={`${styles.input} bodyr`}
-                    id="password"
+        <Form
+          onFinish={onSubmit}
+          style={{ width: "100%", padding: "16px", margin: "8px" }}
+          name="sign"
+          layout="vertical"
+        >
+          <div className={styles.formHeader}>
+            <Texter text="Sign in" className={`${styles.title} h5b`} />
+            <Texter
+              text="Please sign in to your account to access the partner portal"
+              className={`${styles.titleDesc} bodyr`}
+            />
+          </div>
+          <div>
+            <MyFormItemGroup prefix={["login"]}>
+              <div className={styles.formItem}>
+                <MyFormItem
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your Email address",
+                    },
+                    {
+                      type: "email",
+                      message: "Please enter a valid Email address",
+                    },
+                  ]}
+                  name="username"
+                >
+                  <Input className="form-input bodyr" placeholder="Email" />
+                </MyFormItem>
+                <MyFormItem
+                  rules={[
+                    { required: true, message: "Please enter your Password" },
+                  ]}
+                  name="password"
+                >
+                  <Input
+                    className="form-input bodyr"
                     type="password"
-                    value={user.password}
-                    onChange={(e) => handleChange("password", e.target.value)}
                     placeholder="Password"
-                    required={true}
                   />
+                </MyFormItem>
+              </div>
+              <div className={styles.formConsent}>
+                <div className={`${styles.checkBox} kcb-remember-me`}>
+                  <MyFormItem name="confirm">
+                    <Input type="checkbox" />
+                  </MyFormItem>
+                  <label
+                    className="pt-1 kcb-remember-me"
+                    htmlFor="agreeCheckbox"
+                  >
+                    Remember me
+                  </label>
                 </div>
-                <div className={styles.formConsent}>
-                  <div className={`${styles.checkBox} kcb-remember-me`}>
-                    <CheckboxComponent
-                      onChange={handleCheckboxChange}
-                      checked={user.checkbox}
-                    />
-                    <Label
-                      htmlFor="agreeCheckbox"
-                      className={`${styles.checkLabel} kcb-remember-me`}
-                      label="Remember me"
-                    />
-                  </div>
-                  <div className={styles.recover}>
-                    <Link
-                      href="/statement/recover-password"
-                      className={`${styles.recoverLink} captionr`}
-                    >
-                      Recover Password
-                    </Link>
-                  </div>
+                <div className={styles.recover}>
+                  <Link
+                    href="/statement/password-recovery/recover-password"
+                    className={`${styles.recoverLink} captionr`}
+                  >
+                    Recover Password
+                  </Link>
                 </div>
               </div>
-            </div>
-            <CustomButton
-              bgColor="var(--brand-brand-primary)"
-              type="submit"
-              className={styles.button}
-              text="Sign in"
-            ></CustomButton>
+              <CustomButton
+                bgColor="var(--brand-brand-primary)"
+                type="submit"
+                className={styles.button}
+                text="Sign in"
+              />
+
+              <div className={styles.footer}>
+                <p className="captionr">
+                  Don't have an account?
+                  <span>
+                    <Link
+                      className="sign-up-link"
+                      href=""
+                      onClick={redirectToCreateAccount}
+                    >
+                      Create Account.
+                    </Link>
+                  </span>
+                </p>
+              </div>
+            </MyFormItemGroup>
           </div>
-        </form>
-        <div className={styles.footer}>
-          <TexterLink
-            text="Don't have an account?"
-            className="captionr"
-            linkText="Create Account."
-            href="#"
-            linkClassName="sign-up-link"
-            onClick={openModal}
-          />
-        </div>
+        </Form>
       </div>
       {isModalVisible && (
         <Modal
