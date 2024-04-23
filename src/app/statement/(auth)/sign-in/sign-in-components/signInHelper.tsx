@@ -7,6 +7,8 @@ import InputComponent from "@/src/components/atoms/input/inputComponent";
 import CheckboxComponent from "@/src/components/atoms/checkbox/checkBox";
 import { Label } from "@/src/components/atoms/label/label";
 import Link from "next/link";
+import { Modal } from "antd";
+import VerifyMailComponent from "./verify-mail";
 
 const SignInHelper = () => {
   const [user, setUser] = useState({
@@ -14,6 +16,16 @@ const SignInHelper = () => {
     password: "",
     checkbox: false,
   });
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   const handleChange = (field: string, value: string) => {
     setUser({ ...user, [field]: value });
@@ -85,7 +97,7 @@ const SignInHelper = () => {
                   </div>
                   <div className={styles.recover}>
                     <Link
-                      href="/authentication/resetPassword"
+                      href="/statement/recover-password"
                       className={`${styles.recoverLink} captionr`}
                     >
                       Recover Password
@@ -107,11 +119,22 @@ const SignInHelper = () => {
             text="Don't have an account?"
             className="captionr"
             linkText="Create Account."
-            href="/statement/dev/onBoarding/onBoarding"
+            href="#"
             linkClassName="sign-up-link"
+            onClick={openModal}
           />
         </div>
       </div>
+      {isModalVisible && (
+        <Modal
+          open={isModalVisible}
+          onCancel={closeModal}
+          footer={null}
+          className={styles.modal}
+        >
+          <VerifyMailComponent />
+        </Modal>
+      )}
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import axios from "axios";
 import * as headers from "../../constants/auth-headers";
-import { AUTH_GRANT_TYPE, OTP_GRANT_TYPE, REQUEST_OTP_URL, VERIFY_OTP_URL } from "@/src/constants/environment";
-
+import {
+  AUTH_GRANT_TYPE,
+  OTP_GRANT_TYPE,
+  REQUEST_OTP_URL,
+  VERIFY_OTP_URL,
+} from "@/src/constants/environment";
 
 const authServiceHandler = () => {
   type RegisterProps = {
@@ -85,10 +89,7 @@ const authServiceHandler = () => {
     accessToken?: string;
   };
 
-  const verifyOtpService = async (
-    accessToken: string,
-    otp: string
-  ) => {
+  const verifyOtpService = async (accessToken: string, otp: string) => {
     try {
       const OTP_FORM = {
         grant_type: OTP_GRANT_TYPE,

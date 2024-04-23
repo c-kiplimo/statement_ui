@@ -9,6 +9,7 @@ type LinkProps = {
   href?: string | URL;
   linkText?: string;
   textStyle?: React.CSSProperties;
+  onClick?: () => void;
 };
 
 const TexterLink = ({
@@ -18,6 +19,7 @@ const TexterLink = ({
   href,
   linkText,
   textStyle,
+  onClick,
 }: LinkProps) => {
   return (
     <span className={className}>
@@ -25,7 +27,7 @@ const TexterLink = ({
       {href ? (
         typeof href === "string" ? (
           <Link href={href} passHref>
-            <span className={linkClassName} style={textStyle}>
+            <span className={linkClassName} style={textStyle} onClick={onClick}>
               {linkText}
             </span>
           </Link>
