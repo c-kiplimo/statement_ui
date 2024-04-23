@@ -9,14 +9,12 @@
 .content {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  display: flex;
-  flex-shrink: 0;
-  padding-left: 60px;
-  padding-right: 60px;
-  color: white;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 40px;
+  flex-shrink: 0;
+  padding: 0 56px;
+  color: white;
 }
 
 @media (max-width: 550px) {
