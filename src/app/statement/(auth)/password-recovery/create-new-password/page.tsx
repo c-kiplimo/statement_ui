@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import SignInHelper from "./sign-in-components/signInHelper";
+
 import TwosidedLayout from "@/src/components/widgets/layout/two-sided-layout";
 import { AuthFlowSideBar } from "@/src/components/widgets/sidebar/common.sidebar";
 import simbaPic from "@/src/components/widgets/sidebar/simbaportallogo.svg";
+import NewPasswordHelper from "./newPasswordHelper";
 import HavingTrouble from "@/src/components/widgets/having-trouble/having-trouble";
 
-const SignIn = () => {
+const page = () => {
   return (
     <div>
       <TwosidedLayout
@@ -19,10 +20,10 @@ const SignIn = () => {
           />
         }
         link={<HavingTrouble />}
-        content={<SignInHelper />}
+        content={<NewPasswordHelper />}
       />
     </div>
   );
 };
 
-export default SignIn;
+export default page;

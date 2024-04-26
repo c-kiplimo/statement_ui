@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./verify-mail.module.css";
-import TexterLink from "@/src/components/atoms/text/texterLink";
 import Image from "next/image";
 import Texter from "@/src/components/atoms/text/texter";
 import { Label } from "@/src/components/atoms/label/label";
@@ -19,16 +18,6 @@ const VerifyMailComponent = () => {
   };
 
   return (
-    // // <div className={styles.container}>
-    //   {/* <div className={styles.link}>
-    //     <TexterLink
-    //       text="Having trouble? "
-    //       className="bodyr"
-    //       linkText="Get help"
-    //       linkClassName="get-help-link"
-    //       href="#"
-    //     />
-    //   </div> */}
     <div className={styles.content}>
       <div className={styles.icon}>
         <Image src="/Email-box.svg" alt="Email" width={32} height={32} />

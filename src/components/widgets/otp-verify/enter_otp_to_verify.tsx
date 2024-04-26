@@ -1,31 +1,77 @@
 import React, { useEffect, useRef, useState } from "react";
-import { userDetails } from "@/src/services/auth-user-details";
 import Texter from "@/src/components/atoms/text/texter";
 import styles from "./enter_otp_to_verify.module.css";
 import OtpInput from "../../atoms/input/otp/otpInputContainer";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import FormBuilder from "@/src/components/molecules/shared-features/form_builder";
-import Link from "next/link";
+import { authServiceHandler } from "@/src/services/auth/auth.service";
+import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
+import { TokenPayload } from "@/src/types/auth.types";
+import { User } from "@/src/types/user.type";
+import { notification } from "antd";
+import { useRouter } from "next/navigation";
+
+type OtpVerifytProps = {
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+};
 
 const EnterOtpToVerify = () => {
-  const user_details = userDetails();
-  const firstName = user_details?.firstName;
-  const [otpValue, setOtpValue] = useState("");
-  const [timer, setTimer] = useState(300);
+  const [value, valueChanged] = useState("");
+  const [myUser, setMyUser] = useState<User>();
+  const [timer, timerChanged] = useState(300);
   const tokenColor = useTokens();
   const interValRef = useRef<number>();
+  const router = useRouter();
 
-  useEffect(() => {
-    interValRef.current = window.setInterval(() => {
-      setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
-    }, 1000);
+  const { storeToken, getToken, getLoggedInUser } = AuthServiceProvider();
+  const { requestOtpService, verifyOtpService } = authServiceHandler();
 
-    return () => clearInterval(interValRef.current);
-  }, []);
+  const onOtpSubmit = async (otp: string) => {
+    if (!otp || otp.trim() === "") {
+      notification.error({
+        message: "Error",
+        description: "Please enter the OTP.",
+      });
+      return;
+    }
+    const tokenPayload: TokenPayload | undefined = getToken();
+    if (tokenPayload) {
+      await verifyOtpService(tokenPayload.accessToken, otp)
+        .then((otpVerificationResponse) => {
+          storeToken(otpVerificationResponse);
+          notification.success({
+            message: "OTP Verified",
+            description: "Your OTP has been successfully verified.",
+          });
 
-  const handleOtpResend = () => {
-    setTimer(300);
-    clearInterval(interValRef.current);
+          router.push("/statement/dashboard");
+        })
+        .catch((error) => {
+          if (error.response.status == 400) {
+            notification.error({
+              message: error.response.data.error,
+              description: error.response.data.error_description,
+            });
+          } else {
+            notification.error({
+              message: "Error",
+              description:
+                "An error occurred during OTP verification. Please try again.",
+            });
+          }
+        });
+    } else {
+      notification.error({
+        message: "Invalid Session",
+        description: "The provided Session is Invalid. Please login again.",
+      });
+      router.push("/statement/sign-in");
+    }
+  };
+
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onOtpSubmit(value);
   };
 
   const formatTime = (time: number) => {
@@ -34,67 +80,74 @@ const EnterOtpToVerify = () => {
     return `${mins}:${secs}`;
   };
 
-  const handleOtpComplete: React.MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
+  const stopTimer = () => {
+    window.clearInterval(interValRef.current);
+  };
+
+  useEffect(() => {
+    console.log("=====>" + JSON.stringify(getLoggedInUser()));
+    setMyUser(getLoggedInUser);
+  }, [myUser?.email]);
+
+  useEffect(() => {
+    interValRef.current = window.setInterval(() => {
+      timerChanged((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
+    }, 1000);
+
+    return () => {
+      stopTimer();
+    };
+  }, [timer]);
+
+  function resendOtp(event: React.MouseEvent<HTMLDivElement>): void {
     event.preventDefault();
-
-    try {
-      const response = await fetch("", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ otp: otpValue }),
+    timerChanged(300);
+    stopTimer();
+    let token = getToken();
+    if (token) {
+      requestOtpService(token?.accessToken);
+    } else {
+      notification.error({
+        message: "Invalid Session",
+        description: "The provided Session is Invalid. Please login again.",
       });
-
-      if (response.ok) {
-        console.log("OTP verification successful");
-      } else {
-        console.error("OTP verification failed");
-      }
-    } catch (error) {
-      console.error("Error verifying OTP:", error);
+      router.push("/statement/sign-in");
     }
-  };
-
-  const handleOtpChange = (otp: string) => {
-    setOtpValue(otp);
-  };
+  }
 
   return (
     <>
       <FormBuilder>
         <div className={styles.otpContainer}>
           <div className={styles.title}>
-            <Texter className="h4b text-left" text="Enter OTP to verify" />
+            <Texter className="h4b text-left" text="Enter OTP To Verify" />
           </div>
-
           <div className={styles.otpBody}>
             <div className={styles.otpPrompt}>
-              <Texter
-                text="Please enter the verification code just sent to your email"
-                className={"otp-leading-text-description"}
-              />
-              <span className="otp-email-link-text" style={{ margin: "5px" }}>
-                <Link href="#">{firstName}</Link>
-              </span>
+              <p className="bodyr">
+                Please enter the verification code just sent to your email
+                <span
+                  className="otp-email-link-text bodyr"
+                  style={{ margin: "5px" }}
+                >
+                  {myUser?.email}
+                </span>
+              </p>
             </div>
             <div className={styles.otpInput}>
-              <OtpInput length={6} onChange={handleOtpChange} />
+              <OtpInput
+                length={6}
+                onChange={(e: string) => {
+                  valueChanged(e);
+                }}
+              />
               <div className="otp-leading-text-description text-left">
-                <Texter
-                  text="Didn’t get code?"
-                  className={"otp-leading-text-description text-left"}
-                />
-                <div className="otp-email-link-text">
-                  <span
-                    style={{ color: tokenColor.accent.info, cursor: "pointer" }}
-                    onClick={handleOtpResend}
-                  >
+                <p className="otp-leading-text-description text-left">
+                  Didn’t get code? 
+                  <span className="otp-email-link-text" onClick={resendOtp}>
                     Send again
                   </span>
-                </div>
+                </p>
               </div>
             </div>
           </div>
@@ -109,31 +162,20 @@ const EnterOtpToVerify = () => {
               </strong>
             </p>
           </div>
-
-          <div
-            style={{ marginTop: "2rem", minWidth: "100%" }}
-            className="digitGroup"
-          >
-            <div
+          <div className={styles.button}>
+            <button
+              type="submit"
+              onClick={handleSubmit}
               style={{
-                backgroundColor: tokenColor.default.white,
-                minWidth: "100%",
+                height: "40px",
+                borderRadius: "5px",
+                minWidth: "250px",
+                color: tokenColor.default.white,
+                backgroundColor: "var(--brand-brand-primary)",
               }}
             >
-              <button
-                type="submit"
-                onClick={handleOtpComplete}
-                style={{
-                  height: "40px",
-                  borderRadius: "5px",
-                  minWidth: "250px",
-                  color: tokenColor.default.white,
-                  backgroundColor: "var(--brand-brand-primary)",
-                }}
-              >
-                Verify
-              </button>
-            </div>
+              Verify
+            </button>
           </div>
         </div>
       </FormBuilder>

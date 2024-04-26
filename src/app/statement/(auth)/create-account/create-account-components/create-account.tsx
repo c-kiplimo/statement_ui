@@ -1,13 +1,36 @@
 import React, { useState } from "react";
-import styles from "./create-Account.module.css";
+import styles from "./create-account.module.css";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import { Label } from "@/src/components/atoms/label/label";
-import InputComponent from "@/src/components/atoms/input/inputComponent";
-import TexterLink from "@/src/components/atoms/text/texterLink";
 import Texter from "@/src/components/atoms/text/texter";
-import CheckboxComponent from "@/src/components/atoms/checkbox/checkBox";
+import { useRouter } from "next/navigation";
+import { authServiceHandler } from "@/src/services/auth/auth.service";
+import { AUTH_URL_REGISTER } from "@/src/constants/environment";
+import { Checkbox, Form, Input, notification } from "antd";
+import {
+  MyFormItemGroup,
+  MyFormItem,
+} from "@/src/components/molecules/shared-features/form_builder_component";
 
-const SignUp = () => {
+type RegisterProps = {
+  register: {
+    password: string;
+    firstName: string;
+    lastName: string;
+    mobileNumber: string;
+    email: string;
+  };
+};
+
+const NewAccount = () => {
+  const [showAlert, setShowAlert] = useState(false);
+  const router = useRouter();
+  const { registerUserService } = authServiceHandler();
+  const [submitted, setSubmitted] = useState(false);
+  const [user, setUser] = useState({
+    countryCode: "",
+  });
+
   const countryOptions = [
     { value: "+254", label: "+254" },
     { value: "+256", label: "+256" },
@@ -15,172 +38,161 @@ const SignUp = () => {
     { value: "+250", label: "+250" },
   ];
 
-  const [user, setUser] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    countryCode: "",
-    phoneNumber: "",
-    password: "",
-    consent: false,
-  });
-
-  const [submitted, setSubmitted] = useState(false);
   const handleChange = (field: string, value: string) => {
     setUser({ ...user, [field]: value });
     setSubmitted(false);
   };
 
-  const handleCheckboxChange = (value: any) => {
-    setUser({ ...user, consent: value });
-  };
+  const onFinish = async (values: RegisterProps) => {
+    console.log("Register>>", values);
+    try {
+      const response = await registerUserService(AUTH_URL_REGISTER, values);
+      console.log("register-res>", response);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
+      if (response.status === 200) {
+        notification.success({
+          message: "Signup Successful",
+          description: "Your account has been created successfully!",
+        });
+
+        router.push("/statement/sign-in");
+      } else {
+        console.error("Register User failed:", response);
+        notification.error({
+          message: "Signup Failed",
+          description:
+            "There was an error while creating your account. Please try again later.",
+        });
+      }
+    } catch (error) {
+      console.error("Register User failed:", error);
+    }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.link}>
-        <TexterLink
-          text="Having trouble? "
-          className="bodyr"
-          linkText="Get help"
-          linkClassName="get-help-link"
-          href="#"
-        />
-      </div>
-      <div className={styles.form}>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.formContent}>
-            <div className={styles.formBody}>
+    <div className={styles.formCont}>
+      <Form style={{ width: "100%" }} layout={"vertical"} onFinish={onFinish}>
+        <MyFormItemGroup prefix={["register"]}>
+          <div className={styles.formBody}>
+            <div className={styles.wrapper}>
               <div className={styles.header}>
                 <Texter text="CREATE ACCOUNT" className="bodyb" />
               </div>
-              {submitted && (
-                <div className="success">
-                  <h6>User {user.firstName} successfully registered!!</h6>
-                </div>
-              )}
-              <div className={styles.row}>
-                <Label
-                  htmlFor="email"
-                  label="Email Address"
-                  className={`${styles.rowLabel} bodyr`}
-                />
-                <InputComponent
-                  className={`${styles.input} bodyr`}
-                  id="email"
-                  type="text"
-                  value={user.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                />
+              <div className={styles.vertical}>
+                <MyFormItem
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your Email address",
+                    },
+                    {
+                      type: "email",
+                      message: "Please enter a valid Email address",
+                    },
+                  ]}
+                  name="email"
+                  label="Email address"
+                >
+                  <Input type="email" className={`${styles.input} bodyr`} />
+                </MyFormItem>
               </div>
-              <div className={styles.formRegister}>
-                <div className={styles.twoRow}>
-                  <div className={styles.rowItem}>
-                    <Label
-                      htmlFor="firstName"
+
+              <div className={styles.register}>
+                <div className={styles.horizontal}>
+                  <div style={{ flex: 1 }}>
+                    <MyFormItem
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your First Name",
+                        },
+                      ]}
+                      name="firstName"
                       label="First Name"
-                      className={`${styles.rowLabel} bodyr`}
-                    />
-                    <InputComponent
-                      className={`${styles.inputField} bodyr`}
-                      id="firstName"
-                      type="text"
-                      value={user.firstName}
-                      onChange={(e) =>
-                        handleChange("firstName", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className={styles.rowItem}>
-                    <Label
-                      htmlFor="lastName"
-                      label="Last Name"
-                      className={`${styles.rowLabel} bodyr`}
-                    />
-                    <InputComponent
-                      className={`${styles.inputField} bodyr`}
-                      id="lastName"
-                      type="text"
-                      value={user.lastName}
-                      onChange={(e) => handleChange("lastName", e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className={styles.select}>
-                  <Label
-                    htmlFor="phoneNumber"
-                    label="Phone Number"
-                    className={`${styles.rowLabel} bodyr`}
-                  />
-                  <div className={`${styles.selectorRow} bodyr`}>
-                    <select
-                      className={`${styles.selectionStandard} bodyr`}
-                      value={user.countryCode}
-                      onChange={(e) =>
-                        handleChange("countryCode", e.target.value)
-                      }
                     >
-                      {countryOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                    <InputComponent
-                      id="phoneNumber"
-                      className={`${styles.selectorInput} bodyr`}
-                      type="text"
-                      value={user.phoneNumber}
-                      onChange={(e) =>
-                        handleChange("phoneNumber", e.target.value)
-                      }
-                      placeholder="780000000"
-                    />
+                      <Input type="text" className={`${styles.input} bodyr`} />
+                    </MyFormItem>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <MyFormItem
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter your Last Name",
+                        },
+                      ]}
+                      name="lastName"
+                      label="Last Name"
+                    >
+                      <Input type="text" className={`${styles.input} bodyr`} />
+                    </MyFormItem>
                   </div>
                 </div>
-                <div className={styles.row}>
-                  <Label
-                    htmlFor="password"
-                    label="Password"
-                    className={`${styles.rowLabel} bodyr`}
-                  />
-                  <InputComponent
-                    className={`${styles.passwordField} bodyr`}
-                    id="password"
-                    type="password"
-                    value={user.password}
-                    onChange={(e) => handleChange("password", e.target.value)}
-                  />
+
+                <div className={styles.vertical}>
+                  <MyFormItem name="mobileNumber" label="Phone Number">
+                    <div className={`${styles.selectorRow} bodyr`}>
+                      <select
+                        className={`${styles.selectionStandard} bodyr`}
+                        value={user.countryCode}
+                        onChange={(e) =>
+                          handleChange("countryCode", e.target.value)
+                        }
+                        name="countryCode"
+                      >
+                        {countryOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                      <Input
+                        name="phoneNumber"
+                        className={`${styles.selectorInput} bodyr`}
+                        type="text"
+                        placeholder="780000000"
+                      />
+                    </div>
+                  </MyFormItem>
+                </div>
+
+                <div className={styles.vertical}>
+                  <MyFormItem name="password" label="Password">
+                    <Input
+                      type="password"
+                      className={`${styles.input} bodyr`}
+                    />
+                  </MyFormItem>
                 </div>
               </div>
-            </div>
-            <div className={styles.formConsent}>
-              <CheckboxComponent
-                onChange={handleCheckboxChange}
-                checked={user.consent}
-              />
-              <Label
-                htmlFor="agreeCheckbox"
-                className={styles.signupCheck}
-                label="I consent to the collection and processing of my personal data in line with data regulations as described in"
-                link="kcb privacy policy"
-              />
+
+              <div className={styles.consent}>
+                <MyFormItem
+                  valuePropName="checked"
+                  initialValue={false}
+                  name="confirm"
+                >
+                  <Checkbox id="agreeCheckbox" type="checkbox" />
+                </MyFormItem>
+                <Label
+                  htmlFor="agreeCheckbox"
+                  className={styles.signupCheck}
+                  label="I consent to the collection and processing of my personal data in line with data regulations as described in"
+                  link="kcb privacy policy"
+                />
+              </div>
             </div>
           </div>
-          <CustomButton
-            bgColor="var(--brand-brand-primary)"
-            type="submit"
-            className={styles.button}
-            text="Create Account"
-          ></CustomButton>
-        </form>
-      </div>
+        </MyFormItemGroup>
+        <CustomButton
+          bgColor="var(--brand-brand-primary)"
+          type="submit"
+          className={styles.button}
+          text="Create Account"
+        />
+      </Form>
     </div>
   );
 };
 
-export default SignUp;
+export default NewAccount;

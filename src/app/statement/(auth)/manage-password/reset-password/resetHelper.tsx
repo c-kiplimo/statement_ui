@@ -9,14 +9,11 @@ import {
   MyFormItemGroup,
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
-<<<<<<< HEAD
 import Modal from "@/src/components/widgets/modals/modal";
-=======
-import Modal from "@/src/components/widgets/modals/reusable_modal";
->>>>>>> fce2e74 (Adding OTP Verifier)
 import OTPInputContainer from "@/src/components/atoms/input/otp/otpInputContainer";
 import { useRouter } from "next/navigation";
 import { resetPasswordHandler } from "@/src/services/auth/reset-password";
+import OtpInput from "@/src/components/atoms/input/otp/otpInputContainer";
 
 const ResetPasswordHelper = () => {
   const tokenColor = useTokens();
@@ -157,9 +154,8 @@ const ResetPasswordHelper = () => {
                 </span>
               </div>
               <div className="space-y-5">
-                <OTPInputContainer
-                  valueLength={6}
-                  value={value}
+                <OtpInput
+                  length={6}
                   onChange={(e: string) => {
                     valueChanged(e);
                   }}

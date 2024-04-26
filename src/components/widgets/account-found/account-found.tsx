@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styles from "./account-found.module.css";
 import { UserAddOutlined, UsergroupAddOutlined } from "@ant-design/icons";
-import Modal from "../modals/modal";
+// import Modal from "../modals/modal";
 import Texter from "../../atoms/text/texter";
 import EnterOtpToVerify from "../otp-verify/enter_otp_to_verify";
 import SelectionItem from "../selectionItem/selectionItem";
+import { Modal } from "antd";
 
 const IdentityCard = [
   {
@@ -25,17 +26,17 @@ const AccountFound = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const handleOptionChange = (newValue: string | null) => {
-    setSelectedOption(newValue);
-    openModalHandler();
-  };
-
   const openModalHandler = () => {
     setShowModal(true);
   };
 
   const closeModalHandler = () => {
     setShowModal(false);
+  };
+
+  const handleOptionChange = (newValue: string | null) => {
+    setSelectedOption(newValue);
+    openModalHandler();
   };
 
   return (
@@ -62,12 +63,11 @@ const AccountFound = () => {
         {/* Modal */}
         {showModal && (
           <Modal
-            isOpen={showModal}
-            onDismiss={closeModalHandler}
-            title=""
-            description=""
+            open={showModal}
+            onCancel={closeModalHandler}
+            footer={null}
+            className={styles.modal}
           >
-            {/* <otp popup> */}
             <EnterOtpToVerify />
           </Modal>
         )}

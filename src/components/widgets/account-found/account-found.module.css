@@ -35,3 +35,13 @@
   width: 114px;
   height: 40px;
 }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  gap: 4px;
+  left: 656px;
+  top: 168px;
+}

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./profileForm.module.css";
 import { Label } from "../../atoms/label/label";
-import { Select, Input, Button } from "antd";
+import { Select, Input } from "antd";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import { useTokens } from "@/src/app/(context)/ColorContext";
+import CustomButton from "../../atoms/button/customButton";
 
 const { Option } = Select;
 
@@ -18,13 +19,18 @@ type FormField = {
 };
 
 type CustomerProfileProps = {
-  title:string;
-  description:string;
+  title: string;
+  description: string;
   fields: FormField[];
   onChange: (value: string) => void;
 };
 
-const CustomerProfile = ({title,description, fields, onChange }: CustomerProfileProps) => {
+const CustomerProfile = ({
+  title,
+  description,
+  fields,
+  onChange,
+}: CustomerProfileProps) => {
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
   const token = useTokens();
 
@@ -58,28 +64,26 @@ const CustomerProfile = ({title,description, fields, onChange }: CustomerProfile
     }));
 
     if (identifier === "account-number") {
-      onChange(value); // Update accountNumber in parent component
+      onChange(value);
     }
   };
 
   return (
-    <>
-      <div className={styles.header}>
-          <VerticalInfoDescription
-            title={title}
-            description={description}
-            titleStyle={{
-              color: token.text.secondary,
-              fontSize: "20px",
-              fontWeight: "700",
-            }}
-          />
-        </div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center gap-y-10 w-583 h-354 cursor-pointer"
-      >
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.formBody}>
+          <div className={styles.header}>
+            <VerticalInfoDescription
+              title={title}
+              description={description}
+              titleStyle={{
+                color: token.text.secondary,
+                fontSize: "20px",
+                fontWeight: "700",
+              }}
+            />
+          </div>
+
           {fields.map((field) => (
             <div key={field.id} className={styles.inputField}>
               <Label htmlFor={field.htmlFor || field.id} label={field.label} />
@@ -112,20 +116,16 @@ const CustomerProfile = ({title,description, fields, onChange }: CustomerProfile
             </div>
           ))}
         </div>
-        <div className={styles.submitBtn}>
-          <Button
-            style={{ backgroundColor: "var(--brand-brand-primary)" }}
-            type="primary"
-            htmlType="submit"
-            className="bg-primary mt-5 text-white px-9 py-2
-            bg-green-900 text-white rounded cursor-pointer"
-            onSubmit={handleSubmit}
-          >
-            Search
-          </Button>
+        <div className={styles.button}>
+          <CustomButton
+            bgColor="var(--brand-brand-primary)"
+            type="submit"
+            className={`${styles.searchBtn} bodyr`}
+            text="Search"
+          />
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

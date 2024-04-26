@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { AuthServiceProvider } from './authserviceProvider';
+
 const onBoardingHandler = () => {
   const { getToken } = AuthServiceProvider();
   let tokenDetails = getToken();
+  
   const searchCustomerService = async (URL: string) => {
     try {
       const response = await axios.get(URL, {
