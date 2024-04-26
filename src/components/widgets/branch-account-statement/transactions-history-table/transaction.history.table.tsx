@@ -3,7 +3,7 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import styles from "./transaction.history.table.module.css";
 
-interface DataType {
+export interface TransactionHistoryData {
   key: React.Key;
   valuedate: string;
   transferRef: string;
@@ -13,7 +13,7 @@ interface DataType {
   balance: string;
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<TransactionHistoryData> = [
   {
     title: "Date",
     dataIndex: "valuedate",
@@ -48,7 +48,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 type TableProps = {
-  data: DataType[];
+  data: TransactionHistoryData[];
 };
 
 const BranchTransactionsHistory = (props: TableProps) => {

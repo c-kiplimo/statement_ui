@@ -4,6 +4,8 @@ import styles from "./single.card.module.css";
 import PaymentMethod from "@/src/components/widgets/payment-method/payment.method";
 import { CaretDownOutlined } from "@ant-design/icons";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
+import { CardTransactions, customerCardDetailsAction } from "@/src/lib/card.actions";
+import { useEffect } from "react";
 
 const optiondata = [
   {
@@ -23,49 +25,15 @@ const optiondata = [
   },
 ];
 
-const transaction = [
-  {
-    id: 1,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024",
-    icon: <img src="/spotify.svg" alt="spotify" />,
-  },
-  {
-    id: 2,
-    amount: "-49.55",
-    title: "Spotify",
-    date: "Tue, 21 Jan,2024 ",
-    description: "Dec 21, 2021",
-    icon: <img src="/DocumentRemove.svg" alt="spotify" />,
-  },
-  {
-    id: 3,
-    amount: "150.88",
-    title: "Alex Kog - > Alef bet gimmel",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
-  },
-  {
-    id: 4,
-    amount: "-49.55",
-    title: "Netflix",
-    date: "Dec 21, 2021",
-    description: "Tue, 21 Jan,2024  ",
-    icon: <img src="/DocumentRemoved.svg" alt="spotify" />,
-  },
-  {
-    id: 5,
-    amount: "150.88",
-    title: "John Doe - > Mpesa transaction",
-    date: "Dec 21, 2021",
-    description: "Bank Deposit . Fill Account",
-    icon: <img src="/import.svg" alt="spotify" />,
-  },
-];
-const page = () => {
+  const page = async ({params}:{params:{id:string}}) => {
+    
+    let cardnumber = params.id;
+    const cardData = await customerCardDetailsAction(cardnumber)
+    
+
+    const transactionHistory = await CardTransactions(cardnumber) 
+     
+
   return (
     <div className="p-9 bg-slate-100">
       <div className={styles.container}>
@@ -76,14 +44,15 @@ const page = () => {
           />
         </div>
         <div className={styles.card}>
-          <PaymentMethod
-            cardName={"VISA"}
-            cardTtype={"Debit card"}
-            cardNumber={"5674 9947 9101 2518"}
-            cardLimit={"Overall period"}
-            issueDate={"03/04/2019"}
-            expiryDate={"03/04/2023"}
-            custName={"Joel Simba Muruku"}
+          {cardData.map((data)=>(
+            <PaymentMethod
+            cardName={data.cardType}
+            cardTtype={data.cardType}
+            cardNumber={data.cardNumber}
+            cardLimit={data.cardLimit.toString()}
+            issueDate={data.cardIssueDate}
+            expiryDate={data.cardExpiryDate}
+            custName={data.cardHolderName}
             chips={"/image 6.png"}
             chips1={"/Vector.png"}
             cardLogo={<img src="/MasterCard.svg" />}
@@ -91,12 +60,14 @@ const page = () => {
             icon={<img src="/cardIcon.svg" />}
             CaretDownOutlined={<CaretDownOutlined />}
           />
+          ))}
+          
         </div>
         <div className={styles.table}>
           <RecentTransactionsCard
             title={"Recent Transactons"}
             options={optiondata}
-            transactions={transaction}
+            transactions={transactionHistory}
           />
         </div>
       </div>

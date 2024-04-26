@@ -6,10 +6,11 @@ import TransactionTable from "../../atoms/table/home/transaction.table";
 import CustomButton from "../../atoms/button/custom.button";
 
 
-interface DataType {
+export interface TranSactionHistoryHome {
   key: React.Key;
   account: string;
   dateTime: string;
+  time?:string;
   number: string;
   description: string;
   currency: string;
@@ -28,7 +29,7 @@ type transactionHistoryprops = {
   deleteBtnlabel: string;
   filterBtnlabel: string;
   sortBtnlabel: string;
-  data: DataType[];
+  data: TranSactionHistoryHome[];
   option: DataTypes[];
 };
 

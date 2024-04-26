@@ -1,127 +1,57 @@
-import React, { CSSProperties, ReactNode, useState } from "react";
-import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
-import styles from "./completed.statement.module.css";
-import { DeleteOutlined } from "@ant-design/icons";
+import React, { CSSProperties, ReactNode, useEffect, useState } from "react";
 import { Modal, Pagination } from "antd";
 import StatementTable from "../activity-history-table/activity.history.table";
 import AccountDetailTable from "../account-detail-table/account.detail.table";
+import { usePathname } from "next/navigation";
+import { CompletedTransactionAction } from "@/src/lib/completed.transactions.actions";
 
-const completedstatementdata = [
-  {
-    id: 1,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Complete",
-  },
-  {
-    id: 2,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Complete",
-  },
-  {
-    id: 3,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Complete",
-  },
-  {
-    id: 4,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Complete",
-  },
-];
 
 function CompletedStatement() {
+  const path = usePathname();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+  const [data, setData] =useState<CompleteTransactions[]>([])
 
-  const handleClick = () => {
-    setIsModalVisible(true);
+
+  useEffect(() => {
+  const fetchData = async () => {
+    const statementRequestId = sessionStorage.getItem("statementRequestId");
+    const result = await CompletedTransactionAction(statementRequestId || '0');
+    setData(result)    
+  };
+  fetchData();
+}, []);
+
+
+  const handleEyeIconClick = (id: number) => {
+    setSelectedItemId(id); 
+    setIsModalVisible(true); 
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
+    setSelectedItemId(null); 
   };
 
   return (
     <div>
-      <div className={styles.body}>
-        <div>
-          <VerticalInfoDescription
-            title={"Activity History"}
-            titleStyle={{ fontSize: "20px", fontWeight: "700" }}
-          />
-        </div>
-        <div className={styles.headericons}>
-          <CompletedStatement.Button
-            icon={<DeleteOutlined />}
-            placeholder="Delete"
-          />
-          <CompletedStatement.Button
-            icon={<img src="/filter.svg" />}
-            placeholder="Filter"
-          />
-          <CompletedStatement.Button
-            icon={<img src="/sort.svg" />}
-            placeholder="Sort"
-          />
-        </div>
-      </div>
-      <div>
-        <StatementTable
-          statementdata={completedstatementdata}
-          onEyeIconClick={handleClick}
-        />
+      <StatementTable
+        statementdata={data}
+        onEyeIconClick={handleEyeIconClick}
+      />
 
-        <div className={styles.pagination}>
-          <Pagination defaultCurrent={6} total={100} />
-        </div>
-      </div>
-      <div className={styles.modalcontent}>
       <Modal
-        width={'70%'}
+        width={"70%"}
         open={isModalVisible}
         onCancel={closeModal}
         footer={null}
       >
-        <AccountDetailTable/>
+        {selectedItemId !== null && (
+          <AccountDetailTable itemId={selectedItemId} />
+        )}
       </Modal>
-      </div>
     </div>
   );
 }
 
 export default CompletedStatement;
-
-type ButtonProps = {
-  icon: ReactNode;
-  placeholder: string;
-  iconStyle?: CSSProperties;
-  buttonStyle?: CSSProperties;
-  placeholderstyle?: CSSProperties;
-  onClick?: (e: any) => void;
-};
-
-CompletedStatement.Button = (props: ButtonProps) => (
-  <button
-    style={props.buttonStyle}
-    className={`${styles.button} bodyr`}
-    onClick={props.onClick}
-  >
-    <span style={props.iconStyle}>{props.icon}</span>
-    <span style={props.placeholderstyle}> {props.placeholder}</span>
-  </button>
-);

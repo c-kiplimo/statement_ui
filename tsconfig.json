@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "src/app/statement/(protected)/card-statement",
     "src/app/api/auth/[...nextauth]"
-  ],
+, "src/lib/.Transaction.ts"  ],
   "exclude": ["node_modules"]
 }

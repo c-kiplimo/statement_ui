@@ -6,9 +6,9 @@ import Button from "../../atoms/button/custom.button";
 import Link from "next/link";
 import CustomSearchInput from "../../atoms/input/custom-search-input";
 
-interface DataTypes {
+export interface CardDataHome {
   id: number;
-  icon: ReactNode;
+  icon?: ReactNode;
   accountName: string;
   accountInfo: string;
 }
@@ -17,7 +17,7 @@ type CardtypeDetailsInfoProps = {
   cardTitle: string;
   filterIcon: ReactNode;
   addIcon: ReactNode;
-  cardTypedata: DataTypes[];
+  cardTypedata: CardDataHome[];
 };
 
 const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
@@ -54,7 +54,7 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
             <div className="mt-3">
               <SelectionCard
                 id={account.id.toString()}
-                icon={account.icon}
+                icon={<img src={`/${account.icon}`}/>}
                 label={account.accountName}
                 description={account.accountInfo}
                 name="card-info"

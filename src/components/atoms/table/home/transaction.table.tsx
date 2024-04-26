@@ -29,6 +29,8 @@ let failIcon = (<svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmln
 </svg>);
 
 
+
+
 const columns: TableColumnsType<DataType> = [
   {
     title: "Account Type",
@@ -36,7 +38,7 @@ const columns: TableColumnsType<DataType> = [
     ellipsis: true,
     render: (text: string, record: DataType) => (
       <div className={styles.accountStyles}>
-        <span>{record.status === "Failed" ? failIcon : successIcon}</span>
+        <span>{record.status.toLowerCase() === "failed" ? failIcon : successIcon}</span>
         {text}
       </div>
     ),
@@ -67,24 +69,26 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "status",
     ellipsis: true,
     render: (status: string) => {
+      // Convert status to lowercase for case-insensitive comparison
+      const lowerCaseStatus = status.toLowerCase();
+
       let dotColor = "";
       let borderStyle = "1px solid #E6E6E6";
-      switch (status) {
-        case "Failed":
+
+      switch (lowerCaseStatus) {
+        case "failed":
           dotColor = "red";
-          borderStyle;
           break;
-        case "Pending":
+        case "pending":
           dotColor = "blue";
-          borderStyle;
           break;
-        case "Completed":
+        case "completed":
           dotColor = "green";
-          borderStyle;
           break;
         default:
           break;
       }
+
       return (
         <div className={styles.statusStyles} style={{ border: borderStyle }}>
           <div
