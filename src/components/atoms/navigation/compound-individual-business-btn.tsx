@@ -21,8 +21,6 @@ const CompoundIndividualBusinessBtn = ({ text, children }: any) => {
         <h6
           style={{
             color: 'var(--text-text-secondary)',
-
-            // fontFamily: "Roboto",
             fontSize: '20px',
             fontStyle: 'normal',
             fontWeight: 500,

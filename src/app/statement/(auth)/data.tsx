@@ -32,9 +32,11 @@ export const carPhysicaldData: CardData = [
 export const items = [
   {
     title: "Search Details",
+    description:""
   },
   {
     title: "Verify Identity",
+    description:""
   },
 ];
 

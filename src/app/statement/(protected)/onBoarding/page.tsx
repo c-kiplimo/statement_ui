@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { items } from "@/src/app/statement/(auth)/data";
 import styles from "./onBoardingComponents/stepperContent.module.css";
@@ -7,15 +6,23 @@ import { useTokens } from "@/src/app/(context)/ColorContext";
 import Stepper from "@/src/components/atoms/navigation/stepper/stepper";
 import StepperContent from "@/src/components/atoms/navigation/stepper/stepper-content";
 import Profile from "@/src/app/statement/(protected)/onBoarding/onBoardingComponents/profile/profile";
-import AccountFound from "@/src/components/widgets/account-found/account-found";
+import AccountFound from "./onBoardingComponents/account-found/account-found";
 
 const TestOnBoarding = () => {
   const token = useTokens();
   const [activeStep, setActiveStep] = useState(0);
   const defaultColor = token.text.secondary;
+  const [profileSuccess, setProfileSuccess] = useState(false); // State to track profile success
 
   const handleStepClick = (step: number) => {
     setActiveStep(step);
+  };
+
+  const handleProfileSuccess = (success: boolean) => {
+    setProfileSuccess(success); // Update profile success state
+    if (success) {
+      setActiveStep(1); // Move to the next step if profile success
+    }
   };
 
   const stepperOptions = items.map((step: any, index: any) => ({

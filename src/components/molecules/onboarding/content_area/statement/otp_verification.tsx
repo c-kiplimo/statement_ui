@@ -1,33 +1,34 @@
-'use client';
+"use client";
 
-import React, { Fragment, useState } from 'react';
-import Image from 'next/image';
-import { useTokens } from '@/src/app/(context)/ColorContext';
-import CompoundIndividualBusinessBtn from '@/src/components/atoms/navigation/compound-individual-business-btn';
-import IconButton from '@/src/components/atoms/navigation/CustomerOnboardingButton';
-import { useActiveStep } from '@/src/app/(context)/ActiveStepContext';
-import { onBoardingHandler } from '@/src/services/auth/onboarding.service';
-import { ONBOARDING_OTP_REQUEST_URL } from '../../../../../constants/environment';
+import React, { Fragment, useState } from "react";
+import Image from "next/image";
+import { useTokens } from "@/src/app/(context)/ColorContext";
+import CompoundIndividualBusinessBtn from "@/src/components/atoms/navigation/compound-individual-business-btn";
+import IconButton from "@/src/components/atoms/navigation/CustomerOnboardingButton";
+import { useActiveStep } from "@/src/app/(context)/ActiveStepContext";
+import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
+import { ONBOARDING_OTP_REQUEST_URL } from "../../../../../constants/environment";
 
 const OtpVerification = ({ props, openOtpDelivaryOptionHanlder }: any) => {
   const { activeStep, setActiveStep } = useActiveStep();
   const [selectedValue, setSelectedValue] = useState({});
-  const [notificationType, setNotificationType] = useState('EMAIL');
+  const [notificationType, setNotificationType] = useState("EMAIL");
   const token = useTokens();
   const { onBoardingOtpService } = onBoardingHandler();
 
   const handleButtonClick = async (value: any) => {
     setSelectedValue(value);
     openOtpDelivaryOptionHanlder(value);
-    console.log('value', value.emailNumber);
     const URL = `${ONBOARDING_OTP_REQUEST_URL}${notificationType}/${value.emailNumber}`;
+    console.log("value>>", value.emailNumber);
+    
     try {
       const result = await onBoardingOtpService(URL);
-      alert('Button clicked');
+      alert("Button clicked");
       // Process the result if needed
     } catch (error) {
       // Handle the error
-      console.error('Error during OTP request:', error);
+      console.error("Error during OTP request:", error);
       // Show an appropriate error message to the user
     }
   };
@@ -37,8 +38,8 @@ const OtpVerification = ({ props, openOtpDelivaryOptionHanlder }: any) => {
       <CompoundIndividualBusinessBtn
         text={
           activeStep === 0
-            ? 'What Type of user are you?'
-            : 'Congratulations your profile was found'
+            ? "What Type of user are you?"
+            : "Congratulations your profile was found"
         }
       >
         <h6 style={{ color: token.text.secondary }}>
@@ -48,8 +49,8 @@ const OtpVerification = ({ props, openOtpDelivaryOptionHanlder }: any) => {
           <IconButton
             onClick={() =>
               handleButtonClick({
-                mobile: 'mobile',
-                mobileNumber: '254****567',
+                mobile: "mobile",
+                mobileNumber: "254****567",
               })
             }
             width="360px"
@@ -72,20 +73,21 @@ const OtpVerification = ({ props, openOtpDelivaryOptionHanlder }: any) => {
             }
             buttonText={
               activeStep && activeStep === 0
-                ? 'Customer Number '
-                : 'Mobile Number 254****567'
+                ? "Customer Number "
+                : "Mobile Number 254****567"
             }
             buttonDescription={
               activeStep && activeStep === 0
-                ? 'View statements '
-                : 'Configured mobile Number'
+                ? "View statements "
+                : "Configured mobile Number"
             }
           />
+
           <IconButton
             onClick={() =>
               handleButtonClick({
-                email: 'EMAIL',
-                emailNumber: 'amoskinuthia15@gmail.com',
+                email: "EMAIL",
+                emailNumber: "ckiplimo54@gmail.com",
               })
             }
             width="360px"
@@ -116,13 +118,13 @@ const OtpVerification = ({ props, openOtpDelivaryOptionHanlder }: any) => {
             }
             buttonText={
               activeStep === 0
-                ? 'Account Number'
-                : 'Email Number  abb****.co.ke'
+                ? "Account Number"
+                : "Email Number  abb****.co.ke"
             }
             buttonDescription={
               activeStep == 0
-                ? 'Manage coporate users'
-                : 'Configured email number'
+                ? "Manage coporate users"
+                : "Configured email number"
             }
           />
         </Fragment>

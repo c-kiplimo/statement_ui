@@ -3,8 +3,6 @@ import { AuthServiceProvider } from './auth/authserviceProvider';
 
 const jwt = require('jsonwebtoken');
 
-
-
 const userDetails = () => {
   const { getToken } = AuthServiceProvider();
 

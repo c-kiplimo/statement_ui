@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import styles from "./profile.module.css";
-
 import {
   ContactsOutlined,
   IdcardOutlined,
   UserAddOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import CustomerProfile from "../../../../../../components/widgets/profileForm/profileForm";
 import Texter from "../../../../../../components/atoms/text/texter";
 import SelectionItem from "../../../../../../components/widgets/selectionItem/selectionItem";
 import { Modal } from "antd";
+import ProfileSearch from "@/src/app/statement/(protected)/onBoarding/onBoardingComponents/profileSearch/search-profile";
 
 const LoginCard = [
   {
@@ -59,12 +58,9 @@ const fields = [
 const Profile = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [accountNumber, setAccountNumber] = useState("");
-
-  const handleOptionChange = (newValue: string | null) => {
-    setSelectedOption(newValue);
-    openModalHandler();
-  };
+  const [selectedCardTitle, setSelectedCardTitle] = useState<string | null>(
+    null
+  );
 
   const openModalHandler = () => {
     setShowModal(true);
@@ -74,8 +70,15 @@ const Profile = () => {
     setShowModal(false);
   };
 
-  const handleAccountNumberChange = (value: string) => {
-    setAccountNumber(value);
+  const handleOptionChange = (newValue: string | null) => {
+    setSelectedOption(newValue);
+    openModalHandler();
+    const selectedCard = LoginCard.find(
+      (card) => card.id.toString() === newValue
+    );
+    if (selectedCard) {
+      setSelectedCardTitle(selectedCard.CardTitle);
+    }
   };
 
   return (
@@ -98,7 +101,7 @@ const Profile = () => {
             activeCardId={selectedOption}
           />
         ))}
-        
+
         {showModal && (
           <Modal
             open={showModal}
@@ -106,12 +109,7 @@ const Profile = () => {
             footer={null}
             className={styles.modal}
           >
-            <CustomerProfile
-              title="Provide Details to allow us create your profile"
-              description="We provide ability for you to on board to any country of your choice and ability to switch between different countries."
-              fields={fields}
-              onChange={handleAccountNumberChange}
-            />
+            <ProfileSearch inputLabel={selectedCardTitle || ""} />
           </Modal>
         )}
       </div>
