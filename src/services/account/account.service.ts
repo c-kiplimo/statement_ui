@@ -1,27 +1,27 @@
-import { ACCOUNT_OVERVIEW_URL } from "@/src/constants/environment";
+import { ACCOUNT_OVERVIEW_URL, USER_ACCOUNTS_OVERVIEW } from "@/src/constants/environment";
 import { CUSTOMER_ACCOUNT_URL } from "@/src/constants/environment";
 import { ACCOUNT_RESTRICTIONS_URL } from "@/src/constants/environment";
 import axios, { AxiosResponse } from "axios";
 
 const AccountHandler = () => {
     const getAccountOverview: (
-        accountId: string,
-    ) => Promise<Account> = async (
-        accountId: string,
+        accountId: number,
+    ) => Promise<AccountProfile> = async (
+        accountId: number,
     ) => {
-        const accountOverviewUrl = `${ACCOUNT_OVERVIEW_URL}/${accountId}`;
+        const accountOverviewUrl = `${USER_ACCOUNTS_OVERVIEW}/${accountId}`;
 
         try {
             const response = await axios.get(accountOverviewUrl, {
                 headers: {
-                    'X-RequestId': '3456778909',
+                    'X-RequestId': '2345678987654',
                 },
             }).then((res) => {
             let apiResponse = res.data
 
             if (apiResponse) {
                 let apiRes = apiResponse;
-                let accountOverview: Account = {
+                let accountOverview: AccountProfile = {
                     ...apiRes,
                 };
                 return accountOverview;

@@ -7,5 +7,5 @@ type Card ={
     cardLimit: number;
     cardBalance: number;
     cardExpiryDate: string;
-    cardIssueDate: Date 
+    cardIssueDate: string 
 }

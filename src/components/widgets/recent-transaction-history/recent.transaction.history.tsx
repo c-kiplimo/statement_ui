@@ -11,7 +11,7 @@ interface DataType {
   title: string;
   date: string;
   description: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 }
 
 interface DataTypes {

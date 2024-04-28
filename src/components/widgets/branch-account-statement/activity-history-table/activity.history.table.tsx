@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./activity.history.table.module.css";
 import { EyeOutlined } from "@ant-design/icons";
-interface DataType {
+import { usePathname } from "next/navigation";
+export type TransactionsDataType = {
   id: number;
   date: string;
   time: string;
@@ -12,10 +13,19 @@ interface DataType {
 }
 
 type StatementProps = {
-  statementdata: DataType[];
+  statementdata: TransactionsDataType[];
   onEyeIconClick?: (e: any) => void;
 };
+
 const StatementTable = (props: StatementProps) => {
+  const path = usePathname()
+
+  const handleEyeIconClick = (id: number) => {
+    if (props.onEyeIconClick) {
+      props.onEyeIconClick(id);
+    }
+  };
+
   return (
     <div>
       <table className={styles.table}>
@@ -48,7 +58,7 @@ const StatementTable = (props: StatementProps) => {
               <td>
                 <span
                   className={
-                    data.status === "Complete"
+                    data.status === "COMPLETE" 
                       ? styles.statusComplete
                       : styles.statusPending
                   }
@@ -59,13 +69,13 @@ const StatementTable = (props: StatementProps) => {
               <td>
                 <span
                   className={
-                    data.status === "Complete" ? styles.activeicon : styles.icon
+                    data.status === "COMPLETE" ? styles.activeicon : styles.icon
                   }
                 >
                   <EyeOutlined
-                    style={{ width: "11px", height: "8px", cursor: "pointer" }}
-                    onClick={props.onEyeIconClick}
-                  />
+                  style={{ width: "11px", height: "8px", cursor: "pointer" }}
+                  onClick={() => handleEyeIconClick(data.id)}
+                />
                 </span>
               </td>
             </tr>

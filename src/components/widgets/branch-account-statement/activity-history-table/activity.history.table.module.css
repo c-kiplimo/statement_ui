@@ -67,10 +67,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 4px 16px;
+  padding: 8px 16px;
 
-  width: 102px;
-  height: 32px;
+  width: fit-content;
+  height: auto;
 
   background: #e0ffeb;
   border: 1px solid #b9f1ce;
@@ -84,8 +84,8 @@
   align-items: flex-start;
   padding: 4px 16px;
   color: #ffbd66;
-  width: 102px;
-  height: 32px;
+  width: fit-content;
+  height: auto;
   background: #fff7eb;
   border: 1px solid #ffebd1;
   border-radius: 4px;

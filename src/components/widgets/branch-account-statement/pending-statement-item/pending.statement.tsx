@@ -1,49 +1,27 @@
-import React, { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties, ReactNode, useEffect } from "react";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import styles from "./pending.statement.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import StatementTable from "../activity-history-table/activity.history.table";
-
-const pendingstatementdata = [
-  {
-    id: 1,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Pending",
-  },
-  {
-    id: 3,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Pending",
-  },
-  {
-    id: 4,
-    date: "23-05-24",
-    time: "11:00 pm",
-    accountname: "Meraki Account",
-    accountnumber: "KES 234578998",
-    description: "Account Statement Genaration",
-    status: "Pending",
-  },
-];
+import { AccountStatementRequestHandler } from "@/src/services/account/account.statement.request.service";
 
 function PendingStatement() {
+
+//   useEffect(() => {
+//   debugger;
+//   const fetchData = async () => {
+//     debugger;
+//     const statementRequestId = sessionStorage.getItem("statementRequestId");
+//     console.log("statementRequestId", statementRequestId);
+//     const handler = AccountStatementRequestHandler();
+//     const result = await handler.fetchStatementRequestById(parseInt(statementRequestId || "0"));
+//     // results = result;
+//     console.log("results", result);
+//   };
+//   fetchData();
+// }, []);
+
+
   return (
     <div>
       <div className={styles.body}>
@@ -69,7 +47,7 @@ function PendingStatement() {
         </div>
       </div>
       <div>
-        <StatementTable statementdata={pendingstatementdata} />
+        <StatementTable statementdata={[]}/>
       </div>
     </div>
   );
