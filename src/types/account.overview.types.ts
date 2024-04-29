@@ -1,4 +1,5 @@
 type Account = {
+  customerName: any;
   accountId: string;
   accountTitle: string;
   accountType: string;

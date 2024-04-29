@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 24px 24px 115px;
+  gap: 32px;
+  position: relative;
+  width: 1041px;
+  height: 583px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.rowsdiv {
+  width: 152px;
+  height: 24px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #6f7269;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 16px;
+  gap: 15px;
+  width: 77px;
+  height: 32px;
+  background: #e0ffeb;
+  border-radius: 4px;
+  color: #17d05b;
+}

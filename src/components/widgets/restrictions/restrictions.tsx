@@ -1,4 +1,3 @@
-"use client";
 import React, { ReactNode, useState } from "react";
 import styles from "./restrictions.module.css";
 import { CloseOutlined } from "@ant-design/icons";

@@ -11,6 +11,7 @@ import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
+import Link from "next/link";
 
 const { Option } = Select;
 
@@ -22,8 +23,6 @@ interface DataType {
   status?: string;
   icons?: React.ReactNode;
 }
-
-
 
 interface Datatype {
   title: string;
@@ -128,10 +127,33 @@ const Accountsstatus = () => {
         timezone={"( GMT -11:46) Greenwich mean Time zone"}
         icon={<img src="/teamusericon.png" alt="teamusericon" />}
         lastSeenTime={"Last login on 45 minutes ago"}
-        button1={"Accounts"}
-        button2={"Users"}
-        button3={"Activity"}
-        button4={"Restrictions"} titleDescription={""}      />
+        button1={
+          <Link href="/statement/accountsetup/accounts">
+            Accounts
+          </Link>
+        }
+        button3={
+          <Link href="/statement/accountsetup/users">
+            Users
+          </Link>
+        }
+        button2={
+          <Link href="/statement/accountsetup/activities">
+            Activity
+          </Link>
+        }
+        button4={
+          <Link href="/statement/accountsetup/restrictions/restrictions-overview">
+            Restrictions
+          </Link>
+        }
+        titleDescription={"Corporate customer"}
+      />   
+
+
+
+
+
 
 <div className={styles.headerdiv}>
         <div className={styles.textdiv}>Users Overview</div>

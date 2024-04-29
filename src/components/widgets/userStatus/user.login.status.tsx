@@ -2,6 +2,8 @@ import React, { ReactNode, useState } from "react";
 import styles from "./user.login.status.module.css";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Button from "../../atoms/dropDownButton/button";
+import Link from "next/link";
+
 
 
 type StatusProps = {
@@ -12,11 +14,11 @@ type StatusProps = {
   timezone: string;
   icon: ReactNode;
   lastSeenTime: string;
-  button1?: string;
-  button2?: string;
-  button3?: string;
-  button4?: string;
-  button5?:string;
+  button1?:  React.ReactNode;
+  button2?:  React.ReactNode;
+  button3?:  React.ReactNode;
+  button4?:  React.ReactNode;
+  button5?: React.ReactNode;
   onClick?: () => void;
 };
 
@@ -46,7 +48,7 @@ const LastLogin = (props: StatusProps) => {
             <div className={styles.username}>
               <div className={styles.usernametext}>{props.userName}</div>
             </div>
-            <div className={`${styles.userDescript} captionl`}>{props.titleDescription}</div>
+            <div className={`${styles.userDescript} bl1`} style={{color:"#979992"}}>{props.titleDescription}</div>
             </div>
 
             <div className={styles.usermail}>{props.mail}</div>
@@ -74,14 +76,15 @@ const LastLogin = (props: StatusProps) => {
             <button>{props.button1}</button>
           </div>
         </div>
+        
+        {/* <div className={styles.activities} onClick={props.onClick}>
+          <div className={styles.text}>
+            <button>{props.button3}</button>
+          </div>
+        </div> */}
         <div className={styles.users} onClick={props.onClick}>
           <div className={styles.text}>
             <button>{props.button2}</button>
-          </div>
-        </div>
-        <div className={styles.activities} onClick={props.onClick}>
-          <div className={styles.text}>
-            <button>{props.button3}</button>
           </div>
         </div>
 

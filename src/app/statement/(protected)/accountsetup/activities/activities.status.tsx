@@ -1,29 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomTable from "../widgets/table/table";
 import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import styles from "./activities.status.module.css";
 import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
+import Filter from "@/src/components/atoms/filter/filter";
+import Sort from "@/src/components/atoms/sort/sort";
+import Search from "@/src/components/atoms/search/search";
+import Link from "next/link";
+import { ActivitiesAction } from "@/src/lib/actions/activities.action";
 
 interface ActivityData {
   id: React.Key;
-  createdOn: string;
-  userName: string;
-  role: string;
-  status: string;
-  icons: React.ReactNode;
+  createdOn?: string;
+  userName?: string;
+  role?: string;
+  status?: string;
+  icons?: React.ReactNode;
+  currency?:string;
 }
 
 interface CustomColumn {
   title: string;
   dataIndex: keyof ActivityData;
   render?: (text: any, record: ActivityData, index: number) => React.ReactNode;
+
 }
 
 const columns: CustomColumn[] = [
   {
     title: "Date",
     dataIndex: "createdOn",
-    render: (text) => <span className={styles.date}>{text}</span>,
+    render: (text: any, record: any) => ( 
+      <span className={styles.date}>
+        <span className={styles.account}>{text}</span>
+        <span className={styles.currency}>{record.currency}</span>
+      </span>
+    ),
   },
   {
     title: "Activity Name",
@@ -33,7 +45,7 @@ const columns: CustomColumn[] = [
   {
     title: "Description",
     dataIndex: "role",
-    render: (text, record) => (
+    render: (text) => (
       <span className={styles.description}>{text}</span>
     ),
   },
@@ -72,51 +84,55 @@ const columns: CustomColumn[] = [
   {
     title: "",
     dataIndex: "icons",
+    render: () => (
+      <Link href="/statement/accountsetup/users">
+      <button className={styles.iconsdiv}>
+        <EyeOutlined />
+      </button>
+      </Link>
+    ),
   },
 ];
 
 const data: ActivityData[] = [
   {
     id: 1,
-    createdOn: "23-05-2023 10:45 a.m",
+    createdOn: "23-05-2023",
+    currency: "10:45 a.m",
     userName: "Downloaded statement",
     role: "Description",
     status: "Active",
-    icons: (
-      <div className={styles.icons}>
-        <EyeOutlined />
-      </div>
-    ),
   },
   {
     id: 2,
-    createdOn: "23-05-2023 10:45 a.m",
+    createdOn: "23-05-2023",
+    currency: "10:45 a.m",
     userName: "Downloaded statement",
     role: "Description",
     status: "Completed",
-    icons: (
-      <div className={styles.icons}>
-        <EyeOutlined />
-      </div>
-    ),
   },
   {
     id: 3,
-    createdOn: "23-05-2023 10:45 a.m",
+    createdOn: "23-05-2023 ",
+    currency: "10:45 a.m",
     userName: "Downloaded statement",
     role: "Description",
     status: "Pending",
-    icons: (
-      <div className={styles.icons}>
-        <EyeOutlined />
-      </div>
-    ),
   },
 ];
 
-const handleRoleChange = (value: string, id: React.Key) => {};
+const ActivitiesStatus = async () => {
+  const [settingsClicked, setClicked] = useState<number | null>(null);
 
-const ActivitiesStatus = () => {
+
+  let dataCall = await ActivitiesAction(1)
+  console.log(ActivitiesStatus)
+
+  const setClick=(index:number)=>{
+    setClicked(index)
+  };
+
+  
   return (
     <div className={styles.container}>
       <LastLogin
@@ -126,23 +142,53 @@ const ActivitiesStatus = () => {
         timezone={"( GMT -11:46) Greenwich mean Time zone"}
         icon={<img src="/teamusericon.png" alt="teamusericon" />}
         lastSeenTime={"Last login on 45 minutes ago"}
-        button1={"Accounts"}
-        button2={"Users"}
-        button3={"Activity"}
-        button4={"Restrictions"}
-      />
+        button1={
+          <Link href="/statement/accountsetup/accounts">
+            Accounts
+          </Link>
+        }
+        button3={
+          <Link href="/statement/accountsetup/users">
+            Users
+          </Link>
+        }
+        button2={
+          <Link href="/statement/accountsetup/activities">
+            Activity
+          </Link>
+        }
+        button4={
+          <Link href="/statement/accountsetup/restrictions/restrictions-overview">
+            Restrictions
+          </Link>
+        }
+        titleDescription={"Corporate customer"}      />
+
+<div className={styles.tableHeader}>
+      <div className={styles.headerdiv}>
+        <div className={styles.textdiv}>Account Activity</div>
+        <div className={styles.atomsdiv}>
+          <Search
+            title={"Search"}
+            icon={<img src="/searchicon.svg" alt="searchicon" />}
+          />
+          <Filter
+            title={"Filter"}
+            icon={<img src="/funnel.svg" alt="funnel" />}
+          />
+          <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
+        </div>
+      </div>
+
+     
       <CustomTable
-        data={data}
-        titleText={"Account Activity "}
-        searchIcon={<img src="/searchicon.svg" alt="searchicon" />}
-        sortIcon={<img src="/sort.svg" alt="sort" />}
-        filterIcon={<img src="/funnel.svg" alt="funnel" />}
-        addIcon={<PlusOutlined />}
+        data={dataCall}
         pageSize={4}
         total={10}
         columns={columns}
       />
-    </div>
+      </div>
+      </div>
   );
 };
 

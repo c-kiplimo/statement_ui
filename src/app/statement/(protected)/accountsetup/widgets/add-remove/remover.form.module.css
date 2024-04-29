@@ -22,6 +22,7 @@ padding: 0px;
 gap: 10px;
 width: 485px;
 height: 16px;
+cursor: pointer;
 }
 
 .body{

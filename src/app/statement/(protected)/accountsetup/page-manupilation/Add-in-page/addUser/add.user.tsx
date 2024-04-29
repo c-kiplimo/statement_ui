@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import AddItem from "../../widgets/forms/add.form";
+import AddItem from "../../../widgets/forms/add.form";
 import styles from "./create.restriction.module.css";
 import { CloseOutlined } from "@ant-design/icons";
 
@@ -8,7 +8,7 @@ interface CreateRestrictionProps {
   onCancel: () => void;
 }
 
-const CreateRestrictionModal = ({
+const AddUserModal = ({
   visible,
   onCancel,
 }:CreateRestrictionProps) => {
@@ -19,13 +19,19 @@ const CreateRestrictionModal = ({
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
-        <div className="container">
+        <div className={styles.container}>
+            <div className={styles.body}>
           <AddItem
-            headerText={"Create Restriction"}
-            inputTitle1={"Restriction Name"}
+            headerText={"Add User"}
+            inputTitle1={"User Name"}
             placeholder1={"Enter Name"}
-            inputTitle4={"Description"}
+
+            inputTitle4={"User Role"}
             placeholder4={"Enter Description"}
+
+            inputTitle2={"Status"}
+            placeholder2={"Enter Description"}
+
             buttonText={"Create Restriction"}
             closeIcon={
               <button onClick={onCancel}>
@@ -33,10 +39,11 @@ const CreateRestrictionModal = ({
               </button>
             }
           />
+          </div>
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
   );
 };
 
-export default CreateRestrictionModal;
+export default AddUserModal;
