@@ -1,0 +1,80 @@
+<Form layout="vertical" onFinish={handleSubmit}>
+        <div className={styles.formBody}>
+          <div className={styles.header}>
+            <VerticalInfoDescription
+              title="Provide Details to allow us create your profile"
+              description="We provide ability for you to on board to any country of your choice and ability to switch between different countries"
+              titleStyle={{
+                color: token.text.secondary,
+                fontSize: "20px",
+                fontWeight: "700",
+              }}
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <Label htmlFor="country" label="Which Country" />
+            <Form.Item
+              name="country"
+              rules={[{ required: true, message: "Please select a country" }]}
+              style={{ width: "100%" }}
+            >
+              {/* <Select
+                className="w-full"
+                value={selectedCountry}
+                onChange={setSelectedCountry}
+              >
+                {countries.map(({ value, label }) => (
+                  <Select.Option key={value} value={value}>
+                    {label}
+                  </Select.Option>
+                ))}
+              </Select> */}
+              <select
+                className="w-full outline-none border-2 border-gray-200 focus:border-grey-600 px-4 py-2 rounded-md"
+                value={selectedCountry}
+                onChange={(event) => setSelectedCountry(event.target.value)}
+                name="country"
+              >
+                <option value="Kenya">Kenya</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Rwanda">Rwanda</option>
+              </select>
+            </Form.Item>
+          </div>
+          <div className={styles.inputContainer}>
+            <Label htmlFor="account" label="Account Number" />
+            <Form.Item
+              name="account"
+              rules={[
+                { required: true, message: "Please enter your account number" },
+              ]}
+              style={{ width: "100%" }}
+            >
+              {/* <Input
+                id="account"
+                placeholder="Enter your account number"
+                className="form-input bodyr"
+                value={accountNumber}
+                onChange={(event) => setAccountNumber(event.target.value)}
+              /> */}
+              <input
+                type="text"
+                name="accountNumber"
+                placeholder="Enter your Account Number   "
+                value={accountNumber}
+                onChange={(event) => setAccountNumber(event.target.value)}
+                className="w-full outline-none border-2 border-gray-200 focus:border-grey-600 px-4 py-2 rounded-md"
+              />
+            </Form.Item>
+          </div>
+          <Form.Item>
+            <CustomButton
+              bgColor="var(--brand-brand-primary)"
+              type="submit"
+              className={`${styles.searchBtn} bodyr`}
+              text="Search"
+            />
+          </Form.Item>
+        </div>
+      </Form>

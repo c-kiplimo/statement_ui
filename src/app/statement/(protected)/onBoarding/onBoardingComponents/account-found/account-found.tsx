@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "./account-found.module.css";
 import { UserAddOutlined, UsergroupAddOutlined } from "@ant-design/icons";
-// import Modal from "../modals/modal";
-import Texter from "../../atoms/text/texter";
-import EnterOtpToVerify from "../otp-verify/enter_otp_to_verify";
-import SelectionItem from "../selectionItem/selectionItem";
-import { Modal } from "antd";
+import Texter from "../../../../../../components/atoms/text/texter";
+import SelectionItem from "../../../../../../components/widgets/selectionItem/selectionItem";
+import { Modal, notification } from "antd";
+import OnboardingOtp from "../onBoardingOtp/onBoardingOtp";
+import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
+import { SEARCH_CUSTOMER_URL } from "@/src/constants/environment";
+import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 
 const IdentityCard = [
   {
@@ -23,10 +25,47 @@ const IdentityCard = [
 ];
 
 const AccountFound = () => {
+  type LoginProps = {
+    login: {
+      username: string;
+      password: string;
+      confirm?: boolean;
+    };
+  };
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const { searchCustomerService, onBoardingOtpService } = onBoardingHandler();
+  const { storeToken } = AuthServiceProvider();
 
-  const openModalHandler = () => {
+  const openModalHandler = async () => {
+    const response = await searchCustomerService(SEARCH_CUSTOMER_URL)
+      .then((response) => {
+        const tokenData = {
+          accessToken: response.data?.access_token,
+          refreshToken: response.data?.refresh_token,
+          tokenType: response.data?.token_type,
+          expiresIn: response.data?.expires_in,
+        };
+        storeToken(tokenData);
+        console.log("saving");
+        return tokenData;
+      })
+      .then((tokenData) => {
+        return onBoardingOtpService(tokenData.accessToken);
+      })
+      .then((data) => {
+        notification.info({
+          message: "OTP Generated",
+          description: "A new OTP has been generated. Please check your email.",
+        });
+      })
+      .catch((error) => {
+        console.error("Profile Creation failed:", error);
+        notification.error({
+          message: "Profile Creation failed",
+          description: "The OTP was not sent.",
+        });
+      });
     setShowModal(true);
   };
 
@@ -68,7 +107,7 @@ const AccountFound = () => {
             footer={null}
             className={styles.modal}
           >
-            <EnterOtpToVerify />
+            <OnboardingOtp />
           </Modal>
         )}
       </div>

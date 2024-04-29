@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import Modal from "@/src/components/widgets/modals/modal";
-=======
-import Modal from "@/src/components/widgets/modals/reusable_modal";
->>>>>>> fce2e74 (Adding OTP Verifier)
 import CompoundIndividualBusinessBtn from "@/src/components/atoms/navigation/compound-individual-business-btn";
 import IconButton from "@/src/components/atoms/navigation/CustomerOnboardingButton";
 import { useActiveStep } from "@/src/app/(context)/ActiveStepContext";
@@ -117,10 +113,7 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
         title="PROVIDE DETAILS"
       >
         <div className="my-4 w-[695px] max-w-full">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-6"
-          >
+          <form onSubmit={formSubmitHandler} className="flex flex-col gap-6">
             <p style={{ color: token.text.secondary }}>
               On board to any country of your choice{" "}
             </p>
@@ -162,7 +155,7 @@ const CustomerUserDetails = ({ onModalClose, onModalData, props }: any) => {
                 style={{ backgroundColor: "var(--brand-brand-primary)" }}
                 className="px-9 py-2 bg-green-900 text-white rounded-sm"
                 type="submit"
-                onClick={() => formSubmitHandler()}
+                //onClick={() => formSubmitHandler()}
               >
                 Submit
               </button>
