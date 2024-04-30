@@ -23,6 +23,7 @@ type accountProps = {
   headerTitle: string;
   options: DataTypes[];
   data: DataType[];
+  onChange?:(e:any)=>void
 };
 
 const AccountTransactionSummary = (props: accountProps) => {
@@ -33,7 +34,7 @@ const AccountTransactionSummary = (props: accountProps) => {
           <AccountTransactionSummary.Title title={props.headerTitle} />
         </div>
         <div>
-          <AccountTransactionSummary.Selection option={props.options} />
+          <AccountTransactionSummary.Selection option={props.options} onChange={props.onChange}/>
         </div>
       </div>
       <div>
@@ -63,10 +64,14 @@ AccountTransactionSummary.Title = (props: titleProps) => (
 
 type selectionProps = {
   option: DataTypes[];
+  onChange?:(e:any)=>void;
+  onClick?:(e:any)=>void;
 };
 AccountTransactionSummary.Selection = (props: selectionProps) => (
   <SelectedInput
     options={props.option}
+    onchange={props.onChange}
+    onclick={props.onClick}
     selectionStyles={{
       border: "1px solid #E6E6E6",
       outline: "none",

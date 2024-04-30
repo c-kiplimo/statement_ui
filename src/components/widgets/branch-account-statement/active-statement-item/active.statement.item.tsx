@@ -42,7 +42,6 @@ function ActiveStatement() {
       endDate: new Date(endDate)
     };
 
-    console.log(accountStatement);
     
 try {
  statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
@@ -107,7 +106,7 @@ try {
           </div>
         </form>
       </div>
-      {}
+      
       {showResults && (
         <div className={styles.searchoutput}>
           <StatementTable statementdata={activeData} />

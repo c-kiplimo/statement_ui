@@ -5,28 +5,13 @@ import CustomButton from "../../atoms/button/custom.button";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Button from "../../atoms/dropDownButton/button";
 
-const accountOptions = [
-  {
-    key: 1,
-    value: "savingAccount",
-    option: "Saving Account",
-  },
-  {
-    key: 2,
-    value: "currentAccount",
-    option: "Current Account",
-  },
-  {
-    key: 3,
-    value: "fixedAccount",
-    option: "Fixed Account",
-  },
-  {
-    key: 4,
-    value: "moneyMarketFund",
-    option: "Money Market Fund",
-  },
-];
+
+type AccountOptions ={
+    key: number,
+    value: string,
+    option: string,
+}
+
 
 type DataType = {
   id: number;
@@ -41,6 +26,8 @@ type DataType = {
 
 type SavingAccountBalanceProps = {
   accountBalances: DataType[];
+  accountSelectionOptions:AccountOptions[]
+  onChange?:(e:any)=>void
 };
 
 const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
@@ -54,8 +41,9 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.select}>
-          <SavingAccountBalance.SelectAccount />
+          <SavingAccountBalance.SelectAccount accountOptions={props.accountSelectionOptions} onChange={props.onChange}/>
         </div>
+
         <div className={styles.button}>
           <SavingAccountBalance.Btn
             buttonName="1D"
@@ -93,7 +81,7 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
               date={balance.date}
             />
           </div>
-        ))}
+        ))}s
       </div>
       </div>
     </div>
@@ -102,14 +90,22 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
 
 export default SavingAccountBalance;
 
-SavingAccountBalance.SelectAccount = () => (
+type selectProps={
+  onClick?:(e:any)=>void,
+  onChange?:(e:any)=>void,
+  accountOptions:AccountOptions[]
+
+}
+SavingAccountBalance.SelectAccount = (props:selectProps) => (
   <Button
     icon={<CaretDownOutlined />}
-    options={accountOptions}
+    options={props.accountOptions}
     textColor="#6F7269"
     iconColor="#6F7269"
     bgColor="#F5F5F5"
     icon1={<img src="/savingss.svg" alt="icon" />}
+    onChange={props.onChange}
+    onClick={props.onClick}
   />
 );
 

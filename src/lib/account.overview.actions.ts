@@ -88,8 +88,8 @@ export const TransactionOverviewActions = async (accountId:number): Promise<Tran
   let transactionhistory:TranSactionHistoryHome[] = accountOverview.transfers.map(transaction=>({
     key: transaction.transactionId,
     account: transaction.accountType,
-    dateTime: transaction.processingDate.toString().split('T')[0],
-    time: transaction.processingDate.toString().split(' ')[0],
+    dateTime: transaction.processingDate,
+    // time: transaction.processingDate.toString().split(' ')[0],
     number: transaction.transactionId,
     description: transaction.paymentDetails,
     currency: transaction.debitCurrency,

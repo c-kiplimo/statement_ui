@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import styles from "./tab.navigations.module.css";
 import CustomButton from "../../atoms/button/custom.button";
+import Link from "next/link";
 
 interface DataType {
   buttonName: string;
@@ -58,7 +59,16 @@ type ButtonProps = {
 
 TabNavigations.Buttons = (props: ButtonProps) => (
   <div>
-    <CustomButton
+    <Link href={""} style={{backgroundColor: props.isActive ? "#E6E6E6" : "",
+        borderRadius: "4px",
+        padding: "8px",
+        opacity: "80%",
+        color: "#151E00",}}       onClick={props.onClick}
+        >
+    {props.buttonname}
+
+    </Link>
+    {/* <CustomButton
       buttonName={props.buttonname}
       buttonStyle={{
         backgroundColor: props.isActive ? "#E6E6E6" : "",
@@ -68,6 +78,6 @@ TabNavigations.Buttons = (props: ButtonProps) => (
         color: "#151E00",
       }}
       onClick={props.onClick}
-    ></CustomButton>
+    ></CustomButton> */}
   </div>
 );

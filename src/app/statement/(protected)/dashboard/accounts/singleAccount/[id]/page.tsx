@@ -5,6 +5,7 @@ import SavingAccountBalance from "@/src/components/widgets/saving-account-balanc
 import styles from "./single.account.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
+import { SetStateAction, useState } from "react";
 
 const accountBalances = [
   {
@@ -155,8 +156,61 @@ const graphData = [
     Revenue: 32000,
     NetIncome: 15000,
   },
+  {
+    name: "Sep",
+    Revenue: 32000,
+    NetIncome: 15000,
+  },{
+    name: "Nov",
+    Revenue: 32000,
+    NetIncome: 15000,
+  },
 ];
+const accountOptions = [
+  {
+    key: 1,
+    value: "savingAccount",
+    option: "Saving Account",
+  },
+  {
+    key: 2,
+    value: "currentAccount",
+    option: "Current Account",
+  },
+  {
+    key: 3,
+    value: "fixedAccount",
+    option: "Fixed Account",
+  },
+  {
+    key: 4,
+    value: "moneyMarketFund",
+    option: "Money Market Fund",
+  },
+];
+
+
 const page = () => {
+  const [selectedAccount, setSelectedAccount] = useState('onemonth');
+  const [selectedTransaction, setSelectedTransaction] = useState('onemonth');
+  const [selectAccountType, setselectAccountType] = useState('savingAccount');
+
+
+
+  const handleAccountChange = (event: any) => {
+    setSelectedAccount(event.target.value);
+    console.log(' This Mmodel is selected',selectedAccount); 
+  };
+  const handleTransactionChange = (event: any) => {
+    setSelectedTransaction(event.target.value);
+    console.log(' This Mmodel is selected',selectedAccount); 
+  };
+
+  const handleselectAccountTypeChange =(event:any)=>{
+    setselectAccountType(event.target.value)
+    console.log('The Selected Account is', event.target.value);
+  }
+  
   return (
     <div className="p-9 bg-slate-100">
       <div className={styles.cont}>
@@ -169,7 +223,7 @@ const page = () => {
 
         <div className={styles.container}>
           <div>
-            <SavingAccountBalance accountBalances={accountBalances} />
+            <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} />
           </div>
 
           <div>
@@ -185,25 +239,84 @@ const page = () => {
 
         <div className={styles.cards}>
           <div className={styles.transaction}>
-            <AccountTransactionSummary
+            {/* <AccountTransactionSummary
               headerTitle={"Recent Transactions"}
               options={optiondata}
               data={transactionData}
+              onChange={handleAccountChange}
+            /> */}
+
+          {selectedTransaction === 'onemonth' && (
+              <AccountTransactionSummary
+              headerTitle={"Recent Transactions"}
+              options={optiondata}
+              data={transactionData}
+              onChange={handleTransactionChange}
             />
-          </div>
+            )}
+            {selectedTransaction === 'twomonth' && (
+              <AccountTransactionSummary
+              headerTitle={"Recent Transactions"}
+              options={optiondata}
+              data={transactionData}
+              onChange={handleTransactionChange}
+            />
+            )}
+            {selectedTransaction === 'threemonth' && (
+              <AccountTransactionSummary
+              headerTitle={"Recent Transactions"}
+              options={optiondata}
+              data={[]}
+              onChange={handleTransactionChange}
+            />
+            )}
+        </div>
 
           <div className={styles.cashflow}>
-            <CashflowCardHome
-              headerTitle={"Cash Flow"}
-              moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
-              moneyInTitle={"Money In"}
-              moneyInbalance={"$37,890"}
-              moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-              moneyOutTitle={"Mooney Out"}
-              moneyOutbalance={"$37,890"}
-              progressdata={data}
-              options={optiondata}
-            />
+          {selectedAccount === 'onemonth' && (
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={"$37,890"}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={"Money Out"}
+                moneyOutbalance={"$37,890"}
+                progressdata={data}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
+            {selectedAccount === 'twomonth' && (
+              // Render different content based on 'twomonth' selection
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={"$387,890"}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={"Money Out"}
+                moneyOutbalance={"$387,890"}
+                progressdata={data}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
+            {selectedAccount === 'threemonth' && (
+              // Render different content based on 'threemonth' selection
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={"$377,890"}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={"Money Out"}
+                moneyOutbalance={"$377,890"}
+                progressdata={data}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
           </div>
           
         </div>

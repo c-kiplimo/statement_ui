@@ -16,11 +16,10 @@ type selectionProps = {
 const SelectedInput = (props: selectionProps) => {
   return (
     <div>
-      <select name="period" id="period" style={props.selectionStyles}>
+      <select name="period" id="period" style={props.selectionStyles} onChange={props.onchange}>
         {props.options.map((option) => (
           <option
             value={option.value}
-            onChange={props.onchange}
             onClick={props.onclick}
           >
             {option.option}
