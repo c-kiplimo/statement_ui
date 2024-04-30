@@ -25,10 +25,20 @@ const optiondata = [
   },
 ];
 
+export type CardDetailsData ={
+  cardName:string,
+  cardType:string,
+  cardNumber:number,
+  cardLimit:number,
+  issueDate:string,
+  expiryDate:string,
+  custName:string,
+}
   const page = async ({params}:{params:{id:string}}) => {
     
     let cardnumber = params.id;
-    const cardData = await customerCardDetailsAction(cardnumber)
+    const cardData:CardDetailsData = await customerCardDetailsAction(cardnumber)
+    
     
 
     const transactionHistory = await CardTransactions(cardnumber) 
@@ -44,15 +54,14 @@ const optiondata = [
           />
         </div>
         <div className={styles.card}>
-          {cardData.map((data)=>(
             <PaymentMethod
-            cardName={data.cardType}
-            cardTtype={data.cardType}
-            cardNumber={data.cardNumber}
-            cardLimit={data.cardLimit.toString()}
-            issueDate={data.cardIssueDate}
-            expiryDate={data.cardExpiryDate}
-            custName={data.cardHolderName}
+            cardName={cardData.cardName}
+            cardTtype={cardData.cardType}
+            cardNumber={cardData.cardNumber.toString()}
+            cardLimit={cardData.cardLimit.toString()}
+            issueDate={cardData.issueDate}
+            expiryDate={cardData.expiryDate}
+            custName={cardData.custName}
             chips={"/image 6.png"}
             chips1={"/Vector.png"}
             cardLogo={<img src="/MasterCard.svg" />}
@@ -60,7 +69,6 @@ const optiondata = [
             icon={<img src="/cardIcon.svg" />}
             CaretDownOutlined={<CaretDownOutlined />}
           />
-          ))}
           
         </div>
         <div className={styles.table}>

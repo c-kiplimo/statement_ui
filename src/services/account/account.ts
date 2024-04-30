@@ -28,28 +28,23 @@ export const getAccountById = async (accountId: string): Promise<Account> => {
 
 
 
-const getCardByCardNumber = async (cardNumber: string): Promise<Card []> => {
-  
+const getCardByCardNumber = async (cardNumber: string): Promise<Card> => {
   const cardurl = `${USER_CARD_BY_CARD_NUMBER}/${cardNumber}`;
-  
   try {
     const response = await axios.get(cardurl, {
       headers: {
         'X-RequestId': '345678907',
       },
     });
-
     const apiResponse = response.data;
-  
-
-    const accountOverview: Card[] = [{
+    
+    console.log('the API response is',apiResponse);
+    const accountOverview: Card = {
       ...apiResponse
-    }];
+    };
 
       return accountOverview;
-      
-      return apiResponse;  
-  } catch (error) {
+        } catch (error) {
     throw new Error(`Failed to fetch account overview:`);
   }
 };

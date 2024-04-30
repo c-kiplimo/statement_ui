@@ -1,35 +1,31 @@
 import { log } from "console";
 import Cards from "../components/atoms/cards";
 import getCardByCardNumber from "../services/account/account";
+import { CardDetailsData } from "../app/statement/(protected)/dashboard/accounts/singleCard/[id]/page";
 
-export const customerCardDetailsAction =  async (cardnumber: string): Promise<Card[]> => {
-     const cardData = await getCardByCardNumber(cardnumber);    
+export const customerCardDetailsAction =  async (cardnumber: string):Promise<CardDetailsData> => {
+     const cardData = await getCardByCardNumber(cardnumber);  
 
-    let cardDetails:Card[] =  cardData.map((data)=>({
-        cardHolderName: data.cardHolderName,
-        cardType: data.cardType,
-        cardLimit:data.cardLimit,
-        cardNumber: data.cardNumber,
-        customerId : data.customerId,
-        cardIssueDate :data.cardIssueDate,
-        cardExpiryDate : data.cardExpiryDate,
-        cardBalance:data.cardBalance,
-        cardStatus:data.cardStatus
-      }
-      ));      
-      return cardDetails
+    let cardDetails:CardDetailsData ={
+        cardName: cardData.cardDTO.cardType,
+        cardType: cardData.cardDTO.cardType,
+        cardNumber: cardData.cardDTO.cardNumber,
+        cardLimit: parseInt(cardData.cardDTO.cardLimit),
+        issueDate: cardData.cardDTO.cardIssueDate,
+        expiryDate: cardData.cardDTO.cardExpiryDate,
+        custName: cardData.cardDTO.cardHolderName
+    }   
+    return cardDetails
 }
-
-
 export const CardTransactions = async (cardnumber: string): Promise<cardTransactions[]>=>{
-    let cardTransactions:cardTransactions={
-        id: 123,
-        amount: '23,000',
-        title: 'Spotify',
-        date:' 21, Jan, 2021',
-        description: 'Bank Deposit . Fill Account',
-    }
-
-
-    return [cardTransactions];
+    const cardData = await getCardByCardNumber(cardnumber);  
+    let cardTransactions:cardTransactions[] = cardData.fundsTransferDTOS.map(data=>({
+        id: data.transactionId,
+        amount: data.lcyAmount,
+        title: data.creditAccount,
+        date: data.processingDate,
+        description: data.paymentDetails,
+    }))
+  
+    return cardTransactions;
 }
