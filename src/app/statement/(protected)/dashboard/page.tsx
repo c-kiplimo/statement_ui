@@ -22,7 +22,7 @@ const options = [
   },
   {
     key: 1,
-    value: "onemonth",
+    value: "twomonth",
     period: "2 Month",
   },
 ];

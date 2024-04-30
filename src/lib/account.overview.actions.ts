@@ -14,7 +14,7 @@ export const PersonalAccountOverviewActions = async (accountId:number): Promise<
       id: parseInt(account.accountId),
       icon: accountIcons(account.accountTitle),
       accountName: account.accountTitle,
-      accountInfo: `View Your ${account.accountTitle}`
+      accountInfo: `View Your Account: ${account.accountId}`
   }))
       
   return accountards

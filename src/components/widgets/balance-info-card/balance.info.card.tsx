@@ -27,9 +27,10 @@ function BalanceInfoCard(props:clikCard) {
         </div>
 
         <div className={styles.eyeContent}>
-          <div className={isVisible ? styles.displayContent : styles.hideContent}>
-            <VerticalInfoDescription title={props.availableBalance} description={props.currencyCode} titleStyle={{fontWeight:'bold'}}/>
+          <div>
+            {isVisible ?  <VerticalInfoDescription title={props.availableBalance} description={props.currencyCode} titleStyle={{fontWeight:'bold'}}/> : <div className={styles.displayContent}> <VerticalInfoDescription title={'*********'} description={'***'} titleStyle={{fontWeight:'bold'}} /></div>}
           </div>
+
           <div className={styles.eyeicon}>
             <EyeOutlined onClick={handleClick} style={{}}/>
           </div>
