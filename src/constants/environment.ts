@@ -66,5 +66,4 @@ export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/card-overview`
 
 export const SEARCH_DATA_URL = `${PROFILE_URL}/api/v1/statement-request`
 export const STATEMENT_ENTRY_BY_ID = `${PROFILE_URL}/api/v1/statemententries`
-
-export const DELET_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const FIND_USER_ACCOUNT_BY_ID = `${PROFILE_URL}/api/v1/account-overview`

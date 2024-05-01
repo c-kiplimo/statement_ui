@@ -6,13 +6,13 @@ import styles from "./cashflow.card.home.module.css";
 import SelectedInput from "../../atoms/select/select.input";
 import CustomButton from "../../atoms/button/custom.button";
 
-interface DataType {
+export interface CashFlowProgress {
   id: number;
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   description: string;
-  percentage: number;
-  strokecolor: string;
+  percentage?: number;
+  strokecolor?: string;
 }
 
 interface DataTypes {
@@ -29,7 +29,7 @@ type cashflowProp = {
   moneyOutIcon: ReactNode;
   moneyOutTitle: string;
   moneyOutbalance: string;
-  progressdata: DataType[];
+  progressdata: CashFlowProgress[];
   options: DataTypes[];
   onChange?:(e:any)=>void;
 };
@@ -121,7 +121,7 @@ CashflowCardHome.Amount = (props: amountProp) => (
 );
 
 type progressProp = {
-  progressdata: DataType[];
+  progressdata: CashFlowProgress[];
 };
 
 CashflowCardHome.Progress = (props: progressProp) => {

@@ -11,9 +11,9 @@ interface DataTypes {
   option: string;
 }
 
-interface DataType {
+export interface TransfersData {
   id: number;
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   date: string;
   amount: string;
@@ -22,7 +22,7 @@ interface DataType {
 type accountProps = {
   headerTitle: string;
   options: DataTypes[];
-  data: DataType[];
+  data: TransfersData[];
   onChange?:(e:any)=>void
 };
 
@@ -82,7 +82,7 @@ AccountTransactionSummary.Selection = (props: selectionProps) => (
 );
 
 type bodyprops = {
-  transactionData: DataType[];
+  transactionData: TransfersData[];
 };
 
 AccountTransactionSummary.Body = (props: bodyprops) => {

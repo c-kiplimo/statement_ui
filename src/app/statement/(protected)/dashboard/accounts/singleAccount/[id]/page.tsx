@@ -6,6 +6,7 @@ import styles from "./single.account.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
 import { SetStateAction, useState } from "react";
+import { getCashFlowData, getTransactionAccounts } from "@/src/lib/account.actions";
 
 const accountBalances = [
   {
@@ -190,11 +191,22 @@ const accountOptions = [
 ];
 
 
-const page = () => {
+  const page = async ({params}:{params:{id:string}}) => {
+        let accountId = params.id;
+
   const [selectedAccount, setSelectedAccount] = useState('onemonth');
   const [selectedTransaction, setSelectedTransaction] = useState('onemonth');
   const [selectAccountType, setselectAccountType] = useState('savingAccount');
 
+
+  let balancedata = await getTransactionAccounts(parseInt(accountId));
+console.log(balancedata);
+
+  let progress = await getCashFlowData(parseInt(accountId))
+console.log(progress);
+
+  
+  
 
 
   const handleAccountChange = (event: any) => {
@@ -213,6 +225,7 @@ const page = () => {
   
   return (
     <div className="p-9 bg-slate-100">
+    Account is:{accountId}
       <div className={styles.cont}>
         <div>
           <VerticalInfoDescription
@@ -239,14 +252,14 @@ const page = () => {
 
         <div className={styles.cards}>
           <div className={styles.transaction}>
-            {/* <AccountTransactionSummary
+            <AccountTransactionSummary
               headerTitle={"Recent Transactions"}
               options={optiondata}
-              data={transactionData}
+              data={balancedata}
               onChange={handleAccountChange}
-            /> */}
+            />
 
-          {selectedTransaction === 'onemonth' && (
+          {/* {selectedTransaction === 'onemonth' && (
               <AccountTransactionSummary
               headerTitle={"Recent Transactions"}
               options={optiondata}
@@ -269,7 +282,7 @@ const page = () => {
               data={[]}
               onChange={handleTransactionChange}
             />
-            )}
+            )} */}
         </div>
 
           <div className={styles.cashflow}>
@@ -282,7 +295,7 @@ const page = () => {
                 moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
                 moneyOutTitle={"Money Out"}
                 moneyOutbalance={"$37,890"}
-                progressdata={data}
+                progressdata={progress}
                 options={optiondata}
                 onChange={handleAccountChange}
               />
@@ -297,7 +310,7 @@ const page = () => {
                 moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
                 moneyOutTitle={"Money Out"}
                 moneyOutbalance={"$387,890"}
-                progressdata={data}
+                progressdata={progress}
                 options={optiondata}
                 onChange={handleAccountChange}
               />

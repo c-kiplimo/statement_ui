@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCOUNT_STATEMENT_REQUEST_URL, STATEMENT_ENTRY_BY_ID, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_REQUEST_URL, FIND_USER_ACCOUNT_BY_ID, STATEMENT_ENTRY_BY_ID, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
 
 export const getAccountById = async (accountId: string): Promise<Account> => {
   const accountOverviewUrl = `${USER_ACCOUNTS_BY_ACCOUNTS_ID}/${accountId}`;
@@ -86,4 +86,36 @@ export const fetchStatementDataEntriesId = async (
   }
 
 
+
+  export const fetchAccountDetailsById  = async (accountNumber:number):Promise<AccountInformations>=>{
+    const apiUrl = `${FIND_USER_ACCOUNT_BY_ID}/${accountNumber}`
+    try {
+        
+      const response = await axios
+      .get(apiUrl, {
+          headers: {
+          "X-RequestId": "4354657678",
+          },
+      })
+      
+      .then((res) => {
+          let apiResponse = res.data;
+          if (apiResponse) {         
+            let apiRes=apiResponse
+          let accountinformation: AccountInformations = {
+              ...apiRes,
+          };
+          console.log(accountinformation);
+          
+          return accountinformation;
+          } else {
+          throw new Error(apiResponse);
+          }
+      });  
+  
+      return response;
+  } catch (error) {
+      throw error;
+  }
+  }
 
