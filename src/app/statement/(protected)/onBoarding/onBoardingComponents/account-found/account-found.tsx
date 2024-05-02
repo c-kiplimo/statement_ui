@@ -6,7 +6,7 @@ import SelectionItem from "../../../../../../components/widgets/selectionItem/se
 import { Modal, notification } from "antd";
 import OnboardingOtp from "../onBoardingOtp/onBoardingOtp";
 import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
-import { SEARCH_CUSTOMER_URL } from "@/src/constants/environment";
+import { ONBOARDING_OTP_REQUEST_URL, SEARCH_CUSTOMER_URL } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 
 const IdentityCard = [
@@ -25,20 +25,14 @@ const IdentityCard = [
 ];
 
 const AccountFound = () => {
-  type LoginProps = {
-    login: {
-      username: string;
-      password: string;
-      confirm?: boolean;
-    };
-  };
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { searchCustomerService, onBoardingOtpService } = onBoardingHandler();
+  const { onBoardingOtpService } = onBoardingHandler();
+  const [searchType, setSearchType] = useState<string | null>(null);
   const { storeToken } = AuthServiceProvider();
 
-  const openModalHandler = async () => {
-    const response = await searchCustomerService(SEARCH_CUSTOMER_URL)
+  const openModalHandler = async (value: any) => {
+      const response = await onBoardingOtpService(`${ONBOARDING_OTP_REQUEST_URL}${searchType}/${value.emailNumber}`)
       .then((response) => {
         const tokenData = {
           accessToken: response.data?.access_token,
@@ -76,6 +70,10 @@ const AccountFound = () => {
   const handleOptionChange = (newValue: string | null) => {
     setSelectedOption(newValue);
     openModalHandler();
+    const selectedCard = IdentityCard.find((card) => card.id.toString() === newValue);
+    if (selectedCard) {
+      setSearchType(selectedCard.CardTitle);
+    }
   };
 
   return (

@@ -27,18 +27,18 @@ const SignInHelper = () => {
       confirm?: boolean;
     };
   };
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const openModal = () => {
-    setIsModalVisible(true);
-  };
+  // const openModal = () => {
+  //   setIsModalVisible(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalVisible(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalVisible(false);
+  // };
 
   const onSubmit = async (values: LoginProps) => {
-    const response = await loginService(AUTH_URL_LOGIN, values)
+     await loginService(AUTH_URL_LOGIN, values)
       .then((response) => {
         const tokenData = {
           accessToken: response.data?.access_token,
@@ -73,7 +73,7 @@ const SignInHelper = () => {
     event: React.MouseEvent<HTMLAnchorElement>
   ) => {
     event.preventDefault();
-    openModal();
+    //openModal();
     setTimeout(() => {
       router.push("/statement/create-account");
     }, 1000);
@@ -172,7 +172,7 @@ const SignInHelper = () => {
           </div>
         </Form>
       </div>
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <Modal
           open={isModalVisible}
           onCancel={closeModal}
@@ -181,7 +181,7 @@ const SignInHelper = () => {
         >
           <VerifyMailComponent />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };

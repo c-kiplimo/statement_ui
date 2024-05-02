@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./search-profile.module.css";
-import { Form, Select, Input } from "antd";
+import { Form, Select, Input, notification } from "antd";
 import VerticalInfoDescription from "../../../../../../components/atoms/text/vertical-info-description";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import { Label } from "../../../../../../components/atoms/label/label";
@@ -8,29 +8,39 @@ import CustomButton from "../../../../../../components/atoms/button/customButton
 import { SEARCH_CUSTOMER_URL } from "@/src/constants/environment";
 import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
 
-const ProfileSearch = ({ inputLabel }: { inputLabel: string }) => {
+type ProfileSearchProps = {
+  inputLabel: string;
+  onSearch: (results: any) => void;
+};
+
+const ProfileSearch = ({ inputLabel, onSearch }:ProfileSearchProps) => {
   const token = useTokens();
   const { searchCustomerService } = onBoardingHandler();
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
   const handleSubmit = async () => {
-    if (accountNumber === "") {
-      alert("Please fill all inputs");
-    } else {
-      try {
-        const result = await searchCustomerService(
-          `${SEARCH_CUSTOMER_URL}${accountNumber}/${selectedCountry}`
-        );
-        console.log("result", result);
-        alert("Successful form submit");
-        setAccountNumber("");
-      } catch (error) {
-        console.error("API call failed:", error);
-      }
-    }
-  };
+    if (accountNumber === "" || selectedCountry === "") {
+      notification.info({
+        message: "Please fill all the fields",
 
+      });
+    }else {
+          const response = await searchCustomerService(`${SEARCH_CUSTOMER_URL}${accountNumber}/${selectedCountry}`)
+          .then((response) => {
+            console.log("response", response);
+            onSearch(response);
+            notification.info({
+              message: "Account found",
+            });
+            setAccountNumber("");
+          })
+          .catch((error) => {
+            console.error("API call failed:", error);
+          });
+        }
+    };
+   
   const countries = [
     { value: "", label: "Select a country" },
     { value: "kenya", label: "Kenya" },
