@@ -5,8 +5,8 @@ import SavingAccountBalance from "@/src/components/widgets/saving-account-balanc
 import styles from "./single.account.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
-import { SetStateAction, useState } from "react";
-import { getCashFlowData, getTransactionAccounts } from "@/src/lib/account.actions";
+import { ReactNode, SetStateAction, useState } from "react";
+import { getAccountSummaryBalances, getCashFlowData, getMoneyInOut, getTransactionAccounts } from "@/src/lib/account.actions";
 
 const accountBalances = [
   {
@@ -191,8 +191,24 @@ const accountOptions = [
 ];
 
 
-  const page = async ({params}:{params:{id:string}}) => {
-        let accountId = params.id;
+export type AccountMoneyInOut={
+  moneyIn:string,
+  moneyOut:string
+}
+
+export type Accountbalances ={
+  openingBalance:string,
+  openingBalIcon:ReactNode
+  closingBalance:string,
+  closingBalIcon:ReactNode
+  spending:string,
+  spendingBalIcon:ReactNode
+  received:string
+  receivedBalIcon:ReactNode
+}
+
+const page = async ({params}:{params:{id:string}}) => {
+let accountId = params.id;
 
   const [selectedAccount, setSelectedAccount] = useState('onemonth');
   const [selectedTransaction, setSelectedTransaction] = useState('onemonth');
@@ -200,18 +216,16 @@ const accountOptions = [
 
 
   let balancedata = await getTransactionAccounts(parseInt(accountId));
-console.log(balancedata);
 
   let progress = await getCashFlowData(parseInt(accountId))
-console.log(progress);
+
+  let moneyInOut:AccountMoneyInOut = await getMoneyInOut(parseInt(accountId))
+
+  let balances:Accountbalances = await getAccountSummaryBalances(parseInt(accountId))
 
   
-  
-
-
   const handleAccountChange = (event: any) => {
     setSelectedAccount(event.target.value);
-    console.log(' This Mmodel is selected',selectedAccount); 
   };
   const handleTransactionChange = (event: any) => {
     setSelectedTransaction(event.target.value);
@@ -235,10 +249,37 @@ console.log(progress);
         </div>
 
         <div className={styles.container}>
-          <div>
-            <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} />
+          <div className={styles.balances}>
+            {/* <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} /> */}
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/openingbal.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Opening Balance</span>
+              </div>
+              <span className={`h6b`}>{ '$ ' + `${balances.openingBalance}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/spending.svg"/>}</span>
+                <span className={ `${styles.balancetext} bodyr`}>Spending</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.spending}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/received.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Received</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.received}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/closing.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Closing Balance</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.closingBalance}`}</span>
+            </div>
           </div>
-
           <div>
             <GraphItem
               data={graphData}
@@ -258,31 +299,6 @@ console.log(progress);
               data={balancedata}
               onChange={handleAccountChange}
             />
-
-          {/* {selectedTransaction === 'onemonth' && (
-              <AccountTransactionSummary
-              headerTitle={"Recent Transactions"}
-              options={optiondata}
-              data={transactionData}
-              onChange={handleTransactionChange}
-            />
-            )}
-            {selectedTransaction === 'twomonth' && (
-              <AccountTransactionSummary
-              headerTitle={"Recent Transactions"}
-              options={optiondata}
-              data={transactionData}
-              onChange={handleTransactionChange}
-            />
-            )}
-            {selectedTransaction === 'threemonth' && (
-              <AccountTransactionSummary
-              headerTitle={"Recent Transactions"}
-              options={optiondata}
-              data={[]}
-              onChange={handleTransactionChange}
-            />
-            )} */}
         </div>
 
           <div className={styles.cashflow}>
@@ -291,10 +307,10 @@ console.log(progress);
                 headerTitle={"Cash Flow"}
                 moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
                 moneyInTitle={"Money In"}
-                moneyInbalance={"$37,890"}
+                moneyInbalance={moneyInOut.moneyIn}
                 moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-                moneyOutTitle={"Money Out"}
-                moneyOutbalance={"$37,890"}
+                moneyOutTitle={'Money Out'}
+                moneyOutbalance={moneyInOut.moneyOut}
                 progressdata={progress}
                 options={optiondata}
                 onChange={handleAccountChange}
@@ -325,7 +341,7 @@ console.log(progress);
                 moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
                 moneyOutTitle={"Money Out"}
                 moneyOutbalance={"$377,890"}
-                progressdata={data}
+                progressdata={progress}
                 options={optiondata}
                 onChange={handleAccountChange}
               />

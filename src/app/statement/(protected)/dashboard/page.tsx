@@ -4,7 +4,6 @@ import CardtypeDetailsInfo, { CardDataHome } from "@/src/components/widgets/card
 import TotalAvailableBalanceCard, { BalanceByCurrencyHome } from "@/src/components/widgets/total-available-balance-card/total.available.balance.card";
 import TransactionHistoryTable, { TranSactionHistoryHome } from "@/src/components/widgets/transaction-history-card/transaction.history.card";
 import styles from "./home.module.css";
-import { AccountHandler } from "@/src/services/account/account.service";
 import getProfileId from "@/src/hooks/profileId";
 import { AccountCardsOverviewActions, BalancesByCurrencyOverviewActions, PersonalAccountOverviewActions, TransactionOverviewActions } from "@/src/lib/account.overview.actions";
 import { useEffect, useState } from "react";

@@ -54,7 +54,7 @@ try {
           time: "11:00 pm",
           accountname: statement.accountTitle,
           accountnumber: statement.accountId,
-          description: statement.accountTitle,
+          description: statement.description!,
           status: statement.status,
         },
       ];   

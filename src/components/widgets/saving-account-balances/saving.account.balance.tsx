@@ -81,7 +81,7 @@ const SavingAccountBalance = (props: SavingAccountBalanceProps) => {
               date={balance.date}
             />
           </div>
-        ))}s
+        ))}
       </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCOUNT_STATEMENT_REQUEST_URL, FIND_USER_ACCOUNT_BY_ID, STATEMENT_ENTRY_BY_ID, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_REQUEST_URL, FIND_USER_ACCOUNT_BY_ID, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
 
 export const getAccountById = async (accountId: string): Promise<Account> => {
   const accountOverviewUrl = `${USER_ACCOUNTS_BY_ACCOUNTS_ID}/${accountId}`;

@@ -4,6 +4,7 @@ type AccountStatementRequest = {
   startDate: Date;
   endDate: Date;
   status?: string;
+  description?:string;
   creationDate?: Date;
   accountTitle?: string;
   currency?: string;

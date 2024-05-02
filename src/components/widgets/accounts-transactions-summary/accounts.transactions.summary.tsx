@@ -93,7 +93,7 @@ AccountTransactionSummary.Body = (props: bodyprops) => {
           <RecentTransactionItem
             amount={data.amount}
             title={data.title}
-            icon={data.icon}
+            icon={<img src={`/${data.icon}`}/>}
             description={data.date}
           />
         </div>

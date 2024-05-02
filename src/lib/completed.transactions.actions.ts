@@ -15,7 +15,7 @@ export const CompletedTransactionAction = async (statementRequestId: string): Pr
             time: extractTimeFromDate(result.creationDate),
             accountname: 'Meraki Account'!,
             accountnumber: result.accountId!,
-            description: 'Account Statement Generation',
+            description: result.description!,
             status: result.status!
         }]
     return completedtransactions

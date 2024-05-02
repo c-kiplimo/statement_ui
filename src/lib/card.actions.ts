@@ -28,4 +28,5 @@ export const CardTransactions = async (cardnumber: string): Promise<cardTransact
     }))
   
     return cardTransactions;
+    
 }

@@ -1,14 +1,3 @@
-type AccountInformation = {
-
-    accountBalances:Array<{
-        id:number,
-        balancename:string,
-        balancenumber:string,
-        amount:string,
-        percentageChange:string,
-        period:string
-    }>;
-}
 
 type AccountInformations = {
     accountDTO: {
@@ -16,10 +5,10 @@ type AccountInformations = {
         accountTitle: string,
         accountType: string,
         currency: string,
-        openingBalance: 340000,
-        spending: 6000,
-        received: 12000,
-        closingBalance: 40000,
+        openingBalance: string,
+        spending: string,
+        received: string,
+        closingBalance: string,
         category: string
     };
    
@@ -65,5 +54,13 @@ type AccountInformations = {
             transReference: string,
             transactionDetails: string,
  }>;
+ summary: {
+    numberOfDebits: number,
+    totalDebitAmount: string,
+    numberOfCredits: number,
+    totalCreditAmount: string,
+    closingBalance: string
+}
 
 }
+
