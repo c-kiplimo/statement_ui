@@ -11,10 +11,6 @@ import { User } from "@/src/types/user.type";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
 
-type OtpVerifytProps = {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-};
-
 const EnterOtpToVerify = () => {
   const [value, valueChanged] = useState("");
   const [myUser, setMyUser] = useState<User>();

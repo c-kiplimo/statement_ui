@@ -7,8 +7,6 @@ import { TokenPayload } from "@/src/types/auth.types";
 import { User } from "@/src/types/user.type";
 import { Button } from "antd";
 import { notification } from "antd";
-
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 

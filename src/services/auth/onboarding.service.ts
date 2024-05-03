@@ -8,9 +8,6 @@ import {
 } from "@/src/constants/environment";
 
 const onBoardingHandler = () => {
-
-
-
   const { getToken } = AuthServiceProvider();
   let tokenDetails = getToken();
   

@@ -12,20 +12,16 @@ const TestOnBoarding = () => {
   const token = useTokens();
   const [activeStep, setActiveStep] = useState(0);
   const defaultColor = token.text.secondary;
-  const [profileSuccess, setProfileSuccess] = useState(false); // State to track profile success
 
   const handleStepClick = (step: number) => {
     setActiveStep(step);
   };
 
-  const handleProfileSuccess = (success: boolean) => {
-    setProfileSuccess(success); // Update profile success state
-    if (success) {
-      setActiveStep(1); // Move to the next step if profile success
-    }
+  const handleProfileSuccess = () => {
+    setActiveStep(1);
   };
 
-  const stepperOptions = items.map((step: any, index: any) => ({
+  const stepperOptions = items.map((step:any, index: number) => ({
     title: (
       <p
         className="stepper-title"
@@ -52,10 +48,8 @@ const TestOnBoarding = () => {
         </div>
         <div className={styles.stepperContent}>
           <StepperContent marginTop="6rem">
-            {activeStep === 0 && <Profile />}
-          </StepperContent>
-          <StepperContent marginTop="6rem">
-            {activeStep === 1 && <AccountFound />}
+            {activeStep === 0 && (<Profile onProfileSuccess={handleProfileSuccess} />)}          
+            {activeStep === 1 && (<AccountFound />)}
           </StepperContent>
         </div>
       </div>

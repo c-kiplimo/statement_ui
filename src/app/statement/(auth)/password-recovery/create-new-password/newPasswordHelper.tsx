@@ -5,7 +5,7 @@ import {
   MyFormItemGroup,
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
-import {Checkbox, Form, Input } from "antd";
+import {Checkbox, Form, Input, notification } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./newPasswordHelper.module.css";
@@ -20,7 +20,6 @@ const NewPasswordHelper = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const { setNewPasswordService } = resetPasswordHandler();
   const router = useRouter();
-  const tokenColor = useTokens();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -47,6 +46,10 @@ const NewPasswordHelper = () => {
       try {
         const response = await setNewPasswordService(password, userId);
         console.log("response", response);
+        notification.success({
+          message: "Success",
+          description: "Password updated successfully.",
+        });
         router.push("/statement/sign-in");
       } catch (error) {
         console.error("Error setting new password:", error);
@@ -79,7 +82,7 @@ const NewPasswordHelper = () => {
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="********"
-                onChange={handleConfirmPasswordChange}
+                onChange={handlePasswordChange}
                 className="custom-input"
               />
             </MyFormItem>

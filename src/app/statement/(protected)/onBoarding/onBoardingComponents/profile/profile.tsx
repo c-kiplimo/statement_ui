@@ -38,29 +38,10 @@ const LoginCard = [
   },
 ];
 
-const fields = [
-  {
-    id: "country",
-    label: "Which country?",
-    type: "select",
-    placeholder: "Select country",
-    options: ["Kenya", "Rwanda", "USA", "Europe"],
-    htmlFor: "country",
-  },
-  {
-    id: "account-number",
-    label: "Account number",
-    type: "text",
-    placeholder: "Enter your account number",
-  },
-];
-
-const Profile = () => {
+const Profile = ({ onProfileSuccess }: { onProfileSuccess: (success: boolean) => void }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCardTitle, setSelectedCardTitle] = useState<string | null>(
-    null
-  );
+  const [selectedCardTitle, setSelectedCardTitle] = useState<string | null>(null);
 
   const openModalHandler = () => {
     setShowModal(true);
@@ -70,12 +51,15 @@ const Profile = () => {
     setShowModal(false);
   };
 
+  const handleSearchResults = (results: unknown) => {
+    console.log("Search results:", results);
+    onProfileSuccess(true);
+  };
+
   const handleOptionChange = (newValue: string | null) => {
     setSelectedOption(newValue);
     openModalHandler();
-    const selectedCard = LoginCard.find(
-      (card) => card.id.toString() === newValue
-    );
+    const selectedCard = LoginCard.find((card) => card.id.toString() === newValue);
     if (selectedCard) {
       setSelectedCardTitle(selectedCard.CardTitle);
     }
@@ -109,7 +93,7 @@ const Profile = () => {
             footer={null}
             className={styles.modal}
           >
-            <ProfileSearch inputLabel={selectedCardTitle || ""} />
+            <ProfileSearch inputLabel={selectedCardTitle || ""} onSearch={handleSearchResults} />
           </Modal>
         )}
       </div>
