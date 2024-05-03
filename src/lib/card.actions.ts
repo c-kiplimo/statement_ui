@@ -11,22 +11,21 @@ export const customerCardDetailsAction =  async (cardnumber: string):Promise<Car
         cardType: cardData.cardDTO.cardType,
         cardNumber: cardData.cardDTO.cardNumber,
         cardLimit: parseInt(cardData.cardDTO.cardLimit),
-        issueDate: cardData.cardDTO.cardIssueDate,
+        issueDate: cardData.cardDTO.cardIssueDate.toString().split(' ')[0],
         expiryDate: cardData.cardDTO.cardExpiryDate,
         custName: cardData.cardDTO.cardHolderName
     }   
     return cardDetails
 }
 export const CardTransactions = async (cardnumber: string): Promise<cardTransactions[]>=>{
-    const cardData = await getCardByCardNumber(cardnumber);  
+    const cardData:Card = await getCardByCardNumber(cardnumber);  
     let cardTransactions:cardTransactions[] = cardData.fundsTransferDTOS.map(data=>({
         id: data.transactionId,
         amount: data.lcyAmount,
         title: data.creditAccount,
-        date: data.processingDate,
+        date: data.processingDate.split('T')[0],
         description: data.paymentDetails,
-    }))
+    })) 
   
     return cardTransactions;
-    
 }

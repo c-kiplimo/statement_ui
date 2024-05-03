@@ -23,10 +23,6 @@ function CompletedStatement() {
       fetchData();
     }, [statementRequestId]);    
   }
-  
-  console.log('Statement request ID is', statementRequestId);
-
-  console.log('the dara of the request is', data);
 
  const handleEyeIconClick = (id: number) => {
     setSelectedItemId(id); 

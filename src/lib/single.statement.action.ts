@@ -1,8 +1,11 @@
 
-import { AccountDetails } from "../components/widgets/branch-account-statement/account-detail-table/account.detail.table";
+import { AccountDetails, Dates } from "../components/widgets/branch-account-statement/account-detail-table/account.detail.table";
 import { TransactionHistoryData } from "../components/widgets/branch-account-statement/transactions-history-table/transaction.history.table";
 import { fetchStatementDataEntriesId } from "../services/account/account";
+import { AccountStatementRequestHandler } from "../services/account/account.statement.request.service";
 
+
+const handler = AccountStatementRequestHandler();
 
 export const SingleStatementAction = async (statementEntryId:number): Promise<AccountDetails>  => {
     const statementresult:AccountStatementRequest = await fetchStatementDataEntriesId(statementEntryId);
@@ -42,4 +45,14 @@ export const SingleDataEntriesAction = async (statementRequestId: number): Promi
         transferRef:data.transReference!
     })) 
 return request
+}
+
+export const DateSearchAction = async (statementRequestId:number):Promise<Dates>=>{
+    const result:AccountStatementRequest = await handler.fetchStatementRequestById(statementRequestId);
+    let dates:Dates = {
+        startDate:result.startDate.toString(),
+        endDate:result.endDate!.toString()
+    }    
+    return dates
+
 }

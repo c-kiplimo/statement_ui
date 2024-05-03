@@ -12,7 +12,7 @@ export const getTransactionAccounts = async (accountNumber:number):Promise<Trans
         id: balance.accountId,
         icon: accountIcons(balance.creditAccount),
         title: balance.creditAccount,
-        date: balance.processingDate,
+        date: balance.processingDate.split('T')[0],
         amount: balance.creditAmount,
     }))
     

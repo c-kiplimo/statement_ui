@@ -239,7 +239,6 @@ let accountId = params.id;
   
   return (
     <div className="p-9 bg-slate-100">
-    Account is:{accountId}
       <div className={styles.cont}>
         <div>
           <VerticalInfoDescription

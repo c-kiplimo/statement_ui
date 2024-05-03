@@ -44,14 +44,12 @@ const fetchStatementRequestById = async (
             let accountStatementRequest: AccountStatementRequest = {
                 ...apiRes,
             };
-            console.log('the results',accountStatementRequest);
             
             return accountStatementRequest;
             } else {
             throw new Error(apiResponse);
             }
         });
-        console.log(response);
         
         return response;
     } catch (error) {

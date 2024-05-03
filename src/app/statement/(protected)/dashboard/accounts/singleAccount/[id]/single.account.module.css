@@ -23,16 +23,13 @@
 }
 
 .balances{
-  /* metrics */
-
-/* Auto layout */
 display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
 padding: 8px 0px;
 padding: 24px;
-width: auto;
+width: 1012px;
 height: auto;
 }
 .balancetype{

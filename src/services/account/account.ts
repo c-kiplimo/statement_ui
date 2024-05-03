@@ -38,7 +38,6 @@ const getCardByCardNumber = async (cardNumber: string): Promise<Card> => {
     });
     const apiResponse = response.data;
     
-    console.log('the API response is',apiResponse);
     const accountOverview: Card = {
       ...apiResponse
     };
@@ -105,7 +104,6 @@ export const fetchStatementDataEntriesId = async (
           let accountinformation: AccountInformations = {
               ...apiRes,
           };
-          console.log(accountinformation);
           
           return accountinformation;
           } else {

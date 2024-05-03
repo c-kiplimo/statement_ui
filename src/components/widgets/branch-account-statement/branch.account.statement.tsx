@@ -26,10 +26,6 @@ const tabitems = [
 function BranchAccountStatement() {
   const [completedata, setcompleteData] =useState<CompleteTransactions[]>([])
 
-
-
-  console.log('acts data', completedata);
-
   return (
     <AccountContext.Provider value={{completedata,setcompleteData}}>
     <div className={styles.start}>
