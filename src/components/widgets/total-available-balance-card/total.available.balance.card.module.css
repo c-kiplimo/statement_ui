@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   gap: 8px;
-  width: 1097px;
+  width: 100%;
   align-items: flex-start;
   cursor: pointer;
 }

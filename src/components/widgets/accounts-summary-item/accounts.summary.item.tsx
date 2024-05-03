@@ -96,7 +96,7 @@ type bodyProps = {
 
 AccountsSummaryItem.Body = (props: bodyProps) => {
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-around gap-4">
       {props.accountData.map((data) => (
         <div key={data.id}>
           <AccountsBalanceOverview

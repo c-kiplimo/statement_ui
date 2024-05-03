@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 0px;
   gap: 16px;
-  width: 1097.5px;
+  width: 100%;
   height: auto;
 }
 .header {
@@ -13,16 +13,16 @@
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: 1097px;
+  width: 100%;
   height: auto;
 }
 .accounts {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 .table {
@@ -33,6 +33,13 @@
   height: auto;
   background: #ffffff;
   border-radius: 12px;
+}
+
+.cardstype{
+  width: 51%;
+}
+.carddetails{
+  width: 49%;
 }
 
 @media (max-width: 620px) {
