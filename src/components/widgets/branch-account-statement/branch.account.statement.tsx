@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./branch.account.statement.module.css";
 import TabNavigations from "../tab-navigations-items/tab.navigations";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import ActiveStatement from "./active-statement-item/active.statement.item";
 import PendingStatement from "./pending-statement-item/pending.statement";
 import CompletedStatement from "./completed-statement/completed.statement";
+import {AccountContext } from './context/accountStatementcontext'
+import StatementTable from "./activity-history-table/activity.history.table";
 
 const tabitems = [
   {
@@ -22,7 +24,11 @@ const tabitems = [
 ];
 
 function BranchAccountStatement() {
+  const [completedata, setcompleteData] =useState<CompleteTransactions[]>([])
+
   return (
+    <AccountContext.Provider value={{completedata,setcompleteData}}>
+    <div className={styles.start}>
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.header}>
@@ -36,6 +42,11 @@ function BranchAccountStatement() {
         </div>
       </div>
     </div>
+    <div className={styles.bottomitem}>
+    {/* <StatementTable statementdata={completedata}/> */}
+    </div>
+    </div>
+    </AccountContext.Provider>
   );
 }
 

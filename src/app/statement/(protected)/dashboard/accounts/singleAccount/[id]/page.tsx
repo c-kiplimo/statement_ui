@@ -5,6 +5,8 @@ import SavingAccountBalance from "@/src/components/widgets/saving-account-balanc
 import styles from "./single.account.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
+import { ReactNode, SetStateAction, useState } from "react";
+import { getAccountSummaryBalances, getCashFlowData, getMoneyInOut, getTransactionAccounts } from "@/src/lib/account.actions";
 
 const accountBalances = [
   {
@@ -155,8 +157,86 @@ const graphData = [
     Revenue: 32000,
     NetIncome: 15000,
   },
+  {
+    name: "Sep",
+    Revenue: 32000,
+    NetIncome: 15000,
+  },{
+    name: "Nov",
+    Revenue: 32000,
+    NetIncome: 15000,
+  },
 ];
-const page = () => {
+const accountOptions = [
+  {
+    key: 1,
+    value: "savingAccount",
+    option: "Saving Account",
+  },
+  {
+    key: 2,
+    value: "currentAccount",
+    option: "Current Account",
+  },
+  {
+    key: 3,
+    value: "fixedAccount",
+    option: "Fixed Account",
+  },
+  {
+    key: 4,
+    value: "moneyMarketFund",
+    option: "Money Market Fund",
+  },
+];
+
+
+export type AccountMoneyInOut={
+  moneyIn:string,
+  moneyOut:string
+}
+
+export type Accountbalances ={
+  openingBalance:string,
+  openingBalIcon:ReactNode
+  closingBalance:string,
+  closingBalIcon:ReactNode
+  spending:string,
+  spendingBalIcon:ReactNode
+  received:string
+  receivedBalIcon:ReactNode
+}
+
+const page = async ({params}:{params:{id:string}}) => {
+let accountId = params.id;
+
+  const [selectedAccount, setSelectedAccount] = useState('onemonth');
+  const [selectedTransaction, setSelectedTransaction] = useState('onemonth');
+  const [selectAccountType, setselectAccountType] = useState('savingAccount');
+
+
+  let balancedata = await getTransactionAccounts(parseInt(accountId));
+
+  let progress = await getCashFlowData(parseInt(accountId))
+
+  let moneyInOut:AccountMoneyInOut = await getMoneyInOut(parseInt(accountId))
+
+  let balances:Accountbalances = await getAccountSummaryBalances(parseInt(accountId))
+
+  
+  const handleAccountChange = (event: any) => {
+    setSelectedAccount(event.target.value);
+  };
+  const handleTransactionChange = (event: any) => {
+    setSelectedTransaction(event.target.value);
+    console.log(' This Mmodel is selected',selectedAccount); 
+  };
+
+  const handleselectAccountTypeChange =(event:any)=>{
+    setselectAccountType(event.target.value)
+    console.log('The Selected Account is', event.target.value);
+  }
+  
   return (
     <div className="p-9 bg-slate-100">
       <div className={styles.cont}>
@@ -168,10 +248,37 @@ const page = () => {
         </div>
 
         <div className={styles.container}>
-          <div>
-            <SavingAccountBalance accountBalances={accountBalances} />
+          <div className={styles.balances}>
+            {/* <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} /> */}
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/openingbal.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Opening Balance</span>
+              </div>
+              <span className={`h6b`}>{ '$ ' + `${balances.openingBalance}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/spending.svg"/>}</span>
+                <span className={ `${styles.balancetext} bodyr`}>Spending</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.spending}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/received.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Received</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.received}`}</span>
+            </div>
+            <div className={styles.balancetype}>
+              <div className={styles.icondivs}>
+                <span>{<img src="/closing.svg"/>}</span>
+                <span className={`${styles.balancetext} bodyr`}>Closing Balance</span>
+              </div>
+              <span className={`h6b`}>{'$ ' + `${balances.closingBalance}`}</span>
+            </div>
           </div>
-
           <div>
             <GraphItem
               data={graphData}
@@ -188,22 +295,56 @@ const page = () => {
             <AccountTransactionSummary
               headerTitle={"Recent Transactions"}
               options={optiondata}
-              data={transactionData}
+              data={balancedata}
+              onChange={handleAccountChange}
             />
-          </div>
+        </div>
 
           <div className={styles.cashflow}>
-            <CashflowCardHome
-              headerTitle={"Cash Flow"}
-              moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
-              moneyInTitle={"Money In"}
-              moneyInbalance={"$37,890"}
-              moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-              moneyOutTitle={"Mooney Out"}
-              moneyOutbalance={"$37,890"}
-              progressdata={data}
-              options={optiondata}
-            />
+          {selectedAccount === 'onemonth' && (
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={moneyInOut.moneyIn}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={'Money Out'}
+                moneyOutbalance={moneyInOut.moneyOut}
+                progressdata={progress}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
+            {selectedAccount === 'twomonth' && (
+              // Render different content based on 'twomonth' selection
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={"$387,890"}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={"Money Out"}
+                moneyOutbalance={"$387,890"}
+                progressdata={progress}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
+            {selectedAccount === 'threemonth' && (
+              // Render different content based on 'threemonth' selection
+              <CashflowCardHome
+                headerTitle={"Cash Flow"}
+                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
+                moneyInTitle={"Money In"}
+                moneyInbalance={"$377,890"}
+                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
+                moneyOutTitle={"Money Out"}
+                moneyOutbalance={"$377,890"}
+                progressdata={progress}
+                options={optiondata}
+                onChange={handleAccountChange}
+              />
+            )}
           </div>
           
         </div>

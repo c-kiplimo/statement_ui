@@ -128,6 +128,7 @@ const piechartdata = [
   { name: "Loans", value: 400 },
   { name: "Checking Accounts", value: 300 },
 ];
+
 const currencyBalances = [
   {
     currency: "EUR",

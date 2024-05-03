@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { AccountDataHome } from "../components/widgets/accounts-details-card/account.details.card";
 import { CardDataHome } from "../components/widgets/cardtype-details-info/cardtype.details.info";
 import { BalanceByCurrencyHome } from "../components/widgets/total-available-balance-card/total.available.balance.card";
@@ -14,7 +14,7 @@ export const PersonalAccountOverviewActions = async (accountId:number): Promise<
       id: parseInt(account.accountId),
       icon: accountIcons(account.accountTitle),
       accountName: account.accountTitle,
-      accountInfo: `View Your ${account.accountTitle}`
+      accountInfo: `View Your Account: ${account.accountId}`
   }))
       
   return accountards
@@ -88,8 +88,8 @@ export const TransactionOverviewActions = async (accountId:number): Promise<Tran
   let transactionhistory:TranSactionHistoryHome[] = accountOverview.transfers.map(transaction=>({
     key: transaction.transactionId,
     account: transaction.accountType,
-    dateTime: transaction.processingDate.toString().split('T')[0],
-    time: transaction.processingDate.toString().split(' ')[0],
+    dateTime: transaction.processingDate,
+    // time: transaction.processingDate.toString().split(' ')[0],
     number: transaction.transactionId,
     description: transaction.paymentDetails,
     currency: transaction.debitCurrency,

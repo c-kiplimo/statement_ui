@@ -14,7 +14,8 @@ type onClickprop = {
   textColor: string;
   iconColor: string;
   bgColor: string;
-  onClick?: () => void;
+  onClick?: (e:any) => void;
+  onChange?:(e:any)=>void
 };
 
 const Buttonitem = (props: onClickprop) => {
@@ -26,9 +27,9 @@ const Buttonitem = (props: onClickprop) => {
       <div className={styles.selectContainer}>
         <div>{props.icon1}</div>
         <div className={styles.text} style={{ color: props.textColor }}>
-          <select className={styles.select} onClick={props.onClick}>
+          <select className={styles.select} onClick={props.onClick} onChange={props.onChange}>
             {props.options.map((option) => (
-              <option className={styles.op1} value={option.value}>
+              <option className={styles.op1} value={option.value} >
                 {option.option}
               </option>
             ))}

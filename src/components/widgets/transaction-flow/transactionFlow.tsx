@@ -7,8 +7,8 @@ type TransactionProps = {
   icon: ReactNode;
   title: string;
   description: string;
-  percentage: number;
-  strokeColor: string;
+  percentage?: number;
+  strokeColor?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 const TransactionCard = (props: TransactionProps) => {
@@ -78,8 +78,8 @@ TransactionCard.Text = (props: textProps) => {
 };
 
 type progressProps = {
-  percentage: number;
-  strokeColor: string;
+  percentage?: number;
+  strokeColor?: string;
   titleStyle?: CSSProperties;
   descriptionStyle?: CSSProperties;
 };

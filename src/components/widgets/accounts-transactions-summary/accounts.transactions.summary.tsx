@@ -11,9 +11,9 @@ interface DataTypes {
   option: string;
 }
 
-interface DataType {
+export interface TransfersData {
   id: number;
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   date: string;
   amount: string;
@@ -22,7 +22,8 @@ interface DataType {
 type accountProps = {
   headerTitle: string;
   options: DataTypes[];
-  data: DataType[];
+  data: TransfersData[];
+  onChange?:(e:any)=>void
 };
 
 const AccountTransactionSummary = (props: accountProps) => {
@@ -33,7 +34,7 @@ const AccountTransactionSummary = (props: accountProps) => {
           <AccountTransactionSummary.Title title={props.headerTitle} />
         </div>
         <div>
-          <AccountTransactionSummary.Selection option={props.options} />
+          <AccountTransactionSummary.Selection option={props.options} onChange={props.onChange}/>
         </div>
       </div>
       <div>
@@ -63,10 +64,14 @@ AccountTransactionSummary.Title = (props: titleProps) => (
 
 type selectionProps = {
   option: DataTypes[];
+  onChange?:(e:any)=>void;
+  onClick?:(e:any)=>void;
 };
 AccountTransactionSummary.Selection = (props: selectionProps) => (
   <SelectedInput
     options={props.option}
+    onchange={props.onChange}
+    onclick={props.onClick}
     selectionStyles={{
       border: "1px solid #E6E6E6",
       outline: "none",
@@ -77,7 +82,7 @@ AccountTransactionSummary.Selection = (props: selectionProps) => (
 );
 
 type bodyprops = {
-  transactionData: DataType[];
+  transactionData: TransfersData[];
 };
 
 AccountTransactionSummary.Body = (props: bodyprops) => {
@@ -88,7 +93,7 @@ AccountTransactionSummary.Body = (props: bodyprops) => {
           <RecentTransactionItem
             amount={data.amount}
             title={data.title}
-            icon={data.icon}
+            icon={<img src={`/${data.icon}`}/>}
             description={data.date}
           />
         </div>

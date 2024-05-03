@@ -1,0 +1,41 @@
+{
+    "accounts":{
+        "accountBalances":[
+            {
+            "id":1,
+            "balancename":"Opening Balances",
+            "number":"(No 10)",
+            "amount":560025,
+            "percentagr":"2.45%",
+            "date":"This Month"
+            },
+            {
+                "id":2,
+                "balancename":"Spending",
+                "number":"(No 100)",
+                "amount":560025,
+                "percentagr":"0.45%",
+                "date":"This Month"
+            },
+            {
+                "id":3,
+                "balancename":"Received",
+                "number":"(No 10)",
+                "amount":560025,
+                "percentagr":"2.45%",
+                "date":"This Month"
+            }
+    ]  
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+

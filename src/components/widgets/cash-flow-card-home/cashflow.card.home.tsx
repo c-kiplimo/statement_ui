@@ -6,13 +6,13 @@ import styles from "./cashflow.card.home.module.css";
 import SelectedInput from "../../atoms/select/select.input";
 import CustomButton from "../../atoms/button/custom.button";
 
-interface DataType {
+export interface CashFlowProgress {
   id: number;
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   description: string;
-  percentage: number;
-  strokecolor: string;
+  percentage?: number;
+  strokecolor?: string;
 }
 
 interface DataTypes {
@@ -29,8 +29,9 @@ type cashflowProp = {
   moneyOutIcon: ReactNode;
   moneyOutTitle: string;
   moneyOutbalance: string;
-  progressdata: DataType[];
+  progressdata: CashFlowProgress[];
   options: DataTypes[];
+  onChange?:(e:any)=>void;
 };
 
 const CashflowCardHome = (props: cashflowProp) => {
@@ -41,7 +42,7 @@ const CashflowCardHome = (props: cashflowProp) => {
           <CashflowCardHome.Title title={props.headerTitle} />
         </div>
         <div>
-          <CashflowCardHome.Selection option={props.options} />
+          <CashflowCardHome.Selection option={props.options} onChange={props.onChange}/>
         </div>
       </div>
 
@@ -87,10 +88,14 @@ CashflowCardHome.Title = (props: titleProps) => (
 
 type selectionProps = {
   option: DataTypes[];
+  onChange?:(e:any)=>void;
+  onClick?:(e:any)=>void;
 };
 CashflowCardHome.Selection = (props: selectionProps) => (
   <SelectedInput
     options={props.option}
+    onchange={props.onChange}
+    onclick={props.onClick}
     selectionStyles={{
       border: "1px solid #E6E6E6",
       outline: "none",
@@ -116,7 +121,7 @@ CashflowCardHome.Amount = (props: amountProp) => (
 );
 
 type progressProp = {
-  progressdata: DataType[];
+  progressdata: CashFlowProgress[];
 };
 
 CashflowCardHome.Progress = (props: progressProp) => {

@@ -50,8 +50,8 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
       </div>
       <div className={styles.body}>
         {props.cardTypedata.map((account) => (
-          <Link href={"/statement/dashboard/accounts/singleCard/" + account.id} key={account.id}>
-            <div className="mt-3">
+          <Link href={"/statement/dashboard/accounts/singleCard/" + account.id} >
+            <div className="mt-3" key={account.id}>
               <SelectionCard
                 id={account.id.toString()}
                 icon={<img src={`/${account.icon}`}/>}

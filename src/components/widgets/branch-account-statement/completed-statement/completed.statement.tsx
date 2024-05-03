@@ -1,4 +1,5 @@
-import React, { CSSProperties, ReactNode, useEffect, useState } from "react";
+'use client'
+import React, { CSSProperties, ReactNode, useEffect, useState,useContext } from "react";
 import { Modal, Pagination } from "antd";
 import StatementTable from "../activity-history-table/activity.history.table";
 import AccountDetailTable from "../account-detail-table/account.detail.table";
@@ -7,23 +8,23 @@ import { CompletedTransactionAction } from "@/src/lib/completed.transactions.act
 
 
 function CompletedStatement() {
-  const path = usePathname();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
-  const [data, setData] =useState<CompleteTransactions[]>([])
+  const [data, setData] =useState<CompleteTransactions[]>([]); 
 
+  let statementRequestId = sessionStorage.getItem("statementRequestId");
 
-  useEffect(() => {
-  const fetchData = async () => {
-    const statementRequestId = sessionStorage.getItem("statementRequestId");
-    const result = await CompletedTransactionAction(statementRequestId || '0');
-    setData(result)    
-  };
-  fetchData();
-}, []);
+  if(statementRequestId){
+    useEffect(() => {
+      const fetchData = async () => {
+        const result = await CompletedTransactionAction(statementRequestId);
+        setData(result)    
+      };
+      fetchData();
+    }, [statementRequestId]);    
+  }
 
-
-  const handleEyeIconClick = (id: number) => {
+ const handleEyeIconClick = (id: number) => {
     setSelectedItemId(id); 
     setIsModalVisible(true); 
   };
@@ -34,7 +35,7 @@ function CompletedStatement() {
   };
 
   return (
-    <div>
+    <div >
       <StatementTable
         statementdata={data}
         onEyeIconClick={handleEyeIconClick}

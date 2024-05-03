@@ -7,6 +7,7 @@ interface DataType {
   key: React.Key;
   account: string;
   dateTime: string;
+  // time?:string;
   number: string;
   description: string;
   currency: string;
@@ -47,8 +48,17 @@ const columns: TableColumnsType<DataType> = [
     title: "Date & Time",
     dataIndex: "dateTime",
     ellipsis: true,
-    render: (text: string) => <div className={styles.dateTime}>{text}</div>,
-  },
+    render: (text: string) => {
+      const dateTime = new Date(text); 
+      const date = dateTime.toLocaleDateString(); 
+      const time = dateTime.toLocaleTimeString();
+
+      return (
+        <div className={styles.dateTime}>
+          <div>{date}</div>
+          <div>{time}</div>
+        </div>
+  )}},
   {
     title: "Number",
     dataIndex: "number",
@@ -119,13 +129,14 @@ const TransactionTable = ({ data }: { data: DataType[] }) => {
       <Table
         rowSelection={rowSelection}
         columns={columns}
-        pagination={{ pageSize: 4 }}
+        pagination={{ pageSize: 5 }}
         dataSource={data}
         style={{
           borderCollapse: "collapse",
           borderRadius: "16px",
           border: "1px solid #E6E6E6",
           overflow: "hidden",
+          verticalAlign:'top'
         }}
       />
     </div>

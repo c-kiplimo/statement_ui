@@ -6,7 +6,7 @@ import HorizontalInfoDescription from "@/src/components/atoms/text/horizontal-in
 import BranchTransactionsHistory, { TransactionHistoryData } from "../transactions-history-table/transaction.history.table";
 import { Modal } from "antd";
 import SelectReportFormat from "../select-report-format/select.report.format";
-import { SingleDataEntriesAction, SingleStatementAction } from "@/src/lib/single.statement.action";
+import { DateSearchAction, SingleDataEntriesAction, SingleStatementAction } from "@/src/lib/single.statement.action";
 
 export interface AccountDetails {
   accountName: string;
@@ -20,14 +20,21 @@ export interface AccountDetails {
   totalCreditAmt:string
 }
 
+export type Dates ={
+  startDate:string;
+  endDate:string
+}
+
 type AccountDetailTableProps = {
   itemId?: number; 
 };
 function AccountDetailTable({itemId}:AccountDetailTableProps) {
   const [dataset, setDataSet] =useState<TransactionHistoryData[]>([])
   const[dataresulst, setDataResult] =useState<AccountDetails>()
-
+  const [date, setDate]= useState<Dates>()
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +48,13 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
       setDataResult(dataresult)
     };
     fetchDataItems();
+
+
+    const fetchDates = async () => {
+      const date:Dates = await DateSearchAction(itemId!);
+      setDate(date)
+    };
+    fetchDates();
   }, [itemId]);
 
   const handleClick = () => {
@@ -75,7 +89,7 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
           <AccountDetailTable.Details title="Currency :" description={dataresulst?.currency!} />
           <AccountDetailTable.Details
             title="Statement Period :"
-            description={`${dataresulst?.startDate} - ${dataresulst?.endDate}`}
+            description={`${date?.startDate} - ${date?.endDate}`}
           />
         </div>
         <div>

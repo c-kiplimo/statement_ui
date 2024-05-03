@@ -39,29 +39,17 @@ const fetchStatementRequestById = async (
         .then((res) => {
             let apiResponse = res.data;
             if (apiResponse) {
-            
-            const jsonentries = JSON.parse(apiResponse.data)
-            const statementEntries = jsonentries.statementEntries.slice(0, 10);
-
-            // let apiRes = jsonentries;
+        
             let apiRes = apiResponse
-            
-            console.log('json ENTRY',jsonentries)
-            console.log('STATEMENT ENTRY',statementEntries)
-
-            
-
             let accountStatementRequest: AccountStatementRequest = {
                 ...apiRes,
             };
-            console.log('the results',accountStatementRequest);
             
             return accountStatementRequest;
             } else {
             throw new Error(apiResponse);
             }
         });
-        console.log(response);
         
         return response;
     } catch (error) {

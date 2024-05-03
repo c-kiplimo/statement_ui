@@ -33,6 +33,7 @@
 }
 .displayContent {
   display: block;
+  opacity: 0.4;
 }
 .hideContent {
   opacity: 0.03;

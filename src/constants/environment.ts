@@ -62,9 +62,8 @@ export const GROUP_URL = `${API_URL}/api/v1/group`;
 
 export const USER_ACCOUNTS_OVERVIEW = `${PROFILE_URL}/api/v1/aggregateprofiles`
 export const USER_ACCOUNTS_BY_ACCOUNTS_ID = `${PROFILE_URL}/api/v1/accounts`
-export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/cards`
+export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/card-overview`
 
 export const SEARCH_DATA_URL = `${PROFILE_URL}/api/v1/statement-request`
 export const STATEMENT_ENTRY_BY_ID = `${PROFILE_URL}/api/v1/statemententries`
-
-export const DELET_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const FIND_USER_ACCOUNT_BY_ID = `${PROFILE_URL}/api/v1/account-overview`
