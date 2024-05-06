@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 0px;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px 24px;
+  gap: 36px;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+  width: 215px;
+  height: 42px;
+}
+
+.yesbutton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+
+  width: 90px;
+  height: 42px;
+
+  background: #f30039;
+  border-radius: 4px;
+  color: white;
+}
+.nobutton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+
+  width: 85px;
+  height: 42px;
+
+  border: 1px solid #f30039;
+  border-radius: 4px;
+  color: #f30039;
+}
+.deleteText {
+  color: #6f7269;
+}

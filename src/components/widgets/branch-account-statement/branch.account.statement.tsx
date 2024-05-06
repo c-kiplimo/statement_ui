@@ -3,19 +3,13 @@ import styles from "./branch.account.statement.module.css";
 import TabNavigations from "../tab-navigations-items/tab.navigations";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import ActiveStatement from "./active-statement-item/active.statement.item";
-import PendingStatement from "./pending-statement-item/pending.statement";
 import CompletedStatement from "./completed-statement/completed.statement";
-import {AccountContext } from './context/accountStatementcontext'
-import StatementTable from "./activity-history-table/activity.history.table";
+import { AccountStatementContext } from "./context/getAccountNumberContext";
 
 const tabitems = [
   {
     buttonName: "Active Statement",
     bodyContent: <ActiveStatement />,
-  },
-  {
-    buttonName: "Pending Statement",
-    bodyContent: <PendingStatement />,
   },
   {
     buttonName: "Completed",
@@ -24,29 +18,30 @@ const tabitems = [
 ];
 
 function BranchAccountStatement() {
-  const [completedata, setcompleteData] =useState<CompleteTransactions[]>([])
+  const [completedata, setcompleteData] = useState<CompleteTransactions[]>([]);
+  const [accountNo, setAccountNo] = useState();
 
   return (
-    <AccountContext.Provider value={{completedata,setcompleteData}}>
-    <div className={styles.start}>
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <BranchAccountStatement.Header
-            title="Provide Account Details"
-            description="Search Account statement by providing customers account number"
-          />
+    <AccountStatementContext.Provider value={{ accountNo, setAccountNo }}>
+      <div className={styles.start}>
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <div className={styles.header}>
+              <BranchAccountStatement.Header
+                title="Provide Account Details"
+                description="Search Account statement by providing customers account number"
+              />
+            </div>
+            <div>
+              <TabNavigations tabItems={tabitems} />
+            </div>
+          </div>
         </div>
-        <div>
-          <TabNavigations tabItems={tabitems} />
+        <div className={styles.bottomitem}>
+          {/* <StatementTable statementdata={completedata}/> */}
         </div>
       </div>
-    </div>
-    <div className={styles.bottomitem}>
-    {/* <StatementTable statementdata={completedata}/> */}
-    </div>
-    </div>
-    </AccountContext.Provider>
+    </AccountStatementContext.Provider>
   );
 }
 

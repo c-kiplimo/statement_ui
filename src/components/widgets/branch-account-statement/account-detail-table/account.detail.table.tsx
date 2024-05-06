@@ -4,9 +4,11 @@ import { DownloadOutlined } from "@ant-design/icons";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import HorizontalInfoDescription from "@/src/components/atoms/text/horizontal-info-description";
 import BranchTransactionsHistory, { TransactionHistoryData } from "../transactions-history-table/transaction.history.table";
-import { Modal } from "antd";
+import { Modal, Spin, notification } from "antd";
 import SelectReportFormat from "../select-report-format/select.report.format";
 import { DateSearchAction, SingleDataEntriesAction, SingleStatementAction } from "@/src/lib/single.statement.action";
+import { DownloadDefaultTemplate } from "@/src/services/account/account";
+import { data } from "@/src/app/statement/(auth)/data";
 
 export interface AccountDetails {
   accountName: string;
@@ -33,37 +35,74 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
   const[dataresulst, setDataResult] =useState<AccountDetails>()
   const [date, setDate]= useState<Dates>()
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  
+  const [selectedItemId, setSelectedItemId] = useState<number | undefined>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await SingleDataEntriesAction(itemId!);
-      setDataSet(result)
+      setLoading(true);
+      setError(null);
+
+      try {
+        const result = await SingleDataEntriesAction(itemId!);
+        setDataSet(result);
+
+        const dataresult = await SingleStatementAction(itemId!);
+        setDataResult(dataresult);
+
+        const dateResult = await DateSearchAction(itemId!);
+        setDate(dateResult);
+      } catch (error) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchData();
-
-    const fetchDataItems = async () => {
-      const dataresult = await SingleStatementAction(itemId!);
-      setDataResult(dataresult)
-    };
-    fetchDataItems();
-
-
-    const fetchDates = async () => {
-      const date:Dates = await DateSearchAction(itemId!);
-      setDate(date)
-    };
-    fetchDates();
   }, [itemId]);
 
-  const handleClick = () => {
-    setIsModalVisible(true);
-  };
+  
+  const handleClick =()=>{
+    async function Downloaddata() {
+      try {
+        if (itemId != null) {
+            const downloadData = await DownloadDefaultTemplate(itemId);
+            const blob = new Blob([downloadData], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+                window.open(url);
+            
+            console.log("Downloaded data:", downloadData);
+        } else {
+            throw new Error("itemId is not defined");
+        }
+    } catch (error) {
+      notification.error({
+        message:'An Error occured',
+        description:`${error}`
+      })
+      // throw error;
+    }
+    }
+    Downloaddata()
+  }
 
   const closeModal = () => {
     setIsModalVisible(false);
   };
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   
   return (
     <div className={styles.container}>
@@ -138,6 +177,7 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
         </div>
         <div className={styles.table}>
           <BranchTransactionsHistory data={dataset} />
+          
         </div>
       </div>
 
@@ -147,8 +187,9 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
           open={isModalVisible}
           onCancel={closeModal}
           footer={null}
+          
         >
-          <SelectReportFormat />
+          <SelectReportFormat itemId={selectedItemId}/>
         </Modal>
       </div>
     </div>

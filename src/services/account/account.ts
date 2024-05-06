@@ -1,5 +1,6 @@
 import axios from "axios";
-import { ACCOUNT_STATEMENT_REQUEST_URL, FIND_USER_ACCOUNT_BY_ID, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_REQUEST_URL, DELETE_ACCOUNT_SCHEDULE, DOWNLOAD_DEFAULT_TEMPLATE, FIND_USER_ACCOUNT_BY_ID, GET_ACCOUNT_SCHEDULE, GET_ACCOUNT_STATUS, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
+import { notification } from "antd";
 
 export const getAccountById = async (accountId: string): Promise<Account> => {
   const accountOverviewUrl = `${USER_ACCOUNTS_BY_ACCOUNTS_ID}/${accountId}`;
@@ -25,8 +26,6 @@ export const getAccountById = async (accountId: string): Promise<Account> => {
     throw new Error(`Failed to fetch account overview:`);
   }
 };
-
-
 
 const getCardByCardNumber = async (cardNumber: string): Promise<Card> => {
   const cardurl = `${USER_CARD_BY_CARD_NUMBER}/${cardNumber}`;
@@ -84,9 +83,7 @@ export const fetchStatementDataEntriesId = async (
   }
   }
 
-
-
-  export const fetchAccountDetailsById  = async (accountNumber:number):Promise<AccountInformations>=>{
+export const fetchAccountDetailsById  = async (accountNumber:number):Promise<AccountInformations>=>{
     const apiUrl = `${FIND_USER_ACCOUNT_BY_ID}/${accountNumber}`
     try {
         
@@ -116,4 +113,121 @@ export const fetchStatementDataEntriesId = async (
       throw error;
   }
   }
+
+  export const DownloadDefaultTemplate = async (accountId: number) => {
+    const accountRestrictionsUrl = `${DOWNLOAD_DEFAULT_TEMPLATE}/${accountId}`;
+
+    try {
+      const response = await axios.get(accountRestrictionsUrl, {
+          headers: {
+              'X-RequestId': '2345678',
+          },
+          responseType: 'blob'
+      });
+
+      if (response.data) {
+          return response.data;
+      } else {
+          throw new Error('Empty response from the server');
+      }
+  } catch (error) {
+      throw error;
+  }
+};
+
+export const fetchAccountStatus  = async (accountNumber:number):Promise<AccountStatus>=>{
+  const apiUrl = `${GET_ACCOUNT_STATUS}/${accountNumber}`
+  try {
+      
+    const response = await axios
+    .get(apiUrl, {
+        headers: {
+        "X-RequestId": "4354657678",
+        },
+    })
+    
+    .then((res) => {
+        let apiResponse = res.data;
+        if (apiResponse) {         
+          let apiRes=apiResponse
+        let accountinformation: AccountStatus = {
+            ...apiRes,
+        };
+        
+        return accountinformation;
+        } else {
+        throw new Error(apiResponse);
+        }
+    });      
+    return response;
+} catch (error) {
+    throw error;
+}
+}
+
+export const fetchAccountShedule  = async (accountNumber:number):Promise<SingleAccountSchedule[]>=>{
+  const apiUrl = `${GET_ACCOUNT_SCHEDULE}/${accountNumber}`
+  try {
+      
+    const response = await axios
+    .get(apiUrl, {
+        headers: {
+        "X-RequestId": "4354657678",
+        },
+    })
+    
+    .then((res) => {
+        let apiResponse = res.data;
+        if (apiResponse) {         
+          let apiRes=apiResponse
+        let accountinformation: SingleAccountSchedule[] = [
+            ...apiRes,
+        ];
+        
+        return accountinformation;
+        } else {
+        throw new Error(apiResponse);
+        }
+    });  
+        
+    return response;
+} catch (error) {
+    throw error;
+}
+}
+
+export const deleteAccountSchedule = async (id:number) => {
+  const deleteUrl = `${DELETE_ACCOUNT_SCHEDULE}/${id}`;
+
+  try {
+    const response = await axios.delete(deleteUrl, {
+      headers: {
+        "X-RequestId": "4354657678",
+      }
+    });
+
+    notification.success({
+      message: 'Schedule Deleted Successfully'
+    });
+
+    return response;
+  } catch (error) {
+    notification.error({
+      message: 'Failed to Delete Schedule',
+      
+    });
+
+    throw error;
+  }
+};
+
+
+
+
+
+
+
+
+
+
 

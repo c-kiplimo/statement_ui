@@ -11,16 +11,16 @@ type AccountStatementRequest = {
   
       statementEntries?:Array<{
           statementEntryId?: number;
-          accountId?: string;
-          amountLcy?: string;
-          currencyLcy?: string;
-          amountFcy?: string;
+          accountId?: number;
+          amountLcy?: number;
+          currencyLcy?: number;
+          amountFcy?: number;
           amount?: number;
           transactionCode?: string;
           customerId?: number;
           accountOfficer?: string;
           productCategory?: string;
-          valueDate?: number;
+          valueDate?: Date;
           currency?: string;
           positionType?: string;
           ourReference?: string;

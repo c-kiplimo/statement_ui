@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0px;
+  width: 95%;
+  height: 129px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+.container table {
+  width: 100%;
+  text-align: left;
+}
+.tablerow {
+  height: auto;
+}
+.tablehrad {
+  color: #6f7269;
+}
+.body {
+  align-items: flex-start;
+  font-weight: bold;
+  align-items: flex-start;
+}

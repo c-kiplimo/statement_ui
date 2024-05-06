@@ -6,7 +6,7 @@ import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 import AcctTable from "../../atoms/table/acctsummarytable";
 
 interface AccountDetail {
-  key: number;
+  key?: number;
   accountName: string;
   accountNumber: string;
   currentBalance: string;

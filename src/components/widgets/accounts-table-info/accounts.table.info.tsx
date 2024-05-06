@@ -6,22 +6,22 @@ import CustomSearchInput from "../../atoms/input/custom-search-input";
 import { TableOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
 interface AccountDetail {
-  key: number;
+  key?: number;
   accountName: string;
   accountNumber: string;
   currentBalance: string;
 }
 
-interface DataType {
-  id: number;
-  accountIcon: ReactNode;
+export interface AccountsBalances {
+  id?: number;
+  accountIcon?: ReactNode;
   accountTitle: string;
   amount: string;
   accountsbreakdownInfo: AccountDetail[];
 }
 
 type accountsTableProps = {
-  accountsData: DataType[];
+  accountsData: AccountsBalances[];
   title: string;
   inputPlaceholder: string;
 };
@@ -59,7 +59,7 @@ const AccountsTableInfo = (props: accountsTableProps) => {
         {props.accountsData.map((accounts) => (
           <AccountsOverviewDetailsCard
             key={accounts.id}
-            svgIcon={accounts.accountIcon}
+            svgIcon={<img src={`/${accounts.accountIcon}`}/>}
             accountTitle={accounts.accountTitle}
             amount={accounts.amount}
             data={accounts.accountsbreakdownInfo}

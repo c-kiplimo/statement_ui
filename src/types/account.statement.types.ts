@@ -85,7 +85,7 @@ type AccountStatement = {
     customerId: number;
     accountOfficer: string;
     productCategory: string;
-    valueDate: string;
+    valueDate: Date;
     currency: string;
     positionType: string;
     ourReference: string;
@@ -94,7 +94,7 @@ type AccountStatement = {
     departmentCode: string;
     transReference: string ;
     systemId: string ;
-    bookingDate: string;
+    bookingDate: Date;
     consolKey: string ;
     runningBalance: number;
     processingTime: Date;

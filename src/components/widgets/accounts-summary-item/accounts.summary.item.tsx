@@ -6,13 +6,13 @@ import CustomButton from "../../atoms/button/custom.button";
 import styles from "./accounts.summary.item.module.css";
 import AccountsBalanceOverview from "../accounts-balance-summary/accounts.balance.overview";
 
-interface DataType {
-  id: number;
-  icon: ReactNode;
+export interface SummaryData {
+  id?: number;
+  icon?: ReactNode;
   accountName: string;
   accountBalance: string;
-  bgcolor: string;
-  imgcolor: string;
+  bgcolor?: string;
+  imgcolor?: string;
 }
 
 type AccountsSummaryItemProps = {
@@ -20,7 +20,7 @@ type AccountsSummaryItemProps = {
   placeholder: string;
   buttonname: string;
   icon: ReactNode;
-  accountData: DataType[];
+  accountData: SummaryData[];
 };
 
 const AccountsSummaryItem = (props: AccountsSummaryItemProps) => {
@@ -90,7 +90,7 @@ AccountsSummaryItem.Filter = (props: FilterProps) => (
 );
 
 type bodyProps = {
-  accountData: DataType[];
+  accountData: SummaryData[];
   onClick?:(e:any)=>void
 };
 
@@ -100,11 +100,11 @@ AccountsSummaryItem.Body = (props: bodyProps) => {
       {props.accountData.map((data) => (
         <div key={data.id}>
           <AccountsBalanceOverview
-            icon={data.icon}
+            icon={<img  src={`/${data.icon!}`}/>}
             accountName={data.accountName}
             accountBalance={data.accountBalance}
-            imageBackgroundcolor={data.bgcolor}
-            imageColor={data.imgcolor}
+            imageBackgroundcolor={data.bgcolor!}
+            imageColor={data.imgcolor!}
             onClick={props.onClick}
           />
         </div>

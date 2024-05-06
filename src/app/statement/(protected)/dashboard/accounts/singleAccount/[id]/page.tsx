@@ -8,67 +8,6 @@ import GraphItem from "@/src/components/widgets/graph-item/graph.item";
 import { ReactNode, SetStateAction, useState } from "react";
 import { getAccountSummaryBalances, getCashFlowData, getMoneyInOut, getTransactionAccounts } from "@/src/lib/account.actions";
 
-const accountBalances = [
-  {
-    id: 1,
-    titleIcon: <img src="/openingbal.svg" />,
-    summaryTitle: "Opening Balance",
-    titleDescription: "(No 10)",
-    amount: "$560,025",
-    arrowIcon: <img src="/openingarrowIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
-  },
-  {
-    id: 2,
-    titleIcon: <img src="/spending.svg" />,
-    summaryTitle: "Spending",
-    titleDescription: "(No 100)",
-    amount: "$560,025",
-    arrowIcon: <img src="/spendingarrowIcon.svg" />,
-    percentage: "+0.47%",
-    date: "This Month",
-  },
-  {
-    id: 3,
-    titleIcon: <img src="/received.svg" />,
-    summaryTitle: "Received",
-    titleDescription: "(No 10)",
-    amount: "$560,025",
-    arrowIcon: <img src="/arrowLeftIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
-  },
-  {
-    id: 4,
-    titleIcon: <img src="/closing.svg" />,
-    summaryTitle: "Closing Balance",
-    titleDescription: "(No 10)",
-    amount: "$700,000",
-    arrowIcon: <img src="/closingarrowIcon.svg" />,
-    percentage: "2.45%",
-    date: "This Month",
-  },
-];
-
-const data = [
-  {
-    id: 1,
-    icon: <img src="/spotifie.svg" />,
-    title: "Paypal",
-    description: "$47,000",
-    percentage: 60,
-    strokecolor: "#FFBD66",
-  },
-  {
-    id: 2,
-    icon: <img src="/spotifie.svg" />,
-    title: "Paypal",
-    description: "$47,000",
-    percentage: 25,
-    strokecolor: "#4272DD",
-  },
-];
 
 const optiondata = [
   {
@@ -225,11 +164,9 @@ let accountId = params.id;
 
   
   const handleAccountChange = (event: any) => {
-    setSelectedAccount(event.target.value);
   };
   const handleTransactionChange = (event: any) => {
     setSelectedTransaction(event.target.value);
-    console.log(' This Mmodel is selected',selectedAccount); 
   };
 
   const handleselectAccountTypeChange =(event:any)=>{
@@ -279,7 +216,7 @@ let accountId = params.id;
               <span className={`h6b`}>{'$ ' + `${balances.closingBalance}`}</span>
             </div>
           </div>
-          <div>
+          {/* <div>
             <GraphItem
               data={graphData}
               balanceTitle={"Current Balance"}
@@ -287,7 +224,7 @@ let accountId = params.id;
               moneyIntitle={"Money In"}
               moneyoutTitle={"Money Out"}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.cards}>
@@ -301,7 +238,6 @@ let accountId = params.id;
         </div>
 
           <div className={styles.cashflow}>
-          {selectedAccount === 'onemonth' && (
               <CashflowCardHome
                 headerTitle={"Cash Flow"}
                 moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
@@ -314,37 +250,7 @@ let accountId = params.id;
                 options={optiondata}
                 onChange={handleAccountChange}
               />
-            )}
-            {selectedAccount === 'twomonth' && (
-              // Render different content based on 'twomonth' selection
-              <CashflowCardHome
-                headerTitle={"Cash Flow"}
-                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
-                moneyInTitle={"Money In"}
-                moneyInbalance={"$387,890"}
-                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-                moneyOutTitle={"Money Out"}
-                moneyOutbalance={"$387,890"}
-                progressdata={progress}
-                options={optiondata}
-                onChange={handleAccountChange}
-              />
-            )}
-            {selectedAccount === 'threemonth' && (
-              // Render different content based on 'threemonth' selection
-              <CashflowCardHome
-                headerTitle={"Cash Flow"}
-                moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
-                moneyInTitle={"Money In"}
-                moneyInbalance={"$377,890"}
-                moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
-                moneyOutTitle={"Money Out"}
-                moneyOutbalance={"$377,890"}
-                progressdata={progress}
-                options={optiondata}
-                onChange={handleAccountChange}
-              />
-            )}
+            
           </div>
           
         </div>

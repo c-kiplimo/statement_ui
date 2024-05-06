@@ -1,10 +1,11 @@
-import React, { CSSProperties, ReactNode, useState } from "react";
+import React, { CSSProperties, ReactNode, useContext, useState } from "react";
 import AccountsFilterItem from "../accounts-filter-item/accounts.filter.item";
 import styles from "./account.details.card.module.css";
 import Button from "../../atoms/button/custom.button";
 import SelectionCard from "../card-info/card-info-radio";
 import Link from "next/link";
 import CustomSearchInput from "../../atoms/input/custom-search-input";
+import { ProfileContext } from "@/src/app/statement/(protected)/dashboard/context/customerContext";
 
 export type AccountDataHome = {
     id: number,
@@ -29,6 +30,7 @@ type AccountDetailsCardProps = {
 const AccountDetailsCard = (props: AccountDetailsCardProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [filterSelected,setFilterSelected ] = useState(false);
+  const {custId} = useContext(ProfileContext)
 
   const selectFilter = ()=>{
     setFilterSelected(!filterSelected);   
@@ -76,6 +78,7 @@ const AccountDetailsCard = (props: AccountDetailsCardProps) => {
         ))}
       </div>
       <div className={styles.button}>
+      <Link href={"/statement/dashboard/accounts/" + custId}>
         <AccountDetailsCard.ViewButton
           buttonname={props.buttonName}
           padding={props.padding}
@@ -85,6 +88,7 @@ const AccountDetailsCard = (props: AccountDetailsCardProps) => {
           color={props.color}
           borderRadius={props.borderRadius}
         />
+        </Link>
       </div>
     </div>
   );
@@ -123,7 +127,6 @@ type BtnProps = {
 
 AccountDetailsCard.ViewButton = (props: BtnProps) => (
   <div>
-    <Link href={"/statement/dashboard/accounts/viewmore"}>
       <Button
         buttonName={props.buttonname}
         buttonStyle={{
@@ -135,6 +138,5 @@ AccountDetailsCard.ViewButton = (props: BtnProps) => (
           borderRadius: props.borderRadius,
         }}
       />
-    </Link>
   </div>
 );
