@@ -4,29 +4,23 @@ import styles from "./stepper.module.css";
 
 const { Step } = Steps;
 
+
+export type StepperContentProps ={
+  title: string,
+  content?: ReactNode
+  description?: ReactNode
+}
+
 type StepperProps = {
-  steps: { title: ReactNode }[];
+  steps: StepperContentProps[];
   direction:"horizontal" | "vertical";
   current: number;
-  onChange: (current: number) => void;
 };
 
-const Stepper = ({ steps,direction, current, onChange }: StepperProps) => {
-  const handleStepClick = (step: number) => {
-    onChange(step);
-  };
-
+const Stepper = ({ steps,direction, current}: StepperProps) => {
   return (
     <div className={styles.stepperContainer}>
-      <Steps current={current} direction={direction} className="bodyr">
-        {steps.map((step, index) => (
-          <Step
-            key={index}
-            title={step.title}
-            onClick={() => handleStepClick(index)}
-          />
-        ))}
-      </Steps>
+      <Steps current={current} direction={direction} className="bodyr" items={steps}/>
     </div>
   );
 };

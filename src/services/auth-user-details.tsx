@@ -8,8 +8,8 @@ const userDetails = () => {
 
   let tokenDetails = getToken();
   if (tokenDetails) {
-    let accesToken = tokenDetails.accessToken;
-    const decoded = jwt.decode(accesToken); 
+    let accessToken = tokenDetails.accessToken;
+    const decoded = jwt.decode(accessToken); 
     const { firstName, lastName, userName, mobileNumber, profileComplete } =
       decoded.userInfo;
 

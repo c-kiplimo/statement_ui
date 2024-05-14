@@ -11,10 +11,12 @@ import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { MulaPaySideBar } from "@/src/components/widgets/sidebar/msidebar";
 import { MenuData } from "@/src/constants/siderbar.docs";
+import { ProfileProvider } from "./context/useCreatedProfileContext";
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
+      <ProfileProvider>
       <div style={{ "display": "flex", flexDirection: "row", "height": "100vh"}}>
         <nav>
           <MulaPaySideBar items={MenuData} />
@@ -23,6 +25,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </main>
       </div>
+      </ProfileProvider>
     </SessionProvider>
   );
 };

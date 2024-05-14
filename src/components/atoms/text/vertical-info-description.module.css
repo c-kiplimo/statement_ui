@@ -2,9 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 464px
 }
 
+.header{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
 .title {
+  display: flex;
+  flex-direction: row;
   color: var(--Text-Text-Secondary, #151e00);
 }
 .description {

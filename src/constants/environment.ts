@@ -14,6 +14,7 @@ export const OTP_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:OTP";
 export const REQUEST_OTP_URL = `${API_URL}/api/v1/multifactor/otp`;
 export const VERIFY_OTP_URL = `${API_URL}/oauth2/token`;
 
+export const CREATE_USER_URL=`${API_URL}/api/user/profile/v1`
 export const USER_PROFILE_URL = `${PROFILE_URL}/api/v1/profile/`;
 export const AGGREGATE_PROFILE_URL = `${PROFILE_URL}/api/v1/aggregateprofiles/`;
 

@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import styles from "./newPasswordHelper.module.css";
 import Link from "next/link";
-import { useTokens } from "@/src/app/(context)/ColorContext";
 import Texter from "@/src/components/atoms/text/texter";
 
 const NewPasswordHelper = () => {

@@ -6,8 +6,7 @@ const useSession=()=>{
 
    // if session is missing redirect to login page
 
-   
-
+  
     const [session,setSession] = useState(null);
 
     useEffect(()=>{

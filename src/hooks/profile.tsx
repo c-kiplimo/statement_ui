@@ -12,3 +12,8 @@ const useProfile=()=>{
     },[])
 }
 
+// const useProfile=()=>{
+//     const [profile,setProfile] = useState<CustomerProfile | undefined>();
+
+
+//     return profile;

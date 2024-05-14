@@ -1,38 +1,39 @@
 import React, { useState } from "react";
-import styles from "./account-found.module.css";
+import styles from "./verify-identity.module.css";
 import { UserAddOutlined, UsergroupAddOutlined } from "@ant-design/icons";
 import Texter from "../../../../../../components/atoms/text/texter";
 import SelectionItem from "../../../../../../components/widgets/selectionItem/selectionItem";
 import { Modal, notification } from "antd";
-import OnboardingOtp from "../onBoardingOtp/onBoardingOtp";
-import { onBoardingHandler } from "@/src/services/auth/onboarding.service";
-import { ONBOARDING_OTP_REQUEST_URL, SEARCH_CUSTOMER_URL } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
+import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.service";
+import OnboardingOtp from "../onBoardingOtp/onBoardingOtp";
+import { useOnboardingContext } from "../../context/onBoardingContext";
 
 const IdentityCard = [
   {
-    id: 1,
+    id: "MOBILE_NUMBER",
     icon: <UserAddOutlined />,
     CardTitle: "Mobile Number",
     CardDescription: "Configured Mobile Number",
   },
   {
-    id: 2,
+    id: "EMAIL" ,
     icon: <UsergroupAddOutlined />,
     CardTitle: "Email Address",
     CardDescription: "Configured Email Address",
   },
 ];
 
-const AccountFound = () => {
+const VerifyIdentity = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { onBoardingOtpService } = onBoardingHandler();
-  const [searchType, setSearchType] = useState<string | null>(null);
   const { storeToken } = AuthServiceProvider();
+  const {onBoardingOtpService  } = SearchCustomerHandler();
+  const { profile, updateProfile } = useOnboardingContext();
+  const openModalHandler = async () => {
 
-  const openModalHandler = async (value: any) => {
-      const response = await onBoardingOtpService(`${ONBOARDING_OTP_REQUEST_URL}${searchType}/${value.emailNumber}`)
+      let option = selectedOption
+      await onBoardingOtpService('EMAIL','token')
       .then((response) => {
         const tokenData = {
           accessToken: response.data?.access_token,
@@ -67,13 +68,17 @@ const AccountFound = () => {
     setShowModal(false);
   };
 
+
   const handleOptionChange = (newValue: string | null) => {
+
+    // acticate activity indicator
+    // call otp service
+
+    //on success show otp modal 
+
+    //on failure show failure message
     setSelectedOption(newValue);
     openModalHandler();
-    const selectedCard = IdentityCard.find((card) => card.id.toString() === newValue);
-    if (selectedCard) {
-      setSearchType(selectedCard.CardTitle);
-    }
   };
 
   return (
@@ -89,7 +94,7 @@ const AccountFound = () => {
         {IdentityCard.map((card) => (
           <SelectionItem
             key={card.id}
-            id={card.id.toString()}
+            id={card.id}
             icon={card.icon}
             text={card.CardTitle}
             textDesc={card.CardDescription}
@@ -97,7 +102,7 @@ const AccountFound = () => {
             activeCardId={selectedOption}
           />
         ))}
-        {/* Modal */}
+
         {showModal && (
           <Modal
             open={showModal}
@@ -113,4 +118,4 @@ const AccountFound = () => {
   );
 };
 
-export default AccountFound;
+export default VerifyIdentity;

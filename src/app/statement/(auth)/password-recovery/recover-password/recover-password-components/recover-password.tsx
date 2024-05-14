@@ -50,9 +50,9 @@ const RecoverPassword = () => {
 
   const onOtpSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("otp", value);
-    console.log("userId", userId);
-    const response = await validateOtpService(value, userId);
+    // console.log("otp", value);
+    // console.log("userId", userId);
+    await validateOtpService(value, userId)
     router.push("/statement/password-recovery/create-new-password");
   };
 
@@ -74,7 +74,6 @@ const RecoverPassword = () => {
     event.preventDefault();
     timerChanged(300);
     stopTimer();
-
     notification.info({
       message: "OTP Resent",
       description:

@@ -11,15 +11,19 @@ export type User = {
   mfaRegistered: boolean;
   securityQuestionEnabled: boolean;
   consent: boolean;
+  profileComplete?:boolean
 };
 
 export type UserDetailProps = {
+  id?:string;
   userName?: string;
-  firstName?: string;
-  lastName?: string;
-  mobileNumber?: string;
-  profileComplete?: boolean;
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  email?:string;
+  profileComplete: boolean;
 };
+
 export type UserDetails = {
   key: React.Key;
   firstName: string;
@@ -27,3 +31,5 @@ export type UserDetails = {
   email: string;
   mobileNumber: string;
 };
+
+

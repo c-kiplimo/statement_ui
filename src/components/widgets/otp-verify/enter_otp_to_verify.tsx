@@ -11,6 +11,8 @@ import { User } from "@/src/types/user.type";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
 
+
+let profileStatus:boolean;
 const EnterOtpToVerify = () => {
   const [value, valueChanged] = useState("");
   const [myUser, setMyUser] = useState<User>();
@@ -39,8 +41,9 @@ const EnterOtpToVerify = () => {
             message: "OTP Verified",
             description: "Your OTP has been successfully verified.",
           });
-
-          router.push("/statement/dashboard");
+          {profileStatus ? 
+          router.push("/statement/dashboard"):router.push("/statement/profileOnboarding")
+        }
         })
         .catch((error) => {
           if (error.response.status == 400) {
@@ -82,6 +85,9 @@ const EnterOtpToVerify = () => {
 
   useEffect(() => {
     console.log("=====>" + JSON.stringify(getLoggedInUser()));
+    let data = getLoggedInUser()
+    console.log('Profile Completed >>', data.profileComplete);
+    profileStatus = data.profileComplete!;
     setMyUser(getLoggedInUser);
   }, [myUser?.email]);
 
@@ -89,7 +95,6 @@ const EnterOtpToVerify = () => {
     interValRef.current = window.setInterval(() => {
       timerChanged((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
     }, 1000);
-
     return () => {
       stopTimer();
     };
@@ -115,6 +120,7 @@ const EnterOtpToVerify = () => {
     <>
       <FormBuilder>
         <div className={styles.otpContainer}>
+          {profileStatus}
           <div className={styles.title}>
             <Texter className="h4b text-left" text="Enter OTP To Verify" />
           </div>

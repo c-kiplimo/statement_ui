@@ -53,13 +53,27 @@ const AuthServiceProvider = () => {
   const getLoggedInUser:()=> User = ()=>{
 
     const token = getToken()
+    
     if(token){
       let decodedjwt = jwtDecode<MyToken>(token.accessToken);
       let userInfo =decodedjwt.userInfo;
-      if(decodedjwt.userInfo){
-        return userInfo
+      if(userInfo){
+        let myUser:User={
+          id: userInfo.userName,
+          firstName: userInfo.firstName,
+          lastName: userInfo.lastName,
+          userName: userInfo.userName,
+          email: userInfo.email,
+          mobileNumber: userInfo.email,
+          mfaEnabled: userInfo.mfaEnabled,
+          mfaRegistered: userInfo.mfaRegistered,
+          securityQuestionEnabled: userInfo.securityQuestionEnabled,
+          consent: userInfo.consent,
+          profileComplete:userInfo.profileComplete,
+        }
+        return myUser;
       }
-      console.log(decodedjwt?.userInfo)
+      console.log("Decoded user'sInfo>>",decodedjwt?.userInfo)
     }
     throw new Error("Invalid User , please login ")
     
