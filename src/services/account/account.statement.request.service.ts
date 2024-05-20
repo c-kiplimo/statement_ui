@@ -1,4 +1,4 @@
-import { ACCOUNT_STATEMENT_REQUEST_URL, SEARCH_DATA_URL } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_REQUEST_COMPLETE, ACCOUNT_STATEMENT_REQUEST_URL, SEARCH_DATA_URL } from "@/src/constants/environment";
 import axios from "axios";
 
 
@@ -25,8 +25,8 @@ const AccountStatementRequestHandler = () => {
 
 const fetchStatementRequestById = async (
     id: number
-    ): Promise<AccountStatementRequest> => {
-    const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_REQUEST_URL}/${id}`;
+    ): Promise<AccountStatementRequest[]> => {
+    const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_REQUEST_COMPLETE}/${id}`;
     try {
         
         const response = await axios
@@ -41,9 +41,9 @@ const fetchStatementRequestById = async (
             if (apiResponse) {
         
             let apiRes = apiResponse
-            let accountStatementRequest: AccountStatementRequest = {
+            let accountStatementRequest: AccountStatementRequest[] = [
                 ...apiRes,
-            };
+            ];
             
             return accountStatementRequest;
             } else {
@@ -57,10 +57,47 @@ const fetchStatementRequestById = async (
     }
     }
 
+    const fetchStatementRequestStatementId = async (
+        id: number
+        ): Promise<AccountStatementRequest> => {
+        const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_REQUEST_URL}/${id}`;
+        try {
+            
+            const response = await axios
+            .get(accountStatementRequestUrl, {
+                headers: {
+                "X-RequestId": "234567890",
+                },
+            })
+            
+            .then((res) => {
+                let apiResponse = res.data;
+                if (apiResponse) {
+            
+                let apiRes = apiResponse
+                let accountStatementRequest: AccountStatementRequest = {
+                    ...apiRes,
+                };
+                
+                return accountStatementRequest;
+                } else {
+                throw new Error(apiResponse);
+                }
+            });
+            
+            return response;
+        } catch (error) {
+            throw error;
+        }
+        }
+
+    
+
     
     return {
         createAccountStatementRequest,
         fetchStatementRequestById,
+        fetchStatementRequestStatementId,
     };
     }
     export { AccountStatementRequestHandler };

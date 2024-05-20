@@ -6,7 +6,7 @@ const Piechart = dynamic(() => import("../../atoms/pieChart/piechart"), {
   ssr: false,
 });
 
-type DataType = {
+export type CurrencyBalances = {
   currency: string;
   amount: string;
   dollarEquivalent: string;
@@ -20,7 +20,7 @@ type ChartOverviewProps = {
   piechartData: DataTypes[];
   totalchartaccounts: string;
   totalChartamount: string;
-  currencyBalances: DataType[];
+  currencyBalances: CurrencyBalances[];
 };
 
 const ChartOverview = (props: ChartOverviewProps) => {
@@ -52,7 +52,7 @@ const ChartOverview = (props: ChartOverviewProps) => {
 export default ChartOverview;
 
 type BodyProps = {
-  currencyBalances: DataType[];
+  currencyBalances: CurrencyBalances[];
 };
 
 ChartOverview.Body = (props: BodyProps) => {

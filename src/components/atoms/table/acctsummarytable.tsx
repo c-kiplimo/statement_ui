@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 
 type DataType = {
-  key: React.Key;
+  key?: React.Key;
   accountName: string;
   accountNumber: string;
   currentBalance: string;

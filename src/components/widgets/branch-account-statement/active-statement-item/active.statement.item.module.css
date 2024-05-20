@@ -32,7 +32,11 @@
   border-radius: 4px;
 }
 .searchoutput {
-  margin-top: -20px;
+  margin-top: 20px;
+  /* background: aliceblue;
+  position: absolute;
+  margin-top: 200px;
+  width: 100%; */
 }
 .inputDate {
   height: 36px;

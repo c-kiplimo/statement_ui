@@ -1,28 +1,38 @@
-import React, { useState } from "react";
-import { DatePicker } from "antd";
+import React, { useContext, useState } from "react";
+import { DatePicker, notification } from "antd";
 import styles from "./active.statement.item.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import StatementTable from "../activity-history-table/activity.history.table";
 import { AccountStatementRequestHandler } from "@/src/services/account/account.statement.request.service";
-import { SEARCH_DATA_URL } from "@/src/constants/environment";
+import { ActiveTransactionAction } from "@/src/lib/completed.transactions.actions";
+import { usePathname, useRouter } from "next/navigation";
+import moment from "moment";
+import { AccountStatementContext } from "../context/getAccountNumberContext";
+
 
 
 const accountStatement =AccountStatementRequestHandler();
 
 let statement;
-let activeData:any;
-function ActiveStatement() {
+let activeDataid:any;
+let result:any;
+const  ActiveStatement= ()=> {
   const [accountNumber, setAccountNumber] = useState("");
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isInputComplete, setIsInputComplete] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const {accountNo, setAccountNo}= useContext(AccountStatementContext);
+
+  const path = usePathname()
+  const router = useRouter()
 
   const handleInputChange = (e: any) => {
     setAccountNumber(e.target.value);
     setIsInputComplete(e.target.value.trim() !== "");
-    setAccountNumber('1026272611');
+
+    
   };
 
   const handleStartDateChange = (date: any, dateString: any) => {
@@ -33,47 +43,50 @@ function ActiveStatement() {
     setEndDate(dateString);
   };
 
-  const handleSearchClick = async (e: any) => {
-    e.preventDefault();
-   
-    const accountStatementRequest: AccountStatementRequest = {
-      accountId: accountNumber,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate)
-    };
 
-    
-try {
- statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
- sessionStorage.setItem('statementRequestId', statement.statementRequestId?.toString() || '');
+const handleSearchClick = async (e: any) => {
+  e.preventDefault();
 
-  activeData = [
-        {
-          id: statement.statementRequestId,
-          date: statement.startDate,
-          time: "11:00 pm",
-          accountname: statement.accountTitle,
-          accountnumber: statement.accountId,
-          description: statement.description!,
-          status: statement.status,
-        },
-      ];   
-      
+  // Validate form inputs
+  if (accountNumber === "" || startDate === "" || endDate === "") {
+    alert("Please fill in all required fields.");
+    return;
+  }
+  const accountStatementRequest: AccountStatementRequest = {
+    accountId: accountNumber,
+    startDate: new Date(startDate),
+    endDate: new Date(endDate)
+  };
+  try {
+    // Perform account statement request
+    statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
+    sessionStorage.setItem('statementRequestId', statement.statementRequestId?.toString() || '');
+    sessionStorage.setItem('selectedacountnumber', accountNumber);
 
-      
+    activeDataid = sessionStorage.getItem('statementRequestId')
+    result = await ActiveTransactionAction(activeDataid);
+
+    setAccountNumber("");
+    setStartDate("");
+    setEndDate("");
+    setIsInputComplete(false);
+    setShowResults(true);
+
+    // Redirect to path using router
+    window.location.reload();
+    router.push(path);
   } catch (error) {
     console.error("Error fetching account statement:", error);
   }
-    if (accountNumber !== "" && startDate !== "" &&  endDate !=="") {
-      setShowResults(true);
-    } else {
-      alert("Please fill in all required fields.");
-    }
-  };
+};
+
+   
+console.log('num',accountNo);
 
   return (
     <div className={styles.contentContainer}>
       <div>
+        
         <form className={styles.container} onSubmit={handleSearchClick}>
           <div className={styles.inputhead}>
             <VerticalInfoDescription title={"Account Number"} />
@@ -88,11 +101,15 @@ try {
             </div>
             <div className={styles.datePicker}>
               <ActiveStatement.Date
+               value={startDate !== '' ? moment(startDate) : null}
+
                 onChange={handleStartDateChange}
                 placeholder={"Start Date"}
                 name='startDate'
               />
               <ActiveStatement.Date
+                value={endDate !== '' ? moment(endDate) : null}
+
                 onChange={handleEndDateChange}
                 placeholder={"End Date"}
                 name = 'endDate'
@@ -100,7 +117,7 @@ try {
             </div>
           </div>
           <div className={styles.search}>
-            <button type="submit" disabled={!isInputComplete}>
+            <button type="submit" disabled={!isInputComplete} >
               <SearchOutlined />
             </button>
           </div>
@@ -109,7 +126,7 @@ try {
       
       {showResults && (
         <div className={styles.searchoutput}>
-          <StatementTable statementdata={activeData} />
+          <StatementTable statementdata={result} />
         </div>
       )}
     </div>

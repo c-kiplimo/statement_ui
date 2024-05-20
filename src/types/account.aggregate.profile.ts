@@ -67,7 +67,7 @@ type AccountProfile = {
             status: string
     }>;
     availableBalanceDTOS: Array<{
-            availableBalance: string,
+            availableBalance: number,
             currency: string
         }>;
 };

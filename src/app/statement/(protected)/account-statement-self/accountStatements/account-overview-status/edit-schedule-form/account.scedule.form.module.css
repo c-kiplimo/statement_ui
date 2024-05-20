@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  background: #ffffff;
+}
+
+.formcontainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  gap: 10px;
+  width: 100%;
+  height: auto;
+}
+.formBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  border: 0.5px solid #c0c2b9;
+  border-radius: 4px;
+}
+.radioContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+
+  width: 100%;
+  height: auto;
+}
+.datetime {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 16px 8px 0px;
+  gap: 8px;
+  width: 261px;
+  height: 48px;
+}
+.fileformat {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: 377.26px;
+  height: 72px;
+}
+
+.fileformat select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 188.13px;
+  height: 40px;
+  outline: none;
+  border: 0.5px solid #bec0ba;
+  border-radius: 4px;
+}
+.format,
+.template {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  gap: 10px;
+
+  width: 761px;
+  height: 40px;
+}
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 16px;
+  width: 101px;
+  height: 40px;
+  color: white;
+  background: #84bd00;
+  opacity: 0.8;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}

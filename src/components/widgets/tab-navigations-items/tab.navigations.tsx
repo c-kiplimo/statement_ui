@@ -1,6 +1,5 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./tab.navigations.module.css";
-import CustomButton from "../../atoms/button/custom.button";
 import Link from "next/link";
 
 interface DataType {
@@ -15,8 +14,19 @@ function TabNavigations(props: TestProps) {
 
   const handleButtonClick = (buttonName: string) => {
     setActiveTab(buttonName);
+    localStorage.setItem("activeTab", buttonName); 
+
+  
   };
 
+  useEffect(() => {
+    const storedTab = localStorage.getItem("activeTab");
+    if (storedTab && props.tabItems.some((item) => item.buttonName === storedTab)) {
+      setActiveTab(storedTab);
+    }
+  }, [props.tabItems]);
+  
+  
   return (
     <div>
       <div className={styles.header}>
@@ -63,21 +73,11 @@ TabNavigations.Buttons = (props: ButtonProps) => (
         borderRadius: "4px",
         padding: "8px",
         opacity: "80%",
-        color: "#151E00",}}       onClick={props.onClick}
+        color: "#151E00",}}      
+         onClick={props.onClick}
         >
     {props.buttonname}
 
     </Link>
-    {/* <CustomButton
-      buttonName={props.buttonname}
-      buttonStyle={{
-        backgroundColor: props.isActive ? "#E6E6E6" : "",
-        borderRadius: "4px",
-        padding: "8px",
-        opacity: "80%",
-        color: "#151E00",
-      }}
-      onClick={props.onClick}
-    ></CustomButton> */}
   </div>
 );

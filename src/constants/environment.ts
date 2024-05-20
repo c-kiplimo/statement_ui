@@ -1,5 +1,8 @@
 export const API_URL = "http://45.79.252.234:9001";
 export const PROFILE_URL = "http://45.79.252.234:9002";
+export const DOWNLOAD_URL = "http://45.79.252.234:9003";
+
+
 
 export const AUTH_URL_LOGIN = `${API_URL}/oauth2/token`;
 export const AUTH_URL_REGISTER = `${API_URL}/api/v1/user`;
@@ -67,3 +70,22 @@ export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/card-overview`
 export const SEARCH_DATA_URL = `${PROFILE_URL}/api/v1/statement-request`
 export const STATEMENT_ENTRY_BY_ID = `${PROFILE_URL}/api/v1/statemententries`
 export const FIND_USER_ACCOUNT_BY_ID = `${PROFILE_URL}/api/v1/account-overview`
+export const VIEW_MORE_ACCOUNT_BY_CUSTID = `${PROFILE_URL}/api/v1/accounts/summary`
+export const DOWNLOAD_DEFAULT_TEMPLATE = `${DOWNLOAD_URL}/api/v1/statement/download`
+export const GET_ACCOUNT_STATUS = `${PROFILE_URL}/api/v1/accounts`
+export const GET_ACCOUNT_SCHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
+export const ACCOUNT_STATEMENT_REQUEST_COMPLETE = `${PROFILE_URL}/api/v1/statement-request/account`;
+export const CREATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
+export const DELETE_ACCOUNT_SCHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
+export const GET_ACCOUNT_SCHEDULE_BY_ID = `${PROFILE_URL}/api/v1/accounts/schedule/account`
+export const UPDATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
+
+
+
+
+
+
+
+
+
+

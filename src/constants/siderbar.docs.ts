@@ -28,6 +28,12 @@ export const MenuData: SideNavMenu[] = [
         opened: false,
       },
       {
+        title: "Account Statement Self",
+        path: "/statement/account-statement-self",
+        icon: AccountStatementIcon,
+        opened: false,
+      },
+      {
         title: "Loan Statement",
         path: "/statement/loan",
         icon: LoanStatementIcon,

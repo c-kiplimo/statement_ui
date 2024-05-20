@@ -1,57 +1,65 @@
-'use client'
-import React, { CSSProperties, ReactNode, useEffect, useState,useContext } from "react";
-import { Modal, Pagination } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Modal } from "antd";
 import StatementTable from "../activity-history-table/activity.history.table";
 import AccountDetailTable from "../account-detail-table/account.detail.table";
+import { completeTransactionAction } from "@/src/lib/completed.transactions.actions";
 import { usePathname } from "next/navigation";
-import { CompletedTransactionAction } from "@/src/lib/completed.transactions.actions";
-
+import { AccountStatementContext } from "../context/getAccountNumberContext";
 
 function CompletedStatement() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
-  const [data, setData] =useState<CompleteTransactions[]>([]); 
+  const [data, setData] = useState<CompleteTransactions[] | null>(null);
+  const { accountNo } = useContext(AccountStatementContext);
 
-  let statementRequestId = sessionStorage.getItem("statementRequestId");
+  const path = usePathname();
+  let actctnum = sessionStorage.getItem("selectedacountnumber");
 
-  if(statementRequestId){
-    useEffect(() => {
-      const fetchData = async () => {
-        const result = await CompletedTransactionAction(statementRequestId);
-        setData(result)    
-      };
-      fetchData();
-    }, [statementRequestId]);    
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await completeTransactionAction(actctnum!);
+      setData(result);
+    };
+    fetchData();
+  }, [accountNo]);
 
- const handleEyeIconClick = (id: number) => {
-    setSelectedItemId(id); 
-    setIsModalVisible(true); 
+  console.log("selected account number", actctnum);
+
+  const handleEyeIconClick = (id: number) => {
+    setSelectedItemId(id);
+    setIsModalVisible(true);
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
-    setSelectedItemId(null); 
+    setSelectedItemId(null);
   };
 
   return (
-    <div >
-      <StatementTable
-        statementdata={data}
-        onEyeIconClick={handleEyeIconClick}
-      />
-
-      <Modal
-        width={"70%"}
-        open={isModalVisible}
-        onCancel={closeModal}
-        footer={null}
-      >
-        {selectedItemId !== null && (
-          <AccountDetailTable itemId={selectedItemId} />
-        )}
-      </Modal>
-    </div>
+    <>
+      {data && data.length > 0 ? (
+        <div>
+          <StatementTable
+            statementdata={data}
+            onEyeIconClick={handleEyeIconClick}
+          />
+          <Modal
+            width={"70%"}
+            open={isModalVisible}
+            onCancel={closeModal}
+            footer={null}
+          >
+            {selectedItemId !== null && (
+              <AccountDetailTable itemId={selectedItemId} />
+            )}
+          </Modal>
+        </div>
+      ) : (
+        <div style={{ textAlign: "center" }}>
+          Fetching Account Statement.....
+        </div>
+      )}
+    </>
   );
 }
 
