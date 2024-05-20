@@ -67,9 +67,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
       });
 
       router.push("/statement/account-statement-self");
-      window.location.reload();
-
-      // closeModal();
+      closeModal();
     } catch (error) {
       if (error === "Network Error") {
         notification.error({

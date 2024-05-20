@@ -64,29 +64,10 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
   }, [itemId]);
 
   
-  const handleClick =()=>{
-    async function Downloaddata() {
-      try {
-        if (itemId != null) {
-            const downloadData = await DownloadDefaultTemplate(itemId);
-            const blob = new Blob([downloadData], { type: 'application/pdf' });
-            const url = window.URL.createObjectURL(blob);
-                window.open(url);
-            
-            console.log("Downloaded data:", downloadData);
-        } else {
-            throw new Error("itemId is not defined");
-        }
-    } catch (error) {
-      notification.error({
-        message:'An Error occured',
-        description:`${error}`
-      })
-      // throw error;
-    }
-    }
-    Downloaddata()
-  }
+  const handleClick = () => {
+    setSelectedItemId(itemId);
+    setIsModalVisible(true);
+  };
 
   const closeModal = () => {
     setIsModalVisible(false);
@@ -101,7 +82,7 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
 
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="flex justify-center items-center">Error: {error}</div>;
   }
   
   return (

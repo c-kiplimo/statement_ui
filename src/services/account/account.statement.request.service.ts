@@ -1,4 +1,4 @@
-import { ACCOUNT_STATEMENT_REQUEST_COMPLETE, ACCOUNT_STATEMENT_REQUEST_URL, SEARCH_DATA_URL } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_BY_USER_ID, ACCOUNT_STATEMENT_REQUEST_COMPLETE, ACCOUNT_STATEMENT_REQUEST_URL, SEARCH_DATA_URL } from "@/src/constants/environment";
 import axios from "axios";
 
 
@@ -56,8 +56,7 @@ const fetchStatementRequestById = async (
         throw error;
     }
     }
-
-    const fetchStatementRequestStatementId = async (
+const fetchStatementRequestStatementId = async (
         id: number
         ): Promise<AccountStatementRequest> => {
         const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_REQUEST_URL}/${id}`;
@@ -92,12 +91,47 @@ const fetchStatementRequestById = async (
         }
 
     
+        const fetchStatementRequestByUserId = async (
+            userId: number
+            ): Promise<AccountStatementRequest[]> => {
+            const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_BY_USER_ID}/${userId}`;
+            try {
+                
+                const response = await axios
+                .get(accountStatementRequestUrl, {
+                    headers: {
+                    "X-RequestId": "234567890",
+                    },
+                })
+                
+                .then((res) => {
+                    let apiResponse = res.data;
+                    if (apiResponse) {
+                
+                    let apiRes = apiResponse
+                    let accountStatementRequest: AccountStatementRequest[] = [
+                        ...apiRes,
+                    ];
+                    
+                    return accountStatementRequest;
+                    } else {
+                    throw new Error(apiResponse);
+                    }
+                });
+                
+                return response;
+            } catch (error) {
+                throw error;
+            }
+            }
+    
 
     
     return {
         createAccountStatementRequest,
         fetchStatementRequestById,
         fetchStatementRequestStatementId,
+        fetchStatementRequestByUserId,
     };
     }
     export { AccountStatementRequestHandler };

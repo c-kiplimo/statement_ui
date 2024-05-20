@@ -93,8 +93,7 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
       });
 
       router.push("/statement/account-statement-self");
-      // window.history.back();
-      window.location.reload();
+      closeModal()
     } catch (error) {
       if (error === "Network Error") {
         notification.error({
