@@ -8,6 +8,8 @@ type AccountStatementRequest = {
   creationDate?: Date;
   accountTitle?: string;
   currency?: string;
+  accountName?:string;
+  userId:number;
   
       statementEntries?:Array<{
           statementEntryId?: number;

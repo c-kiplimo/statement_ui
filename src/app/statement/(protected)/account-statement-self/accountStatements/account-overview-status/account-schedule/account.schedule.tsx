@@ -6,10 +6,12 @@ import {
   AccountStatusAction,
 } from "@/src/lib/account.status.action";
 import { EditOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import AccountScheduleForm from "../account-schedule-form/account.scedule.form";
 import DeleteSchedule from "../delete-schedule/delete.schedule";
 import EditScheduleForm from "../edit-schedule-form/account.scedule.form";
+import { useQuery } from 'react-query';
+
 
 export type AccountSheduleData = {
   key: number;
@@ -30,30 +32,27 @@ type AccountScheduleProps = {
 
 function AccountSchedule() {
   const { selectedAccount } = useContext(SelectedAcountContext);
-  const [statusData, setStatusData] = useState<AccountSheduleData[]>();
-  const [error, setError] = useState<string | null>(null);
+  // const [statusData, setStatusData] = useState<AccountSheduleData[]>();
+  // const [error, setError] = useState<string | null>(null);
   const [addScheduleModal, setAddScheduleModal] = useState(false);
   const [removeScheduleModal, setRemoveScheduleModal] = useState(false);
   const [editScheduleModal, setEditScheduleModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
-  useEffect(() => {
-    const fetchStatusData = async () => {
-      try {
-        const result = await AccountScheduleAction(selectedAccount);
-        setStatusData(result);
-        setError(null);
-      } catch (error) {
-        // setError("Failed to fetch account status");
-        setStatusData(null!);
-      }
-    };
 
-    if (selectedAccount) {
-      fetchStatusData();
+  const fetchStatusData = async () => {
+    const result = await AccountScheduleAction(selectedAccount);
+    return result;
+  };
+
+  const { data: statusData, error , isError, isLoading } = useQuery(
+    ['accountSchedule', selectedAccount],
+    fetchStatusData,
+    {
+      enabled: !!selectedAccount,
+      refetchInterval: 5000, 
     }
-  }, [selectedAccount]);
-
+  );
 
   const handleAddButtonClick = () => {
     setAddScheduleModal(true);
@@ -75,6 +74,16 @@ function AccountSchedule() {
     setSelectedItemId(id);
     setRemoveScheduleModal(true);
   };
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center p-4">
+        <Spin size="large" />
+      </div>
+  }
+
+  if (isError) {
+    return <div>Error: {error instanceof Error ? error.message : 'An error occurred'}</div>;
+  }
 
   return (
     <div className={styles.container}>

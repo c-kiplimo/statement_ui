@@ -10,6 +10,9 @@ import { singleUsersAccounts } from "@/src/lib/account.overview.actions";
 import { UsersAccounts } from "../active-statement-item/active.statement.item";
 import getProfileId from "@/src/hooks/profileId";
 import { notification } from "antd";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const AccountOverviewStatus = () => {
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
@@ -53,6 +56,8 @@ const AccountOverviewStatus = () => {
 
   return (
     <SelectedAcountContext.Provider value={{ selectedAccount }}>
+    <QueryClientProvider client={queryClient}>
+
       <div className={styles.container}>
         <div className={styles.header}>
           <VerticalInfoDescription
@@ -131,6 +136,7 @@ const AccountOverviewStatus = () => {
           {selectedAccount && activeTab === "schedules" && <AccountSchedule />}
         </div>
       </div>
+      </QueryClientProvider>
     </SelectedAcountContext.Provider>
   );
 };

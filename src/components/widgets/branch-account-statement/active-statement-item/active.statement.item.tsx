@@ -9,6 +9,8 @@ import { ActiveTransactionAction } from "@/src/lib/completed.transactions.action
 import { usePathname, useRouter } from "next/navigation";
 import moment from "moment";
 import { AccountStatementContext } from "../context/getAccountNumberContext";
+import useUserId from "@/src/hooks/userId";
+import { useQuery } from "react-query";
 
 
 
@@ -25,6 +27,7 @@ const  ActiveStatement= ()=> {
   const [showResults, setShowResults] = useState(false);
   const {accountNo, setAccountNo}= useContext(AccountStatementContext);
 
+  let userId = useUserId()
   const path = usePathname()
   const router = useRouter()
 
@@ -55,33 +58,56 @@ const handleSearchClick = async (e: any) => {
   const accountStatementRequest: AccountStatementRequest = {
     accountId: accountNumber,
     startDate: new Date(startDate),
-    endDate: new Date(endDate)
+    endDate: new Date(endDate),
+    userId: userId
   };
+  
   try {
-    // Perform account statement request
-    statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
-    sessionStorage.setItem('statementRequestId', statement.statementRequestId?.toString() || '');
-    sessionStorage.setItem('selectedacountnumber', accountNumber);
+    // Perform account statement post request
+    const statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
+    sessionStorage.setItem("statementRequestId", statement.statementRequestId?.toString() || "");
+    sessionStorage.setItem("selectedacountnumber", accountNumber);
 
-    activeDataid = sessionStorage.getItem('statementRequestId')
-    result = await ActiveTransactionAction(activeDataid);
-
-    setAccountNumber("");
-    setStartDate("");
-    setEndDate("");
-    setIsInputComplete(false);
     setShowResults(true);
-
-    // Redirect to path using router
-    window.location.reload();
     router.push(path);
+    
   } catch (error) {
     console.error("Error fetching account statement:", error);
   }
+  setAccountNumber('');
+  setEndDate('');
+  setStartDate('');
 };
 
+// Query to fetch active transactions based on the statementRequestId 
+const statementRequestId = sessionStorage.getItem("statementRequestId");
+
+const { data: result, isLoading, error } = useQuery(
+  ['activeTransactions', statementRequestId],
+  () => ActiveTransactionAction(statementRequestId!),
+  {
+    enabled: !!statementRequestId,
+    refetchInterval: 5000,
+  }
+);
+
+if (isLoading) {
+  return (
+    <div className="flex justify-center items-center p-3">
+      Loading...
+    </div>
+  );
+}
+
+if (error) {
+  return (
+    <div className="text-center font-bold p-3">
+      An error occurred: {error instanceof Error ? error.message : 'Unknown error'}
+    </div>
+  );
+}
+
    
-console.log('num',accountNo);
 
   return (
     <div className={styles.contentContainer}>
@@ -124,9 +150,9 @@ console.log('num',accountNo);
         </form>
       </div>
       
-      {showResults && (
+      {showResults && result && result.length > 0 && (
         <div className={styles.searchoutput}>
-          <StatementTable statementdata={result} />
+          <StatementTable statementdata={result!} />
         </div>
       )}
     </div>

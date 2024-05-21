@@ -10,6 +10,8 @@ import { usePathname, useRouter } from "next/navigation";
 import SelectedInput from "@/src/components/atoms/select/select.input";
 import { singleUsersAccounts } from "@/src/lib/account.overview.actions";
 import getProfileId from "@/src/hooks/profileId";
+import useUserId from "@/src/hooks/userId";
+import { useQuery } from 'react-query';
 
 export type UsersAccounts = {
   key: number;
@@ -19,22 +21,18 @@ export type UsersAccounts = {
 
 const accountStatement = AccountStatementRequestHandler();
 
-let statement;
-let activeDataid: any;
-let result: any;
 const ActiveStatement = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isInputComplete, setIsInputComplete] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [usersAccounts, setUsersAccounts] = useState<UsersAccounts[] | null>(
-    null
-  );
+  const [usersAccounts, setUsersAccounts] = useState<UsersAccounts[] | null>(null);
   const path = usePathname();
   const router = useRouter();
 
   let profileId = getProfileId();
+  let userId = useUserId();
 
   useEffect(() => {
     const fetchUsersAccounts = async () => {
@@ -42,15 +40,14 @@ const ActiveStatement = () => {
         const accounts = await singleUsersAccounts(profileId);
         setUsersAccounts(accounts);
       } catch (error) {
-        // throw error;
         notification.error({
-          message:'An Error Occured',
-          description:`${error}`
-        })
+          message: 'An Error Occurred',
+          description: `${error}`
+        });
       }
     };
     fetchUsersAccounts();
-  }, []);
+  }, [profileId]);
 
   const handleInputChange = (e: any) => {
     setAccountNumber(e.target.value);
@@ -73,40 +70,54 @@ const ActiveStatement = () => {
       alert("Please fill in all required fields.");
       return;
     }
+
     const accountStatementRequest: AccountStatementRequest = {
       accountId: accountNumber,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
+      userId: userId,
     };
 
     try {
-      // Perform account statement request
-      statement = await accountStatement.createAccountStatementRequest(
-        accountStatementRequest
-      );
-      sessionStorage.setItem(
-        "statementRequestId",
-        statement.statementRequestId?.toString() || ""
-      );
+      // Perform account statement post request
+      const statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
+      sessionStorage.setItem("statementRequestId", statement.statementRequestId?.toString() || "");
       sessionStorage.setItem("selectedacountnumber", accountNumber);
 
-      activeDataid = sessionStorage.getItem("statementRequestId");
-      result = await ActiveTransactionAction(activeDataid);
-
-      // Clear form inputs
-      setAccountNumber("");
-      setStartDate("");
-      setEndDate("");
-      setIsInputComplete(false);
       setShowResults(true);
-
-      window.location.reload();
-
       router.push(path);
     } catch (error) {
       console.error("Error fetching account statement:", error);
     }
   };
+
+  // Query to fetch active transactions based on the statementRequestId 
+  const statementRequestId = sessionStorage.getItem("statementRequestId");
+
+  const { data: result, isLoading, error } = useQuery(
+    ['activeTransactions', statementRequestId],
+    () => ActiveTransactionAction(statementRequestId!),
+    {
+      enabled: !!statementRequestId,
+      refetchInterval: 5000,
+    }
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-3">
+        Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center font-bold p-3">
+        An error occurred: {error instanceof Error ? error.message : 'Unknown error'}
+      </div>
+    );
+  }
 
   return (
     <div className={styles.contentContainer}>
@@ -156,7 +167,7 @@ const ActiveStatement = () => {
         )}
       </div>
 
-      {showResults && (
+      {showResults && result && result.length > 0 && (
         <div className={styles.searchoutput}>
           <StatementTable statementdata={result} />
         </div>
@@ -164,6 +175,7 @@ const ActiveStatement = () => {
     </div>
   );
 };
+
 type selectionProps = {
   options: UsersAccounts[];
   onChange?: (e: any) => void;
@@ -180,12 +192,13 @@ ActiveStatement.Selection = (props: selectionProps) => (
   >
     <option value="">Select The Account</option>
     {props.options.map((option) => (
-      <option value={option.value} onClick={props.onClick}>
+      <option key={option.key} value={option.value} onClick={props.onClick}>
         {option.option}
       </option>
     ))}
   </select>
 );
+
 export default ActiveStatement;
 
 ActiveStatement.Date = ({ onChange, placeholder, value, name }: any) => (

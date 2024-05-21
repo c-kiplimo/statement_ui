@@ -80,6 +80,8 @@ export const CREATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
 export const DELETE_ACCOUNT_SCHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
 export const GET_ACCOUNT_SCHEDULE_BY_ID = `${PROFILE_URL}/api/v1/accounts/schedule/account`
 export const UPDATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
+export const ACCOUNT_STATEMENT_BY_USER_ID = `${PROFILE_URL}/api/v1/statement-request/user`;
+
 
 
 

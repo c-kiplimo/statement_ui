@@ -5,6 +5,9 @@ import VerticalInfoDescription from "../../atoms/text/vertical-info-description"
 import ActiveStatement from "./active-statement-item/active.statement.item";
 import CompletedStatement from "./completed-statement/completed.statement";
 import { AccountStatementContext } from "./context/getAccountNumberContext";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const tabitems = [
   {
@@ -23,6 +26,8 @@ function BranchAccountStatement() {
 
   return (
     <AccountStatementContext.Provider value={{ accountNo, setAccountNo }}>
+      <QueryClientProvider client={queryClient}>
+
       <div className={styles.start}>
         <div className={styles.container}>
           <div className={styles.content}>
@@ -37,10 +42,8 @@ function BranchAccountStatement() {
             </div>
           </div>
         </div>
-        <div className={styles.bottomitem}>
-          {/* <StatementTable statementdata={completedata}/> */}
-        </div>
       </div>
+      </QueryClientProvider>
     </AccountStatementContext.Provider>
   );
 }

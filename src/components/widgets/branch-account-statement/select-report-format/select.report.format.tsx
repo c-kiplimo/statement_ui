@@ -4,6 +4,7 @@ import { GlobalOutlined } from "@ant-design/icons";
 import CustomSearchInput from "@/src/components/atoms/input/custom-search-input";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import { DownloadDefaultTemplate } from "@/src/services/account/account";
+import { notification } from "antd";
 
 interface SelectReportFormatProps {
   itemId?: number;
@@ -60,8 +61,12 @@ const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
               throw new Error("itemId is not defined");
             }
           } catch (error) {
-            console.error("Error downloading data:", error);
-            throw error;
+
+            notification.error({
+              message: 'Error',
+              description: `An error occurred: ${error}`,
+            });
+            // throw error;
           }
         }
         Downloaddata();
@@ -75,7 +80,6 @@ const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
   };
   return (
     <div className={styles.container}>
-      {itemId}
       <div>
         <SelectReportFormat.SelectBox />
       </div>

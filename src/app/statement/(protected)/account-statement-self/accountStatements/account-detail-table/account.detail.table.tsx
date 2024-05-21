@@ -69,34 +69,12 @@ function AccountDetailTable({ itemId }: AccountDetailTableProps) {
     fetchData();
   }, [itemId]);
 
-  // const handleClick = () => {
-  //   setSelectedItemId(itemId);
-  //   setIsModalVisible(true);
-  // };
+  const handleClick = () => {
+    setSelectedItemId(itemId);
+    setIsModalVisible(true);
+  };
 
-  const handleClick =()=>{
-    async function Downloaddata() {
-      try {
-        if (itemId != null) {
-            const downloadData = await DownloadDefaultTemplate(itemId);
-            const blob = new Blob([downloadData], { type: 'application/pdf' });
-            const url = window.URL.createObjectURL(blob);
-                window.open(url);
-            
-            console.log("Downloaded data:", downloadData);
-        } else {
-            throw new Error("itemId is not defined");
-        }
-    } catch (error) {
-      notification.error({
-        message:'An Error occured',
-        description:`${error}`
-      })
-      // throw error;
-    }
-    }
-    Downloaddata()
-  }
+  
 
   const closeModal = () => {
     setIsModalVisible(false);

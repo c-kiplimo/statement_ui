@@ -50,9 +50,9 @@ export const SingleDataEntriesAction = async (
       valuedate: convertDateString(data.valueDate!.toString()),
       paymentDetails: data.transactionDetails!,
       moneyIn:
-        data.debit === false ? formatAmount(data.amount!.toString()) : "",
+        data.debit === true ? formatAmount(data.amount!.toString()) : "",
       moneyOut:
-        data.credit === false ? formatAmount(data.amount!.toString()) : "",
+        data.credit === true ? formatAmount(data.amount!.toString()) : "",
       balance: data.runningBalance!.toLocaleString(),
       transferRef: data.transReference!,
     })
@@ -100,7 +100,7 @@ export const DateSearchAction = async (
   };
   return dates;
 
-  function toString(date: Date): string {
+function toString(date: Date): string {
     try {
       const dates = new Date(date);
       let dateString = dates.toLocaleDateString("en-US", {
@@ -115,3 +115,10 @@ export const DateSearchAction = async (
     }
   }
 };
+
+
+
+
+
+
+

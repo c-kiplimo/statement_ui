@@ -10,8 +10,7 @@ const DeleteSchedule = ({ id, closeModal }: DeleteScheduleProps) => {
   const handleConfirmDelete = async () => {
     try {
       await deleteAccountSchedule(id);
-      // closeModal();
-      window.location.reload();
+      closeModal();
     } catch (error) {
       throw new Error();
     }
