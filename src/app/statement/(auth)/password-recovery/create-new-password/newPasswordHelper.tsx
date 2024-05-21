@@ -39,7 +39,7 @@ const NewPasswordHelper = () => {
   };
 
   const onFinish = async (values: any) => {
-    const userId = localStorage.getItem("userId");
+    const userId = sessionStorage.getItem("userId");
 
     if (userId) {
       try {
