@@ -8,6 +8,7 @@ type SelectionItemProps = {
   id: string;
   icon: ReactNode;
   text: string;
+  textInfo?:string;
   textDesc: string;
   onClick: (id: string) => void;
   activeCardId: string | null;
@@ -15,11 +16,11 @@ type SelectionItemProps = {
 
 const cx = classNames.bind(styles);
 
-const SelectionItem = (props: SelectionItemProps) => {
-  const isActive = props.activeCardId === props.id;
+const SelectionItem = ({id,icon,text,textInfo,textDesc,onClick,activeCardId}: SelectionItemProps) => {
+  const isActive = activeCardId === id;
 
   const handleClick = () => {
-    props.onClick(props.id);
+    onClick(id);
   };
 
   return (
@@ -29,8 +30,8 @@ const SelectionItem = (props: SelectionItemProps) => {
     >
       <div className={styles.wrapper}>
         <div className={styles.content}>
-          <SelectionItem.Icon icon={props.icon} isActive={isActive} />
-          <SelectionItem.Text title={props.text} description={props.textDesc} />
+          <SelectionItem.Icon icon={icon} isActive={isActive} />
+          <SelectionItem.Text title={text} info={textInfo}description={textDesc} />
         </div>
         {isActive && (
           <div className={styles.arrowIcon}>
@@ -49,27 +50,29 @@ type SelectionItemIconProps = {
   iconStyle?: CSSProperties;
   isActive: boolean;
 };
-SelectionItem.Icon = (props: SelectionItemIconProps) => {
+SelectionItem.Icon = ({icon,iconStyle,isActive}: SelectionItemIconProps) => {
   return (
     <div
-      className={cx(styles.icon, { [styles.selected]: props.isActive })}
-      style={props.iconStyle}
+      className={cx(styles.icon, { [styles.selected]: isActive })}
+      style={iconStyle}
     >
-      {props.icon}
+      {icon}
     </div>
   );
 };
 
 type TextProps = {
   title: string;
+  info?:string;
   description: string;
 };
-SelectionItem.Text = (props: TextProps) => {
+SelectionItem.Text = ({title,info,description}: TextProps) => {
   return (
     <div className={styles.text}>
       <VerticalInfoDescription
-        title={props.title}
-        description={props.description}
+        title={title}
+        titleInfo={info}
+        description={description}
         descriptionStyle={{ fontWeight: "300", fontSize: "12px" }}
       />
     </div>

@@ -23,7 +23,6 @@ export type TokenPayload = {
  export interface MyToken extends JwtPayload {
     tokenType: string;
     userInfo: User;
-    // whatever else is in the JWT.
   }
 
 export type AuthHeaderType = { Authorization: string; 'Content-Type': string; 'X-RequestId': string; }

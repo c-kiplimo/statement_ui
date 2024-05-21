@@ -1,9 +1,9 @@
 type CustomerProfile ={
-    profileId: string,
+    profileId?: string,
     profileName: string,
     country: string,
-    userId: string,
-    customerId: string,
-    active: boolean,
-    defaultProfile: boolean
+    userId?: string,
+    customerId: number,
+    active?: boolean,
+    defaultProfile?: boolean
 }

@@ -1,103 +1,122 @@
+// pages/index.tsx
 "use client"
 
-import { Button, Modal, message, Form, Steps, Input, DatePicker } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { Steps } from 'antd';
 
 const { Step } = Steps;
 
-const waitTime = (time = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
+// Interface for form state
+interface FormState {
+  country: string;
+  accountNumber: string;
+  user: any; // Update 'any' with your user type
+}
 
-export default () => {
-  const [visible, setVisible] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+// Context to manage form state
+const FormContext = React.createContext<[FormState, React.Dispatch<React.SetStateAction<FormState>>]>([{
+  country: '',
+  accountNumber: '',
+  user: null,
+}, () => {}]);
 
-  const handleNext = () => {
-    setCurrentStep(currentStep + 1);
+// Step 1 Component
+const Step1: React.FC<{ setStep: (step: number) => void }> = ({ setStep }) => {
+  const [formData, setFormData] = useContext(FormContext);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [searchError, setSearchError] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
   };
 
-  const handlePrev = () => {
-    setCurrentStep(currentStep - 1);
+  const closeModal = () => {
+    setModalOpen(false);
+    setSearchError(false);
+  };
+
+  const searchUser = async () => {
+    try {
+      const response = await axios.get('/api/user', {
+        params: {
+          country: formData.country,
+          accountNumber: formData.accountNumber,
+        },
+      });
+      // Assuming response.data contains user info
+      if (response.data) {
+        setFormData({ ...formData, user: response.data });
+        setSearchError(false);
+        closeModal();
+        // Move to Step 2 when user is found
+        formData.user && setStep(1);
+      } else {
+        setSearchError(true);
+      }
+    } catch (error) {
+      console.error('Error searching user:', error);
+      setSearchError(true);
+    }
   };
 
   return (
-    <>
-      <Button type="primary" onClick={() => setVisible(true)}>
-        <PlusOutlined />
-        Step by step form creation
-      </Button>
-      <Modal
-        title="Step by step form"
-        width={800}
-        visible={visible}
-        onCancel={() => setVisible(false)}
-        footer={null}
-        destroyOnClose
-      >
-        <Form
-          onFinish={async (values) => {
-            console.log(values);
-            await waitTime(1000);
-            setVisible(false);
-            message.success('Submitted successfully');
-          }}
-          validateMessages={{ required: 'This is required' }}
-          layout="vertical"
-        >
-          <Steps current={currentStep}>
-            <Step title="Create an experiment" />
-            <Step title="Setting parameters" />
-            <Step title="Publish experiment" />
-          </Steps>
-
-          <div style={{ marginTop: 16 }}>
-            {currentStep === 0 && (
-              <>
-                <Form.Item name="name" label="Experiment name" rules={[{ required: true }]}>
-                  <Input placeholder="Please enter name" />
-                </Form.Item>
-                <Form.Item name="date" label="Date" rules={[{ required: true }]}>
-                  <DatePicker />
-                </Form.Item>
-              </>
-            )}
-            {currentStep === 1 && (
-              <>
-                {/* Fields for step 2 */}
-              </>
-            )}
-            {currentStep === 2 && (
-              <>
-                {/* Fields for step 3 */}
-              </>
-            )}
-          </div>
-
-          <div style={{ marginTop: 16 }}>
-            {currentStep > 0 && (
-              <Button style={{ margin: '0 8px' }} onClick={handlePrev}>
-                Previous
-              </Button>
-            )}
-            {currentStep < 2 && (
-              <Button type="primary" onClick={handleNext}>
-                Next
-              </Button>
-            )}
-            {currentStep === 2 && (
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            )}
-          </div>
-        </Form>
-      </Modal>
-    </>
+    <div>
+      <h2>Step 1: Select Option and Search</h2>
+      <button onClick={openModal}>Open Modal</button>
+      {modalOpen && (
+        <div>
+          <div>Modal Content</div>
+          <button onClick={searchUser}>Search</button>
+          {searchError && <p>Error: User not found. Please try again.</p>}
+          <button onClick={closeModal}>Close Modal</button>
+        </div>
+      )}
+    </div>
   );
 };
+
+// Step 2 Component
+const Step2: React.FC = () => {
+  const [formData] = useContext(FormContext);
+
+  return (
+    <div>
+      <h2>Step 2: Verify Identity</h2>
+      {formData.user ? (
+        <p>Account found for {formData.user.name}. Please verify your identity.</p>
+      ) : (
+        <p>No user found. Please go back to Step 1 and search again.</p>
+      )}
+    </div>
+  );
+};
+
+// MultiStepForm Component
+const MultiStepForm: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formState, setFormState] = useState<FormState>({
+    country: '',
+    accountNumber: '',
+    user: null,
+  });
+
+  const setStep = (step: number) => {
+    setCurrentStep(step);
+  };
+
+  return (
+    <FormContext.Provider value={[formState, setFormState]}>
+      <div>
+        <Steps current={currentStep}>
+          <Step title="Step 1" />
+          <Step title="Step 2" />
+        </Steps>
+        {currentStep === 0 && <Step1 setStep={setStep} />}
+        {currentStep === 1 && <Step2 />}
+      </div>
+    </FormContext.Provider>
+  );
+};
+
+export default MultiStepForm;

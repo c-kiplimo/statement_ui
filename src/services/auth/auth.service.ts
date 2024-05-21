@@ -85,10 +85,6 @@ const authServiceHandler = () => {
     }
   };
 
-  type SavingOtpTokenProps = {
-    accessToken?: string;
-  };
-
   const verifyOtpService = async (accessToken: string, otp: string) => {
     try {
       const OTP_FORM = {

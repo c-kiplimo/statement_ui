@@ -3,8 +3,6 @@ import styles from "./signInHelper.module.css";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
 import Link from "next/link";
-import { Modal } from "antd";
-import VerifyMailComponent from "./verify-mail";
 import { AUTH_URL_LOGIN } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 import { useRouter } from "next/navigation";
@@ -27,16 +25,6 @@ const SignInHelper = () => {
       confirm?: boolean;
     };
   };
-  // const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // const openModal = () => {
-  //   setIsModalVisible(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalVisible(false);
-  // };
-
   const onSubmit = async (values: LoginProps) => {
      await loginService(AUTH_URL_LOGIN, values)
       .then((response) => {
@@ -73,7 +61,6 @@ const SignInHelper = () => {
     event: React.MouseEvent<HTMLAnchorElement>
   ) => {
     event.preventDefault();
-    //openModal();
     setTimeout(() => {
       router.push("/statement/create-account");
     }, 1000);
@@ -172,16 +159,6 @@ const SignInHelper = () => {
           </div>
         </Form>
       </div>
-      {/* {isModalVisible && (
-        <Modal
-          open={isModalVisible}
-          onCancel={closeModal}
-          footer={null}
-          className={styles.modal}
-        >
-          <VerifyMailComponent />
-        </Modal>
-      )} */}
     </div>
   );
 };

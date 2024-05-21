@@ -1,45 +1,26 @@
 import axios from "axios";
 import * as headers from "../../constants/auth-headers";
-import { AuthServiceProvider } from "./authserviceProvider";
 import {
   ONBOARDING_OTP_REQUEST_URL,
   ONBOARDING_OTP_VERIFY_URL,
   OTP_GRANT_TYPE,
+  SEARCH_CUSTOMER_URL,
 } from "@/src/constants/environment";
 
 const onBoardingHandler = () => {
-  const { getToken } = AuthServiceProvider();
-  let tokenDetails = getToken();
-  
-  const searchCustomerService = async (URL: string) => {
+  const searchCustomerService = async (accountNumber: string) => {
+    const searchURL = `${SEARCH_CUSTOMER_URL}/${accountNumber}`;
     try {
-      const response = await axios.get(URL, {
+      const response = await axios.get(searchURL, {
         headers: {
           "X-RequestId": "2345678",
         },
       });
-      console.log(response);
-      return response;
+      return response.data;
     } catch (error) {
-      console.error("Search Customer failed:", error);
       throw error;
     }
-  };
-
-  const otpService = async (URL: string) => {
-    try {
-      const response = await axios.get(URL, {
-        headers: {
-          "X-RequestId": "23456665",
-          Authorization: `Bearer ${tokenDetails}`,
-        },
-      });
-      return response;
-    } catch (error) {
-      console.error("Search Customer failed:", error);
-      throw error;
-    }
-  };
+  };  
 
   const onBoardingOtpService = async (accessToken: string) => {
     try {
@@ -56,10 +37,7 @@ const onBoardingHandler = () => {
     }
   };
 
-  const verifyOnboardingOtpService = async (
-    accessToken: string,
-    otp: string
-  ) => {
+  const validateOtpService =async (accessToken: string, otp: string)=>{    
     try {
       const OTP_FORM = {
         grant_type: OTP_GRANT_TYPE,
@@ -75,13 +53,12 @@ const onBoardingHandler = () => {
     } catch (error) {
       throw error;
     }
-  };
+}
 
   return {
     searchCustomerService,
-    otpService,
     onBoardingOtpService,
-    verifyOnboardingOtpService,
+    validateOtpService,
   };
 };
 
