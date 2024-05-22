@@ -8,7 +8,6 @@ const AuthServiceProvider = () => {
 
   const storeToken = (tokenDetails: TokenPayload) => {
     if (tokenDetails && tokenDetails.accessToken) {
-      //store token in localStorage as json
       sessionStorage.setItem(tokenKey, JSON.stringify(tokenDetails));
     }
   };

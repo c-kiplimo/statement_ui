@@ -23,7 +23,6 @@ type RegisterProps = {
 };
 
 const NewAccount = () => {
-  const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
   const { registerUserService } = authServiceHandler();
   const [submitted, setSubmitted] = useState(false);

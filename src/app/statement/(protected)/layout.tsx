@@ -11,7 +11,7 @@ import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { MulaPaySideBar } from "@/src/components/widgets/sidebar/msidebar";
 import { MenuData } from "@/src/constants/siderbar.docs";
-import { ProfileProvider } from "./context/useCreatedProfileContext";
+import { ProfileProvider } from "./context/useProfileContext";
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
