@@ -157,7 +157,7 @@ const NewAccount = () => {
 
                 <div className={styles.vertical}>
                   <MyFormItem name="password" label="Password">
-                    <Input
+                    <Input.Password
                       type="password"
                       className={`${styles.input} bodyr`}
                     />
@@ -171,7 +171,7 @@ const NewAccount = () => {
                   initialValue={false}
                   name="confirm"
                 >
-                  <Checkbox id="agreeCheckbox" type="checkbox" />
+                  <Checkbox id="agreeCheckbox" type="checkbox" required/>
                 </MyFormItem>
                 <Label
                   htmlFor="agreeCheckbox"

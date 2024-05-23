@@ -106,7 +106,7 @@ const SignInHelper = () => {
                   ]}
                   name="password"
                 >
-                  <Input
+                  <Input.Password
                     className="form-input bodyr"
                     type="password"
                     placeholder="Password"

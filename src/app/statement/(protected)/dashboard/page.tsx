@@ -4,11 +4,11 @@ import CardtypeDetailsInfo, { CardDataHome } from "@/src/components/widgets/card
 import TotalAvailableBalanceCard, { BalanceByCurrencyHome } from "@/src/components/widgets/total-available-balance-card/total.available.balance.card";
 import TransactionHistoryTable, { TranSactionHistoryHome } from "@/src/components/widgets/transaction-history-card/transaction.history.card";
 import styles from "./home.module.css";
-import getProfileId from "@/src/hooks/profileId";
 import { AccountCardsOverviewActions, BalancesByCurrencyOverviewActions, PersonalAccountOverviewActions, TransactionOverviewActions, getCustomerId } from "@/src/lib/account.overview.actions";
 import { useEffect, useState } from "react";
 import { ProfileContext } from "./context/customerContext";
 import { Spin } from "antd";
+import useProfileId from "@/src/hooks/profileId";
 
 const options = [
   {
@@ -28,9 +28,10 @@ const options = [
   },
 ];
 
-function Page() {
-  const profileId = getProfileId(); 
-  const accountId = profileId;
+const Page = () => {
+  const profId = useProfileId();
+
+  console.log(profId);
   
   const [accountData, setAccountData] = useState<AccountDataHome[]>([]);
   const [cardData, setCardData] = useState<CardDataHome[]>([]);
@@ -42,38 +43,48 @@ function Page() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        const [accountResult, cardResult, transactionResult, balanceResult, customerIdResult] = await Promise.all([
-          PersonalAccountOverviewActions(accountId),
-          AccountCardsOverviewActions(accountId),
-          TransactionOverviewActions(accountId),
-          BalancesByCurrencyOverviewActions(accountId),
-          getCustomerId(accountId)
-        ]);
+    if (profId !== null && profId !== undefined) {
+      const fetchData = async () => {
+        setLoading(true);
+        setError(null);
 
-        setAccountData(accountResult);
-        setCardData(cardResult);
-        setTransactionData(transactionResult);
-        setCurrencyBalanceData(balanceResult);
-        setCustId(customerIdResult);
-      } catch (error) {
-        setError('Failed to fetch data');
-      } finally {
-        setLoading(false);
-      }
-    };
+        try {
+          const [
+            accountResult,
+            cardResult,
+            transactionResult,
+            balanceResult,
+            customerIdResult,
+          ] = await Promise.all([
+            PersonalAccountOverviewActions(parseInt(profId)),
+            AccountCardsOverviewActions(parseInt(profId)),
+            TransactionOverviewActions(parseInt(profId)),
+            BalancesByCurrencyOverviewActions(parseInt(profId)),
+            getCustomerId(parseInt(profId)),
+          ]);
 
-    fetchData();
-  }, [accountId]);
+          setAccountData(accountResult);
+          setCardData(cardResult);
+          setTransactionData(transactionResult);
+          setCurrencyBalanceData(balanceResult);
+          setCustId(customerIdResult);
+        } catch (error) {
+          setError("Failed to fetch data");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [profId]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">
-    <Spin size="large" />
-  </div>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" />
+      </div>
+    );
   }
 
   if (error) {
@@ -100,7 +111,7 @@ function Page() {
                 height={"40px"}
                 backgroundColor={"#EFF2E6"}
                 color={"#84BD00"}
-                borderRadius={"27px"} 
+                borderRadius={"27px"}
                 cardDetailsData={accountData}
               />
             </div>
@@ -128,6 +139,6 @@ function Page() {
       </ProfileContext.Provider>
     </div>
   );
-}
+};
 
 export default Page;
