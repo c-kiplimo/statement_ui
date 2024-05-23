@@ -36,7 +36,7 @@ const ResetPasswordHelper = () => {
     const response = await resetPasswordService(email);
     console.log("response", response);
     const userId = response.userId;
-    localStorage.setItem("userId", userId);
+    sessionStorage.setItem("userId", userId);
     console.log("userId", userId);
     setUserId(userId);
     openModalHandler();
@@ -46,7 +46,7 @@ const ResetPasswordHelper = () => {
     event.preventDefault();
     console.log("otp", value);
     console.log("userId", userId);
-    const response = await validateOtpService(value, userId);
+    await validateOtpService(value, userId);
     router.push(
       "/statement/authentication/manage-password/create-new-password"
     );

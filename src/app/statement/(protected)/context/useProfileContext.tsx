@@ -6,7 +6,18 @@ type ProfileInfoType = {
   updateProfileInfo: (profile: CustomerProfile) => void;
 };
 
-const ProfileContext = createContext<ProfileInfoType | undefined>(undefined);
+let placeholderProfile:ProfileInfoType={
+  profileInfo:{
+    profileId:"",
+    profileName:"",
+    country:"",
+    userId:"",
+    customerId:0,
+  },
+  updateProfileInfo:(newProfile)=>{}
+}
+
+const ProfileContext = createContext<ProfileInfoType>(placeholderProfile);
 
 export const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
   const createdProfile = useProfileCreated();

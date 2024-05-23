@@ -5,7 +5,7 @@ import {
   MyFormItemGroup,
   MyFormItem,
 } from '@/src/components/molecules/shared-features/form_builder_component';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -43,7 +43,7 @@ const NewPasswordHelper = () => {
   };
 
   const onFinish = async (values: any) => {
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
     if (userId) {
       try {
@@ -51,6 +51,10 @@ const NewPasswordHelper = () => {
         console.log('response', response);
         router.push('/statement/sign-in');
       } catch (error) {
+        notification.error({
+          message:"Failed!",
+          description:"An error occurred when setting new password."
+        })
         console.error('Error setting new password:', error);
         // Add user-friendly error handling here
       }

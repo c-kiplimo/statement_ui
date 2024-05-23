@@ -63,20 +63,7 @@ const OnboardingOtp = () => {
 
     const profileInfo:CustomerProfile = await CreateProfileService(createdProfile,tokenData.accessToken);
     console.log("Profile creation response:", profileInfo);
-    //Find out how you can pass the response to a variable
-    //sessionStorage.setItem("ProfileInfo>>", JSON.stringify(profileInfo));
-    storeProfile(profileInfo);
-
-    // await CreateProfileService(createdProfile,tokenData.accessToken)
-    // .then((response)=>{
-    //   console.log("Profile creation response:", response);
-    //   let newProfile:CustomerProfile={
-    //     profileId:response.profileId,
-    //     profileName:
-    //   }
-    //   sessionStorage.setItem("ProfileInfo>>", JSON.stringify(newProfile));
-    // }) 
-   
+    storeProfile(profileInfo);   
     notification.success({
       message: "Profile created",
       description: "Your profile was successfully created.",

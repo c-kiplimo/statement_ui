@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Texter from "@/src/components/atoms/text/texter";
 import styles from "./enter_otp_to_verify.module.css";
-import OtpInput from "../../atoms/input/otp/otpInputContainer";
+import OtpInput from "../../../../../../components/atoms/input/otp/otpInputContainer";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import FormBuilder from "@/src/components/molecules/shared-features/form_builder";
 import { authServiceHandler } from "@/src/services/auth/auth.service";
@@ -10,6 +10,7 @@ import { TokenPayload } from "@/src/types/auth.types";
 import { User } from "@/src/types/user.type";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
+import { storeProfile } from "@/src/hooks/useProfileCreated";
 
 
 let profileStatus:boolean;
@@ -35,8 +36,9 @@ const EnterOtpToVerify = () => {
     const tokenPayload: TokenPayload | undefined = getToken();
     if (tokenPayload) {
       await verifyOtpService(tokenPayload.accessToken, otp)
-        .then((otpVerificationResponse) => {
-          storeToken(otpVerificationResponse);
+        .then((response) => {
+          storeToken(response);
+          console.log("Otp verified",response);
           notification.success({
             message: "OTP Verified",
             description: "Your OTP has been successfully verified.",
@@ -68,6 +70,18 @@ const EnterOtpToVerify = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("User's details==>" + JSON.stringify(getLoggedInUser()));
+    let data = getLoggedInUser()
+    profileStatus = data.profileComplete!;
+    setMyUser(getLoggedInUser);
+    let loggedUser:CustomerProfile={
+      profileName:data.firstName,
+      userId:data.id,
+    }
+    storeProfile(loggedUser)
+  }, [myUser?.email]);
+
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     onOtpSubmit(value);
@@ -83,13 +97,7 @@ const EnterOtpToVerify = () => {
     window.clearInterval(interValRef.current);
   };
 
-  useEffect(() => {
-    console.log("=====>" + JSON.stringify(getLoggedInUser()));
-    let data = getLoggedInUser()
-    console.log('Profile Completed >>', data.profileComplete);
-    profileStatus = data.profileComplete!;
-    setMyUser(getLoggedInUser);
-  }, [myUser?.email]);
+ 
 
   useEffect(() => {
     interValRef.current = window.setInterval(() => {

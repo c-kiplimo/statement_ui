@@ -35,7 +35,7 @@ const SignInHelper = () => {
           expiresIn: response.data?.expires_in,
         };
         storeToken(tokenData);
-        console.log("saving");
+        console.log("Sending OTP>>",tokenData);
         return tokenData;
       })
       .then((tokenData) => {

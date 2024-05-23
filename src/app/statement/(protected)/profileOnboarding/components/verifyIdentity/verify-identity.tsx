@@ -7,7 +7,6 @@ import { Modal, notification } from "antd";
 import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.service";
 import OnboardingOtp from "../onBoardingOtp/onBoardingOtp";
 import { useOnboardingContext } from "../../context/onBoardingContext";
-import { ONBOARDING_OTP_REQUEST_URL } from "@/src/constants/environment";
 import useUserSession from "@/src/hooks/useUserSession";
 
 
