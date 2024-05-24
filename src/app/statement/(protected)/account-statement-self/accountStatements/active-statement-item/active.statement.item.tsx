@@ -9,9 +9,11 @@ import { ActiveTransactionAction } from "@/src/lib/completed.transactions.action
 import { usePathname, useRouter } from "next/navigation";
 import SelectedInput from "@/src/components/atoms/select/select.input";
 import { singleUsersAccounts } from "@/src/lib/account.overview.actions";
-import getProfileId from "@/src/hooks/profileId";
 import useUserId from "@/src/hooks/userId";
 import { useQuery } from 'react-query';
+import { PROFILE_ID } from "@/src/constants/common";
+import useProfileId from "@/src/hooks/profileId";
+import useProfileCreated from "@/src/hooks/useProfileCreated";
 
 export type UsersAccounts = {
   key: number;
@@ -31,13 +33,17 @@ const ActiveStatement = () => {
   const path = usePathname();
   const router = useRouter();
 
-  let profileId = getProfileId();
-  let userId = useUserId();
+  let profileId = useProfileId();
+  
+  let userinfo = useProfileCreated()
+  let userId = userinfo?.userId;
 
   useEffect(() => {
+    if (profileId !== null && profileId !== undefined) {
+
     const fetchUsersAccounts = async () => {
       try {
-        const accounts = await singleUsersAccounts(profileId);
+        const accounts = await singleUsersAccounts(parseInt(profileId!));
         setUsersAccounts(accounts);
       } catch (error) {
         notification.error({
@@ -47,6 +53,7 @@ const ActiveStatement = () => {
       }
     };
     fetchUsersAccounts();
+  }
   }, [profileId]);
 
   const handleInputChange = (e: any) => {
@@ -75,14 +82,13 @@ const ActiveStatement = () => {
       accountId: accountNumber,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
-      userId: userId,
+      userId: parseInt(userId!),
     };
 
     try {
       // Perform account statement post request
       const statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
       sessionStorage.setItem("statementRequestId", statement.statementRequestId?.toString() || "");
-      sessionStorage.setItem("selectedacountnumber", accountNumber);
 
       setShowResults(true);
       router.push(path);

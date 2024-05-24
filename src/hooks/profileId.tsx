@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useProfileCreated from './useProfileCreated';
 import { loggedInProfileDetails } from '../lib/get.profileinfo.action';
 
-const getProfileId  =  () =>{
+const useProfileId  =  () =>{
   const profile = useProfileCreated()
   let userId = profile?.userId;
   console.log();
@@ -22,11 +22,11 @@ const getProfileId  =  () =>{
     }
     
     fetchData();
-  }, [])
+  }, [userId])
 
 const profId = profileDetails?.profileId;
 console.log(profId);
 
 return profId;
 };
-export default getProfileId;
+export default useProfileId;
