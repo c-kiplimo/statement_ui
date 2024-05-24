@@ -64,6 +64,10 @@ export const PERMISSION_URL = `${API_URL}/api/v1/permission`;
 
 export const GROUP_URL = `${API_URL}/api/v1/group`;
 
+export const GET_PROFILE_DETAILS = `${API_URL}/api/user/profile/v1`;
+
+
+
 export const USER_ACCOUNTS_OVERVIEW = `${PROFILE_URL}/api/v1/aggregateprofiles`
 export const USER_ACCOUNTS_BY_ACCOUNTS_ID = `${PROFILE_URL}/api/v1/accounts`
 export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/card-overview`

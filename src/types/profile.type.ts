@@ -5,5 +5,6 @@ type CustomerProfile ={
     userId: string,
     customerId?: number,
     active?: boolean,
-    defaultProfile?: boolean
+    defaultProfile?: boolean,
+    name?:string
 }

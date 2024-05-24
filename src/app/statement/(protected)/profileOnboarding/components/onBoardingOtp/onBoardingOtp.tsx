@@ -145,7 +145,7 @@ const OnboardingOtp = () => {
                   className="otp-email-link-text bodyr"
                   style={{ margin: "5px" }}
                 >
-                  {myUser?.email}
+                  {profile?.email}
                 </span>
               </p>
             </div>
