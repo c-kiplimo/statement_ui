@@ -14,17 +14,18 @@ import Sort from "@/src/components/atoms/sort/sort";
 import AddItem from "@/src/components/atoms/add-item/add.item";
 import RemoveRestrictionModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/remove-from-page/restriction/remove.restriction";
 import EditPageModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/edit-page/edit.page";
-import Link from "next/link";
 import { RestrictionsAction } from "@/src/lib/actions/customer.restrictions.action";
 import CreateRestrictionModal from "../../page-manupilation/Add-in-page/createRestriction/create.restriction";
 
 interface DataType {
-  id: React.Key;
-  createdOn?: any;
+  id?: React.Key;
+  createdOn?: string;
   userName?: string;
   role?: string;
   status?: string;
   icons?: React.ReactNode;
+  currency?:string;
+  userId?:number;
 }
 
 interface Datatype {
@@ -33,32 +34,55 @@ interface Datatype {
   render?: (text: any, record: DataType) => React.ReactNode;
 }
 
-const RestrictionsOverview =  () => {
+const RestrictionsOverview = (props: DataType) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [modalVisible3, setModalVisible3] = useState(false);
-  const [data, setData]=useState< DataFetcher[]>([]);
+  const [data, setData] = useState<DataFetcher[]>([]);
+  const [dataId, setdataId] = useState<number | null>(null);
 
-  useEffect(()=>{
-    async function fetchData() {
-        let incomingTableDta = await RestrictionsAction(1);
-        setData(incomingTableDta)
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let incomingTableData = await RestrictionsAction(props.userId!);
+
+        console.log(incomingTableData);
+        setData(incomingTableData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchData();
-  },[]);
+  }, []);
 
-  const handleRemoveClick = () => {
+  const handleRemoveClick = (entryId: number) => {
+    console.log("Picked entry ID for removal:", entryId);
+    setdataId(entryId);
     setModalVisible2(true);
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = (entryId:number) => {
+    console.log("Picked ID for editing:", entryId);
+    setdataId(entryId);
     setModalVisible3(true);
   };
+
   const columns: Datatype[] = [
     {
       title: "Date",
       dataIndex: "createdOn",
-      render: (text) => <span className={styles.createdOn}>{text}</span>,
+      render: (text: string) => {
+        const dateTime = new Date(text);
+        const date = dateTime.toLocaleDateString();
+        const time = dateTime.toLocaleTimeString();
+
+        return (
+          <div className={styles.createdOn}>
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
+        );
+      },
     },
     {
       title: "Name",
@@ -80,23 +104,23 @@ const RestrictionsOverview =  () => {
     {
       title: "",
       dataIndex: "icons",
-      render: () => (
+      render: (_text, record) => (
         <button className={styles.iconsdiv}>
           <div className={styles.icons}>
-            <EyeOutlined />
-            <MinusOutlined onClick={handleRemoveClick} />
-            <EditOutlined onClick={handleEditClick} />
+            <EyeOutlined key="eye" />
+            <MinusOutlined
+              key="minus"
+              onClick={() => handleRemoveClick(record.userId!)}
+            />
+            <EditOutlined
+              key="edit"
+              onClick={() => handleEditClick(record.userId!)}
+            />
           </div>
         </button>
       ),
     },
   ];
-
-
-  // let incomingTableDta = await RestrictionsAction(1)
-  
-
-
 
   const handleModalCancel1 = () => {
     setModalVisible1(false);
@@ -108,52 +132,32 @@ const RestrictionsOverview =  () => {
 
   const handleModalCancel3 = () => {
     setModalVisible3(false);
+    setdataId(null);
   };
-
-
-
 
   return (
     <div className={styles.container}>
-      <div className={styles.topdiv}>
-        <LastLogin
-          userName={"Meraki System Tech"}
-          mail={"Banking Industry"}
-          town={"Kampala Uganda"}
-          timezone={"( GMT -11:46) Greenwich mean Time zone"}
-          icon={<img src="/teamusericon.png" alt="teamusericon" />}
-          lastSeenTime={"Last login on 45 minutes ago"}
-          button1={
-            <Link href="/statement/accountsetup/accounts">Accounts</Link>
-          }
-          button3={<Link href="/statement/accountsetup/users">Users</Link>}
-          button2={
-            <Link href="/statement/accountsetup/activities">Activity</Link>
-          }
-          button4={
-            <Link href="/statement/accountsetup/restrictions/restrictions-overview">
-              Restrictions
-            </Link>
-          }
-          titleDescription={"Corporate customer"}
-        />
-      </div>
-
       <div className={styles.tableHeader}>
         <div className={styles.headerdiv}>
           <div className={styles.textdiv}>Restrictions</div>
           <div className={styles.atomsdiv}>
             <Search
+              key="search"
               title={"Search..."}
               icon={<img src="/searchicon.svg" alt="searchicon" />}
             />
             <Filter
+              key="filter"
               title={"Filter"}
               icon={<img src="/funnel.svg" alt="funnel" />}
             />
-            <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
-
+            <Sort
+              key="sort"
+              title={"Sort"}
+              icon={<img src="/sort.svg" alt="sort" />}
+            />
             <AddItem
+              key="add"
               title={"Add Restriction"}
               icon={<PlusOutlined />}
               iconStyle={{ color: "gray" }}
@@ -162,17 +166,23 @@ const RestrictionsOverview =  () => {
             />
           </div>
         </div>
-        <CustomTable data={data} pageSize={2} total={10} columns={columns} />
+        <CustomTable data={data} columns={columns} />
       </div>
       <CreateRestrictionModal
         visible={modalVisible1}
         onCancel={handleModalCancel1}
+        customerId={props.userId!}
       />
       <RemoveRestrictionModal
         visible={modalVisible2}
         onCancel={handleModalCancel2}
+        restrictionId={dataId !== null ? dataId : 0}
       />
-      <EditPageModal visible={modalVisible3} onCancel={handleModalCancel3} />
+      <EditPageModal
+        visible={modalVisible3}
+        onCancel={handleModalCancel3}
+        restrictionId={props.userId!}
+      />
     </div>
   );
 };

@@ -1,0 +1,20 @@
+type AccountById = {
+  accountId: number;
+  accountTitle: string;
+  accountType: string;
+  currency: string;
+  openingBalance: string;
+  spending: string;
+  received: string;
+  closingBalance: string;
+  category: string;
+  term: string;
+  accountOfficer: string;
+  availableBalance: string;
+  customerId: number;
+  statementFrequency: string;
+  status: string;
+  highVolume: string;
+  recordStatus: string;
+  dateCreated: string;
+};

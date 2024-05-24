@@ -9,7 +9,6 @@ import axios from "axios";
 const ProfileHandler = () => {
   const authHeaders = makeAuthHeaders();
 
-  //get profile id
   const fetchCustomerProfiles: (
     userId?: string
   ) => Promise<CustomerProfile> = async (userId?: string) => {

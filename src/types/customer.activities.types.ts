@@ -6,4 +6,5 @@ type CustomerActivity = {
     template: string;
     description: string;
     status: string;
+    createdAt:string;
 }

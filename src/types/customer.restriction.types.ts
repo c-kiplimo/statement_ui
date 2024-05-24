@@ -5,4 +5,5 @@ type CustomerRestrictions = {
         description:string,
         status: string,
         rules: string
+        createdAt:string
 };

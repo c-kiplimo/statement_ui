@@ -1,0 +1,437 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  padding: 0px;
+  gap: 24px;
+  width: 873px;
+  height: auto;
+  box-shadow:
+    0px 2px 12px -2px rgba(0, 0, 0, 0.1),
+    0px 2px 2px -1px rgba(10, 9, 11, 0.04),
+    0px 0px 0px 1px rgba(10, 9, 11, 0.05);
+}
+
+
+
+.title {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+width: 761px;
+height: 56px;
+}
+
+.titleicon {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 16px;
+width: fit-content;
+height: 56px;
+}
+
+.icondiv {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 8px;
+gap: 10px;
+width: 32px;
+height: 32px;
+background: #EDF2E1;
+border-radius: 33px;
+
+}
+
+.icon{
+width: 16px;
+height: 16px;
+background: #FFFFFF;
+border-radius: 6px;
+}
+
+.titledescription {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+width: fit-content;
+height: 56px;
+}
+
+.header {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+width: 250px;
+height: 32px;
+color: #151E00;
+}
+
+.description {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+width: 128px;
+height: 24px;
+color: #6F7269;
+}
+
+.status {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+width: 183px;
+height: 24px;
+color: #6F7269;
+}
+
+.transactionsDiv {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+width: 761px;
+}
+
+.avilableBal {
+box-sizing: border-box;
+justify-content: space-between;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: fit-content;
+height: 64px;
+border-right: 1px solid #F3F5EE;
+
+}
+
+.avBaltitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: 152px;
+  height: 24px;
+  flex: none;
+  color: #6F7269;
+}
+
+.infoIcon {
+  width: 16px;
+  height: 16px;
+  color: #979992;
+  }
+
+
+  .kesamount {
+    color: #6f7269;
+  }
+  
+  .dollaramount {
+    color: #151e00;
+  }
+
+  
+
+.workingBal {
+box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+width: 189px;
+height: 64px;
+border-right: 1px solid #F3F5EE;
+}
+
+.workbaltitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: 189px;
+  height: 24px;
+  align-self: stretch;
+  color: #6F7269;
+}
+
+.workbalamount{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+width: 189px;
+height: 32px;
+color: #151E00;
+}
+
+
+.termDiv {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+width: 136px;
+height: 64px;
+}
+
+.termTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: fit-content;
+  height: 24px;
+  flex: none;
+  color: #6F7269;
+}
+
+.termname {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+width: 169px;
+height: 32px;
+color: #151E00;
+}
+
+
+.form {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px 0px 8px;
+gap: 24px;
+width: 761px;
+height: auto;
+  }
+
+
+.settings{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+width: 761px;
+height: auto;
+}
+
+
+.restrictions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 697px;
+  height: fit-content;
+}
+
+.MT940MT950 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 14px;
+  width: 681px;
+  height: 64px;
+}
+.desHeader {
+  width: 252px;
+  height: 24px;
+}
+
+ 
+.interval {
+width: 697px;
+height: 26px;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
+.freqradio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 36px;
+  padding: 0px;
+  gap: 20px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
+
+.dateTime {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 8px 16px 0px 0px;
+gap: 8px;
+width: 261px;
+height: 40px;
+}
+
+.date {
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 10px;
+gap: 10px;
+width: 137px;
+height: 32px;
+border: 0.5px solid #69744F;
+border-radius: 4px;
+}
+
+.calendar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 16px;
+  width: 100px;
+  height: 32px;
+  border: 0.5px solid #69744F;
+  border-radius: 4px;
+}
+
+.time {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 16px;
+  width: fit-content;
+  height: 32px;
+  border: 0.5px solid #69744f;
+  border-radius: 4px;
+}
+
+
+.files {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+justify-content: space-between;
+padding: 0px;
+gap: 32px;
+width: 377.26px;
+height: 72px;
+}
+
+.PDF {
+box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+align-items: center;
+padding: 10px;
+gap: 10px;
+width: 188.13px;
+height: 40px;
+border-radius: 4px;
+color: #6F7269;
+outline: none;
+}
+
+
+.templateOptions{
+box-sizing: border-box;
+display: flex;
+justify-content: space-between;
+flex-direction: row;
+align-items: center;
+padding: 10px;
+gap: 10px;
+width: 157.13px;
+height: 40px;
+border-radius: 4px;
+
+}
+
+
+.button {
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+width: 101px;
+height: 40px;
+background: #84BD00;
+opacity: 0.8;
+border: 1px solid #E1E1E1;
+border-radius: 4px;
+color: #F9FAF7;
+}
+
+.buttondiv {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px 56px;
+gap: 10px;
+width: 761px;
+height: 40px;
+}
+
+.fileFormart{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+width: 188.13px;
+height: 72px;
+
+}
+
+.radioLabel {
+  font-size: 14px;
+  color: #6F7269;
+}
+
+.radioLabel:hover {
+  color: #000000;
+  cursor: pointer;
+}
+
+

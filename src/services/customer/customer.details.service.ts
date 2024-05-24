@@ -39,6 +39,8 @@ const CustomerDetailsHandler = () => {
       throw error;
     }
   };
+
+  
   const fetchCustomerRestrictions = async (
     customerId: number
   ): Promise<CustomerRestrictions[]> => {

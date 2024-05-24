@@ -1,15 +1,4 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 32px;
-  width: 1150px;
-  height: fit-content;
-  background: #ffffff;
-  box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
-  border-radius: 2px;
-  }
+
 
   .topdiv{
     display: flex;
@@ -90,7 +79,7 @@ color: #6F7269;
     align-items: flex-start;
     padding: 0px;
     gap: 16px;
-    width: 81px;
+    width: fit-content;
     height: 44px;
     flex: none;
 font-family: 'Roboto';

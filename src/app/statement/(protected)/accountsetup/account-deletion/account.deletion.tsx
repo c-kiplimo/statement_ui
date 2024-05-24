@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Select } from "antd";
-import styles from "./account.status.module.css"
-import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
+import styles from "./account.deletion.module.css";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
-import CustomTable from "../../widgets/table/table";
-import Link from "next/link";
-import RemoveUserModal from "../../page-manupilation/remove-from-page/user/remove.user";
 import AddItem from "@/src/components/atoms/add-item/add.item";
 import { PlusOutlined } from "@ant-design/icons";
+import AccountProfilePage from "@/src/components/widgets/userStatus/account.profile/account.profile";
+
+import { UsersAction } from "@/src/lib/actions/account.users.action";
+import CustomTable, { DataFetcher } from "../widgets/table/table";
+import RemoveUserModal from "../page-manupilation/remove-from-page/user/remove.user";
+
+
+type userid = {
+  userId?: number;
+};
 
 let removeUserClick: React.MouseEventHandler<HTMLSpanElement> | undefined;
 
@@ -31,16 +37,25 @@ interface Datatype {
   render?: (text: any, record: DataType) => React.ReactNode;
 }
 
+sessionStorage.getItem("accountNo")
+
 const columns: Datatype[] = [
+
   {
     title: "Created On",
     dataIndex: "createdOn",
-    render: (text: any, record: any) => (
-      <span className={`${styles.date} bodyr`}>
-        <span className={styles.account}>{text}</span>
-        <span className={styles.currency}>{record.currency}</span>
-      </span>
-    ),
+    render: (text: string) => {
+      const dateTime = new Date(text);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString();
+
+      return (
+        <div className={styles.createdOn}>
+          <div className={`${styles.date} bodyr`}>{date}</div>
+          <div>{time}</div>
+        </div>
+      );
+    },
   },
 
   {
@@ -82,45 +97,20 @@ const columns: Datatype[] = [
   {
     title: "",
     dataIndex: "icons",
-    render: () => (
+    render: (_text, record) => (
       <button className={styles.iconsdiv}>
         <img src="/delete.svg" alt="delete" onClick={removeUserClick} />
+        
       </button>
     ),
   },
 ];
 
-const data: DataType[] = [
-  {
-    id: 1,
-    createdOn: "23-05-2023",
-    currency: "10:45 a.m",
-    userName: "Abia Mbabazi",
-    role: "Admin",
-    status: "Active",
-  },
-  {
-    id: 2,
-    createdOn: "2024-04-10",
-    currency: "10:45 a.m",
-    userName: "Luqman Doe",
-    role: "Admin",
-    status: "Disabled",
-  },
-  {
-    id: 3,
-    createdOn: "2024-04-10",
-    currency: "10:45 a.m",
-    userName: "Delle Rasaq",
-    role: "Admin",
-    status: "Disabled",
-  },
-];
-
 const handleRoleChange = (value: string, id: React.Key) => {};
 
-const AccountsDelete = () => {
+const AccountsDelete = (props: userid) => {
   const [modalVisible1, setModalVisible1] = useState(false);
+  const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
 
   const handleModalCancel1 = () => {
     setModalVisible1(false);
@@ -130,21 +120,26 @@ const AccountsDelete = () => {
     setModalVisible1(true);
   };
 
+  sessionStorage.setItem("accountNo", "123300014567")
+  const AccID =sessionStorage.getItem("accountNo")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await UsersAction(1026272611);
+        setIncomingData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  
+
   return (
     <div className={styles.container}>
-      <LastLogin
-        userName={"Meraki System Tech"}
-        mail={"Banking Industry"}
-        town={"Kampala Uganda"}
-        timezone={"( GMT -11:46) Greenwich mean Time zone"}
-        icon={<img src="/teamusericon.png" alt="teamusericon" />}
-        lastSeenTime={"Last login on 45 minutes ago"}
-        button1={"Accounts"}
-        button2={"Users"}
-        button3={"Activity"}
-        button4={"Restrictions"}
-        titleDescription={"(12 Users)"}
-      />
 
       <div className={styles.headerdiv}>
         <div className={`${styles.textdiv} h6b`}>Account Users</div>
@@ -166,9 +161,14 @@ const AccountsDelete = () => {
           />
         </div>
       </div>
-      <CustomTable data={data} pageSize={3} total={10} columns={columns} />
+      <CustomTable
+        data={incomingData}
+        pageSize={3}
+        total={10}
+        columns={columns}
+      />
 
-      <RemoveUserModal visible={modalVisible1} onCancel={handleModalCancel1} />
+      <RemoveUserModal visible={modalVisible1} onCancel={handleModalCancel1} accountId={0} />
     </div>
   );
 };

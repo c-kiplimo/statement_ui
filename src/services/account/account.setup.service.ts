@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import { generateRequestId } from "../util/requestIdGenerateUtil";
 
 const AccountSetupHandler = () => {
+
+  
   const searchCustomer = async (
     onboardingType: string,
     value: string
@@ -33,7 +35,10 @@ const AccountSetupHandler = () => {
     } catch (error) {
       throw error;
     }
+    
   };
+
+  
   
   return {
     searchCustomer,
