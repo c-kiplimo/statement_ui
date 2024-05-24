@@ -33,12 +33,21 @@ export const PersonalAccountOverviewActions = async (
       case "GOLDEN ACCOUNT":
         accountIcon = "currentAccount.svg";
         break;
+        case "Business Account":
+          accountIcon = "currentAccount.svg";
+          break;
       case "MERAKI SAVINGS":
         accountIcon = "savingss.svg";
         break;
+        case "Savings Account":
+          accountIcon = "savingss.svg";
+          break;
       case "Fixed Account":
         accountIcon = "currentAccount.svg";
         break;
+        case "Investment Account":
+          accountIcon = "moneymarket.svg";
+          break;
       default:
         accountIcon = "";
         break;
@@ -134,6 +143,9 @@ export const BalancesByCurrencyOverviewActions = async (
       case "EURO":
         currencyName = "European";
         break;
+      case "EUR":
+        currencyName = "European";
+          break;
       case "RWF":
         currencyName = "Rwandan Francs";
         break;
@@ -160,6 +172,9 @@ export const BalancesByCurrencyOverviewActions = async (
       case "EURO":
         flagIcon = "EuropeFlagIcon.svg";
         break;
+        case "EUR":
+          flagIcon = "EuropeFlagIcon.svg";
+          break;
       case "RWF":
         flagIcon = "RwandanFlagIcon.svg";
         break;
@@ -181,7 +196,7 @@ export const getCustomerId = async (profileId: number) => {
   const accountHandler = AccountHandler();
   const accountOverview = await accountHandler.getAccountOverview(profileId);
 
-  let custId = accountOverview.profileDTO.customerId;
+  let custId = accountOverview.customerResponseDTO.customerId;
 
   return custId;
 };

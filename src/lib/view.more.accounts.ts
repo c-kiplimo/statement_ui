@@ -25,9 +25,12 @@ function accountIcons(accounttype:string):ReactNode{
         case 'Savings':
             accountIcon = 'saving.svg'
             break;
-        case 'Fixed Deposit':
+        case 'Business':
             accountIcon = 'deposit.svg';
             break;
+            case 'Investment':
+                accountIcon = 'moneymarket.svg';
+                break;
         default:
             accountIcon = ''; 
             break;

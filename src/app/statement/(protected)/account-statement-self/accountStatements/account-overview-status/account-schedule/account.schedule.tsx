@@ -99,14 +99,13 @@ function AccountSchedule() {
           {error}
         </div>
       )}
-      {statusData && statusData.length > 0 ? (
         <div className={styles.tableContainer}>
           <div className={styles.buttons}>
             <button onClick={handleAddButtonClick}>
               <PlusOutlined /> Add
             </button>
           </div>
-
+          {statusData && statusData.length > 0 ? (
           <table>
             <thead>
               <tr className={styles.tablerow}>
@@ -172,10 +171,11 @@ function AccountSchedule() {
               </tbody>
             ))}
           </table>
+          ) : (
+            <div className="text-center p-2 font-bold"> The Account Has No Schedule! </div>
+          )}
         </div>
-      ) : (
-        <div className="text-center p-2 font-bold"> The Account Has No Schedule! </div>
-      )}
+      
 
       <div>
         <Modal

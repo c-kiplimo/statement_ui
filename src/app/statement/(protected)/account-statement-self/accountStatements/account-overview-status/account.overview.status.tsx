@@ -15,7 +15,7 @@ import useProfileId from "@/src/hooks/profileId";
 
 const queryClient = new QueryClient();
 
-const AccountOverviewStatus = () => {
+const AccountStatementSelf = () => {
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("fullStatement");
   const [options, setOptions] = useState<UsersAccounts[] | null>(null);
@@ -34,7 +34,7 @@ const AccountOverviewStatus = () => {
 
     const fetchUsersAccounts = async () => {
       try {
-        const accounts = await singleUsersAccounts(parseInt(profileId!));
+        const accounts = await singleUsersAccounts(profileId!);
         setOptions(accounts);
       } catch (error) {
         notification.error({
@@ -145,4 +145,4 @@ const AccountOverviewStatus = () => {
   );
 };
 
-export default AccountOverviewStatus;
+export default AccountStatementSelf;

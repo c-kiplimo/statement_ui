@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { DatePicker, notification } from "antd";
+import { DatePicker, Modal, notification } from "antd";
 import styles from "./active.statement.item.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
@@ -12,6 +12,7 @@ import { AccountStatementContext } from "../context/getAccountNumberContext";
 import useUserId from "@/src/hooks/userId";
 import { useQuery } from "react-query";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
+import AccountDetailTable from "../account-detail-table/account.detail.table";
 
 
 
@@ -24,6 +25,9 @@ const  ActiveStatement= ()=> {
   const [isInputComplete, setIsInputComplete] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const {accountNo, setAccountNo}= useContext(AccountStatementContext);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+
 
   let userinfo = useProfileCreated()
   let userId = userinfo?.userId;
@@ -89,6 +93,16 @@ const { data: result, isLoading, error } = useQuery(
   }
 );
 
+const handleEyeIconClick = (id: number) => {
+  setSelectedItemId(id);
+  setIsModalVisible(true);
+};
+
+const closeModal = () => {
+  setIsModalVisible(false);
+  setSelectedItemId(null);
+};
+
 if (isLoading) {
   return (
     <div className="flex justify-center items-center p-3">
@@ -150,7 +164,19 @@ if (error) {
       
       {showResults && result && result.length > 0 && (
         <div className={styles.searchoutput}>
-          <StatementTable statementdata={result!} />
+          <StatementTable statementdata={result!} 
+          onEyeIconClick={handleEyeIconClick}
+          />
+          <Modal
+            width={"70%"}
+            open={isModalVisible}
+            onCancel={closeModal}
+            footer={null}
+          >
+            {selectedItemId !== null && (
+              <AccountDetailTable itemId={selectedItemId} />
+            )}
+          </Modal>
         </div>
       )}
     </div>

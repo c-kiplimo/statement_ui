@@ -72,11 +72,15 @@ export type CardDetailsData ={
           
         </div>
         <div className={styles.table}>
+          {transactionHistory && transactionHistory.length >0 ?(
           <RecentTransactionsCard
             title={"Recent Transactons"}
             options={optiondata}
             transactions={transactionHistory}
           />
+        ):(
+          <div className="text-center p-6 font-bold bg-white rounded-lg">NO TRANSACTIONS UNDER THIS CARD.</div>
+        )}
         </div>
       </div>
     </div>

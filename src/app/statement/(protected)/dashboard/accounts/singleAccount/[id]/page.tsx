@@ -27,29 +27,6 @@ const optiondata = [
   },
 ];
 
-const transactionData = [
-  {
-    id: 1,
-    icon: <img src="/spotify.svg" />,
-    title: "Spotify",
-    date: "Tue, 21 Jan,2024",
-    amount: "20.00",
-  },
-  {
-    id: 2,
-    icon: <img src="/udemy.svg" />,
-    title: "Udemy",
-    date: "Tue, 21 Jan,2024",
-    amount: "-35.00",
-  },
-  {
-    id: 3,
-    icon: <img src="/paypal.svg" />,
-    title: "Pay Pal",
-    date: "Tue, 21 Jan,2024",
-    amount: "47,000.12",
-  },
-];
 const graphData = [
   {
     name: "Dec",
@@ -106,28 +83,7 @@ const graphData = [
     NetIncome: 15000,
   },
 ];
-const accountOptions = [
-  {
-    key: 1,
-    value: "savingAccount",
-    option: "Saving Account",
-  },
-  {
-    key: 2,
-    value: "currentAccount",
-    option: "Current Account",
-  },
-  {
-    key: 3,
-    value: "fixedAccount",
-    option: "Fixed Account",
-  },
-  {
-    key: 4,
-    value: "moneyMarketFund",
-    option: "Money Market Fund",
-  },
-];
+
 
 
 export type AccountMoneyInOut={
@@ -156,7 +112,7 @@ let accountId = params.id;
 
   let balancedata = await getTransactionAccounts(parseInt(accountId));
 
-  let progress = await getCashFlowData(parseInt(accountId))
+  let cashflowdata = await getCashFlowData(parseInt(accountId))
 
   let moneyInOut:AccountMoneyInOut = await getMoneyInOut(parseInt(accountId))
 
@@ -229,15 +185,20 @@ let accountId = params.id;
 
         <div className={styles.cards}>
           <div className={styles.transaction}>
+            {balancedata && balancedata.length >0 ? (
             <AccountTransactionSummary
               headerTitle={"Recent Transactions"}
               options={optiondata}
               data={balancedata}
               onChange={handleAccountChange}
             />
+          ):(
+            <div className="text-center text-bold bg-white p-6">NO RECENT TRANSACTION HISTORY UNDER THIS ACCOUNT</div>
+          )}
         </div>
 
           <div className={styles.cashflow}>
+            {cashflowdata && cashflowdata.length > 0 ?(
               <CashflowCardHome
                 headerTitle={"Cash Flow"}
                 moneyInIcon={<img src="/moneyin.svg" alt="moneyin" />}
@@ -246,11 +207,13 @@ let accountId = params.id;
                 moneyOutIcon={<img src="/moneyout.svg" alt="moneyout" />}
                 moneyOutTitle={'Money Out'}
                 moneyOutbalance={moneyInOut.moneyOut}
-                progressdata={progress}
+                progressdata={cashflowdata}
                 options={optiondata}
                 onChange={handleAccountChange}
               />
-            
+            ):(
+              <div className="text-center text-bold bg-white p-6">NO CASHFLOW HISTORY IN THIS ACCOUNT</div>
+            )}
           </div>
           
         </div>
