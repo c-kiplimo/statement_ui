@@ -73,6 +73,8 @@ const EnterOtpToVerify = () => {
   useEffect(() => {
     console.log("User's details==>" + JSON.stringify(getLoggedInUser()));
     let data = getLoggedInUser()
+
+    sessionStorage.setItem('loggedinuserid', data.id)
     profileStatus = data.profileComplete!;
     setMyUser(getLoggedInUser);
     let loggedUser:CustomerProfile={

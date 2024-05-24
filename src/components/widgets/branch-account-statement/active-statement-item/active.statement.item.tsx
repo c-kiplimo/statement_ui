@@ -11,14 +11,12 @@ import moment from "moment";
 import { AccountStatementContext } from "../context/getAccountNumberContext";
 import useUserId from "@/src/hooks/userId";
 import { useQuery } from "react-query";
+import useProfileCreated from "@/src/hooks/useProfileCreated";
 
 
 
 const accountStatement =AccountStatementRequestHandler();
 
-let statement;
-let activeDataid:any;
-let result:any;
 const  ActiveStatement= ()=> {
   const [accountNumber, setAccountNumber] = useState("");
   const [startDate, setStartDate] = useState('');
@@ -27,7 +25,8 @@ const  ActiveStatement= ()=> {
   const [showResults, setShowResults] = useState(false);
   const {accountNo, setAccountNo}= useContext(AccountStatementContext);
 
-  let userId = useUserId()
+  let userinfo = useProfileCreated()
+  let userId = userinfo?.userId;
   const path = usePathname()
   const router = useRouter()
 
@@ -59,14 +58,13 @@ const handleSearchClick = async (e: any) => {
     accountId: accountNumber,
     startDate: new Date(startDate),
     endDate: new Date(endDate),
-    userId: userId
+    userId: parseInt(userId!)
   };
   
   try {
     // Perform account statement post request
     const statement = await accountStatement.createAccountStatementRequest(accountStatementRequest);
     sessionStorage.setItem("statementRequestId", statement.statementRequestId?.toString() || "");
-    sessionStorage.setItem("selectedacountnumber", accountNumber);
 
     setShowResults(true);
     router.push(path);

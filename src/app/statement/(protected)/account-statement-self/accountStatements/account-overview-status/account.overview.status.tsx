@@ -8,9 +8,10 @@ import SelfAccountStatement from "../self.account.statement";
 import AccountSchedule from "./account-schedule/account.schedule";
 import { singleUsersAccounts } from "@/src/lib/account.overview.actions";
 import { UsersAccounts } from "../active-statement-item/active.statement.item";
-import getProfileId from "@/src/hooks/profileId";
 import { notification } from "antd";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { PROFILE_ID } from "@/src/constants/common";
+import useProfileId from "@/src/hooks/profileId";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const AccountOverviewStatus = () => {
   const [activeTab, setActiveTab] = useState("fullStatement");
   const [options, setOptions] = useState<UsersAccounts[] | null>(null);
 
-  let profileId = getProfileId();
+  let profileId = useProfileId();
 
   useEffect(() => {
     const storedTab = localStorage.getItem("activeTab");
@@ -29,9 +30,11 @@ const AccountOverviewStatus = () => {
   }, []);
 
   useEffect(() => {
+    if (profileId !== null && profileId !== undefined) {
+
     const fetchUsersAccounts = async () => {
       try {
-        const accounts = await singleUsersAccounts(profileId);
+        const accounts = await singleUsersAccounts(parseInt(profileId!));
         setOptions(accounts);
       } catch (error) {
         notification.error({
@@ -42,7 +45,8 @@ const AccountOverviewStatus = () => {
       }
     };
     fetchUsersAccounts();
-  }, []);
+  }
+  }, [profileId]);
 
   const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = parseInt(e.target.value);

@@ -4,18 +4,20 @@ import StatementTable from "../activity-history-table/activity.history.table";
 import AccountDetailTable from "../account-detail-table/account.detail.table";
 import {  completeTransactionActionByUserId } from "@/src/lib/completed.transactions.actions";
 import { usePathname } from "next/navigation";
-import useUserId from "@/src/hooks/userId";
 import { useQuery } from "react-query";
+import useProfileCreated from "@/src/hooks/useProfileCreated";
 
 function CompletedStatement() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+
+  let userinfo = useProfileCreated()
+  let userId = userinfo?.userId;
   const path = usePathname();
-  const userId = useUserId();
 
   const { data: completedStatement, error, isLoading } = useQuery(
     ['completedStatement', userId],
-    () => completeTransactionActionByUserId(userId),
+    () => completeTransactionActionByUserId(parseInt(userId!)),
     {
       enabled: !!userId,
       retry: false,
