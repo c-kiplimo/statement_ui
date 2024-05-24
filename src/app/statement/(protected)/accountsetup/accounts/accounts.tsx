@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CustomTable, { DataFetcher } from "../widgets/table/table";
 import { EyeOutlined, SettingOutlined } from "@ant-design/icons";
 import styles from "./accounts.module.css";
@@ -7,7 +7,8 @@ import Sort from "@/src/components/atoms/sort/sort";
 import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import { AccountAction } from "@/src/lib/actions/accounts.action";
-import { useAccountProfileContext } from '../context/account.contex'; 
+import { AccountProfileProvider, useAccountProfileContext } from '../context/account.contex'; 
+
 
 
 type UserIdProps = {
@@ -16,11 +17,21 @@ type UserIdProps = {
 
 const AccountsPage = (props: UserIdProps) => {
   const [settingsClicked, setSettingsClicked] = useState<number | null>(null);
+  const [viewClicked, setViewClicked] = useState<number | null>(null);
   const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
   const {accountId,updateAccount}=useAccountProfileContext();
 
+
   console.log(accountId);
   
+  
+  
+
+sessionStorage.setItem("passedaccountId", accountId.toString())
+
+
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,25 +46,53 @@ const AccountsPage = (props: UserIdProps) => {
       }
     };
 
+
+
     fetchData();
   }, [props.userId]);
+
+
 
   const handleSettingsClick = useCallback((id: number) => {
     setIncomingData(prevData =>
       prevData.map(item =>
-        item.id === id ? { ...item, settingsClicked: !item.settingsClicked } : item
+        item.id === id ? { ...item, settingsClicked: !item.settingsClicked  } : item
       )
     );
     setSettingsClicked(id);
-    console.log(id)
-    updateAccount (settingsClicked!)
-  }, [settingsClicked]);
+  }, []);
 
-  console.log(settingsClicked);
+
+
+  const handleViewClick = useCallback((id: number) => {
+    setIncomingData(prevData =>
+      prevData.map(item =>
+        item.id === id ? { ...item, viewClicked: !item.viewClicked} : item
+      )
+    );
+    setViewClicked(id);
+  }, []);
+
+  
+  useEffect(() => {
+    if (settingsClicked !== null) {
+      updateAccount(settingsClicked);
+    }
+  }, [settingsClicked, updateAccount]);
+
+
+
+  useEffect(() => {
+    if (viewClicked !== null) {
+      updateAccount(viewClicked);
+    }
+  }, [viewClicked, updateAccount]);
+  
   
 
   const columns = [
     {
+      Key:"accountNumber",
       title: "Account Number",
       dataIndex: "createdOn",
       render: (text: any, record: any) => (
@@ -64,11 +103,13 @@ const AccountsPage = (props: UserIdProps) => {
       ),
     },
     {
+      Key:"accountName",
       title: "Account Name",
       dataIndex: "userName",
       render: (text: any) => <span className={styles.ActivityName}>{text}</span>,
     },
     {
+      Key:"status",
       title: "Status",
       dataIndex: "status",
       render: (text: any, record: any) => {
@@ -91,10 +132,11 @@ const AccountsPage = (props: UserIdProps) => {
       },
     },
     {
+      Key:"settings",
       title: "Settings",
       dataIndex: "settings",
       render: (text: any, record: any, index: number) => (
-        <Link href="/statement/dev" key={`settings-${record.id}`}>
+        <Link href="/statement/accountsetup/widgets/configuration-form" key={`settings-${record.id}`}>
           <button
             className={`${styles.settingsButton} ${
               settingsClicked === record.id
@@ -111,11 +153,20 @@ const AccountsPage = (props: UserIdProps) => {
       ),
     },
     {
+      Key:"icons",
       title: "",
       dataIndex: "icons",
-      render: () => (
-        <Link href={"/statement/accountsetup/account-profile"}>
-          <button className={styles.iconsdiv}>
+      render: (text: any, record: any, index: number) => (
+        <Link href="/statement/accountsetup/account-profile" key={`icons-${record.id}`}>
+          <button
+            className={`${styles.settingsButton} ${
+              viewClicked === record.id
+                ? styles.viewButtonClicked
+                : styles.test
+            }`}
+            onClick={() => handleViewClick(record.id)}
+          >
+            {text}
             <EyeOutlined />
           </button>
         </Link>
@@ -140,12 +191,14 @@ const AccountsPage = (props: UserIdProps) => {
             <Sort title="Sort" icon={<img src="/sort.svg" alt="sort" />} />
           </div>
         </div>
+       
         <CustomTable
           data={incomingData}
           pageSize={5}
           total={10}
           columns={columns}
         />
+        
       </div>
     </div>
   );

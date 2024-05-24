@@ -234,8 +234,9 @@ height: auto;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
+justify-content: space-between;
 padding: 0px;
-gap: 16px;
+gap: 36px;
 width: 761px;
 height: auto;
 }
@@ -267,8 +268,11 @@ height: auto;
 
  
 .interval {
+  display: flex;
+  flex-direction: row;
 width: 697px;
 height: 26px;
+gap: 20px;
 }
 
 .radio {
@@ -291,6 +295,7 @@ height: 26px;
   width: fit-content;
   height: 24px;
   color: #6f7269;
+  
 }
 
 .dateTime {

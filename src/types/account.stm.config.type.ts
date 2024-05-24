@@ -1,9 +1,10 @@
-type statementSetup ={
-    accountId: string,
+type statementSetup={
+    accountId: number,
+    allowSwiftStatement?: string,
+    allowOnlineStatement?: string,
+    scheduleStatement?: string,
+    statementFrequency?: string,
     fileFormat: string,
-    statementFrequency: string,
-    templateType:string,
-    startDateTime: string,
+    templateType: string,
+    startDateTime: string
 }
-
-

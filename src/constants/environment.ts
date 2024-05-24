@@ -114,7 +114,7 @@ export const ADD_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions
 
 export const EDIT_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
 
-export const ACCT_STMT_URL = `${PROFILE_URL}/api/v1/accounts/setup`;
+export const ACCT_STMT_URL = `${PROFILE_URL}/api/v1/accounts/configure`;
 
 export const GET_ACCOUNT_CONFIG = `${PROFILE_URL}/api/v1/accounts/configure`;
 
