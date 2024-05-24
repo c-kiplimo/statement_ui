@@ -130,7 +130,7 @@ const SignInHelper = () => {
                     href="/statement/password-recovery/recover-password"
                     className={`${styles.recoverLink} captionr`}
                   >
-                    Recover Password
+                    Forgot Password
                   </Link>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.servic
 import { useOnboardingContext } from "../../context/onBoardingContext";
 import { CreateProfileHandler } from "@/src/services/auth/createProfile.service";
 import { storeProfile } from "@/src/hooks/useProfileCreated";
+import { useProfile } from "../../../context/useProfileContext";
 
 let profileStatus: boolean;
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 interface CustomButtonProps {
   text: string;
@@ -9,7 +11,8 @@ interface CustomButtonProps {
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
-  type?:"button" | "reset" | "submit" | undefined,
+  type?: "button" | "reset" | "submit";
+  loading?: boolean;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -19,24 +22,33 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   textColor = 'white',
   onClick,
   disabled = false,
-  className,
+  className = '',
   style,
-  type
+  type = 'button',
+  loading = false,
 }) => {
+  const antIcon = <LoadingOutlined style={{ fontSize: 24, color: textColor }} spin />;
+
   return (
     <button
-      className={`w-full py-2 rounded cursor-pointer ${className || ''}`}
+      className={`w-full py-2 rounded cursor-pointer ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'} ${className}`}
       style={{
         backgroundColor: bgColor,
         color: textColor,
         ...style,
       }}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
       type={type}
     >
-      {icon && <span className="mr-2">{icon}</span>}
-      {text}
+      {loading ? (
+        <Spin indicator={antIcon} />
+      ) : (
+        <>
+          {icon && <span className="mr-2">{icon}</span>}
+          {text}
+        </>
+      )}
     </button>
   );
 };

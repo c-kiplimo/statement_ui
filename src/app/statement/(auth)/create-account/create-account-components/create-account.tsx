@@ -22,7 +22,7 @@ type RegisterProps = {
   };
 };
 
-const NewAccount = () => {
+const SignUp = () => {
   const router = useRouter();
   const { registerUserService } = authServiceHandler();
   const [submitted, setSubmitted] = useState(false);
@@ -157,8 +157,7 @@ const NewAccount = () => {
 
                 <div className={styles.vertical}>
                   <MyFormItem name="password" label="Password">
-                    <Input.Password
-                      type="password"
+                  <Input.Password
                       className={`${styles.input} bodyr`}
                     />
                   </MyFormItem>
@@ -170,6 +169,12 @@ const NewAccount = () => {
                   valuePropName="checked"
                   initialValue={false}
                   name="confirm"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please fill the checkbox",
+                    },
+                  ]}
                 >
                   <Checkbox id="agreeCheckbox" type="checkbox" required/>
                 </MyFormItem>
@@ -194,4 +199,4 @@ const NewAccount = () => {
   );
 };
 
-export default NewAccount;
+export default SignUp;
