@@ -24,7 +24,7 @@ const useProfileId  =  () =>{
     fetchData();
   }, [userId])
 
-const profId = profileDetails?.profileId;
+const profId = profileDetails?.customerId;
 console.log(profId);
 
 return profId;

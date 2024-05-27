@@ -23,6 +23,11 @@ export const CardTransactions = async (
   cardnumber: string
 ): Promise<cardTransactions[]> => {
   const cardData: Card = await getCardByCardNumber(cardnumber);
+
+  if(cardData === null || undefined){
+    return []
+  }
+
   let cardTransactions: cardTransactions[] = cardData.fundsTransferDTOS.map(
     (data) => ({
       id: data.transactionId,

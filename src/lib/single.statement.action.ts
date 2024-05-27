@@ -18,8 +18,9 @@ export const SingleStatementAction = async (
     accountName: statementresult.accountDTO!.accountTitle!,
     accountNumber: statementresult.accountDTO!.accountId!,
     currency: statementresult.accountDTO!.currency,
-    openingBalance:
-      statementresult.summary!.totalCreditAmount!.toLocaleString(),
+    // openingBalance:
+    //   statementresult.summary!.totalCreditAmount!.toLocaleString(),
+    openingBalance:'0',
     closingBalance: statementresult.summary!.closingBalance!.toLocaleString(),
     startDate: toString(statementresult.startDate),
     endDate: toString(statementresult.endDate),

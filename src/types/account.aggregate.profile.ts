@@ -1,12 +1,7 @@
 type AccountProfile = {
-    profileDTO: {
-        profileId: number,
-        profileName: string,
-        country: string,
-        userId: string,
+    customerResponseDTO: {
         customerId: number,
-        active: boolean,
-        defaultProfile: boolean
+        
     };
     accounts:Array< {
         accountId: string,

@@ -86,7 +86,7 @@ export const ActiveTransactionAction = async (
     parseInt(statementRequestId)
   );
 
-  if (result.status === 'PENDING') {
+  if (result.status ) {
     let completedtransactions: CompleteTransactions[] = [
       {
         id: result.statementRequestId!,

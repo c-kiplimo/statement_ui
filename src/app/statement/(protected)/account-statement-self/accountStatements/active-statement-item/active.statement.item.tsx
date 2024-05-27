@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react";
-import { DatePicker, notification } from "antd";
+import { DatePicker, Modal, notification } from "antd";
 import styles from "./active.statement.item.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
@@ -14,6 +14,7 @@ import { useQuery } from 'react-query';
 import { PROFILE_ID } from "@/src/constants/common";
 import useProfileId from "@/src/hooks/profileId";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
+import AccountDetailTable from "../account-detail-table/account.detail.table";
 
 export type UsersAccounts = {
   key: number;
@@ -30,11 +31,12 @@ const ActiveStatement = () => {
   const [isInputComplete, setIsInputComplete] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [usersAccounts, setUsersAccounts] = useState<UsersAccounts[] | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const path = usePathname();
   const router = useRouter();
 
   let profileId = useProfileId();
-  
   let userinfo = useProfileCreated()
   let userId = userinfo?.userId;
 
@@ -43,7 +45,7 @@ const ActiveStatement = () => {
 
     const fetchUsersAccounts = async () => {
       try {
-        const accounts = await singleUsersAccounts(parseInt(profileId!));
+        const accounts = await singleUsersAccounts(profileId!);
         setUsersAccounts(accounts);
       } catch (error) {
         notification.error({
@@ -108,6 +110,16 @@ const ActiveStatement = () => {
       refetchInterval: 5000,
     }
   );
+
+  const handleEyeIconClick = (id: number) => {
+    setSelectedItemId(id);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedItemId(null);
+  };
 
   if (isLoading) {
     return (
@@ -175,7 +187,19 @@ const ActiveStatement = () => {
 
       {showResults && result && result.length > 0 && (
         <div className={styles.searchoutput}>
-          <StatementTable statementdata={result} />
+          <StatementTable statementdata={result}
+          onEyeIconClick={handleEyeIconClick}
+           />
+           <Modal
+            width={"70%"}
+            open={isModalVisible}
+            onCancel={closeModal}
+            footer={null}
+          >
+            {selectedItemId !== null && (
+              <AccountDetailTable itemId={selectedItemId} />
+            )}
+          </Modal>
         </div>
       )}
     </div>

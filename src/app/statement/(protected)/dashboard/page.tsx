@@ -56,11 +56,11 @@ const Page = () => {
             balanceResult,
             customerIdResult,
           ] = await Promise.all([
-            PersonalAccountOverviewActions(parseInt(profId)),
-            AccountCardsOverviewActions(parseInt(profId)),
-            TransactionOverviewActions(parseInt(profId)),
-            BalancesByCurrencyOverviewActions(parseInt(profId)),
-            getCustomerId(parseInt(profId)),
+            PersonalAccountOverviewActions(profId),
+            AccountCardsOverviewActions(profId),
+            TransactionOverviewActions(profId),
+            BalancesByCurrencyOverviewActions(profId),
+            getCustomerId(profId),
           ]);
 
           setAccountData(accountResult);
@@ -69,7 +69,7 @@ const Page = () => {
           setCurrencyBalanceData(balanceResult);
           setCustId(customerIdResult);
         } catch (error) {
-          setError("Failed to fetch data");
+          setError("FAILED TO FETCH DATA. PLEASE TRY AGAIN.");
         } finally {
           setLoading(false);
         }
@@ -88,7 +88,7 @@ const Page = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-center p-12 text-2xl font-extrabold">ERROR: {error}</div>;
   }
 
   return (
@@ -96,11 +96,16 @@ const Page = () => {
       <ProfileContext.Provider value={{ custId, setCustId }}>
         <div className={styles.container}>
           <div className={styles.header}>
+            {currencyBalanceData && currencyBalanceData.length >0 ?(
             <TotalAvailableBalanceCard balancesBycurrency={currencyBalanceData} />
+          ):(
+            <div>NO BALANCES.</div>
+          )}
           </div>
 
           <div className={styles.accounts}>
             <div className={styles.carddetails}>
+              {accountData && accountData.length >0 ? (
               <AccountDetailsCard
                 headerTitle={"Accounts"}
                 filterIcon={<img src="/funnel.svg" />}
@@ -114,18 +119,28 @@ const Page = () => {
                 borderRadius={"27px"}
                 cardDetailsData={accountData}
               />
+            ):(
+              <div>NO AVAILABLE ACCOUNTS FOR THIS PROFILE</div>
+            )}
             </div>
+
             <div className={styles.cardstype}>
+              {cardData && cardData.length > 0 ? (
               <CardtypeDetailsInfo
                 cardTitle={"Cards"}
                 filterIcon={<img src="/funnel.svg" />}
                 addIcon={<img src="/plussIcon.svg" alt="add" />}
                 cardTypedata={cardData}
               />
+              ):(
+                <div>YOU DONT HAVE ANY REGISTERED CARD UNDER THIS PROFILE.</div>
+              )}
             </div>
           </div>
 
           <div className={styles.table}>
+          {transactionData && transactionData.length > 0 ? (
+
             <TransactionHistoryTable
               data={transactionData}
               option={options}
@@ -134,6 +149,9 @@ const Page = () => {
               filterBtnlabel={"Filter"}
               sortBtnlabel={"Sort"}
             />
+            ): (
+              <div className="font-bold text-center p-6">NO TRANSACTIONAL HISTORY AVAILABLE.</div>
+            )}
           </div>
         </div>
       </ProfileContext.Provider>
