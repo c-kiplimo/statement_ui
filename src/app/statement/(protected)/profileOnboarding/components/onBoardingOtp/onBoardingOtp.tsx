@@ -12,6 +12,7 @@ import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.servic
 import { useOnboardingContext } from "../../context/onBoardingContext";
 import { CreateProfileHandler } from "@/src/services/auth/createProfile.service";
 import { storeProfile } from "@/src/hooks/useProfileCreated";
+import useUserSession from "@/src/hooks/useUserSession";
 
 let profileStatus: boolean;
 
@@ -26,6 +27,7 @@ const OnboardingOtp = () => {
   const { onBoardingOtpService, validateOtpService } = SearchCustomerHandler();
   const { CreateProfileService } = CreateProfileHandler();
   const { profile } = useOnboardingContext();
+  const { accessToken,user } = useUserSession();
 
  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
   event.preventDefault();
@@ -94,7 +96,7 @@ const OnboardingOtp = () => {
     let data = getLoggedInUser();
     profileStatus = data.profileComplete!;
     setMyUser(getLoggedInUser());
-  }, [myUser?.email]);
+  }, [myUser]);
 
   useEffect(() => {
     interValRef.current = window.setInterval(() => {
@@ -106,28 +108,28 @@ const OnboardingOtp = () => {
     };
   }, [timer]);
 
-  // const resendOtp = async () => {
-  //   try {
-  //     const response = await onBoardingOtpService("EMAIL", accessToken!, user.id!);
-  //     if (response) {
-  //       notification.success({
-  //         message: "OTP Resent",
-  //         description: "A new OTP has been sent to your email.",
-  //       });
-  //       timerChanged(300);
-  //     } else {
-  //       notification.error({
-  //         message: "Error",
-  //         description: "Failed to resend OTP. Please try again.",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     notification.error({
-  //       message: "Error",
-  //       description: "Failed to resend OTP. Please try again.",
-  //     });
-  //   }
-  // }
+  const resendOtp = async () => {
+    try {
+      const response = await onBoardingOtpService("EMAIL", accessToken!, myUser?.userName!,profile.email!);
+      if (response) {
+        notification.success({
+          message: "OTP Resent",
+          description: "A new OTP has been sent to your email.",
+        });
+        timerChanged(300);
+      } else {
+        notification.error({
+          message: "Error",
+          description: "Failed to resend OTP. Please try again.",
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Failed to resend OTP. Please try again.",
+      });
+    }
+  }
 
   return (
     <>
@@ -161,7 +163,7 @@ const OnboardingOtp = () => {
                   Didn’t get code?
                   <span
                     className="otp-email-link-text"
-                    //  onClick={resendOtp}
+                    onClick={resendOtp}
                   >
                     Send again
                   </span>

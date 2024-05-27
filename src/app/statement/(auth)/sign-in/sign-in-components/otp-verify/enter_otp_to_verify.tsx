@@ -99,8 +99,6 @@ const EnterOtpToVerify = () => {
     window.clearInterval(interValRef.current);
   };
 
- 
-
   useEffect(() => {
     interValRef.current = window.setInterval(() => {
       timerChanged((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));

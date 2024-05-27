@@ -1,15 +1,14 @@
 .otpContainer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: column;  
   justify-content: center;
   padding: 32px;
   gap: 32px;
-  width: 458px;
-  height: 395px;
+  width: 354px;
+  height: 450px;
   background: #ffffff;
   cursor: pointer;
-}
+} 
 
 .title {
   display: flex;
@@ -22,13 +21,16 @@
 }
 
 .otpBody {
-  width: 318px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
   height: 131px;
 }
 
 .otpPrompt {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: flex-start;
   gap: 8px;
 }
@@ -37,7 +39,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 56px;
   gap: 16px;
   width: 100%;
   height: 56px;
@@ -48,7 +49,7 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  width: 159px;
+  width: 100%;
   height: 24px;
 }
 

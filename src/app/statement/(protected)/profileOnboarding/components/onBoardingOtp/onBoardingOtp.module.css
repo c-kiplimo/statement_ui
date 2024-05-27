@@ -1,63 +1,58 @@
 .otpContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 32px;
-    gap: 32px;
-    width: 458px;
-    height: 395px;
-    background: #ffffff;
-    cursor: pointer;
-  }
-  
-  .title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-    width: 100%;
-    height: 40px;
-  }
-  
-  .otpBody {
-    width: 318px;
-    height: 131px;
-  }
-  
-  .otpPrompt {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .otpInput {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 56px;
-    gap: 16px;
-    width: 100%;
-    height: 56px;
-    padding-top: 8px;
-  }
-  
-  .timer {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    width: 159px;
-    height: 24px;
-  }
-  
-  .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 32px;
-    width: 318px;
-    height: 40px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  gap: 32px;
+  width: 100%;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.otpBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 318px;
+}
+
+.otpPrompt {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.otpInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 8px;
+} 
+
+.timer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 24px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  width: 318px;
+  height: 40px;
+}
