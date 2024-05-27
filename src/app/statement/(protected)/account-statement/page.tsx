@@ -6,7 +6,7 @@ const AccountStatementPage = () => {
   return (
     <Fragment>
       <div style={{width:'100%'}}>
-        <BranchAccountStatement/>
+      <BranchAccountStatement/>
       </div>
     </Fragment>
   );
