@@ -51,9 +51,9 @@ export const SingleDataEntriesAction = async (
       valuedate: convertDateString(data.valueDate!.toString()),
       paymentDetails: data.transactionDetails!,
       moneyIn:
-        data.debit === true ? formatAmount(data.amount!.toString()) : "",
-      moneyOut:
         data.credit === true ? formatAmount(data.amount!.toString()) : "",
+      moneyOut:
+        data.debit === true ? formatAmount(data.amount!.toString()) : "",
       balance: data.runningBalance!.toLocaleString(),
       transferRef: data.transReference!,
     })

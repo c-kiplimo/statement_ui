@@ -1,0 +1,40 @@
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0px 16px 8px;
+  width: 100%;
+  height: auto;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 88px;
+  height: 32px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  color: #6f7269;
+}
+
+.headericons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+.modalcontent {
+  width: 100%;
+}

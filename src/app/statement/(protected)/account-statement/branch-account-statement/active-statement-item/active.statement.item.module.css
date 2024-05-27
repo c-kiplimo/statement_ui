@@ -1,0 +1,68 @@
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16px 0px;
+  width: 100%;
+  height: fit-content;
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 32px;
+  width: 317px;
+}
+
+.input {
+  padding: 8px;
+  width: 248px;
+  height: 36px;
+  outline: none;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+}
+.searchoutput {
+  margin-top: 20px;
+  /* background: aliceblue;
+  position: absolute;
+  margin-top: 200px;
+  width: 100%; */
+}
+.inputDate {
+  height: 36px;
+}
+
+.search {
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  background: #979992;
+  border-radius: 24px;
+  color: white;
+}
+
+.statement {
+  padding: 24px 32px;
+  width: auto;
+  height: auto;
+  background: #ffffff;
+  box-shadow: 4px 4px 4px 4px rgba(149, 154, 136, 0.15);
+  border-radius: 8px;
+}
+
+.inputhead,
+.datehead {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

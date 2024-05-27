@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+}
+
+.headeritem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  width: 100%;
+}
+.headimage {
+  width: 70%;
+}
+.headtext {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 30%;
+}
+
+.accountsdata {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 0px 8px;
+  width: 100%;
+}
+.accountowner {
+  width: 70%;
+}
+.accountdescription {
+  width: 30%;
+}
+.footer {
+  width: 100%;
+}

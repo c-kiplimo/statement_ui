@@ -1,9 +1,7 @@
 'use client'
 
 import React, { Fragment } from "react";
-import AccountStatement from "../(module)/account-statement/account-statement";
-import BranchAccountStatement from "@/src/components/widgets/branch-account-statement/branch.account.statement";
-
+import BranchAccountStatement from "./branch-account-statement/branch.account.statement";
 const AccountStatementPage = () => {
   return (
     <Fragment>
