@@ -2,3 +2,12 @@
 display: flex;
 width: 100%;
 }
+
+
+.spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }
+  

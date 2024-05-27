@@ -1,12 +1,11 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styles from "./accounts.configuration.module.css";
 import { Radio, DatePicker, TimePicker, Select, notification } from "antd";
-import StatementAccounts from "../config-acct-fetch/account";
 import { StatementConfig } from "@/src/services/account/account.statement.config.service";
 import moment from "moment";
 import dayjs from "dayjs";
 import { AccountsStmtConfig } from "@/src/lib/actions/account.ById.action";
-import { useAccountProfileContext } from "@/src/app/statement/(protected)/accountsetup/context/account.contex";
+import StatementAccounts from "@/src/components/widgets/acconts-configuration/config-acct-fetch/account";
 
 
 
@@ -46,7 +45,8 @@ const Accountstype = (props: contentProps) => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
   const [accountDetailsdata, setAccountDetailsData] = useState<acctData>();
-  // const {accountId,updateAccount}=useAccountProfileContext();
+  
+  const accountPaased = sessionStorage.getItem("passedaccountId")
 
   
 
@@ -55,8 +55,9 @@ const Accountstype = (props: contentProps) => {
 
     const fetchData = async () => {
       try {
-        let accountData = await AccountsStmtConfig(1026272613
-);
+        let accountData = await AccountsStmtConfig(parseInt(accountPaased!))
+
+        
         setAccountDetailsData(accountData);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -65,6 +66,8 @@ const Accountstype = (props: contentProps) => {
 
     fetchData();
   }, []);
+
+  
 
 
 
@@ -250,27 +253,28 @@ const Accountstype = (props: contentProps) => {
           {scheduledStatementsOption === true && (
             <>
               <div className={`${styles.desHeader} bodyr`}>
-                {props.fileformartHeader}
-              </div>
-              <div className={styles.interval}>
+                <p>{props.fileformartHeader}</p>
+                <div className={styles.interval}>
                 <Radio.Group
                   onChange={handlefrequencyOptionChange}
                   value={frequencyOption}
                 >
-                  <Radio className={styles.freqradio} value="Monthly">
+                  <Radio  value="Monthly">
                     {props.optiona}
                   </Radio>
-                  <Radio className={styles.freqradio} value="Bi Weekly">
+                  <Radio  value="Bi Weekly">
                     {props.optionb}
                   </Radio>
-                  <Radio className={styles.freqradio} value="Weekly">
+                  <Radio  value="Weekly">
                     {props.optionc}
                   </Radio>
-                  <Radio className={styles.freqradio} value="Daily">
+                  <Radio  value="Daily">
                     {props.optiond}
                   </Radio>
                 </Radio.Group>
               </div>
+              </div>
+              
               <div className={styles.dateTime}>
                 <DatePicker
                   className={styles.input}

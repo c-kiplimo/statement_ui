@@ -1,51 +1,83 @@
-import LastLogin from '@/src/components/widgets/userStatus/user.login.status'
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
+import LastLogin from '@/src/components/widgets/userStatus/user.login.status';
 import { profileDetails } from "@/src/lib/actions/profile.action";
-import styles from "./user.profile.module.css"
+import styles from "./user.profile.module.css";
+import { Spin } from 'antd';
 
+type Profile = {
+  userName: string;
+  industry: string;
+  town: string;
+  customerType: string;
+};
 
-export type profilesType={
-    userName:string,
-    industry:string,
-    town:string,
-    customerType:string,
-    }
+type UserProfileProps = {
+  userId?: number;
+};
 
-    type userprofileType={
-      userId?:number
-    }
+const Userprofile: React.FC<UserProfileProps> = ({ userId }: UserProfileProps) => {
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchProfileDetails = async () => {
+      if (!userId) {
+        setError('User ID is not provided');
+        setLoading(false);
+        return;
+      }
 
-const Userprofile = async (props:userprofileType) => {
-
-
-    let profile:profilesType = await profileDetails(props.userId!.toString())
-    
-    
-
-    const getLastLoginTime = () => {
-      const now = new Date();
-      const date = now.toLocaleDateString();
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      return `${date} ${time}`;
+      try {
+        const profileData = await profileDetails(userId.toString());
+        setProfile(profileData);
+      } catch (err) {
+        setError('Failed to fetch profile details');
+      } finally {
+        setLoading(false);
+      }
     };
-    
-  return (
-  
-    <div className={styles.container}>
-        
-       <LastLogin
-          userName={profile.userName}
-          industry={profile.industry}
-          town={profile.town}
-          customerType={profile.customerType}
-          timezone={`GMT ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}
-          lastSeenTime={`Last login on ${getLastLoginTime()}`}
-          userId={props.userId}
-          icon={<img src="/teamusericon.png" alt="teamusericon" />} 
-        /> 
-        </div>   
-  )
-}
 
-export default Userprofile
+    fetchProfileDetails();
+  }, [userId]);
+
+  const getLastLoginTime = useMemo(() => {
+    const now = new Date();
+    const date = now.toLocaleDateString();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${date} ${time}`;
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={styles.spinnerContainer}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!profile) {
+    return <div>No profile data available</div>;
+  }
+
+  return (
+    <div className={styles.container}>
+      <LastLogin
+        userName={profile.userName}
+        industry={profile.industry}
+        town={profile.town}
+        customerType={profile.customerType}
+        timezone={`GMT ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}
+        lastSeenTime={`Last login on ${getLastLoginTime}`}
+        userId={userId}
+        icon={<img src="/teamusericon.png" alt="teamusericon" />}
+      />
+    </div>
+  );
+};
+
+export default Userprofile;

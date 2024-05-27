@@ -20,17 +20,15 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
   }
 
   const handleYesClick = async () => {
+    console.log("Attempting to delete restriction with ID:", restrictionId);
     try {
-      await deleteRestriction(restrictionId);
+      const response = await deleteRestriction(restrictionId);
+      console.log("Restriction deleted successfully. Response:", response);
       onCancel();
     } catch (error) {
       console.error("Error deleting restriction:", error);
     }
-
   };
-
-  console.log(deleteRestriction);
-  
 
   return (
     <div className={styles.modalBackdrop}>

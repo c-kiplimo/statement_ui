@@ -1,43 +1,43 @@
-"use client"
-import React from 'react'
-import styles from "./tabs.module.css"
-import AccountsPage from '../../accounts/accounts'
-import ActivitiesStatus from '../../activities/activities.status'
-import RestrictionsOverview from '../../restrictions/restrictions-overview/restrictions.overview'
-import TabNavigations from '../../widgets/acctSetup-navigations-items/tab.navigations'
-import Accountsstatus from '../../customers/accountUsers/users.status'
+import React, { useState } from 'react';
+import styles from "./tabs.module.css";
+import AccountsPage from '../../accounts/accounts';
+import ActivitiesStatus from '../../activities/activities.status';
+import RestrictionsOverview from '../../restrictions/restrictions-overview/restrictions.overview';
+import TabNavigations from '../../widgets/acctSetup-navigations-items/tab.navigations';
+import AccountsStatus from '../../customers/accountUsers/users.status';
+import { AccountProfileProvider } from '../../context/account.contex';
 
-
-
-type useridprops={
-  userId?:number
+interface TabItem {
+  buttonName: string;
+  bodyContent: React.ReactNode;
 }
 
-const TabsNav = (props:useridprops) => {
-  const tabItems = [
+interface TabsNavProps {
+  userId?: number;
+}
+
+const TabsNav: React.FC<TabsNavProps> = ({ userId }) => {
+
+  const tabItems: TabItem[] = [
     {
       buttonName: 'Accounts',
-      bodyContent:<AccountsPage userId={props.userId}/>
+      bodyContent: <AccountsPage userId={userId} key="accounts" />,
     },
     {
-     buttonName: 'Users',
-      bodyContent: <Accountsstatus />
-     },
-    {
       buttonName: 'Activities',
-      bodyContent: <ActivitiesStatus userId={props.userId} />
+      bodyContent: <ActivitiesStatus userId={userId} key="activities" />,
     },
     {
       buttonName: 'Restrictions',
-      bodyContent:<RestrictionsOverview userId={props.userId}/>
-    }
+      bodyContent: <RestrictionsOverview userId={userId} key="restrictions" />,
+    },
   ];
-  
+
   return (
     <div className={styles.container}>
-       <TabNavigations tabItems={tabItems} /> 
+      <TabNavigations tabItems={tabItems}/>
     </div>
-  )
-}
+  );
+};
 
-export default TabsNav
+export default TabsNav;

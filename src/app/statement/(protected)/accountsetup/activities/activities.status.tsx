@@ -14,9 +14,8 @@ interface ActivityData {
   userName?: string;
   role?: string;
   status?: string;
-  icons?: React.ReactNode;
   currency?: string;
-  userId?: number;
+  icons?:any;
 }
 
 interface CustomColumn {
@@ -42,7 +41,6 @@ const columns: CustomColumn[] = [
       );
     },
   },
-
   {
     title: "Activity Name",
     dataIndex: "userName",
@@ -98,22 +96,23 @@ const columns: CustomColumn[] = [
   },
 ];
 
-const ActivitiesStatus = (props: ActivityData) => {
-
-  const [dataCall, setdatacal] = useState<DataFetcher[]>([]);
+const ActivitiesStatus = (props: { userId?: number }) => {
+  const [activityData, setActivityData] = useState<DataFetcher[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await ActivitiesAction(props.userId!);
-        setdatacal(data);
+        if (props.userId !== undefined) {
+          const data = await ActivitiesAction(props.userId);
+          setActivityData(data);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [props.userId]);
 
   return (
     <div className={styles.container}>
@@ -133,7 +132,7 @@ const ActivitiesStatus = (props: ActivityData) => {
           </div>
         </div>
 
-        <CustomTable data={dataCall} columns={columns} />
+        <CustomTable data={activityData} columns={columns} />
       </div>
     </div>
   );
