@@ -1,7 +1,5 @@
-import Link from "next/link";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import styles from "./recover-password.module.css";
-import { ReloadOutlined } from "@ant-design/icons";
 import Texter from "@/src/components/atoms/text/texter";
 import InputComponent from "@/src/components/atoms/input/inputComponent";
 import { Label } from "@/src/components/atoms/label/label";
@@ -50,9 +48,7 @@ const RecoverPassword = () => {
 
   const onOtpSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    // console.log("otp", value);
-    // console.log("userId", userId);
-    await validateOtpService(value, userId)
+    await validateOtpService(value, userId);
     router.push("/statement/password-recovery/create-new-password");
   };
 
@@ -82,7 +78,7 @@ const RecoverPassword = () => {
   }
 
   useEffect(() => {
-    console.log("=====>" + JSON.stringify(getLoggedInUser()));
+    console.log("User details==>" + JSON.stringify(getLoggedInUser()));
     setMyUser(getLoggedInUser);
   }, [myUser?.email]);
 
@@ -165,73 +161,53 @@ const RecoverPassword = () => {
                     </span>
                   </p>
                 </div>
-                <div className="space-y-5">
+                <div className={styles.otpInput}>
                   <OtpInput
                     length={6}
                     onChange={(e: string) => {
                       valueChanged(e);
                     }}
                   />
-                </div>
-
-                <div className="otp-leading-text-description text-left">
-                  Didn’t get code?
-                  <div className="otp-email-link-text">
-                    <span
-                      style={{ color: tokenColor.accent.info }}
-                      onClick={resendOtp}
-                    >
-                      Send again
-                    </span>
+                  <div className="otp-leading-text-description text-left">
+                    <p className="otp-leading-text-description text-left">
+                      Didn’t get code?
+                      <span className="otp-email-link-text" onClick={resendOtp}>
+                        Send again
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
+              <div className={styles.timer}>
+                <p
+                  style={{ color: tokenColor.text.description_01 }}
+                  className=" mt-5 w-52 text-left"
+                >
+                  Time Remaining :{" "}
+                  <strong style={{ color: tokenColor.default.black }}>
+                    {formatTime(timer)}
+                  </strong>
+                </p>
+              </div>
 
-              <p
-                style={{ color: tokenColor.text.description_01 }}
-                className=" mt-5 w-52 text-left"
-              >
-                Time Remaining :{" "}
-                <strong style={{ color: tokenColor.default.black }}>
-                  {formatTime(timer)} minutes remaining
-                </strong>
-              </p>
-
-              <div
-                style={{ marginTop: "2rem", minWidth: "100%" }}
-                className="digitGroup"
-              >
-                <div
+              <div className={styles.button}>
+                <button
+                  type="submit"
+                  onClick={onOtpSubmit}
                   style={{
-                    backgroundColor: tokenColor.default.white,
+                    height: "40px",
+                    borderRadius: "5px",
+                    minWidth: "250px",
+                    color: tokenColor.default.white,
+                    backgroundColor: "var(--brand-brand-primary)",
                   }}
                 >
-                  <button
-                    type="submit"
-                    onClick={onOtpSubmit}
-                    style={{
-                      height: "40px",
-                      borderRadius: "5px",
-                      minWidth: "250px",
-                      color: tokenColor.default.white,
-                      backgroundColor: "var(--brand-brand-primary)",
-                    }}
-                  >
-                    Verify
-                  </button>
-                </div>
+                  Verify
+                </button>
               </div>
             </div>
           </Modal>
         )}
-      </div>
-      <div className={styles.linkWrapper}>
-        <RecoverPassword.Icon icon={<ReloadOutlined size={16} />} />
-        <span className={styles.linkContainer}>
-          <Link href="#" className={`${styles.link} bodyr`}>
-            Resend mail
-          </Link>
-        </span>
       </div>
     </div>
   );

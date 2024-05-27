@@ -150,24 +150,18 @@
   color: var(--tint-colors-tint-200);
 }
 
-.modal {
-  box-sizing: border-box;
+.modal{
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   justify-content: center;
-  align-items: center;
-  padding: 32px;
+  align-items: flex-start;
+  padding: 32px 70px;
   gap: 32px;
+  width: 458px;
+  height: 550px;
+  background: none;
+  cursor: pointer;
   position: absolute;
-  width: 535px;
-  height: 424px;
-  left: 556px;
-  top: 116px;
-  background: var(--white);
-  border: 1px solid #e6e6e6;
-  box-shadow:
-    0px 27px 30px -5px rgba(10, 9, 11, 0.13),
-    0px 0px 0px 1px rgba(10, 9, 11, 0.05),
-    0px 7px 3px -1px rgba(10, 9, 11, 0.04);
-  border-radius: 8px;
+  left: 708px;
+  top: 154px;
 }

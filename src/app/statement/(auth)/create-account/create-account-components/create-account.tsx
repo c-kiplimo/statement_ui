@@ -162,6 +162,7 @@ const SignUp = () => {
                     />
                   </MyFormItem>
                 </div>
+                
               </div>
 
               <div className={styles.consent}>

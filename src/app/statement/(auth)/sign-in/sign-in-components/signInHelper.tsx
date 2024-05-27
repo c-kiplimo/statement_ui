@@ -7,16 +7,18 @@ import { AUTH_URL_LOGIN } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 import { useRouter } from "next/navigation";
 import { authServiceHandler } from "@/src/services/auth/auth.service";
-import { Form, Input, notification } from "antd";
+import { Form, Input, Modal, notification } from "antd";
 import {
   MyFormItemGroup,
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
+import EnterOtpToVerify from "./otp-verify/enter_otp_to_verify";
 
 const SignInHelper = () => {
   const router = useRouter();
   const { storeToken } = AuthServiceProvider();
   const { loginService, requestOtpService } = authServiceHandler();
+  const [showModal,setShowModal]=useState(false);
 
   type LoginProps = {
     login: {
@@ -25,6 +27,15 @@ const SignInHelper = () => {
       confirm?: boolean;
     };
   };
+
+  const openModalHandler=()=>{
+    setShowModal(true);
+  }
+
+  const closeModal=()=>{
+    setShowModal(false);
+  }
+
   const onSubmit = async (values: LoginProps) => {
      await loginService(AUTH_URL_LOGIN, values)
       .then((response) => {
@@ -46,7 +57,8 @@ const SignInHelper = () => {
           message: "OTP Generated",
           description: "A new OTP has been generated. Please check your email.",
         });
-        router.push("/statement/otp-verification");
+        openModalHandler();
+        //router.push("/statement/otp-verification");
       })
       .catch((error) => {
         console.error("Login failed:", error);
@@ -158,6 +170,15 @@ const SignInHelper = () => {
             </MyFormItemGroup>
           </div>
         </Form>
+        {showModal && (
+          <Modal open={showModal}
+          onCancel={closeModal}
+            footer={null}
+            className={styles.modal}
+          >
+            <EnterOtpToVerify/>
+          </Modal>
+        )}
       </div>
     </div>
   );
