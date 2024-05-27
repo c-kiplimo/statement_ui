@@ -1,0 +1,12 @@
+.userManagementHeaderCss {
+  display: flex;
+  padding: 16px 4px;
+  align-items: center;
+  border-bottom: 1px solid var(--Border-Border-Primary, #e6e6e6);
+  gap: 24px;
+  background: var(--white);
+}
+
+.tabcontent {
+  margin: 20px;
+}
