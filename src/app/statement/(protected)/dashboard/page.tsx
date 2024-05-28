@@ -30,8 +30,6 @@ const options = [
 
 const Page = () => {
   const profId = useProfileId();
-
-  console.log(profId);
   
   const [accountData, setAccountData] = useState<AccountDataHome[]>([]);
   const [cardData, setCardData] = useState<CardDataHome[]>([]);
