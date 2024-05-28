@@ -10,12 +10,8 @@ interface CreateRestrictionProps {
   onCancel: () => void;
 }
 
-interface CreateRestrictionData {
-  name: string;
-  description: string;
-}
 
-const CreateRestrictionModal: FC<CreateRestrictionProps> = ({
+const CreateRes: FC<CreateRestrictionProps> = ({
   customerId,
   visible,
   onCancel,
@@ -23,6 +19,7 @@ const CreateRestrictionModal: FC<CreateRestrictionProps> = ({
   const [restrictionName, setRestrictionName] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -94,4 +91,4 @@ const CreateRestrictionModal: FC<CreateRestrictionProps> = ({
   );
 };
 
-export default CreateRestrictionModal;
+export default CreateRes;

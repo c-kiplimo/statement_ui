@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   EditOutlined,
   EyeOutlined,
@@ -14,7 +14,8 @@ import AddItem from "@/src/components/atoms/add-item/add.item";
 import RemoveRestrictionModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/remove-from-page/restriction/remove.restriction";
 import EditPageModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/edit-page/edit.page";
 import { RestrictionsAction } from "@/src/lib/actions/customer.restrictions.action";
-import CreateRestrictionModal from "../../page-manupilation/Add-in-page/createRestriction/create.restriction";
+import CreateRestrictionModal, { EntriesProps } from "../../account-restrictions/restrictions";
+import { AllAccountRestrictionsAction } from "@/src/lib/actions/all.restrictions.action";
 
 interface DataType {
   id?: React.Key;
@@ -23,9 +24,9 @@ interface DataType {
   role?: string;
   status?: string;
   icons?: React.ReactNode;
-  currency?:string;
-  userId?:number;
-  entryId?:number;
+  currency?: string;
+  userId?: number;
+  entryId?: number;
 }
 
 interface Datatype {
@@ -34,38 +35,59 @@ interface Datatype {
   render?: (text: any, record: DataType) => React.ReactNode;
 }
 
-const RestrictionsOverview = (props: DataType) => {
+interface RestrictionsOverviewProps {
+  userId?: number;
+}
+
+const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [modalVisible3, setModalVisible3] = useState(false);
   const [data, setData] = useState<DataFetcher[]>([]);
-  const [dataId, setdataId] = useState<number | null>(null);
+  const [dataId, setDataId] = useState<number | null>(null);
+  const [datain, setdatain] = useState<EntriesProps[]>([]);
+
+  const fetchData = useCallback(async () => {
+    try {
+      let incomingTableData = await RestrictionsAction(props.userId!);
+      setData(incomingTableData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }, [props.userId]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let incomingTableData = await RestrictionsAction(props.userId!);
-
-        console.log(incomingTableData);
-        setData(incomingTableData);
+        const data = await AllAccountRestrictionsAction();
+        
+        setdatain(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
   }, []);
 
-  const handleRemoveClick = (entryId: number) => {
-    console.log("Picked entry ID for removal:", entryId);
-    setdataId(entryId);
-    setModalVisible2(true);
-  };
 
-  const handleEditClick = (entryId:number) => {
+  
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleRemoveClick = useCallback((entryId: number) => {
+    console.log("Picked entry ID for removal:", entryId);
+    setDataId(entryId);
+    setModalVisible2(true);
+  }, []);
+
+  const handleEditClick = useCallback((entryId: number) => {
     console.log("Picked ID for editing:", entryId);
-    setdataId(entryId);
+    setDataId(entryId);
     setModalVisible3(true);
-  };
+  }, []);
 
   const columns: Datatype[] = [
     {
@@ -97,9 +119,7 @@ const RestrictionsOverview = (props: DataType) => {
     {
       title: "Status",
       dataIndex: "status",
-      render: (text, _record) => (
-        <span className={styles.activediv}>{text}</span>
-      ),
+      render: (text) => <span className={styles.activediv}>{text}</span>,
     },
     {
       title: "",
@@ -121,19 +141,6 @@ const RestrictionsOverview = (props: DataType) => {
       ),
     },
   ];
-
-  const handleModalCancel1 = () => {
-    setModalVisible1(false);
-  };
-
-  const handleModalCancel2 = () => {
-    setModalVisible2(false);
-  };
-
-  const handleModalCancel3 = () => {
-    setModalVisible3(false);
-    setdataId(null);
-  };
 
   return (
     <div className={styles.container}>
@@ -169,18 +176,23 @@ const RestrictionsOverview = (props: DataType) => {
         <CustomTable data={data} columns={columns} />
       </div>
       <CreateRestrictionModal
-        visible={modalVisible1}
-        onCancel={handleModalCancel1}
-        customerId={props.userId!}
-      />
+        titleName={"Restrictions"}
+        addIcon={<img src="/addIcon.svg" alt="addIcon" />}
+        filterIcon={<img src="/filterIcon.svg" alt="filterIcon" />}
+        restrictionArray={datain} 
+        visible={modalVisible1}      />
+
       <RemoveRestrictionModal
         visible={modalVisible2}
-        onCancel={handleModalCancel2}
+        onCancel={() => setModalVisible2(false)}
         restrictionId={dataId!}
       />
       <EditPageModal
         visible={modalVisible3}
-        onCancel={handleModalCancel3}
+        onCancel={() => {
+          setModalVisible3(false);
+          setDataId(null);
+        }}
         restrictionId={dataId}
       />
     </div>

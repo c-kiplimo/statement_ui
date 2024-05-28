@@ -66,7 +66,7 @@ const Accountstype = (props: contentProps) => {
 
     fetchData();
   }, []);
-
+  
   
 
 
