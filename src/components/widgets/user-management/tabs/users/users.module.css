@@ -1,0 +1,16 @@
+.userTab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 571px;
+  width: 100%;
+  height: 40px;
+}

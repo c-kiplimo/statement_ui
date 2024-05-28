@@ -1,10 +1,13 @@
+"use client"
+
 import React from "react";
-import UserManagementHeaderTabs from "@/src/components/molecules/user-management/tabs/user-management-header-tabs/user-management-header-tabs";
+import styles from "./page-components/page.module.css"
+import HeaderTabs from "@/src/components/widgets/user-management/tabs/header/header-tab";
 
 const UserManagementPage = () => {
   return (
     <div className="w-full min-h-screen bg-[var(--Background-Background-Primary)] overflow-hidden">
-      <UserManagementHeaderTabs />
+      <HeaderTabs />
     </div>
   );
 };

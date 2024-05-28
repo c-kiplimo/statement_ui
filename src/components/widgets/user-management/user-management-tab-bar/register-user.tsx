@@ -1,9 +1,8 @@
 import React, { Key, useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-// import TableSearchBar from "../shared/table-search-bar/table-search-bar";
 import { UserDetails } from "@/src/types/user.type";
-import TableSearchBar from "@/src/components/molecules/user-management/shared/table-search-bar/table-search-bar";
+import SearchBar from "../shared-features/search-bar/table-search-bar";
 
 type ModalContentComponentType = React.ComponentType<{
   accountId: string;
@@ -62,7 +61,7 @@ const RegisterUser: React.FC<RegisterUserProps> = ({
 
   return (
     <div>
-      <TableSearchBar />
+      <SearchBar />
       <Table
         style={{ marginTop: "15px", width: "100%" }}
         rowSelection={{

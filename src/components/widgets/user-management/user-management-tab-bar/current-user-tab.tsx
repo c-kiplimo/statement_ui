@@ -10,8 +10,8 @@ import {
   tickIcon,
   xIcon,
 } from "@/src/components/atoms/svg/document_svg";
-import Tabs from "@/src/components/atoms/tabs/tab-item";
-import TabContent from "@/src/components/atoms/tabs/tab-content";
+import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
+import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
 //import RegisterUserModalContent from "../modal-content/registerUserModal";
 //import PendingAuthorizationModalContent from "../modal-content/pendingAuthorizationModal";
@@ -22,6 +22,7 @@ import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { useRouter } from "next/navigation";
 import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";
 import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
+import Tab from "@/src/components/atoms/tabs/tab";
 
 const UsersTab = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -279,7 +280,7 @@ const UsersTab = () => {
             }}
           >
             <div className={styles.TabCss}>
-              <Tabs
+              <Tab
                 tabsItems={tabsItems}
                 onSelectTab={(index) => setSelectedTab(index)}
                 selectedTab={selectedTab}

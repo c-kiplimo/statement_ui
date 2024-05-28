@@ -1,45 +1,36 @@
-"use client";
-
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
-import Tabs from "@/src/components/atoms/tabs/tab-item";
-import TabContent from "@/src/components/atoms/tabs/tab-content";
-import styles from "./user-management-header-tabs.module.css";
-
+import styles from "./header-tab.module.css";
 import UsersTab from "../../user-management-tab-bar/current-user-tab";
 import RoleTable from "../permissions-tab/role-table";
 import RolePermission from "@/src/app/statement/(protected)/user-management/create-new-roles/page";
-import { usePathname } from "next/navigation";
 import UserGroup from "../user-groups-tab-bar/user-groups-tab";
+import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
+import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 
-const UserManagementHeaderTabs = () => {
+const HeaderTabs = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [activePermission, setActivePermission] = useState(false);
   const [activeUserGroup, setActiveUserGroup] = useState(false);
 
   const token = useTokens();
-  const pathname = usePathname();
   const font = useFont();
 
   const tabsItems = [
     {
       title: "Users",
-      content: (
-        <div>
-          <UsersTab />
-        </div>
-      ),
+      content: <UsersTab />,
     },
     {
       title: "User Groups",
       content: (
-        <p style={{ background: "yellow", padding: "1rem" }}>
+        <div style={{ background: "white", padding: "1rem" }}>
           {activeUserGroup ? (
             <RolePermission />
           ) : (
             <UserGroup setActive={setActiveUserGroup} />
           )}
-        </p>
+        </div>
       ),
     },
     {
@@ -60,16 +51,11 @@ const UserManagementHeaderTabs = () => {
     <div className={styles.tabcontent}>
       <div className={styles.userManagementHeaderCss}>
         <Tabs
-          textColor={token.default.black}
-          borderColor={token.default.grey}
-          backgroundColor={token.border.primary}
-          fontWeight={font.typography.body.medium.fontWeight}
           tabsItems={tabsItems}
           onSelectTab={(index) => setSelectedTab(index)}
           selectedTab={selectedTab}
         />
       </div>
-
       <div>
         <TabContent
           textColor={token.default.black}
@@ -83,4 +69,4 @@ const UserManagementHeaderTabs = () => {
   );
 };
 
-export default UserManagementHeaderTabs;
+export default HeaderTabs;

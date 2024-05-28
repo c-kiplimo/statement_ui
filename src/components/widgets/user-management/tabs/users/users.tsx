@@ -1,26 +1,26 @@
 "use client";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import React, { Fragment, use, useEffect, useState } from "react";
-import styles from "./user-management-tabar.module.css";
+import styles from "./users.module.css";
 import type { ColumnsType } from "antd/es/table";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import {
-  deleteIcon,
-  eyeIcon,
   tickIcon,
   xIcon,
 } from "@/src/components/atoms/svg/document_svg";
-import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
-import RegisterUserModalContent from "../modal-content/registerUserModal";
-import PendingAuthorizationModalContent from "../modal-content/pendingAuthorizationModal";
-import PendingAuthorization from "./pending-authorization";
 import { UserDetails } from "@/src/types/user.type";
-import RegisterUser from "./register-user";
-import { UserHandler } from "@/src/services/usermanagement/user.service";
 
+import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { useRouter } from "next/navigation";
+import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";
+import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
+import Tab from "@/src/components/atoms/tabs/tab";
+import RegisterUser from "../../user-management-tab-bar/register-user";
+import PendingAuthorization from "../../user-management-tab-bar/pending-authorization";
+import {EyeOutlined } from "@ant-design/icons";
+import Image from "next/image";
 
 const UsersTab = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -112,7 +112,7 @@ const UsersTab = () => {
             iconPosition="right"
             shape="default"
             size="small"
-            icon={eyeIcon}
+            icon={<EyeOutlined/>}
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
@@ -126,7 +126,7 @@ const UsersTab = () => {
             iconPosition="right"
             shape="default"
             size="small"
-            icon={deleteIcon}
+            icon={<Image src={"/delete.svg"} alt="delete-icon" width={16} height={16}/>}
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
@@ -180,7 +180,7 @@ const UsersTab = () => {
             iconPosition="right"
             shape="default"
             size="small"
-            icon={eyeIcon}
+            icon={<EyeOutlined/>}
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
@@ -269,55 +269,45 @@ const UsersTab = () => {
   ];
 
   return (
-    <Fragment>
-      <div className={styles.userTabBarCss}>
-        <div className={styles.usersTabButtonCss}>
-          <div
-            style={{
-              width: "100%",
+    <div className={styles.userTab}>
+      <div className={styles.button}>
+        <Tab
+          tabsItems={tabsItems}
+          onSelectTab={(index) => setSelectedTab(index)}
+          selectedTab={selectedTab}
+          backgroundColor={token.border.primary}
+          fontWeight={0}
+          borderColor={token.border.primary}
+          textColor={""}
+        />
+
+        {selectedTab === 0 && (
+          <PrimaryButton
+            buttonType="default"
+            iconPosition="right"
+            shape="default"
+            size="large"
+            customStyles={{
+              background: token.brand.primary,
+              color: token.default.white,
             }}
+            onClick={() => openModal("add", payload)}
           >
-            <div className={styles.TabCss}>
-              <Tabs
-                tabsItems={tabsItems}
-                onSelectTab={(index) => setSelectedTab(index)}
-                selectedTab={selectedTab}
-                backgroundColor={token.border.primary}
-                fontWeight={0}
-                borderColor={token.border.primary}
-                textColor={""}
-              />
-
-              {selectedTab === 0 && (
-                <PrimaryButton
-                  buttonType="default"
-                  iconPosition="right"
-                  shape="default"
-                  size="large"
-                  customStyles={{
-                    background: token.brand.primary,
-                    color: token.default.white,
-                  }}
-                  onClick={() => openModal("add", payload)}
-                >
-                  Register
-                </PrimaryButton>
-              )}
-            </div>
-
-            <TabContent
-              marginTop="20px"
-              padding="20px"
-              tabsItems={tabsItems}
-              selectedTab={selectedTab}
-              textColor={""}
-              backgroundColor={token.border.primary}
-              fontWeight={0}
-            />
-          </div>
-        </div>
+            Register
+          </PrimaryButton>
+        )}
       </div>
-    </Fragment>
+
+      <TabContent
+        marginTop="20px"
+        padding="20px"
+        tabsItems={tabsItems}
+        selectedTab={selectedTab}
+        textColor={""}
+        backgroundColor={token.border.primary}
+        fontWeight={0}
+      />
+    </div>
   );
 };
 

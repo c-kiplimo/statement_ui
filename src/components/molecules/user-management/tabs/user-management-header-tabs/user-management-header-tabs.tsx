@@ -2,8 +2,8 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
-import Tabs from "@/src/components/atoms/tabs/tab-item";
-import TabContent from "@/src/components/atoms/tabs/tab-content";
+import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
+import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import styles from "./user-management-header-tabs.module.css";
 
 import UsersTab from "../../user-management-tab-bar/current-user-tab";
@@ -61,10 +61,6 @@ const UserManagementHeaderTabs = () => {
     <div className={styles.tabcontent}>
       <div className={styles.userManagementHeaderCss}>
         <Tabs
-          textColor={token.default.black}
-          borderColor={token.default.grey}
-          backgroundColor={token.border.primary}
-          fontWeight={font.typography.body.medium.fontWeight}
           tabsItems={tabsItems}
           onSelectTab={(index) => setSelectedTab(index)}
           selectedTab={selectedTab}

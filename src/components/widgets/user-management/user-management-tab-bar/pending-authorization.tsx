@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Table, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { UserDetails } from "@/src/types/user.type";
-import TableSearchBar from "@/src/components/molecules/user-management/shared/table-search-bar/table-search-bar";
-// import TableSearchBar from "../shared/table-search-bar/table-search-bar";
+import SearchBar from "../shared-features/search-bar/table-search-bar";
+
 
 type ModalContentComponentType = React.ComponentType<{
   accountId: string;
@@ -39,7 +39,7 @@ interface PendingAuthorization {
 const PendingAuthorization = (props: PendingAuthorization) => {
   return (
     <Fragment>
-      <TableSearchBar />
+      <SearchBar />
       <Table
         style={{ marginTop: "15px", width: "100%" }}
         columns={props.columns}

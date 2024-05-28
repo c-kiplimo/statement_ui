@@ -2,8 +2,8 @@ import CustomerAccountSetup from '@/src/components/molecules/account-setup/selec
 import React, { CSSProperties, useState } from 'react';
 import style from '../../features/account-setup/select-account/select-account.module.css';
 import { useFont, useTokens } from '@/src/app/(context)/ColorContext';
-import Tabs from '@/src/components/atoms/tabs/tab-item';
-import TabContent from '@/src/components/atoms/tabs/tab-content';
+import Tabs from '@/src/components/atoms/tabs/tab-item/tab-item';
+import TabContent from '@/src/components/atoms/tabs/tab-content/tab-content';
 
 const CardStatementHome = () => {
   const token = useTokens();

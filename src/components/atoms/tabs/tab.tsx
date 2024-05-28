@@ -21,7 +21,7 @@ type TabsProps = {
   textColorActive?: string;
 };
 
-const Tabs: React.FC<TabsProps> = ({
+const Tab: React.FC<TabsProps> = ({
   tabsItems,
   textColor,
   textColorActive,
@@ -101,4 +101,4 @@ const Tabs: React.FC<TabsProps> = ({
   );
 };
 
-export default Tabs;
+export default Tab;
