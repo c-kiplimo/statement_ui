@@ -7,9 +7,11 @@ import UserAccountprofile from "./account.profile";
 
 const Dev = () => {
   return (
+   
     <Fragment>
       <UserAccountprofile/>
     </Fragment>
+    
   );
 };
 

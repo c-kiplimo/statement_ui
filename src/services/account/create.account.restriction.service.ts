@@ -10,7 +10,7 @@ interface CreateRestriction {
 const createRestriction = async (
   customerId: number,
   accountRestrictions: CreateRestriction
-): Promise<void> => {
+): Promise<number> => {
   try {
     accountRestrictions.customerId = customerId.toString();
     const response = await axios.post(ADD_RESTRICTION_URL, accountRestrictions, {
@@ -19,6 +19,7 @@ const createRestriction = async (
       },
     });
     console.log("Response:", response.data);
+    return response.data.id;
   } catch (error) {
     console.error("Error creating restriction:", error);
     throw error;

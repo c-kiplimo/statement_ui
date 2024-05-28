@@ -3,13 +3,11 @@ import withContainer from "@/src/components/molecules/shared/statement-core/stat
 import AccountsPage from "./accounts";
 import { AccountProfileProvider } from "../context/account.contex";
 
-
 const Dev = () => {
   return (
     <Fragment>
-       <AccountProfileProvider>
-      <AccountsPage/>
-    </AccountProfileProvider>
+        <AccountsPage />
+     
     </Fragment>
   );
 };

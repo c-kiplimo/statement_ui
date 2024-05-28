@@ -4,6 +4,7 @@ import type { TableColumnsType } from "antd";
 import styles from "./table.module.css";
 
 export interface DataFetcher {
+  viewClicked: any;
   settingsClicked?: any;
   id: React.Key;
   entryId?:number;

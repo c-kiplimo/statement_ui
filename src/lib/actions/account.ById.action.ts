@@ -1,4 +1,4 @@
-import { acctData } from "@/src/components/widgets/acconts-configuration/configuration-form/accounts.configuration";
+import { acctData } from "@/src/app/statement/(protected)/accountsetup/widgets/configuration-form/accounts.configuration";
 import { fetchAccountStatus } from "@/src/services/account/account.byId.service";
 
 
@@ -17,6 +17,5 @@ export const AccountsStmtConfig = async (accountNo:number):Promise<acctData> =>{
       workingBal:accountStatus.closingBalance,
       termDuration:accountStatus.term,
   }
-  console.log(accountStatus)
   return statusresult;
 }

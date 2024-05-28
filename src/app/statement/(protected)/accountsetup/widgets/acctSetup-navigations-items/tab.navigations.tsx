@@ -68,16 +68,5 @@ TabNavigations.Buttons = (props: ButtonProps) => (
     {props.buttonname}
 
     </Link>
-    {/* <CustomButton
-      buttonName={props.buttonname}
-      buttonStyle={{
-        backgroundColor: props.isActive ? "#E6E6E6" : "",
-        borderRadius: "4px",
-        padding: "8px",
-        opacity: "80%",
-        color: "#151E00",
-      }}
-      onClick={props.onClick}
-    ></CustomButton> */}
   </div>
 );

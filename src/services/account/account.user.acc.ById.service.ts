@@ -7,17 +7,24 @@ export const AccountUserHandler = () => {
 
     try {
       const response = await axios.get(AccountUserUrl, {
+        
         headers: {
           "X-RequestId": "4566",
         },
       });
+
+      console.log("Fetched data:", response.data);
       
       return response.data;
+      
     } catch (error) {
       console.error("Error fetching account users:", error);
       throw error;
     }
+    
   };
+  
+  
 
   return {
     fetchAccountUsers,

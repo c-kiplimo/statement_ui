@@ -1,24 +1,26 @@
-import { createContext, useContext, useState } from 'react';
 
-type accountType = {
+"use client"
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+type AccountType = {
     accountId: number;
     updateAccount: (accountId: number) => void;
 };
 
-const placeholderAccount: accountType = {
+const placeholderAccount: AccountType = {
     accountId: 0,
     updateAccount: () => {}
 };
 
-const AccountProfileContext = createContext<accountType>(placeholderAccount);
+const AccountProfileContext = createContext<AccountType>(placeholderAccount);
 
-export const AccountProfileProvider = ({ children }: { children: React.ReactNode }) => {
+export const AccountProfileProvider = ({ children }: { children: ReactNode }) => {
     const [accountId, setAccountId] = useState<number>(placeholderAccount.accountId);
 
-    const updateAccount = (newAccountId: number = 0) => {
+    const updateAccount = (newAccountId: number) => {
+        console.log(`updateAccount called with: ${newAccountId}`); 
         setAccountId(newAccountId);
-        console.log(updateAccount);
-        
+        console.log(`accountId state updated to: ${newAccountId}`); 
     };
 
     return (
@@ -28,9 +30,7 @@ export const AccountProfileProvider = ({ children }: { children: React.ReactNode
     );
 };
 
-
-
-export const useAccountProfileContext = (): accountType => {
+export const useAccountProfileContext = (): AccountType => {
     const context = useContext(AccountProfileContext);
     if (context === undefined) {
         throw new Error('useAccountProfileContext must be used within an AccountProfileProvider');

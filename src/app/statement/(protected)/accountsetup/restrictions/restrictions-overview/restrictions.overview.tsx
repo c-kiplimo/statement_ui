@@ -6,7 +6,6 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import styles from "./restrictions.overview.module.css";
-import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 import CustomTable, { DataFetcher } from "../../widgets/table/table";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
@@ -26,6 +25,7 @@ interface DataType {
   icons?: React.ReactNode;
   currency?:string;
   userId?:number;
+  entryId?:number;
 }
 
 interface Datatype {
@@ -110,11 +110,11 @@ const RestrictionsOverview = (props: DataType) => {
             <EyeOutlined key="eye" />
             <MinusOutlined
               key="minus"
-              onClick={() => handleRemoveClick(record.userId!)}
+              onClick={() => handleRemoveClick(record.entryId!)}
             />
             <EditOutlined
               key="edit"
-              onClick={() => handleEditClick(record.userId!)}
+              onClick={() => handleEditClick(record.entryId!)}
             />
           </div>
         </button>
@@ -176,12 +176,12 @@ const RestrictionsOverview = (props: DataType) => {
       <RemoveRestrictionModal
         visible={modalVisible2}
         onCancel={handleModalCancel2}
-        restrictionId={dataId !== null ? dataId : 0}
+        restrictionId={dataId!}
       />
       <EditPageModal
         visible={modalVisible3}
         onCancel={handleModalCancel3}
-        restrictionId={props.userId!}
+        restrictionId={dataId}
       />
     </div>
   );
