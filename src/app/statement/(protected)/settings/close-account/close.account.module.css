@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0px 0px 0px;
+  gap: 24px;
+  width: auto;
+  height: auto;
+  background: #ffffff;
+}
+.bodyContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 32px 24px;
+  gap: 40px;
+  width: auto;
+  height: auto;
+}
+.headTitle {
+  color: #003a49;
+}
+.description {
+  color: #6f7269;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+}
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+
+  width: 258px;
+  height: auto;
+}
+
+.cancelButton {
+  width: 113px;
+  height: 40px;
+  border: 1px solid #f30039;
+  border-radius: 4px;
+  color: red;
+}
+.closeButton {
+  width: 105px;
+  height: 40px;
+  background: #f30039;
+  border-radius: 4px;
+  color: white;
+}

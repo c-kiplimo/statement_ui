@@ -8,12 +8,10 @@ const ProfileForm = () => {
   const [phone, setPhone] = useState("");
   const [language, setLanguage] = useState("ENGLISH");
 
-  const handleUserNameChange = (e:any) => setUserName(e.target.value);
-  const handleEmailChange = (e:any) => setEmail(e.target.value);
-  const handlePhoneChange = (e:any) => setPhone(e.target.value);
-  const handleLanguageChange = (e:any) => setLanguage(e.target.value);
-
-  console.log(userName, email,phone,language)
+  const handleUserNameChange = (e: any) => setUserName(e.target.value);
+  const handleEmailChange = (e: any) => setEmail(e.target.value);
+  const handlePhoneChange = (e: any) => setPhone(e.target.value);
+  const handleLanguageChange = (e: any) => setLanguage(e.target.value);
 
   return (
     <div className={styles.container}>
