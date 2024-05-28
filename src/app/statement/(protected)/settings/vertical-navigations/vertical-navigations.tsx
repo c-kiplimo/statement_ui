@@ -3,6 +3,8 @@ import styles from "./vertical-navigations.module.css";
 import ProfileForm from "../profile-form/profile.form";
 import CloseAccount from "../close-account/close.account";
 import { Modal, Button } from "antd";
+import HelpCenter from "../help-center/help.center";
+import HelpCenterItem from "../help-center/help.center.item";
 
 const SettingsNavigations = () => {
   const [content, setContent] = useState<ReactNode>(<ProfileForm />);
@@ -75,7 +77,7 @@ const SettingsNavigations = () => {
               ? styles.activeButton
               : styles.buttons
           }
-          onClick={() => handleClick("Help Center Content", "Help Center")}
+          onClick={() => handleClick(<HelpCenterItem/>, "Help Center")}
         >
           Help Center
         </button>
