@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./branch.account.statement.module.css";
-import TabNavigations from "../tab-navigations-items/tab.navigations";
-import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 import ActiveStatement from "./active-statement-item/active.statement.item";
 import CompletedStatement from "./completed-statement/completed.statement";
 import { AccountStatementContext } from "./context/getAccountNumberContext";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import TabNavigations from "@/src/components/widgets/tab-navigations-items/tab.navigations";
+import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 
 const queryClient = new QueryClient();
 
