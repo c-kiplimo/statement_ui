@@ -1,128 +1,123 @@
-.container{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 8px;
-gap: 40px;
-width: 100%;
-height: auto;
-background: white;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px;
+  gap: 40px;
+  width: 100%;
+  height: auto;
+  background: white;
 }
 
-.header{
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 24px 16px;
-gap: 32px;
-width: 100%;
-height: 192px;
-border: 1px solid #ECECED;
-border-radius: 8px;
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 24px 16px;
+  gap: 32px;
+  width: 100%;
+  height: 192px;
+  border: 1px solid #ececed;
+  border-radius: 8px;
 }
-.profileImage{
-    width: 139px;
-    height: 144px;
-    /* border: 1px solid #ECECED; */
-}
-
-.imageContainer{
-width: 139px;
-height: 144px;
+.profileImage {
+  width: 139px;
+  height: 144px;
+  /* border: 1px solid #ECECED; */
 }
 
-
-.labelInput{
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 0px;
-gap: 8px;
-width: 50%;
-height: 72px;
-}
-.input{
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 8px 16px;
-gap: 8px;
-width: 100%;
-height: 40px;
-border: 0.5px solid #979992;
-border-radius: 4px;
-outline: none;
-}
-.selectbox{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-padding: 8px 16px;
-gap: 8px;
-width: 100%;
-height: 40px;
-border: 0.5px solid #979992;
-border-radius: 4px;
-outline: none;
+.imageContainer {
+  width: 139px;
+  height: 144px;
 }
 
-.formContainer{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 24px;
-width: 100%;
-height: auto;
+.labelInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px;
+  gap: 8px;
+  width: 50%;
+  height: 72px;
+}
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  outline: none;
+}
+.selectbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  outline: none;
 }
 
-.inputsContainer{
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 0px;
-gap: 24px;
-width: 100%;
-height: 72px;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
 }
 
-.updateButton{
-
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 32px;
-gap: 8px;
-width: 235px;
-height: 40px;
-background: #84BD00;
-border-radius: 4px;
-color: white;
+.inputsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  height: 72px;
 }
 
-.cancelButton{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 32px;
-gap: 8px;
-width: 168px;
-height: 40px;
-border: 1px solid #979992;
-border-radius: 4px;
-}
-.buttonsContainer{
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 0px;
-gap: 24px;
-width: 459px;
-height: 40px;
+.updateButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 235px;
+  height: 40px;
+  background: #84bd00;
+  border-radius: 4px;
+  color: white;
 }
 
-
-
+.cancelButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 168px;
+  height: 40px;
+  border: 1px solid #979992;
+  border-radius: 4px;
+}
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 459px;
+  height: 40px;
+}
