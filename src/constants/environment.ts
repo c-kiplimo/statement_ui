@@ -76,7 +76,7 @@ export const GROUP_URL = `${API_URL}/api/v1/group`;
 
 export const GET_PROFILE_DETAILS = `${API_URL}/api/user/profile/v1`;
 
-
+export const GET_USER_PROFILE_DETAILS = `${API_URL}/api/v1/user/profile`;
 
 export const USER_ACCOUNTS_OVERVIEW = `${PROFILE_URL}/api/v1/aggregateprofiles`
 export const USER_ACCOUNTS_BY_ACCOUNTS_ID = `${PROFILE_URL}/api/v1/accounts`

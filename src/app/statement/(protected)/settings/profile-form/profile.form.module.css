@@ -23,7 +23,7 @@
 .profileImage {
   width: 139px;
   height: 144px;
-  /* border: 1px solid #ECECED; */
+  border: 1px solid #ECECED;
 }
 
 .imageContainer {
