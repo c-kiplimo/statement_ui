@@ -106,6 +106,8 @@ export const GET_ACCOUNT_SCHEDULE_BY_ID = `${PROFILE_URL}/api/v1/accounts/schedu
 
 export const UPDATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`;
 
+export const RAISE_QUESTION = `${PROFILE_URL}/api/v1/customer-help`;
+
 export const ACCOUNT_STATEMENT_BY_USER_ID = `${PROFILE_URL}/api/v1/statement-request/user`;
 
 export const DELET_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;

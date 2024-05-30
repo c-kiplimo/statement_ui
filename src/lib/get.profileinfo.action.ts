@@ -24,7 +24,7 @@ export const profileInformationDetails = async (userId:number):Promise<UserInfor
 
     let response:UserInformationDetails = {
         firstname: profileInfo.firstName,
-        lastname: profileInfo.lastName,
+        lastname: profileInfo.lastName!,
         email: profileInfo.email,
         phone: profileInfo.mobileNumber,
         language: profileInfo.language
