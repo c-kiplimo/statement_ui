@@ -1,0 +1,47 @@
+.container{
+display: flex;
+flex-direction: column;
+padding: 24px 32px 40px;
+gap: 32px;
+width: 100%;
+height: auto;
+background: hsl(0, 0%, 100%);
+border-radius: 8px;
+}
+.textcontainer{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 16px 0px;
+width: 100%;
+border-bottom: 1px solid #E6E6E6;
+}
+.header{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+}
+.selectText{
+    color: #6F7269;
+}
+.switchColor{
+    background-color: #979992;
+}
+.onoffIcon{
+display: flex;
+flex-direction: row;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+}
+.onactive{
+ color: #4272DD;
+ cursor: pointer;
+}
+.offactive{
+ color: #979992;
+ cursor: pointer;
+}

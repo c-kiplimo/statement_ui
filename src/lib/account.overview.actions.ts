@@ -5,6 +5,7 @@ import { BalanceByCurrencyHome } from "../components/widgets/total-available-bal
 import { TranSactionHistoryHome } from "../components/widgets/transaction-history-card/transaction.history.card";
 import { AccountHandler } from "../services/account/account.service";
 import { UsersAccounts } from "../app/statement/(protected)/account-statement-self/accountStatements/active-statement-item/active.statement.item";
+import { notificationAccounts } from "../app/statement/(protected)/settings/notifications/enable-accounts/enable.accounts";
 
 //Personal Accounts server Action
 export const PersonalAccountOverviewActions = async (
@@ -211,6 +212,20 @@ export const singleUsersAccounts = async (
     key: parseInt(account.accountId),
     value: parseInt(account.accountId),
     option: `Current Account ${account.currency} ${account.accountId}`,
+  }));
+
+  return accounts;
+};
+
+export const notificationsersAccounts = async (
+  profileId: number
+): Promise<notificationAccounts[]> => {
+  const accountHandler = AccountHandler();
+  const accountOverview = await accountHandler.getAccountOverview(profileId);
+
+  let accounts: notificationAccounts[] = accountOverview.accounts.map((account) => ({
+    accountNumber:account.accountId,
+    accountDescription:account.accountTitle
   }));
 
   return accounts;

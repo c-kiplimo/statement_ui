@@ -1,0 +1,61 @@
+.containerDiv{
+display: flex;
+flex-direction: row;
+align-items: center;
+gap: 16px;
+width: 100%;
+border-bottom: 1px solid #E6E6E6;
+
+}
+.container{
+display: flex;
+flex-direction: column;
+padding: 0px 32px;
+gap: 32px;
+width: 100%;
+height: auto;
+}
+.header{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+width: 100%;
+height:auto;
+}
+.bodycontent{
+display: flex;
+flex-direction: column;
+padding: 0px;
+width: 100%;
+height: auto;
+
+}
+.textcontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0px;
+    width: 100%;
+    }
+
+    .switchColor{
+        background-color: #979992;
+    }
+
+.emailSelection{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 8px 16px;
+gap: 8px;
+width: 100%;
+height: 42px;
+border: 0.5px solid #979992;
+border-radius: 4px;
+outline: none;
+}
+

@@ -5,6 +5,7 @@ import CloseAccount from "../close-account/close.account";
 import { Modal, Button } from "antd";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import HelpCenterItem from "../help-center/help.center.item";
+import SettingsNotifications from "../notifications/notifications";
 
 const queryClient = new QueryClient();
 
@@ -62,7 +63,7 @@ const SettingsNavigations = () => {
               ? styles.activeButton
               : styles.buttons
           }
-          onClick={() => handleClick("Notification Content", "Notification")}
+          onClick={() => handleClick(<SettingsNotifications/>, "Notification")}
         >
           Notification
         </button>
