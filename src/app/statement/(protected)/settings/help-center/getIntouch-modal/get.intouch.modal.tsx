@@ -34,7 +34,9 @@ const Modal = ({ isModalOpen, onClose }: GetIntouchModalProps) => {
     try {
       await raiseQuerries(submittedQuestionData);
       notification.success({
-        message:'Your Querry has been received. We will get back to you.'
+        message:'Your Querry has been received. We will get back to you SOON.',
+        role:'status',
+        placement:'top'
       })
       onClose();
     } catch (error) {
