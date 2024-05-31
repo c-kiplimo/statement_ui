@@ -1,8 +1,7 @@
-import {
-  AccountDetails,
-  Dates,
-} from "../components/widgets/branch-account-statement/account-detail-table/account.detail.table";
-import { TransactionHistoryData } from "../components/widgets/branch-account-statement/transactions-history-table/transaction.history.table";
+
+import { Dates } from "../app/statement/(protected)/account-statement-self/accountStatements/account-detail-table/account.detail.table";
+import { AccountDetails } from "../app/statement/(protected)/account-statement/branch-account-statement/account-detail-table/account.detail.table";
+import { TransactionHistoryData } from "../app/statement/(protected)/account-statement/branch-account-statement/transactions-history-table/transaction.history.table";
 import { fetchStatementDataEntriesId } from "../services/account/account";
 import { AccountStatementRequestHandler } from "../services/account/account.statement.request.service";
 

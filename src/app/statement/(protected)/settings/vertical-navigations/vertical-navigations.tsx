@@ -3,8 +3,11 @@ import styles from "./vertical-navigations.module.css";
 import ProfileForm from "../profile-form/profile.form";
 import CloseAccount from "../close-account/close.account";
 import { Modal, Button } from "antd";
-import HelpCenter from "../help-center/help.center";
+import { QueryClient, QueryClientProvider } from 'react-query';
 import HelpCenterItem from "../help-center/help.center.item";
+
+const queryClient = new QueryClient();
+
 
 const SettingsNavigations = () => {
   const [content, setContent] = useState<ReactNode>(<ProfileForm />);
@@ -26,6 +29,8 @@ const SettingsNavigations = () => {
   };
 
   return (
+    <QueryClientProvider client={queryClient}>
+
     <div className={styles.container}>
       <div className={styles.bodyContent}>{content}</div>
       <div className={styles.navigations}>
@@ -92,6 +97,8 @@ const SettingsNavigations = () => {
         <CloseAccount onModalCancel={handleCancel} />
       </Modal>
     </div>
+
+    </QueryClientProvider>
   );
 };
 

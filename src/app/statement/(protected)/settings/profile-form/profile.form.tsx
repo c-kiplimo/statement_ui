@@ -1,17 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./profile.form.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
+import { profileInformationDetails } from "@/src/lib/get.profileinfo.action";
+import useProfileCreated from "@/src/hooks/useProfileCreated";
+import { useQuery } from "react-query";
+import { updateUserDetails } from "@/src/services/auth/get.user.byUserId";
+import { notification } from "antd";
+
+export type UserInformationDetails = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  language: string;
+};
 
 const ProfileForm = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [language, setLanguage] = useState("ENGLISH");
+  const profile = useProfileCreated();
+  let userId = profile?.userId;
+
+  const fetchProfileData = async () => {
+    const result = await profileInformationDetails(parseInt(userId!));
+    return result;
+  };
+
+  const { data: profileInfodata, error, isError, isLoading } = useQuery(
+    ["userid", userId],
+    fetchProfileData,
+    {
+      enabled: !!userId,
+      refetchInterval: 5000,
+    }
+  );
+
+  useEffect(() => {
+    if (profileInfodata) {
+      setUserName(profileInfodata.firstname);
+      setEmail(profileInfodata.email);
+      setPhone(profileInfodata.phone);
+    }
+  }, [profileInfodata]);
 
   const handleUserNameChange = (e: any) => setUserName(e.target.value);
   const handleEmailChange = (e: any) => setEmail(e.target.value);
   const handlePhoneChange = (e: any) => setPhone(e.target.value);
   const handleLanguageChange = (e: any) => setLanguage(e.target.value);
+
+  const handleUpdateProfile = async (e: any) => {
+    e.preventDefault();
+
+    const editProfileData = {
+      firstName: userName,
+      email: email,
+      mobileNumber: phone,
+      language: language
+    };
+
+    try {
+      await updateUserDetails(parseInt(userId!), editProfileData);
+      notification.success({
+        message: "Account Profile Updated Successfully!",
+      });
+      setUserName("");
+      setEmail("");
+      setPhone("");
+      setLanguage("ENGLISH");
+    } catch (error) {
+      notification.error({
+        message: 'Failed to Update Profile.',
+      });
+      throw error;
+    }
+  };
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    return new Intl.DateTimeFormat('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    }).format(now);
+  };
+
+  const location = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const currentTime = getCurrentTime();
+
+  if (isError) {
+    return <div>An error occurred. Please try again!</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -24,17 +108,17 @@ const ProfileForm = () => {
       <div className={styles.header}>
         <div className={styles.profileImage}>
           <span className={styles.imageContainer}>
-            <img src={"/profile.png"} alt="profileImage" />
+            <img src={"/profileholder.svg"} alt="profileImage" />
           </span>
         </div>
         <div className={styles.profileInfo}>
           <VerticalInfoDescription
-            title={"Abia Mbabazi"}
+            title={`${profileInfodata?.firstname!} ${profileInfodata?.lastname}`}
             titleStyle={{ fontSize: "20px", fontWeight: "500" }}
           />
           <VerticalInfoDescription
-            title={"Nairobi, Kenya"}
-            description={"( GMT -11:46) Greenwich mean Time zone"}
+            title={location}
+            description={`(${currentTime})`}
             descriptionStyle={{
               fontSize: "16px",
               paddingTop: "4px",
@@ -44,7 +128,7 @@ const ProfileForm = () => {
         </div>
       </div>
 
-      <form className={styles.formContainer}>
+      <form className={styles.formContainer} onSubmit={handleUpdateProfile}>
         <div className={styles.inputsContainer}>
           <ProfileForm.Input
             placeholder="Abby"
@@ -89,7 +173,7 @@ const ProfileForm = () => {
         </div>
 
         <div className={styles.buttonsContainer}>
-          <button className={styles.updateButton}>Update Settings</button>
+          <button type="submit" className={styles.updateButton}>Update Settings</button>
           <button className={styles.cancelButton}>Cancel</button>
         </div>
       </form>
