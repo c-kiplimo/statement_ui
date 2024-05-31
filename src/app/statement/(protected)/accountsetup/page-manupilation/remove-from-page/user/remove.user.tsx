@@ -1,5 +1,4 @@
 import React from "react";
-import Removeruser from "../../../widgets/add-remove/remover.form";
 import styles from "./remove.user.module.css";
 import { CloseOutlined } from "@ant-design/icons";
 import { deleteUser } from "@/src/services/account/delete.user.acct.service";
@@ -34,9 +33,9 @@ const RemoveUserModal: React.FC<RemoveUserModalProps> = ({ visible, onCancel,acc
         </div>
       </div>
       <div className={styles.formdiv}>
-        <div className={`${styles.title} h4r`}>Remove Restriction</div>
+        <div className={`${styles.title} h4r`}>Remove User</div>
         <div className={`${styles.query} bodyr`}>
-          Are you sure you want to delete this restriction?
+          Are you sure you want to delete this User?
         </div>
         <Button.Group className={styles.buttonGroup}>
           <Button className={styles.bttnStyle} onClick={onCancel}>

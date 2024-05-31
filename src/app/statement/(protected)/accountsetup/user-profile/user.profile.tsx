@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import LastLogin from '@/src/components/widgets/userStatus/user.login.status';
+import React, { useState, useEffect, useMemo } from "react";
+import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 import { profileDetails } from "@/src/lib/actions/profile.action";
 import styles from "./user.profile.module.css";
-import { Spin } from 'antd';
+import { Spin } from "antd";
 
 type Profile = {
   userName: string;
@@ -15,7 +15,9 @@ type UserProfileProps = {
   userId?: number;
 };
 
-const Userprofile: React.FC<UserProfileProps> = ({ userId }: UserProfileProps) => {
+const Userprofile: React.FC<UserProfileProps> = ({
+  userId,
+}: UserProfileProps) => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +25,7 @@ const Userprofile: React.FC<UserProfileProps> = ({ userId }: UserProfileProps) =
   useEffect(() => {
     const fetchProfileDetails = async () => {
       if (!userId) {
-        setError('User ID is not provided');
+        setError("User ID is not provided");
         setLoading(false);
         return;
       }
@@ -32,7 +34,7 @@ const Userprofile: React.FC<UserProfileProps> = ({ userId }: UserProfileProps) =
         const profileData = await profileDetails(userId.toString());
         setProfile(profileData);
       } catch (err) {
-        setError('Failed to fetch profile details');
+        setError("Failed to fetch profile details");
       } finally {
         setLoading(false);
       }
@@ -44,7 +46,10 @@ const Userprofile: React.FC<UserProfileProps> = ({ userId }: UserProfileProps) =
   const getLastLoginTime = useMemo(() => {
     const now = new Date();
     const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const time = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return `${date} ${time}`;
   }, []);
 

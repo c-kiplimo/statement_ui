@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import CustomTable from "../../widgets/table/table";
 import { EyeOutlined, SettingOutlined } from "@ant-design/icons";
 import styles from "../accounts.module.css";
 import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
@@ -10,6 +9,7 @@ import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import { AccountAction } from "@/src/lib/actions/accounts.action";
 import { profileDetails } from "@/src/lib/actions/profile.action";
+import CustomTable from "../../../widgets/table/table";
 
 
 export type profilesType={
@@ -125,11 +125,7 @@ const AccountsPage = async () => {
           timezone={`GMT ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}
           lastSeenTime={`Last login on ${getLastLoginTime()}`}
           icon={<img src="/teamusericon.png" alt="teamusericon" />}
-        
-            button1={<a href="/statement/accountsetup/accounts">Accounts</a>}
-            button3={<a href="/statement/accountsetup/users">Users</a>}
-            button2={<a href="/statement/accountsetup/activities">Activity</a>}
-            button4={<a href="/statement/accountsetup/restrictions/restrictions-overview">Restrictions</a>}
+      
           
         />
       </div>

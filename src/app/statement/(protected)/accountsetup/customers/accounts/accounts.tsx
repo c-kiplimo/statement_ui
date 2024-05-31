@@ -130,8 +130,8 @@ const AccountsPage = (props:userid) => {
         </div>
         <CustomTable
           data={incomingData}
-          pageSize={5}
-          total={10}
+          pageSize={2}
+        total={500}
           columns={columns}
         />
       </div>
