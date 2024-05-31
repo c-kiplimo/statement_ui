@@ -7,7 +7,7 @@ import Sort from "@/src/components/atoms/sort/sort";
 import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import { AccountAction } from "@/src/lib/actions/accounts.action";
-import { AccountProfileProvider, useAccountProfileContext } from '../context/account.contex'; 
+import {useAccountProfileContext } from '../context/account.contex'; 
 
 
 
@@ -19,18 +19,11 @@ const AccountsPage = (props: UserIdProps) => {
   const [settingsClicked, setSettingsClicked] = useState<number | null>(null);
   const [viewClicked, setViewClicked] = useState<number | null>(null);
   const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
-  const {accountId,updateAccount}=useAccountProfileContext();
-
-
-  console.log(accountId);
-  
+  const {accountId,updateAccount}=useAccountProfileContext();  
   
   
 
 sessionStorage.setItem("passedaccountId", accountId.toString())
-
-
-
 
 
   useEffect(() => {
@@ -45,8 +38,6 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
         }
       }
     };
-
-
 
     fetchData();
   }, [props.userId]);

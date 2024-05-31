@@ -2,7 +2,6 @@ import  {DataFetcher} from "@/src/app/statement/(protected)/accountsetup/widgets
 import { CustomerRestrictionsHandler } from "@/src/services/account/account.restrictions.service";
 
 
-
 export const accountRestrictionsAction =  async ( value:number ): Promise<DataFetcher[]> => {
 const handler = CustomerRestrictionsHandler() 
 const data = await handler.fetchAccountrestrictions( value)    
@@ -17,7 +16,7 @@ const data = await handler.fetchAccountrestrictions( value)
         id:restrictions.accountId,
         entryId:restrictions.restrictionId,
         userName:restrictions.name,
-        description:restrictions.rules
+        role:restrictions.rules
     }))
     return restrictions
 }

@@ -1,4 +1,3 @@
-"use client"
 import React, { ReactNode, useState } from "react";
 import styles from "./tab.navigations.module.css";
 import Link from "next/link";

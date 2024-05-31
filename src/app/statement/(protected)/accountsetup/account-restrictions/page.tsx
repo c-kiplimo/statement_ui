@@ -1,12 +1,8 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
-import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import BranchAccountStatement from "@/src/components/widgets/branch-account-statement/branch.account.statement";
-import StatementAccounts from "@/src/components/widgets/acconts-configuration/config-acct-fetch/account";
 import AccountsRictions, { EntriesProps } from "@/src/components/widgets/account-restrictions/restrictions";
-import RestrictionEntries from "@/src/components/widgets/account-restrictions/restriction-entries/restriction.entries";
-import AccountDetailsCard from "@/src/components/widgets/accounts-details-card/account.details.card";
 import { AllAccountRestrictionsAction } from "@/src/lib/actions/all.restrictions.action";
+import withContainer from "@/src/components/molecules/shared/statement-core/statement.container.hoc";
 
 
 const Dev = () => {

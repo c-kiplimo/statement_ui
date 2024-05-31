@@ -1,6 +1,5 @@
-"use client"
 import React, { useEffect, useState } from "react";
-import { EyeOutlined} from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
 import styles from "./activities.status.module.css";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
@@ -9,8 +8,6 @@ import Link from "next/link";
 import { ActivitiesAction } from "@/src/lib/actions/activities.action";
 import CustomTable, { DataFetcher } from "../../widgets/table/table";
 
-
-
 interface ActivityData {
   id?: React.Key;
   createdOn?: string;
@@ -18,33 +15,34 @@ interface ActivityData {
   role?: string;
   status?: string;
   icons?: React.ReactNode;
-  currency?:string;
-  userId?:number;
+  currency?: string;
+  userId?: number;
 }
 
 interface CustomColumn {
   title: string;
   dataIndex: keyof ActivityData;
   render?: (text: any, record: ActivityData, index: number) => React.ReactNode;
-
 }
 
 const columns: CustomColumn[] = [
   {
     title: "Date",
-      dataIndex: "createdOn",
-      render: (text: string) => {
-        const dateTime = new Date(text); 
-        const date = dateTime.toLocaleDateString(); 
-        const time = dateTime.toLocaleTimeString();
-  
-        return (
-          <div className={styles.date}>
-            <div>{date}</div>
-            <div>{time}</div>
-          </div>)}
+    dataIndex: "createdOn",
+    render: (text: string) => {
+      const dateTime = new Date(text);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString();
+
+      return (
+        <div className={styles.date}>
+          <div>{date}</div>
+          <div>{time}</div>
+        </div>
+      );
     },
- 
+  },
+
   {
     title: "Activity Name",
     dataIndex: "userName",
@@ -53,9 +51,7 @@ const columns: CustomColumn[] = [
   {
     title: "Description",
     dataIndex: "role",
-    render: (text) => (
-      <span className={styles.description}>{text}</span>
-    ),
+    render: (text) => <span className={styles.description}>{text}</span>,
   },
   {
     title: "Status",
@@ -94,27 +90,27 @@ const columns: CustomColumn[] = [
     dataIndex: "icons",
     render: () => (
       <Link href="/statement/accountsetup/users">
-      <button className={styles.iconsdiv}>
-        <EyeOutlined />
-      </button>
+        <button className={styles.iconsdiv}>
+          <EyeOutlined />
+        </button>
       </Link>
     ),
   },
 ];
 
-
-const ActivitiesStatus = async (props:ActivityData) => {
-
-  const [settingsClicked, setClicked] = useState<number | null>(null);
+const ActivitiesStatus: React.FC<ActivityData> = (props) => {
   const [datacall, setdatacall] = useState<DataFetcher[]>([]);
 
-  
-
-
   useEffect(() => {
+    const passedAccid = sessionStorage.getItem("passedaccountId");
+console.log(passedAccid);
+
+
     const fetchData = async () => {
       try {
-        const data = await ActivitiesAction(props.userId!)
+        const data = await ActivitiesAction(parseInt(passedAccid!));
+        console.log(data);
+        
         setdatacall(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -122,37 +118,33 @@ const ActivitiesStatus = async (props:ActivityData) => {
     };
 
     fetchData();
-  }, []); 
+  }, [props.userId]);
 
-  console.log(datacall)
-
+  console.log(datacall);
   
+
   return (
     <div className={styles.container}>
-
-<div className={styles.tableHeader}>
-      <div className={styles.headerdiv}>
-        <div className={styles.textdiv}>Account Activity</div>
-        <div className={styles.atomsdiv}>
-          <Search
-            title={"Search"}
-            icon={<img src="/searchicon.svg" alt="searchicon" />}
-          />
-          <Filter
-            title={"Filter"}
-            icon={<img src="/funnel.svg" alt="funnel" />}
-          />
-          <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
+      <div className={styles.tableHeader}>
+        <div className={styles.headerdiv}>
+          <div className={styles.textdiv}>Account Activity</div>
+          <div className={styles.atomsdiv}>
+            <Search
+              title={"Search"}
+              icon={<img src="/searchicon.svg" alt="searchicon" />}
+            />
+            <Filter
+              title={"Filter"}
+              icon={<img src="/funnel.svg" alt="funnel" />}
+            />
+            <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
+          </div>
         </div>
       </div>
-
-     
-      <CustomTable
-        data={datacall}
-        columns={columns}
-      />
-      </div>
-      </div>
+      <CustomTable data={datacall} columns={columns} />
+      <Link href="/statement/accountsetup/users">
+      </Link>
+    </div>
   );
 };
 

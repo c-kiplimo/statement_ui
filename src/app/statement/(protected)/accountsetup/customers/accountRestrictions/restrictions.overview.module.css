@@ -1,96 +1,96 @@
 
 
-  .topdiv{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px 16px;
-    gap: 54px;
-    width: 100%;
-    height: 228px;
-    }
+.topdiv{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 16px;
+  gap: 54px;
+  width: 100%;
+  height: 228px;
+  }
 
-    .tableHeader{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 0px;
-      gap: 24px;
-      width: 100%;
-      height: 501px;
-      margin-top: 0px;
-        }
-  
-  .icons svg {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 4px;
-    gap: 10px;
-    width: 32px;
-    height: 28px;
-    border: 0.5px solid #979992;
-    border-radius: 4px;
-    color: #979992;
-  }
-  
-  .icons {
-    display: flex;
-    align-items: flex-end;
-    gap: 30px;
-  }
-  
-  .activediv {
-    box-sizing: border-box;
+  .tableHeader{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
-    padding: 4px 16px;
-    gap: 15px;
-    width: 102px;
-    height: 32px;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    font-family: 'Roboto';
+    padding: 0px;
+    gap: 24px;
+    width: 100%;
+    height: 501px;
+    margin-top: 0px;
+      }
+
+.icons svg {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 4px;
+  gap: 10px;
+  width: 32px;
+  height: 28px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  color: #979992;
+}
+
+.icons {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.activediv {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 16px;
+  gap: 15px;
+  width: 102px;
+  height: 32px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
 color: #6F7269;
-  }
-  
-  .selectdiv {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 16px;
-    width: fit-content;
-    height: 24px;
-    border: none;
-  }
-  
-  .createdOn {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 16px;
-    width: fit-content;
-    height: 44px;
-    flex: none;
+}
+
+.selectdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 24px;
+  border: none;
+}
+
+.createdOn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 44px;
+  flex: none;
 font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
 color: #6F7269;
-  }
+}
 
-  .columnstyles {
+.columnstyles {
 width: 168px;
 height: 24px;
 font-family: 'Roboto';
@@ -99,40 +99,40 @@ font-weight: 400;
 font-size: 16px;
 line-height: 24px;
 color: #6F7269;
-  }
+}
 
-  .atomsdiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0px;
-    gap: 16px;
-    width: 100%;
-    height: 32px;
-  }
+.atomsdiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  height: 32px;
+}
 
-  .headerdiv {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 32px 0px 16px 16px;
-    gap: 285px;
-    width: 100%;
-    height: 80px;
-    align-self: stretch;
-    justify-content: space-between;
-  }
+.headerdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 32px 0px 16px 16px;
+  gap: 285px;
+  width: 100%;
+  height: 80px;
+  align-self: stretch;
+  justify-content: space-between;
+}
 
-  .textdiv {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    height: 32px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 32px;
-    color: #151e00;
-  }
+.textdiv {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 32px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+  color: #151e00;
+}

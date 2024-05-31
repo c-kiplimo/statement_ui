@@ -4,8 +4,7 @@ import AccountsPage from '../../accounts/accounts';
 import ActivitiesStatus from '../../activities/activities.status';
 import RestrictionsOverview from '../../restrictions/restrictions-overview/restrictions.overview';
 import TabNavigations from '../../widgets/acctSetup-navigations-items/tab.navigations';
-import AccountsStatus from '../../customers/accountUsers/users.status';
-import { AccountProfileProvider } from '../../context/account.contex';
+
 
 interface TabItem {
   buttonName: string;

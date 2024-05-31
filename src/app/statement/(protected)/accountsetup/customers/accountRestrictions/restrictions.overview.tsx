@@ -1,6 +1,10 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import { EditOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  EyeOutlined,
+  MinusOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import styles from "./restrictions.overview.module.css";
 import CustomTable, { DataFetcher } from "../../widgets/table/table";
 import Search from "@/src/components/atoms/search/search";
@@ -12,61 +16,57 @@ import EditPageModal from "@/src/app/statement/(protected)/accountsetup/page-man
 import CreateRestrictionModal from "../../page-manupilation/Add-in-page/createRestriction/create.restriction";
 import { accountRestrictionsAction } from "@/src/lib/actions/accountRestrictions.actions";
 
-interface DataTypesProps {
+interface DataType {
   id?: React.Key;
-  entryId?: number;
+  createdOn?: string;
   userName?: string;
-  description?: string;
+  role?: string;
+  status?: string;
   icons?: React.ReactNode;
+  currency?:string;
+  accountId?:number;
+  entryId?:number;
 }
 
 interface Datatype {
   title: string;
-  dataIndex: keyof DataTypesProps;
-  render?: (text: string, record: DataTypesProps) => React.ReactNode;
+  dataIndex: keyof DataType;
+  render?: (text: any, record: DataType) => React.ReactNode;
 }
 
-const RestrictionsOverview = ({ entryId }: DataTypesProps) => {
-  const [modalState, setModalState] = useState({
-    create: false,
-    remove: false,
-    edit: false,
-  });
+const RestrictionsOverview = (props: DataType) => {
+  const [modalVisible1, setModalVisible1] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [modalVisible3, setModalVisible3] = useState(false);
   const [data, setData] = useState<DataFetcher[]>([]);
-  const [dataId, setDataId] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [dataId, setdataId] = useState<number | null>(null);
+
+  
 
   useEffect(() => {
-    if (entryId !== undefined) {
-      const fetchData = async () => {
-        try {
-          console.log("Fetching data for entryId:", entryId);
-          const incomingTableData = await accountRestrictionsAction(entryId);
-          setData(incomingTableData);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setError("Error fetching data");
-          setLoading(false);
-        }
-      };
-      fetchData();
-    } else {
-      console.warn("entryId is undefined. Skipping data fetch.");
-      setLoading(false);
-      setError("Invalid entry ID provided.");
-    }
-  }, [entryId]);
 
+    const passedAccid = sessionStorage.getItem("passedaccountId");
+
+    
+    const fetchData = async () => {
+      try {
+        let incomingData = await accountRestrictionsAction(parseInt(passedAccid!))
+        setData(incomingData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  
   const handleRemoveClick = (entryId: number) => {
-    setDataId(entryId);
-    setModalState((prev) => ({ ...prev, remove: true }));
+    setdataId(entryId);
+    setModalVisible2(true);
   };
 
-  const handleEditClick = (entryId: number) => {
-    setDataId(entryId);
-    setModalState((prev) => ({ ...prev, edit: true }));
+  const handleEditClick = (entryId:number) => {
+    setdataId(entryId);
+    setModalVisible3(true);
   };
 
   const columns: Datatype[] = [
@@ -78,31 +78,46 @@ const RestrictionsOverview = ({ entryId }: DataTypesProps) => {
     {
       title: "Account ID",
       dataIndex: "id",
+      render: (text) => <span className={styles.columnstyles}>{text}</span>,
     },
     {
-      title: "Rule",
-      dataIndex: "description",
+      title: "Rules",
+      dataIndex: "role",
       render: (text) => <span className={styles.columnstyles}>{text}</span>,
     },
     {
       title: "",
       dataIndex: "icons",
       render: (_text, record) => (
-        <div className={styles.icons}>
-          <MinusOutlined onClick={() => handleRemoveClick(record.entryId!)} />
-          <EditOutlined onClick={() => handleEditClick(record.entryId!)} />
-        </div>
+        <button className={styles.iconsdiv}>
+          <div className={styles.icons}>
+            <EyeOutlined key="eye" />
+            <MinusOutlined
+              key="minus"
+              onClick={() => handleRemoveClick(record.entryId!)}
+            />
+            <EditOutlined
+              key="edit"
+              onClick={() => handleEditClick(record.entryId!)}
+            />
+          </div>
+        </button>
       ),
     },
   ];
 
-  const handleModalCancel = (modalType: keyof typeof modalState) => {
-    setModalState((prev) => ({ ...prev, [modalType]: false }));
-    if (modalType !== "create") setDataId(null);
+  const handleModalCancel1 = () => {
+    setModalVisible1(false);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  const handleModalCancel2 = () => {
+    setModalVisible2(false);
+  };
+
+  const handleModalCancel3 = () => {
+    setModalVisible3(false);
+    setdataId(null);
+  };
 
   return (
     <div className={styles.container}>
@@ -112,45 +127,45 @@ const RestrictionsOverview = ({ entryId }: DataTypesProps) => {
           <div className={styles.atomsdiv}>
             <Search
               key="search"
-              title="Search..."
+              title={"Search..."}
               icon={<img src="/searchicon.svg" alt="searchicon" />}
             />
             <Filter
               key="filter"
-              title="Filter"
+              title={"Filter"}
               icon={<img src="/funnel.svg" alt="funnel" />}
             />
             <Sort
               key="sort"
-              title="Sort"
+              title={"Sort"}
               icon={<img src="/sort.svg" alt="sort" />}
             />
             <AddItem
               key="add"
-              title="Add Restriction"
+              title={"Add Restriction"}
               icon={<PlusOutlined />}
               iconStyle={{ color: "gray" }}
               titleStyle={{ color: "gray" }}
-              onClick={() => setModalState((prev) => ({ ...prev, create: true }))}
+              onClick={() => setModalVisible1(true)}
             />
           </div>
         </div>
         <CustomTable data={data} columns={columns} />
       </div>
       <CreateRestrictionModal
-        visible={modalState.create}
-        onCancel={() => handleModalCancel("create")}
-        customerId={dataId!}
+        visible={modalVisible1}
+        onCancel={handleModalCancel1}
+        customerId={props.accountId!}
       />
       <RemoveRestrictionModal
-        visible={modalState.remove}
-        onCancel={() => handleModalCancel("remove")}
-        restrictionId={dataId !== null ? dataId : 0}
+        visible={modalVisible2}
+        onCancel={handleModalCancel2}
+        restrictionId={dataId!}
       />
       <EditPageModal
-        visible={modalState.edit}
-        onCancel={() => handleModalCancel("edit")}
-        restrictionId={dataId !== null ? dataId : 0}
+        visible={modalVisible3}
+        onCancel={handleModalCancel3}
+        restrictionId={dataId}
       />
     </div>
   );
