@@ -1,3 +1,6 @@
+import React from "react";
+import styles from "./tab-content.module.css";
+
 type TabContentProps = {
   tabsItems: { content: React.ReactNode }[];
   selectedTab: number;
@@ -12,17 +15,12 @@ type TabContentProps = {
 
 const TabContent: React.FC<TabContentProps> = ({
   tabsItems,
-  textColor,
-  borderColor,
-  border,
-  backgroundColor,
-  fontWeight,
   selectedTab,
   padding,
   marginTop,
 }) => {
   return (
-    <div>
+    <div className={styles.container}>
       {tabsItems.map((item, index) => (
         <div
           key={index}
@@ -30,7 +28,6 @@ const TabContent: React.FC<TabContentProps> = ({
           style={{
             marginTop: marginTop,
             padding: padding,
-            // border: `1px solid ${borderColor}`,
           }}
         >
           {item.content}

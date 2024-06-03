@@ -7,8 +7,8 @@ import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 
 import { DeleteOutlined } from "@ant-design/icons";
 
-import Tabs from "@/src/components/atoms/tabs/tab-item";
-import TabContent from "@/src/components/atoms/tabs/tab-content";
+import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
+import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import Button from "@/src/components/atoms/button/button";
 import Table, { ColumnsType } from "antd/es/table";
 import { Space } from "antd";

@@ -1,0 +1,159 @@
+import React from 'react'
+import styles from "./registerUserForm.module.css"
+import { Checkbox, Form , Input, Select } from 'antd'
+import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
+import PrimaryButton from '@/src/components/atoms/button/primary-button/primary-button'
+import { Label } from '@/src/components/atoms/label/label';
+import Texter from '@/src/components/atoms/text/texter';
+
+const RegisterUserForm = () => {
+    const token = useTokens();
+  const font = useFont();
+  return (
+    <div className={styles.container}>
+        <div className={styles.wrapper}>
+        <Form
+              style={{ width: "100%" }}
+              initialValues={{ prefix: "+1" }}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              onFinish={(values) => console.log("Form values:", values)}
+            >
+              <div className={styles.header}>
+                <Texter text="Register User" className="h6r" />
+              </div>
+              
+              <Form.Item
+                name="firstName"
+                colon={false}
+                label={<span className={styles.inputLabel}>First Name</span>}
+                rules={[
+                  { required: false, message: "Please enter First Name" },
+                ]}
+              >
+                <Input placeholder="First Name" />
+              </Form.Item>
+              <Form.Item
+                colon={false}
+                name="lastName"
+                label={<span className={styles.inputLabel}>Last Name</span>}
+                rules={[{ required: false, message: "Please enter Last Name" }]}
+              >
+                <Input placeholder="Last Name" />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                label={<span className={styles.inputLabel}>Email address</span>}
+                rules={[
+                  {
+                    required: false,
+                    type: "email",
+                    message: "Please enter a valid Email Address",
+                  },
+                ]}
+              >
+                <Input placeholder="Email Address" />
+              </Form.Item>
+              <Form.Item
+                label={<span className={styles.inputLabel}>Phone Number</span>}
+                colon={false}
+                rules={[
+                  { required: false, message: "Please enter Phone Number" },
+                ]}
+              >
+                <Input.Group
+                  style={{
+                    display: "flex",
+                    gap: "16px",
+                  }}
+                >
+                  <Form.Item name="prefix" noStyle>
+                    <Select
+                      style={{
+                        width: 80,
+                      }}
+                      dropdownStyle={{ border: "none" }}
+                      className={styles.customSelect}
+                    >
+                      <Option value="+254">+1</Option>
+                      <Option value="+44">+44</Option>
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                    name="phoneNumber"
+                    noStyle
+                    rules={[
+                      { required: false, message: "Please enter Phone Number" },
+                    ]}
+                  >
+                    <Input
+                      style={{ width: "calc(100% - 80px)" }}
+                      placeholder="Phone Number"
+                    />
+                  </Form.Item>
+                </Input.Group>
+              </Form.Item>
+
+              <Form.Item
+                label={
+                  <span className={styles.inputLabel}>
+                    Which group does the user belong to?
+                  </span>
+                }
+                name="usergroup"
+                colon={false}
+                rules={[
+                  {
+                    required: false,
+                    message: "Please select a user group and role",
+                  },
+                ]}
+              >
+                <elect
+                  mode="multiple"
+                  allowClear
+                  style={{ width: "100%" }}
+                  placeholder="Please select"
+                  defaultValue={["Team Administrator ", "User", "Select Roles"]}
+                //   onChange={handleChange}
+                //   options={options}
+                />
+              </Form.Item>
+
+              <Form.Item>
+              <Checkbox id="agreeCheckbox" type="checkbox" required/>
+              <Label
+                  htmlFor="agreeCheckbox"
+                  className={styles.signupCheck}
+                  label="I consent to the collection and processing of my personal data in line with data regulations as described in"
+                  link="kcb privacy policy"
+                />
+              </Form.Item>
+
+              <Form.Item wrapperCol={{ span: 24 }}>
+                <PrimaryButton
+                  htmlType="submit"
+                  buttonType="default"
+                  iconPosition="right"
+                  shape="default"
+                  size="large"
+                  customStyles={{
+                    background: token.brand.primary,
+                    marginTop: "56px",
+                    width: "100%",
+                    color: token.default.white,
+                    border: `1px solid ${token.brand.primary}`,
+                  }}
+                  onClick={() => console.log("clicked")}
+                >
+                  Create User
+                </PrimaryButton>
+              </Form.Item>
+            </Form> 
+        </div>
+    </div>
+  )
+}
+
+export default RegisterUserForm

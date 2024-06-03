@@ -2,8 +2,8 @@ import React, { CSSProperties, useState } from 'react';
 import style from './account-setup-activity.module.css';
 import { useFont, useTokens } from '@/src/app/(context)/ColorContext';
 import ActivityHeaderComponent from './activity-setup-header';
-import Tabs from '@/src/components/atoms/tabs/tab-item';
-import TabContent from '@/src/components/atoms/tabs/tab-content';
+import Tabs from '@/src/components/atoms/tabs/tab-item/tab-item';
+import TabContent from '@/src/components/atoms/tabs/tab-content/tab-content';
 import AccountSettingsCards from './account-settings-cards';
 import SetupCard from './setup-card';
 

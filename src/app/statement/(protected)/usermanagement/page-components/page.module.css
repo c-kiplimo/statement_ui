@@ -1,6 +1,13 @@
-.container{
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--Background-Background-Primary);
-    overflow: hidden;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  position: absolute;
+  width: 100%;
+  max-width: 1080px;
+  height: 994px;
+  left: 330px;
+  top: 56px;
+  overflow: hidden;
 }

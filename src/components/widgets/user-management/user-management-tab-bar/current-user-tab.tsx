@@ -13,14 +13,14 @@ import {
 import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
-import RegisterUserModalContent from "../modal-content/registerUserModal";
-import PendingAuthorizationModalContent from "../modal-content/pendingAuthorizationModal";
-import PendingAuthorization from "./pending-authorization";
 import { UserDetails } from "@/src/types/user.type";
-import RegisterUser from "./register-user";
+import RegisterUser from "../tabs/users/register-user/register-user";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
-
 import { useRouter } from "next/navigation";
+import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";
+import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
+import Tab from "@/src/components/atoms/tabs/tab";
+import PendingAuthorization from "../tabs/users/pending-authorization/pending-authorization";
 
 const UsersTab = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -278,7 +278,7 @@ const UsersTab = () => {
             }}
           >
             <div className={styles.TabCss}>
-              <Tabs
+              <Tab
                 tabsItems={tabsItems}
                 onSelectTab={(index) => setSelectedTab(index)}
                 selectedTab={selectedTab}

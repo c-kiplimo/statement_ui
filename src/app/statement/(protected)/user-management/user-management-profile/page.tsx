@@ -63,7 +63,7 @@ const UserManagementProfile = () => {
     { title: "Date Created", dataIndex: "date", key: "date" },
     { title: "Joined On", dataIndex: "join", key: "join" },
     {
-      title: "Action",
+      title: "",
       dataIndex: "",
       key: "x",
       render: (text, record) => (
