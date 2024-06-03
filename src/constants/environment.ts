@@ -78,6 +78,8 @@ export const GET_PROFILE_DETAILS = `${API_URL}/api/user/profile/v1`;
 
 export const GET_USER_PROFILE_DETAILS = `${API_URL}/api/v1/user/profile`;
 
+export const CLOSE_ACCOUNT_URL = `${API_URL}/api/v1/user-settings`;
+
 export const USER_ACCOUNTS_OVERVIEW = `${PROFILE_URL}/api/v1/aggregateprofiles`
 export const USER_ACCOUNTS_BY_ACCOUNTS_ID = `${PROFILE_URL}/api/v1/accounts`
 export const USER_CARD_BY_CARD_NUMBER = `${PROFILE_URL}/api/v1/card-overview`
@@ -105,6 +107,8 @@ export const DELETE_ACCOUNT_SCHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`
 export const GET_ACCOUNT_SCHEDULE_BY_ID = `${PROFILE_URL}/api/v1/accounts/schedule/account`;
 
 export const UPDATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`;
+
+export const RAISE_QUESTION_URL = `${PROFILE_URL}/api/v1/customer-help`;
 
 export const ACCOUNT_STATEMENT_BY_USER_ID = `${PROFILE_URL}/api/v1/statement-request/user`;
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./profile.form.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import { profileInformationDetails } from "@/src/lib/get.profileinfo.action";
@@ -6,6 +6,10 @@ import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { useQuery } from "react-query";
 import { updateUserDetails } from "@/src/services/auth/get.user.byUserId";
 import { notification } from "antd";
+import { UserInformationContext } from "../context/user.info.context";
+import { message } from 'antd';
+
+
 
 export type UserInformationDetails = {
   firstname: string;
@@ -20,14 +24,19 @@ const ProfileForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [language, setLanguage] = useState("ENGLISH");
+  const [messageApi, contextHolder] = message.useMessage();
+
   const profile = useProfileCreated();
+  const {setUserInfodetails} = useContext(UserInformationContext)
   let userId = profile?.userId;
 
   const fetchProfileData = async () => {
     const result = await profileInformationDetails(parseInt(userId!));
+    setUserInfodetails(result)
     return result;
   };
 
+  
   const { data: profileInfodata, error, isError, isLoading } = useQuery(
     ["userid", userId],
     fetchProfileData,
@@ -39,9 +48,10 @@ const ProfileForm = () => {
 
   useEffect(() => {
     if (profileInfodata) {
-      setUserName(profileInfodata.firstname);
+      setUserName(`${profileInfodata.firstname} ${profileInfodata.lastname}`);
       setEmail(profileInfodata.email);
       setPhone(profileInfodata.phone);
+      setLanguage(profileInfodata.language)
     }
   }, [profileInfodata]);
 
@@ -53,13 +63,18 @@ const ProfileForm = () => {
   const handleUpdateProfile = async (e: any) => {
     e.preventDefault();
 
+    const nameParts = userName.split(" ");
+    const firstname = nameParts[0];
+    const lastname = nameParts.slice(1).join(" ");
+
     const editProfileData = {
-      firstName: userName,
+      firstName: firstname,
+      lastName:lastname,
       email: email,
       mobileNumber: phone,
       language: language
     };
-
+    
     try {
       await updateUserDetails(parseInt(userId!), editProfileData);
       notification.success({
@@ -174,7 +189,6 @@ const ProfileForm = () => {
 
         <div className={styles.buttonsContainer}>
           <button type="submit" className={styles.updateButton}>Update Settings</button>
-          <button className={styles.cancelButton}>Cancel</button>
         </div>
       </form>
     </div>

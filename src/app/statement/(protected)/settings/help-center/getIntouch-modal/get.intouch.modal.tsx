@@ -1,6 +1,9 @@
 import { CloseOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./get.intouch.modal.module.css";
+import { UserInformationContext } from "../../context/user.info.context";
+import { raiseQuerries } from "@/src/services/account/account.help";
+import { notification } from "antd";
 
 type GetIntouchModalProps = {
   isModalOpen: boolean;
@@ -9,6 +12,10 @@ type GetIntouchModalProps = {
 
 const Modal = ({ isModalOpen, onClose }: GetIntouchModalProps) => {
   const [inputQuestion, setInputQuestion] = useState("");
+  const {userInfodetails} = useContext(UserInformationContext);  
+  const userEmail = userInfodetails.email;
+  const userphoneNumber = userInfodetails.phone;
+
 
   if (!isModalOpen) {
     return null;
@@ -17,6 +24,31 @@ const Modal = ({ isModalOpen, onClose }: GetIntouchModalProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputQuestion(e.target.value);
   };
+  const handleFormSubmit = async (e:any)=>{
+    e.preventDefault()
+    const submittedQuestionData ={
+      email:userEmail,
+      phoneNumber:userphoneNumber,
+      message:inputQuestion
+    }
+    try {
+      await raiseQuerries(submittedQuestionData);
+      notification.success({
+        message:'Your Querry has been received. We will get back to you SOON.',
+        role:'status',
+        placement:'top'
+      })
+      onClose();
+    } catch (error) {
+      notification.error({
+        message:'Failed to raise querry'
+      })
+      throw error
+
+    }
+
+
+  }
 
   return (
     <>
@@ -32,16 +64,17 @@ const Modal = ({ isModalOpen, onClose }: GetIntouchModalProps) => {
             you?
           </p>
         </div>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div>
             <textarea
               placeholder="Type your question here..."
               className={styles.textarea}
               onChange={handleInputChange}
+              required
             ></textarea>
           </div>
           <div className={styles.buttonContainer}>
-            <button className={`${styles.button} bodyr`} type="button">
+            <button type='submit' className={`${styles.button} bodyr`}>
               Get In Touch
             </button>
           </div>
