@@ -24,14 +24,15 @@ const CloseAccount = ({ onModalCancel }: CloseAccountProps) => {
 
     try {
       await closeAccount(userId);
-      notification.success({
-        message: 'Account Closed Successfully',
+      notification.info({
+        message: 'Account Closure in Progress. The Account Will Be Closed Permanently After 30 Days of Inactivity.',
+        placement:'top'
       });
       router.push('/');
     } catch (error: any) {
       if(error.message == 'Request failed with status code 500'){
         notification.error({
-          message: 'Account Already Closed',
+          message: 'Account Closure Already in Progress',
         });
       }else{
       notification.error({
