@@ -2,7 +2,7 @@ import React, { Key, useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { UserDetails } from "@/src/types/user.type";
-import SearchBar from "../shared-features/search-bar/table-search-bar";
+import SearchBar from "../../../shared-features/search-bar/table-search-bar";
 
 type ModalContentComponentType = React.ComponentType<{
   accountId: string;
@@ -36,41 +36,47 @@ interface RegisterUserProps {
 }
 
 const RegisterUser: React.FC<RegisterUserProps> = ({
-  columns,
-  data,
-  modalTitle,
-  isModalOpen,
-  setIsModalOpen,
-  modalWidth,
-  handleOk,
-  handleCancel,
-  modalContentComponent: ModalContent,
-  accountId,
-  handleCreate,
-  handleEdit,
-  handleDelete,
-  setModalType,
-  modalType,
-  dynamicData,
+  columns, //Configuration for table columns.
+  data, //The data to display in the table.
+  modalTitle, //Title of the modal dialog.
+  isModalOpen, //Boolean indicating whether the modal is open.
+  setIsModalOpen, // Function to set the modal's open state.
+  modalWidth, //Width of the modal dialog.
+  handleOk, //Functions to handle modal actions.
+  handleCancel, //Functions to handle modal actions.
+  modalContentComponent: ModalContent, //Component to render inside the modal.
+  accountId, //Functions and identifiers for managing user data.
+  handleCreate, //Functions and identifiers for managing user data.
+  handleEdit, //Functions and identifiers for managing user data.
+  handleDelete, //Functions and identifiers for managing user data.
+  setModalType, //Function to set the modal type.
+  modalType, //Indicates the type of operation (create, edit, delete) to be performed.
+  dynamicData, //Additional data to be passed to the modal content component.
 }) => {
+  //Keeps track of the keys of selected rows in the table
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
+  //Updates the selected rows when the selection changes.
   const onSelectChange = (selectedRowKeys: Key[]) => {
     setSelectedRowKeys(selectedRowKeys);
   };
 
   return (
-    <div>
+    <>
+    {/* A search bar component for filtering the table data. */}
       <SearchBar />
+
+    {/*Configured with row selection, pagination, columns, and data source.*/}
       <Table
-        style={{ marginTop: "15px", width: "100%" }}
+        className=""
+        style={{ boxSizing:"border-box",marginTop: "15px", width: "100%" }}
         rowSelection={{
           selectedRowKeys,
           onChange: onSelectChange,
           checkStrictly: true,
         }}
         pagination={{
-          pageSize: 1,
+          pageSize: 5,
           itemRender: (current, type, originalElement) => {
             if (type === "page") {
               return <span style={{ margin: "0 8px" }}>{current}</span>;
@@ -79,13 +85,18 @@ const RegisterUser: React.FC<RegisterUserProps> = ({
           },
           style: {
             display: "flex",
+            justifyContent:"flex-end",
+            alignItems:"flex-end",
+            padding:"0px 32px",
+            gap:"16px",
+            width:"100%",
             textAlign: "center",
           },
         }}
         columns={columns}
         dataSource={data}
       />
-
+{/* Conditionally renders the ModalContent component if it's provided. */}
       <Modal
         title={modalTitle}
         open={isModalOpen}
@@ -108,7 +119,7 @@ const RegisterUser: React.FC<RegisterUserProps> = ({
           />
         )}
       </Modal>
-    </div>
+    </>
   );
 };
 

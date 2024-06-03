@@ -17,7 +17,7 @@ import Button from "@/src/components/atoms/button/button";
 import { Eye } from "lucide-react";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { UserDetails } from "@/src/types/user.type";
-import TableSearchBar from "../shared/table-search-bar/table-search-bar";
+import TableSearchBar from "@/src/components/molecules/user-management/shared/table-search-bar/table-search-bar";
 
 const UserManagementTabBar = () => {
   const [data, setData] = React.useState<UserDetails[]>([]);
@@ -126,7 +126,7 @@ const UserManagementTabBar = () => {
       title: "Registered user",
       content: (
         <div>
-          <TableSearchBar />
+          <TableSearchBar/>
           <Table
             style={{ marginTop: "15px", width: "100%" }}
             columns={columns}

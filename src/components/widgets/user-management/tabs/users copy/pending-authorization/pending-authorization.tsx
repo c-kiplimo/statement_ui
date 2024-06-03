@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Table, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { UserDetails } from "@/src/types/user.type";
-import SearchBar from "../shared-features/search-bar/table-search-bar";
+import SearchBar from "../../../shared-features/search-bar/table-search-bar";
+
 
 
 type ModalContentComponentType = React.ComponentType<{

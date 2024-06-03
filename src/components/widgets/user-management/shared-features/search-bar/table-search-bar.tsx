@@ -1,22 +1,10 @@
-"use client";
-import "./table-search-bar.css";
-import React, { CSSProperties, ChangeEvent, useState } from "react";
-import {PrinterFilled, SearchOutlined } from "@ant-design/icons";
-import { useTokens, useFont } from "@/src/app/(context)/ColorContext";
+import React, {ChangeEvent, useState } from "react";
+import styles from "./table-search-bar.module.css";
+import { PrinterFilled, SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
 const SearchBar = () => {
-  const token = useTokens();
-  const font = useFont();
-
   const [searchTerm, setSearchTerm] = useState("");
-  const tableSearchBarCss: CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    gap: "298px",
-    alignSelf: "stretch",
-    background: token.default.white,
-  };
 
   const handleSearch = (terms: any) => {
     setSearchTerm(terms);
@@ -40,48 +28,52 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="table-search-bar" style={tableSearchBarCss}>
-      <SearchInput onSearch={handleSearch}></SearchInput>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          gap: "80px",
-          flex: "1 0 0",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "40px",
-          }}
-        >
-          <ActionButton
-            onClick={handleDelete}
-            icon={<Image src={"/delete.svg"} alt="delete-icon" width={16} height={16}/>}
-            text="Delete"
-            color={token.default.grey}
-          />
-          <ActionButton
-            onClick={handleRefresh}
-            icon={<Image src={"/refreshIcon.svg"} alt="refresh-icon" width={16} height={16}/>}
-            text="Refresh"
-            color={token.default.grey}
-          />
-          <ActionButton
-            onClick={handlePrint}
-            icon={<PrinterFilled />}
-            text="Print"
-            color={token.default.grey}
-          />
-
-          <ActionButton
+    <div className={styles.container}>
+      <div className={styles.searchBar}>
+        <SearchInput onSearch={handleSearch}></SearchInput>
+        <div className={styles.wrapper}>
+          <div className={styles.options}>
+            <ActionButton
+              onClick={handleDelete}
+              icon={
+                <Image
+                  src={"/delete.svg"}
+                  alt="delete-icon"
+                  width={16}
+                  height={16}
+                />
+              }
+              text="Delete"
+            />
+            <ActionButton
+              onClick={handleRefresh}
+              icon={
+                <Image
+                  src={"/refreshIcon.svg"}
+                  alt="refresh-icon"
+                  width={16}
+                  height={16}
+                />
+              }
+              text="Refresh"
+            />
+            <ActionButton
+              onClick={handlePrint}
+              icon={<PrinterFilled />}
+              text="Print"
+            />
+          </div>
+          <MoreOption
             onClick={handleMoreOptions}
-            icon={<Image src={"/moreIcon.svg"} alt="view-more-icon" width={5} height={16}/>}
+            icon={
+              <Image
+                src={"/moreIcon.svg"}
+                alt="view-more-icon"
+                width={5}
+                height={16}
+              />
+            }
             text={""}
-            color={token.default.grey}
           />
         </div>
       </div>
@@ -93,20 +85,20 @@ type SearchInputProps = {
   onSearch: (searchTerm: string) => void;
 };
 
-const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
+const SearchInput = ({ onSearch }: SearchInputProps) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
     onSearch(searchTerm);
   };
 
   return (
-    <div className="search-bar-container">
-      <SearchOutlined className="search-icon" />
+    <div className={styles.searchContainer}>
+      <SearchOutlined size={16} />
       <input
+        className={`${styles.searchInput} bodym`}
         type="text"
         placeholder="Search"
         onChange={handleInputChange}
-        className="search-input bodyr"
       />
     </div>
   );
@@ -116,32 +108,40 @@ type ActionButtonProps = {
   onClick: () => void;
   icon: React.ReactElement;
   text: string;
-  color: string;
 };
 
-const ActionButton = (props: ActionButtonProps) => {
-  const token = useTokens();
+const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
   const handleClick = () => {
-    if (props.onClick) {
-      props.onClick();
+    if (onClick) {
+      onClick();
     }
   };
 
-  const actionButtonCss: CSSProperties = {
-    display: "flex",
-    padding: "8px 16px",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "16px",
-    borderRadius: "4px",
-    border: `0.5px solid ${token.default.grey}`,
-    opacity: "0.8",
+  return (
+    <button type="button" className={styles.actionButton} onClick={handleClick}>
+      {icon}
+      {text && <span className="bodym">{text}</span>}
+    </button>
+  );
+};
+
+type MoreOptionProps = {
+  onClick: () => void;
+  icon: React.ReactElement;
+  text: string;
+};
+
+const MoreOption = ({ onClick, icon, text }: MoreOptionProps) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
   };
 
   return (
-    <button type="button" onClick={handleClick} style={actionButtonCss}>
-      {props.icon}
-      {props.text && <span className="action-text">{props.text}</span>}
+    <button type="button" className={styles.moreOption} onClick={handleClick}>
+      {icon}
+      {text && <span className="bodym">{text}</span>}
     </button>
   );
 };

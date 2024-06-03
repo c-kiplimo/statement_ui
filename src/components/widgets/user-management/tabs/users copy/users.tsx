@@ -1,7 +1,6 @@
-"use client";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import React, { Fragment, use, useEffect, useState } from "react";
-import styles from "./user-management-tabar.module.css";
+import styles from "./users.module.css";
 import type { ColumnsType } from "antd/es/table";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import {
@@ -10,17 +9,16 @@ import {
   tickIcon,
   xIcon,
 } from "@/src/components/atoms/svg/document_svg";
-import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
 import { UserDetails } from "@/src/types/user.type";
-import RegisterUser from "../tabs/users/register-user/register-user";
+import RegisterUser from "./register-user/register-user";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { useRouter } from "next/navigation";
 import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";
 import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
 import Tab from "@/src/components/atoms/tabs/tab";
-import PendingAuthorization from "../tabs/users/pending-authorization/pending-authorization";
+import PendingAuthorization from "./pending-authorization/pending-authorization";
 
 const UsersTab = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -102,11 +100,11 @@ const UsersTab = () => {
     { title: "Staff number", dataIndex: "staff", key: "staff" },
 
     {
-      title: "Action",
+      title: "",
       dataIndex: "",
       key: "x",
       render: (record) => (
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className={styles.tableAction}>
           <PrimaryButton
             buttonType="default"
             iconPosition="right"
@@ -116,6 +114,10 @@ const UsersTab = () => {
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
+              padding: "8px 16px",
+              gap: "16px",
+              width: "32px",
+              height: "32px",
             }}
             onClick={() => {
               router.push("/statement/user-management/user-management-profile");
@@ -130,6 +132,10 @@ const UsersTab = () => {
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
+              padding: "8px 16px",
+              gap: "16px",
+              width: "32px",
+              height: "32px",
             }}
             onClick={() => openModal("delete", record)}
           ></PrimaryButton>
@@ -170,11 +176,11 @@ const UsersTab = () => {
     { title: "Staff number", dataIndex: "staff", key: "Staff" },
 
     {
-      title: "Action",
+      title: "",
       dataIndex: "",
       key: "x",
       render: (record) => (
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className={styles.tableAction}>
           <PrimaryButton
             buttonType="default"
             iconPosition="right"
@@ -184,6 +190,10 @@ const UsersTab = () => {
             customStyles={{
               background: token.default.white,
               color: token.default.grey,
+              padding: "8px 16px",
+              gap: "16px",
+              width: "32px",
+              height: "32px",
             }}
             onClick={() => {
               router.push("/statement/user-management/user-management-profile");
@@ -199,6 +209,10 @@ const UsersTab = () => {
               background: token.default.white,
               border: `1px solid ${token.accent.success}`,
               color: token.accent.success,
+              padding: "8px 16px",
+              gap: "16px",
+              width: "32px",
+              height: "32px",
             }}
             onClick={() => openModal("edit", record)}
           ></PrimaryButton>
@@ -212,6 +226,10 @@ const UsersTab = () => {
               background: token.default.white,
               border: `1px solid ${token.accent.danger}`,
               color: token.accent.danger,
+              padding: "8px 16px",
+              gap: "16px",
+              width: "32px",
+              height: "32px",
             }}
             onClick={() => openModal("delete", record)}
           ></PrimaryButton>
@@ -270,14 +288,10 @@ const UsersTab = () => {
 
   return (
     <Fragment>
-      <div className={styles.userTabBarCss}>
-        <div className={styles.usersTabButtonCss}>
-          <div
-            style={{
-              width: "100%",
-            }}
-          >
-            <div className={styles.TabCss}>
+      <div className={styles.userTab}>
+        <div className={styles.tabButton}>
+          <div className={styles.tabContainer}>
+            <div className={styles.tab}>
               <Tab
                 tabsItems={tabsItems}
                 onSelectTab={(index) => setSelectedTab(index)}

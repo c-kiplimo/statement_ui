@@ -72,7 +72,7 @@ const UserGroup = React.memo(({ setActive }: any) => {
           >
             <CardDescItem
               title="Meraki Systems - Accounts"
-              description="KES  |  132314245"
+              description="High Volume Customer"
               icon={
                 <CustomSvgIcon width={16} height={16} fillColor="#F5F5F5" />
               }
@@ -100,9 +100,9 @@ const UserGroup = React.memo(({ setActive }: any) => {
           }}
         >
           <ContactCard
-            title="Available Balance"
-            content="$146,786.33"
-            additonalContent="/KES 21,356,071.28"
+            title="Country"
+            content="Kenya/Moi Avenue"
+            additonalContent=""
             icon={<InfoCircleFilled />}
             style={{
               borderRight: `1px solid ${tokenColor.default.grey}`,
@@ -111,8 +111,8 @@ const UserGroup = React.memo(({ setActive }: any) => {
           />
 
           <ContactCard
-            title="Working Balance"
-            content="$67,990.24"
+            title="Email"
+            content="merakisstemstech@gmail.com"
             icon={<InfoCircleFilled />}
             style={{
               borderRight: `1px solid ${tokenColor.default.grey}`,
@@ -121,8 +121,8 @@ const UserGroup = React.memo(({ setActive }: any) => {
           />
 
           <ContactCard
-            title="Term"
-            content="12 months"
+            title="Mobile number"
+            content="0728000000"
             icon={<InfoCircleFilled />}
             style={{
               background: tokenColor.default.white,

@@ -2,7 +2,8 @@
 
 import React from "react";
 import styles from "./page-components/page.module.css"
-import HeaderTabs from "@/src/components/widgets/user-management/tabs/header/header-tab";
+import HeaderTabs from "./page-components/header/header-tab";
+//import HeaderTabs from "@/src/components/widgets/user-management/tabs/header/header-tab";
 
 const UserManagementPage = () => {
   return (
