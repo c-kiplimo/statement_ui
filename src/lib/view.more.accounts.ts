@@ -12,7 +12,7 @@ export const ViewMoreAccounts= async (customerId:number):Promise<SummaryData[]>=
         accountName: `${data.accountType} (${data.numberOfAccounts})`,
         accountBalance:data.totalAmount.toLocaleString(),
         icon:accountIcons(data.accountType),
-        imgcolor:'',
+        imgcolor:bgcolor(data.accountType),
         bgcolor:''
 
     }))
@@ -29,13 +29,31 @@ function accountIcons(accounttype:string):ReactNode{
             accountIcon = 'deposit.svg';
             break;
             case 'Investment':
-                accountIcon = 'moneymarket.svg';
+                accountIcon = 'checking.svg';
                 break;
         default:
             accountIcon = ''; 
             break;
  }
  return accountIcon;
+}
+function bgcolor(accounttype:string):string{
+    let bgColor: string = '';
+    switch (accounttype) {
+        case 'Savings':
+            bgColor = '#F30039'
+            break;
+        case 'Business':
+            bgColor = '#17D05B';
+            break;
+            case 'Investment':
+                bgColor = '#4272DD';
+                break;
+        default:
+            bgColor = ''; 
+            break;
+ }
+ return bgColor;
 
 }
 

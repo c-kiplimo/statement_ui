@@ -85,5 +85,6 @@ type AccountStatementRequest = {
       numberOfCredits: number;
       totalCreditAmount: number;
       closingBalance: number;
+      openingBalance:number;
     };
   };

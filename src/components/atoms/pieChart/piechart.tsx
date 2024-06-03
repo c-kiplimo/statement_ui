@@ -12,8 +12,8 @@ type PieChartProps = {
   totalamount: string;
   accounts: string;
 };
-const COLORS = ["#F30039", "#17D05B", "#003A49", "#FFBD66"];
 
+const COLORS = ["#17D05B", "#4272DD", "#003A49", "#FFBD66"];
 
 function Piechart(props: PieChartProps) {
   return (
@@ -33,12 +33,40 @@ function Piechart(props: PieChartProps) {
           ))}
 
           <Label
-            position="centerTop"
-            style={{ fontWeight: "700", color: "#151E00", fontSize: "16px", marginTop:'20px'}}
-          >
-            {props.totalamount}
-          </Label>
-          <Label position="centerBottom" style={{margin:'20px', color:''}}>{props.accounts}</Label>
+            position="center"
+            content={({ viewBox }) => {
+              const { cx, cy } = viewBox;
+              return (
+                <text
+                  x={cx}
+                  y={cy}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  style={{ color: "#1A2600", fontSize: "16px" }} 
+                >
+                  {props.accounts}
+                </text>
+              );
+            }}
+          />
+
+          <Label
+            position="center"
+            content={({ viewBox }) => {
+              const { cx, cy } = viewBox;
+              return (
+                <text
+                  x={cx}
+                  y={cy + 20}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  style={{ fontSize: "14px", fontWeight: "700" }}
+                >
+                  {props.totalamount}
+                </text>
+              );
+            }}
+          />
         </Pie>
       </PieChart>
     </div>
