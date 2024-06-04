@@ -20,6 +20,7 @@ import { UserDetails } from "@/src/types/user.type";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import styles from "./users.module.css";
 import DeleteUserModal from "../../modal/modal";
+import ReusableModal from "../../modal/modal";
 
 const Users: React.FC = () => {
   const { accountId } = useAccountStatementContext();
@@ -181,7 +182,6 @@ const Users: React.FC = () => {
           modalWidth={modalWidth()}
           handleOk={handleOk}
           handleCancel={handleCancel}
-          //modalContentComponent={RegisterUserModalContent}
           accountId={accountId}
           handleCreate={handleCreate}
           handleEdit={handleEdit}
@@ -313,11 +313,24 @@ const Users: React.FC = () => {
           </div>
         </div>
       </div>
-      <DeleteUserModal
+      <ReusableModal
         visible={isDeleteUserModalOpen}
-        onConfirm={handleDelete}
-        onCancel={handleCancel}
-        user={selectedUser}
+          title="Remove User"
+          titleDesc="Are you sure you want to delete this user?"
+          onConfirm={handleOk}
+          confirmButtonStyles={{
+            border: "2px solid var(--functional-colors-danger)",
+            background: "var(--functional-colors-danger)",
+          }}
+          cancelButtonStyles={{
+            border: "2px solid var(--functional-colors-danger)",
+            background: "var(--functional-colors-danger)",
+          }}
+          onCancel={handleCancel}
+          confirmText={"Yes"}
+          cancelText={"No"}
+          confirmLoading={true}
+
       />
     </Fragment>
   );

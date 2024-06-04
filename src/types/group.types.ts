@@ -1,8 +1,16 @@
 type UserGroups = {
-  groupId?: number;
-  permission: string[];
-  description: string;
-  joinedOn: Date;
+  userId: number;
+  platformGroup: {
+    groupId: number;
+    platformId: number;
+    permission: string[];
+    description: string;
+    groupName: string;
+    createdAt: string;
+    updatedAt: string | null;
+    auditInfo: any | null;
+  };
+  joinedOn: string;
 };
 type Groups = {
   name?: string;

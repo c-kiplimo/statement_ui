@@ -1,6 +1,5 @@
-"use client";
-
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
+import styles from "./user-groups-tab.module.css";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import ContactCard from "@/src/components/atoms/cards/contact.card";
 import { InfoCircleFilled, SearchOutlined } from "@ant-design/icons";
@@ -13,26 +12,18 @@ import ActivityBadge from "@/src/components/atoms/badge/active-badge";
 import { ChevronDown } from "lucide-react";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import { deleteIcon, editIcon } from "@/src/components/atoms/svg/document_svg";
-//Revmove molecule
+import moment from 'moment';
 import UserGroupRolesModal from "@/src/components/molecules/user-management/modal-content/user-group-roles-modal";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const tokenColor = useTokens();
-  const font = useFont();
-  const [data, setData] = useState<UserGroups[]>([]);
+  const font = useFont(); 
   const [searchTerm, setSearchTerm] = useState("");
-  const { fetchAllUserGroups } = GroupHandler();
   const handleSearch = (terms: any) => {
     setSearchTerm(terms);
     console.log("search-terms", searchTerm);
   };
-  const fetchUsers = async () => {
-    const response = await fetchAllUserGroups();
-    setData(response);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
   return (
     <div
       style={{
@@ -160,6 +151,7 @@ const UserGroup = React.memo(({ setActive }: any) => {
     </div>
   );
 });
+
 type SearchInputProps = {
   onSearch: (searchTerm: string) => void;
 };
@@ -184,102 +176,99 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
 };
 const DisplayTable = () => {
   const token = useTokens();
-  const font = useFont();
   const [modalType, setModalType] = useState<string>("add");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [data, setData] = useState<UserGroups[]>([]);  
+  const { fetchAllUserGroups } = GroupHandler();
+  const userId = 624744553961;
+  
+  const fetchUsers = async () => {
+    try {
+      const response = await fetchAllUserGroups(userId);
+      setData(response);
+    } catch (error) {
+      console.error('Failed to fetch user groups:', error);
+    }
+  };
 
-  const openModal = (type: string, record: {}) => {
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  
+  const openModal = (type: string, record: UserGroups) => {
     console.log("record", record);
     setModalType(type);
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
-    setIsModalOpen(true);
+    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
-  const handleEdit = (record: any) => {
+  const handleEdit = (record: UserGroups) => {
     console.log("Edit clicked for:", record);
   };
 
-  const handleDelete = (record: any) => {
+  const handleDelete = (record: UserGroups) => {
     console.log("Delete clicked for:", record);
   };
-  const [data, setData] = useState<UserGroups[]>([]);
-  const { fetchAllUserGroups } = GroupHandler();
-  const fetchUsers = async () => {
-    const response = await fetchAllUserGroups();
-    console;
-    setData(response);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
   const columns: ColumnsType<UserGroups> = [
     {
-      title: "Groups",
-      dataIndex: "groupId",
-      key: "groupId",
+      title: "Group Title",
+      dataIndex: ["platformGroup", "description"],
+      key: "description",
     },
     {
       title: "Description",
-      dataIndex: "permission",
-      key: "permission",
+      dataIndex: ["platformGroup", "description"],
+      key: "description",
     },
     {
       title: "Date Created",
-      dataIndex: "valueDate",
-      key: "valueDate",
+      dataIndex: ["platformGroup", "createdAt"],
+      key: "createdAt",
+      render: (createdAt: string) => moment(createdAt).format('DD-MM-YYYY'),
     },
     {
       title: "Joined On",
-      dataIndex: "joinOn",
-      key: "joinOn",
+      dataIndex: "joinedOn",
+      key: "joinedOn",
+      render: (joinedOn: string) => moment(joinedOn).format('DD-MM-YYYY'),
     },
     {
       title: "",
-      key: "custom",
-      render: (record) => (
-        <div
-          style={{
-            display: "flex",
-            gap: "15px",
-          }}
-        >
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <PrimaryButton
-              buttonType="default"
-              iconPosition="right"
-              shape="default"
-              size="small"
-              icon={editIcon}
-              customStyles={{
-                background: token.default.white,
-                color: token.default.grey,
-              }}
-              onClick={() => openModal("edit", record)}
-            ></PrimaryButton>
-            <PrimaryButton
-              buttonType="default"
-              iconPosition="right"
-              shape="default"
-              size="small"
-              icon={deleteIcon}
-              customStyles={{
-                background: token.default.white,
-                color: token.default.white,
-              }}
-              onClick={() => openModal("delete", record)}
-            ></PrimaryButton>
-          </div>
+      key: "actions",
+      render: (record: UserGroups) => (
+        <div style={{ display: "flex", gap: "15px" }}>
+          <PrimaryButton
+            buttonType="default"
+            iconPosition="right"
+            shape="default"
+            size="small"
+            icon={editIcon}
+            customStyles={{
+              background: token.default.white,
+              color: token.default.grey,
+            }}
+            onClick={() => openModal("edit", record)}
+          />
+          <PrimaryButton
+            buttonType="default"
+            iconPosition="right"
+            shape="default"
+            size="small"
+            icon={deleteIcon}
+            customStyles={{
+              background: token.default.white,
+              color: token.default.grey,
+            }}
+            onClick={() => openModal("delete", record)}
+          />
         </div>
       ),
     },
@@ -295,6 +284,7 @@ const DisplayTable = () => {
         return "700px";
     }
   };
+
   return (
     <Fragment>
       <div
@@ -348,5 +338,6 @@ const DisplayTable = () => {
     </Fragment>
   );
 };
+
 
 export default UserGroup;

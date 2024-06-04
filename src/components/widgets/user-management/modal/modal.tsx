@@ -1,44 +1,88 @@
-import React from "react";
-import { Button, Modal } from "antd";
-//import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
-import { UserDetails } from "@/src/types/user.type";
+import React, { useState } from "react";
+import { Modal } from "antd";
+import styles from "./modal.module.css";
+import classNames from "classnames";
 
-interface DeleteUserModalProps {
+type ModalProps = {
   visible: boolean;
   onConfirm: () => void;
   onCancel: () => void;
-  user: UserDetails | null;
-}
+  title: string;
+  titleDesc: string;
+  confirmText: string;
+  cancelText: string;
+  confirmLoading: boolean | undefined;
+  confirmButtonStyles?: React.CSSProperties;
+  cancelButtonStyles?: React.CSSProperties;
+};
 
-const DeleteUserModal: React.FC<DeleteUserModalProps> = ({
+const ReusableModal = ({
   visible,
   onConfirm,
   onCancel,
-  user,
-}) => {
+  title,
+  titleDesc,
+  confirmText,
+  cancelText,
+  confirmLoading,
+  confirmButtonStyles,
+  cancelButtonStyles,
+}: ModalProps) => {
+  const [hoveredButton, setHoveredButton] = useState<
+    "confirm" | "cancel" | null
+  >(null);
+
+  const handleMouseEnter = (buttonType: "confirm" | "cancel") => {
+    setHoveredButton(buttonType);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredButton(null);
+  };
+
   return (
     <Modal
-      title="Remove User"
       visible={visible}
-      onCancel={onCancel}
-      footer={[
-        <Button key="cancel" onClick={onCancel}>
-          No
-        </Button>,
-        <Button key="confirm" onClick={onConfirm}>
-          Yes
-        </Button>,
-      ]}
+      confirmLoading={confirmLoading}
+      footer={null}
+      className={styles.modal}
     >
-      {user ? (
-        <p>
-          Are you sure you want to delete user {user.firstName} {user.lastName}?
-        </p>
-      ) : (
-        <p>Are you sure you want to delete this user?</p>
-      )}
+      <div className={styles.container}>
+        <div className={styles.description}>
+          <div className={styles.textField}>
+            <span className={`${styles.title} h6m`}>{title}</span>
+            <span className={`${styles.titleDesc} bodyr`}>{titleDesc}</span>
+          </div>
+        </div>
+        <div className={styles.button}>
+          <button
+            className={classNames(styles.btn, {
+              [styles.activeBtn]: hoveredButton === "cancel",
+            })}
+            onMouseEnter={() => handleMouseEnter("cancel")}
+            onMouseLeave={handleMouseLeave}
+            onClick={onCancel}
+            style={hoveredButton === "cancel" ? cancelButtonStyles : undefined}
+          >
+            {cancelText}
+          </button>
+          <button
+            className={classNames(styles.btn, {
+              [styles.activeBtn]: hoveredButton === "confirm",
+            })}
+            onMouseEnter={() => handleMouseEnter("confirm")}
+            onMouseLeave={handleMouseLeave}
+            onClick={onConfirm}
+            style={
+              hoveredButton === "confirm" ? confirmButtonStyles : undefined
+            }
+          >
+            {confirmText}
+          </button>
+        </div>
+      </div>
     </Modal>
   );
 };
 
-export default DeleteUserModal;
+export default ReusableModal;
