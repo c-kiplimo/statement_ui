@@ -33,7 +33,7 @@ const Modal = ({ isModalOpen, onClose }: GetIntouchModalProps) => {
     }
     try {
       await raiseQuerries(submittedQuestionData);
-      notification.success({
+      notification.info({
         message:'Your Querry has been received. We will get back to you SOON.',
         role:'status',
         placement:'top'

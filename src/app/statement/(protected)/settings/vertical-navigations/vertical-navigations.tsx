@@ -34,6 +34,8 @@ const SettingsNavigations = () => {
     <div className={styles.container}>
       <div className={styles.bodyContent}>{content}</div>
       <div className={styles.navigations}>
+        
+        <div>
         <button
           className={
             activeButton === "General Information"
@@ -56,18 +58,6 @@ const SettingsNavigations = () => {
         </button>
         <button
           className={
-            activeButton === "Data Management"
-              ? styles.activeButton
-              : styles.buttons
-          }
-          onClick={() =>
-            handleClick("Data Management Content", "Data Management")
-          }
-        >
-          Data Management
-        </button>
-        <button
-          className={
             activeButton === "Notification"
               ? styles.activeButton
               : styles.buttons
@@ -76,6 +66,9 @@ const SettingsNavigations = () => {
         >
           Notification
         </button>
+        </div>
+
+        <div className={styles.helpcenter}>
         <button
           className={
             activeButton === "Help Center"
@@ -86,6 +79,8 @@ const SettingsNavigations = () => {
         >
           Help Center
         </button>
+        </div>
+        
       </div>
 
       <Modal
