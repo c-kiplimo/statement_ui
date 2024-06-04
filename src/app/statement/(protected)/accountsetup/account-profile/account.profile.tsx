@@ -36,13 +36,13 @@ const UserAccountprofile: React.FC<AccountProfileType> = () => {
   }, []);
 
 
-  if (loading) {
-    return (
-      <div className={styles.spinnerContainer}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className={styles.spinnerContainer}>
+  //       <Spin size="large" />
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return <div>{error}</div>;

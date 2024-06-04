@@ -15,12 +15,11 @@
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-justify-content: space-between;
 padding: 48px 32px;
 gap: 24px;
 position: relative;
 width: 532px;
-height: 436px;
+height: 420px;
 background: #FFFFFF;
 box-shadow: 0px 2px 12px -2px rgba(0, 0, 0, 0.1), 0px 2px 2px -1px rgba(10, 9, 11, 0.04), 0px 0px 0px 1px rgba(10, 9, 11, 0.05);
 border-radius: 8px;
@@ -42,22 +41,21 @@ cursor: pointer;
 .formdiv{
 display: flex;
 flex-direction: column;
+justify-content: space-between;
 align-items: center;
 padding: 0px;
-gap: 32px;
 width: 468px;
-height: 300px;
-align-self: stretch;
+height: fit-content;
 }
+
 .title{
 display: flex;
-flex-direction: row;
-align-items: center;
-margin-right: 12px;
-padding: 0px 8px 0px 4px;
-gap: 12px;
-width: 308.5px;
-height: 26px;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 318px;
+height: 40px;
 }
 
 .input{
@@ -65,9 +63,9 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 0px;
-gap: 24px;
+gap: 16px;
 width: 308.5px;
-height: 156px;
+height: fit-content;
 }
 
 .restrictionName{
@@ -80,26 +78,32 @@ gap: 8px;
 width: 308.5px;
 height: 32px;
 background: #FFFFFF;
+opacity: 0.8;
 border: 0.5px solid #979992;
 border-radius: 4px;
+flex: none;
+flex-grow: 1;
 outline: none;
+
 }
 
 
 .descriptionDiv{
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 0px 0px 0px 8px;
-gap: 8px;
-width: 308.5px;
-height: 32px;
-background: #FFFFFF;
-opacity: 0.8;
-border: 0.5px solid #979992;
-border-radius: 4px;
-outline: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 0px 0px 8px;
+  gap: 8px;
+  width: 308.5px;
+  height: 32px;
+  background: #FFFFFF;
+  opacity: 0.8;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  flex: none;
+  flex-grow: 1;
+  outline: none;
 }
 
 .button{
@@ -136,4 +140,5 @@ padding: 0px 8px 0px 4px;
 gap: 8px;
 width: 308.5px;
 height: 26px;
+ 
 }

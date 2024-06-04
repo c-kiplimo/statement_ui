@@ -1,9 +1,13 @@
 type CustomerRestrictions = {
-  restrictionId: number,
-        name: string,
-        customerId: number,
-        description:string,
-        status: string,
-        rules: string
-        createdAt:string
-};
+  id:number,
+    customerId: number,
+    restrictions: {
+      restrictionId: 8,
+       name: string,
+      rules: string,
+      description:string;
+      status: string,
+      createdAt: string,
+      updatedAt: string,
+      auditInfo: string
+}}

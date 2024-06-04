@@ -53,13 +53,13 @@ const Accountsetup = (props: AccountSetupProps) => {
   };
 
   return (
-    <div className={Styles.bgcontainer}>
+  
       <div className={Styles.container}>
         <div className={Styles.titleContainer}>
-          <div className={Styles.textcontainer}>
+          
             <div className={Styles.title}>{props.title}</div>
             <div className={Styles.description}>{props.instruction}</div>
-          </div>
+          
         </div>
 
         <Form className={Styles.form} onFinish={handleSubmit}>
@@ -71,8 +71,8 @@ const Accountsetup = (props: AccountSetupProps) => {
                 value={searchOption}
                 className={Styles.radioGroup}
               >
-                <Radio value="account">{props.account}</Radio>
-                <Radio value="customer">{props.customer}</Radio>
+                <Radio className={Styles.radio} value="account">{props.account}</Radio>
+                <Radio className={Styles.radio} value="customer">{props.customer}</Radio>
               </Radio.Group>
             </div>
 
@@ -103,7 +103,6 @@ const Accountsetup = (props: AccountSetupProps) => {
           </div>
         </Form>
       </div>
-    </div>
   );
 };
 

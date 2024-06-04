@@ -60,7 +60,7 @@ export const CUSTOMER_DETAILS_URL = `${PROFILE_URL}/api/v1/onboarding`;
 
 export const ACCOUNT_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/accounts/restrictions`;
 
-export const CUSTOMER_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const CUSTOMER_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/restrictions`;
 
 export const ACCOUNT_STATEMENT_REQUEST_URL = `${PROFILE_URL}/api/v1/statement-request`;
 
@@ -116,11 +116,11 @@ export const FETCH_USER_NOTIFICATION_STATUS = `${PROFILE_URL}/api/v1/notificatio
 
 export const ACCOUNT_STATEMENT_BY_USER_ID = `${PROFILE_URL}/api/v1/statement-request/user`;
 
-export const DELET_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const DELET_RESTRICTION_URL = `${PROFILE_URL}/api/v1/restrictions`;
 
-export const ADD_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const ADD_RESTRICTION_URL = `${PROFILE_URL}/api/v1/restrictions/assign`;
 
-export const EDIT_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
+export const EDIT_RESTRICTION_URL = `${PROFILE_URL}/api/v1/restrictions`;
 
 export const ACCT_STMT_URL = `${PROFILE_URL}/api/v1/accounts/configure`;
 
@@ -132,3 +132,4 @@ export const DELETE_USER_ACCOUNT_URL= `${PROFILE_URL}/api/v1/accounts`;
 
 export const USER_ACCOUNTS_URL = `${PROFILE_URL}/api/v1/accounts/users`;
 export const All_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/restrictions?page=0&size=10&sort=name,asc`;
+export const  ASSIGN_ACCOUNT_USER = `${PROFILE_URL}/api/v1/accounts/assign`

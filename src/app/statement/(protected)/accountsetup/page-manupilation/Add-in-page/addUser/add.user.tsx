@@ -1,17 +1,21 @@
 import React, { FC } from "react";
 import AddItem from "../../../widgets/forms/add.form";
-import styles from "./create.restriction.module.css";
+import styles from "./add.user.module.css";
 import { CloseOutlined } from "@ant-design/icons";
 
 interface CreateRestrictionProps {
   visible: boolean;
   onCancel: () => void;
+  roleOptions: string[];
+  statusOptions: string[];
 }
 
-const AddUserModal = ({
+const AddUserModal: FC<CreateRestrictionProps> = ({
   visible,
   onCancel,
-}:CreateRestrictionProps) => {
+  roleOptions,
+  statusOptions
+}) => {
   if (!visible) {
     return null;
   }
@@ -20,29 +24,31 @@ const AddUserModal = ({
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent}>
         <div className={styles.container}>
-            <div className={styles.body}>
-          <AddItem
-            headerText={"Add User"}
-            inputTitle1={"User Name"}
-            placeholder1={"Enter Name"}
+          <div className={styles.body}>
+            <AddItem
+              headerText={"Add User"}
+              inputTitle1={"User Name"}
+              placeholder1={"Enter Name"}
 
-            inputTitle4={"User Role"}
-            placeholder4={"Enter Description"}
+              inputTitle2={"User Role"}
+              placeholder2={"Select Role"}
+              roleOptions={roleOptions}
 
-            inputTitle2={"Status"}
-            placeholder2={"Enter Description"}
+              inputTitle3={"Status"}
+              placeholder3={"Select Status"}
+              statusOptions={statusOptions}
 
-            buttonText={"Create Restriction"}
-            closeIcon={
-              <button onClick={onCancel}>
-                <CloseOutlined />
-              </button>
-            }
-          />
+              buttonText={"Create User"}
+              closeIcon={
+                <button onClick={onCancel}>
+                  <CloseOutlined />
+                </button>
+              }
+            />
           </div>
         </div>
-        </div>
-        </div>
+      </div>
+    </div>
   );
 };
 

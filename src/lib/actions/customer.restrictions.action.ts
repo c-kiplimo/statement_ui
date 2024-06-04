@@ -14,11 +14,11 @@ const data = await handler.fetchCustomerRestrictions( value)
     let restrictions:DataFetcher[] = data.map(restrictions=>({
 
         id:restrictions.customerId,
-        entryId:restrictions.restrictionId,
-        createdOn:restrictions.createdAt,
-        userName:restrictions.name,
-        status:restrictions.status,
-        role:restrictions.description,
+        entryId:restrictions.id,
+        createdOn:restrictions.restrictions.createdAt,
+        userName:restrictions.restrictions.name,
+        status:restrictions.restrictions.status,
+        role:restrictions.restrictions.description,
     }))
     return restrictions
 }

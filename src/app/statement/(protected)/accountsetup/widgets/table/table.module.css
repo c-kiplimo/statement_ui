@@ -8,7 +8,14 @@
 
 .pagination{
   width: fit-content;
+  align-self: flex-end;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+height: fit-content;
 }
+
 
 
 

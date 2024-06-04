@@ -1,5 +1,4 @@
-import { profilesType } from "@/src/app/statement/(protected)/accountsetup/accounts/accounts";
-
+import { profilesType } from "@/src/app/statement/(protected)/accountsetup/customers/accounts/[id]/page";
 import { ProfileAccountHandler } from "@/src/services/userprofile/custProfile.service";
 
 

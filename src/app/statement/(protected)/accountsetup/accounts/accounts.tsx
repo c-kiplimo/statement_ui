@@ -148,7 +148,7 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       title: "",
       dataIndex: "icons",
       render: (text: any, record: any, index: number) => (
-        <Link href="/statement/accountsetup/account-profile" key={`icons-${record.id}`}>
+        <Link href="/statement/accountsetup/users" key={`icons-${record.id}`}>
           <button
             className={`${styles.settingsButton} ${
               viewClicked === record.id

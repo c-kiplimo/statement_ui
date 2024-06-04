@@ -35,8 +35,8 @@ const columns: CustomColumn[] = [
 
       return (
         <div className={styles.date}>
-          <div>{date}</div>
-          <div>{time}</div>
+          <div className={styles.dateStyles}>{date}</div>
+          <div className={styles.timestyle}>{time}</div>
         </div>
       );
     },
@@ -51,6 +51,8 @@ const columns: CustomColumn[] = [
     dataIndex: "role",
     render: (text) => <span className={styles.description}>{text}</span>,
   },
+
+
   {
     title: "Status",
     dataIndex: "status",
@@ -59,11 +61,11 @@ const columns: CustomColumn[] = [
       let backgroundColor = "";
 
       switch (record.status) {
-        case "Completed":
+        case "COMPLETE":
           color = "#17D05B";
           backgroundColor = "#DFF0D8";
           break;
-        case "Pending":
+        case "PENDING":
           color = "orange";
           backgroundColor = "#FCF8E3";
           break;

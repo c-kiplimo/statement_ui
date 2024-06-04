@@ -57,7 +57,7 @@ align-items: center;
 padding: 0px 0px 24px;
 gap: 40px;
 width: 341px;
-height: 172px;
+height: fit-content;
   }
 
   .title{
@@ -71,7 +71,7 @@ width: 341px;
 height: 32px;
   }
 
-  .querry{
+  .query{
 width: 342px;
 height: 26px;
 font-family: 'Roboto';
@@ -99,10 +99,28 @@ display: flex;
 flex-direction: row;
 align-items: center;
 padding: 8px 32px;
-color: black;
 gap: 8px;
 width: 85px;
 height: 42px;
 border: 1px solid #F30039;
 border-radius: 4px;
+  }
+
+
+  
+  .bttnStyle:hover {
+    background-color: #F30039; 
+  }
+  
+  .bttnStyle:focus {
+    background-color: #F30039; 
+    outline: none; 
+  }
+  
+  .bttnStyle:active {
+    background-color: #F30039; 
+  }
+  
+  .errorAlert {
+    margin-top: 10px; 
   }

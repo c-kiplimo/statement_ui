@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Button from "@/src/components/atoms/dropDownButton/button";
 import styles from "./account.profile.module.css"
-import TabsNav from "@/src/app/statement/(protected)/accountsetup/tabs/account-tabs/tabs";
+
 
 
 type StatusProps = {
@@ -66,7 +66,6 @@ const AccountProfilePage = (props: StatusProps) => {
         
         </div>
       </div>
-      <div className={styles.lowerdiv}><TabsNav userId={props.userId}/></div>
     </div>
   
   );

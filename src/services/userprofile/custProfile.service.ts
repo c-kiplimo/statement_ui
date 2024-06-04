@@ -1,33 +1,22 @@
 import { plainHeaders } from "@/src/constants/auth-headers";
-import { CUSTOMERS_URL} from "@/src/constants/environment";
+import { CUSTOMERS_URL } from "@/src/constants/environment";
 import axios from "axios";
 
 const ProfileAccountHandler = () => {
   const fetchCustomerProfiles = async (customerId?: string) => {
-    const profileUrl = `${CUSTOMERS_URL}${`/${customerId}`}`;
-  
+    const profileUrl = customerId ? `${CUSTOMERS_URL}/${customerId}` : CUSTOMERS_URL;
     
     try {
-      const response: ProfileType = await axios.get(profileUrl, {
-        headers: plainHeaders 
-      }).then((res) => {
-        let apiResponse = res.data;
-        
-        
-        if (apiResponse) {
-          let apiRes = apiResponse;
-          let profile: ProfileType = {
-            ...apiRes,
-          };
-          return profile;
-        } else {
-          throw new Error(apiResponse);
-        }
-      });
-
-      console.log(response);
+      const response = await axios.get(profileUrl, { headers: plainHeaders });
+      const apiResponse = response.data;
       
-      return response;
+      if (apiResponse) {
+        return {
+          ...apiResponse,
+        };
+      } else {
+        throw new Error("No data returned from API");
+      }
     } catch (error) {
       throw error;
     }

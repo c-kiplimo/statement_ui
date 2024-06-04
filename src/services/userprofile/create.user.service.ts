@@ -1,22 +1,22 @@
-import { ADD_RESTRICTION_URL } from "@/src/constants/environment";
+import { ASSIGN_ACCOUNT_USER } from "@/src/constants/environment";
 import axios from "axios";
 
 const createRestriction = async (
-  customerId: number,
+  accountId: number,
   accountRestrictions: any,
 ): Promise<number> => {
   try {
-    const api = `${ADD_RESTRICTION_URL}/${customerId}`;
+    const api = `${ASSIGN_ACCOUNT_USER}/${accountId}`;
     
     const response = await axios.post(api, accountRestrictions, {
       headers: {
-        "X-RequestId": "3563",
+        "X-RequestId": "3445",
       },
     });
     console.log("Response:", response.data);
     return response.data.id;
   } catch (error) {
-    console.error("Error creating restriction:", error);
+    console.error("Error creating user:", error);
     throw error;
   }
 };

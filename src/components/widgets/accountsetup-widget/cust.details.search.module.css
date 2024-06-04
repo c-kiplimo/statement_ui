@@ -1,22 +1,16 @@
-.bgcontainer{
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap:34px;
-}
-
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 13px 24px;
-  gap:34px;
-  width: 100%;
-  height: 278px;
-  background: #ffffff;
-  box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
-  border-radius: 8px;
-  top: 147px;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 13px 24px;
+top: 147px;
+gap: 12px;
+width: 100%;
+height: 278px;
+left: 339px;
+background: #FFFFFF;
+box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
+border-radius: 8px;
 }
 
 .titleContainer {
@@ -26,27 +20,13 @@
   justify-content: center;
   align-items: flex-start;
   padding: 24px 0px 16px 32px;
+  border-bottom: 1px solid #E6E6E6;
   gap: 24px;
   width: 100%;
   height: 104px;
-  flex: none;
-  align-self: stretch;
 }
 
-.textcontainer {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 24px 0px 16px 32px;
-  gap: 24px;
-  width: 100%;
-  height: 104px;
-  border-bottom: 1px solid #e6e6e6;
-  flex: none;
-  align-self: stretch;
-}
+
 
 .title {
   width: 414px;
@@ -71,39 +51,48 @@
   font-size: 18px;
   line-height: 24px;
   color: #151e00;
-  flex: none;
+  
 }
 
 .form{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 32px;
-  gap: 16px;  
-  width: 100%;
-  height: 136px;  
-  background: #FFFFFF;
-  border-radius: 8px; 
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-end;
+padding: 32px;
+gap: 56px;
+width: 100%;
+height: 136px;
+background: #FFFFFF;
+border-radius: 8px;
+align-self: stretch;
 }
 
 .details{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 auto;
-  width: 694px;
-  height: 72px;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+width: 694px;
+height: 72px;
 }
 
+
 .radioContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 16px;
-  margin: 0 auto;
-  width: 356px;
-  height: 66px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+margin: 0 auto;
+width: 356px;
+height: 66px;
+}
+
+
+.radio{
+  color: #979992;
 }
 
 .querry {
@@ -115,27 +104,24 @@
 }
 
 .radioGroup {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 56px;
-  width: 556px;
-  height: 24px;
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  color: #6f7269;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 56px;
+width: 356px;
+height: 24px;
 }
 
 .formContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 0 auto;
-  width: 304px;
-  height: 72px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+margin: 0 auto;
+width: 304px;
+height: 72px;
 }
 
 .header {
@@ -146,19 +132,20 @@
   gap: 10px;
   width: fit-content;
   height: 24px;
-  flex: none;
 }
 
 .button{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 0px 0px 4px;
-  gap: 10px;
-  margin: 0 auto;
-  width: 32px;
-  height: 36px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-end;
+padding: 0px 0px 4px;
+gap: 10px;
+width: 32px;
+height: 36px;
 }
+
+
 
 .icon {
   display: flex;
@@ -174,16 +161,4 @@
   border-radius: 24px;
   flex: none;
   cursor: pointer;
-}
-
-.notFound{
- display: flex;
- width: 100%;
- align-self: center;
- box-sizing: border-box;
-justify-content: center;
-align-items: center;
-height: 74px;
-background: #FFFFFF;
-border-bottom: 1px solid #E6E6E6;
 }

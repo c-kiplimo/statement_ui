@@ -14,7 +14,9 @@ import AddItem from "@/src/components/atoms/add-item/add.item";
 import RemoveRestrictionModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/remove-from-page/restriction/remove.restriction";
 import EditPageModal from "@/src/app/statement/(protected)/accountsetup/page-manupilation/edit-page/edit.page";
 import { RestrictionsAction } from "@/src/lib/actions/customer.restrictions.action";
-import CreateRestrictionModal, { EntriesProps } from "../../account-restrictions/restrictions";
+import CreateRestrictionModal, {
+  EntriesProps,
+} from "../../account-restrictions/restrictions";
 import { AllAccountRestrictionsAction } from "@/src/lib/actions/all.restrictions.action";
 
 interface DataType {
@@ -60,34 +62,35 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
     const fetchData = async () => {
       try {
         const data = await AllAccountRestrictionsAction();
-        
         setdatain(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
-
-
-  
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   const handleRemoveClick = useCallback((entryId: number) => {
-    console.log("Picked entry ID for removal:", entryId);
     setDataId(entryId);
     setModalVisible2(true);
+    fetchData();
   }, []);
 
   const handleEditClick = useCallback((entryId: number) => {
     console.log("Picked ID for editing:", entryId);
     setDataId(entryId);
     setModalVisible3(true);
+    fetchData();
   }, []);
+
+  const handleAddRestrictionSubmit = () => {
+    setModalVisible1(false);
+    fetchData();
+  };
 
   const columns: Datatype[] = [
     {
@@ -97,11 +100,10 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
         const dateTime = new Date(text);
         const date = dateTime.toLocaleDateString();
         const time = dateTime.toLocaleTimeString();
-
         return (
           <div className={styles.createdOn}>
-            <div>{date}</div>
-            <div>{time}</div>
+            <div className={styles.dateStyles}>{date}</div>
+            <div className={styles.timestyles}>{time}</div>
           </div>
         );
       },
@@ -179,8 +181,11 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
         titleName={"Restrictions"}
         addIcon={<img src="/addIcon.svg" alt="addIcon" />}
         filterIcon={<img src="/filterIcon.svg" alt="filterIcon" />}
-        restrictionArray={datain} 
-        visible={modalVisible1}      />
+        restrictionArray={datain}
+        visible={modalVisible1}
+        resId={props.userId!}
+        onSubmit={handleAddRestrictionSubmit}
+      />
 
       <RemoveRestrictionModal
         visible={modalVisible2}

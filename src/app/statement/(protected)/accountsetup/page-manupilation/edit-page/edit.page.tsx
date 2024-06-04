@@ -6,7 +6,7 @@ import { editRestriction } from "@/src/services/account/edit.account.restriction
 interface EditPageModalProps {
   visible: boolean;
   onCancel: () => void;
-  restrictionId: any; 
+  restrictionId: any;
 }
 
 const EditPageModal: FC<EditPageModalProps> = ({
@@ -24,11 +24,13 @@ const EditPageModal: FC<EditPageModalProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      await editRestriction(restrictionId, { name: restrictionName, description });
+      await editRestriction(restrictionId, {
+        name: restrictionName,
+        description:description,
+      });
       onCancel();
     } catch (error) {
       console.error("Error editing restriction:", error);
-      setError("Failed to update restriction. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -48,7 +50,10 @@ const EditPageModal: FC<EditPageModalProps> = ({
           <div className={`${styles.title} h4r`}>Edit Restriction</div>
           <form onSubmit={handleSubmit}>
             <div className={styles.input}>
-              <label htmlFor="restrictionName" className={`${styles.label} bodyr`}>
+              <label
+                htmlFor="restrictionName"
+                className={`${styles.label} bodyr`}
+              >
                 Restriction Name<span className={styles.required}>*</span>
               </label>
               <input
@@ -61,7 +66,9 @@ const EditPageModal: FC<EditPageModalProps> = ({
                 value={restrictionName}
                 onChange={(e) => setRestrictionName(e.target.value)}
               />
-              <label htmlFor="description" className={styles.label}>Description:</label>
+              <label htmlFor="description" className={styles.label}>
+                Description:
+              </label>
               <input
                 className={styles.descriptionDiv}
                 type="text"
@@ -73,8 +80,12 @@ const EditPageModal: FC<EditPageModalProps> = ({
               />
             </div>
             {error && <div className={styles.error}>{error}</div>}
-            <button className={styles.button} type="submit" disabled={isLoading}>
-              {isLoading ? 'Updating...' : 'Update Restriction'}
+            <button
+              className={styles.button}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Updating..." : "Update Restriction"}
             </button>
           </form>
         </div>

@@ -5,7 +5,6 @@ import { notification } from "antd";
 export const deleteRestriction = async (restrictionId: number) => {
   const deleteUrl = `${DELET_RESTRICTION_URL}/${restrictionId}`;
   console.log(`Attempting to delete restriction with ID: ${restrictionId}`);
-  console.log(`Delete URL: ${deleteUrl}`);
 
   try {
     const response = await axios.delete(deleteUrl, {

@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import styles from "./add.form.module.css";
 
-
 type AddProps = {
   headerText: string;
   onClick?: () => void;
@@ -19,7 +18,7 @@ type AddProps = {
   statusOptions?: string[];
 };
 
-const AddItem: React.FC<AddProps> = (props) => {
+const AddItem= (props:AddProps) => {
   const [username, setUsername] = useState("");
   const [userRole, setUserRole] = useState("");
   const [status, setStatus] = useState("");
@@ -42,7 +41,7 @@ const AddItem: React.FC<AddProps> = (props) => {
   return (
     <div className={styles.container}>
       <div
-        className={styles.closeIcon}
+        className={styles.counceIcon}
         style={{ color: "gray" }}
         onClick={props.onClick}
       >
@@ -67,19 +66,6 @@ const AddItem: React.FC<AddProps> = (props) => {
             name="username"
             placeholder={props.placeholder1}
             value={username}
-            onChange={handleInputChange}
-          />
-
-          <label className={styles.inputdiv} htmlFor="description">
-            {props.inputTitle4}
-          </label>
-          <input
-            className={styles.input}
-            type="text"
-            id="description"
-            name="description"
-            placeholder={props.placeholder4}
-            value={description}
             onChange={handleInputChange}
           />
 
@@ -118,16 +104,29 @@ const AddItem: React.FC<AddProps> = (props) => {
               </select>
             </>
           )}
-          <button className={styles.button}>{props.buttonText}</button>
+
+          {props.inputTitle4 && (
+            <>
+              <label className={styles.inputdiv}>{props.inputTitle4}</label>
+              <select
+                className={styles.input}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              >
+                <option value="">{props.placeholder4}</option>
+                {(props.statusOptions ?? []).map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
         </form>
+        <button className={styles.button}>{props.buttonText}</button>
       </div>
     </div>
   );
-};
-
-AddItem.defaultProps = {
-  inputTitle3: "",
-  placeholder3: "",
 };
 
 export default AddItem;
