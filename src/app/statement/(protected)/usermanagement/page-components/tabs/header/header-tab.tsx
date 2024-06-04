@@ -1,16 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import styles from "./header-tab.module.css";
-//import UsersTab from "../../user-management-tab-bar/current-user-tab";
-//import RoleTable from "../permissions-tab/role-table";
 import RolePermission from "@/src/app/statement/(protected)/user-management/create-new-roles/page";
-//import UserGroup from "../user-groups-tab-bar/user-groups-tab";
 import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
-//import UsersTab from "../users/users";
 import RoleTable from "@/src/components/widgets/user-management/tabs/permissions-tab/role-table";
 import Users from "@/src/components/widgets/user-management/tabs/users/users";
-import UserGroup from "@/src/components/widgets/user-management/tabs/user-groups-tab-bar/user-groups-tab";
+import UserGroup from "@/src/app/statement/(protected)/usermanagement/page-components/tabs/user-groups-tab-bar/user-groups-tab";
 
 const HeaderTabs = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);

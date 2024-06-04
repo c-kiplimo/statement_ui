@@ -84,7 +84,7 @@ export const MenuData: SideNavMenu[] = [
     menu: [
       {
         title: "User Management",
-        path: "/statement/user-management",
+        path: "/statement/usermanagement",
         icon: UserManagementIcon,
         opened: false,
       },

@@ -36,7 +36,8 @@ const PendingAuthorizationModalContent = ({
         <Fragment>
           <div
             style={{
-              display: "inline-flex",
+              boxSizing: "border-box",
+              display: "flex",
               padding: "32px 32px 32px 0px",
               flexDirection: "column",
               justifyContent: "center",

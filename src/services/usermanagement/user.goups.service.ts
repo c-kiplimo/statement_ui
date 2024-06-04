@@ -1,34 +1,30 @@
 import { USER_GROUP_URL } from "@/src/constants/environment";
 import { GROUP_URL } from "@/src/constants/environment";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const GroupHandler = () => {
-    const fetchAllUserGroups = async(
-    ) : Promise<UserGroups[]> =>{
-        const userGroupUrl = `${USER_GROUP_URL}`;
+    const fetchAllUserGroups = async (userId: number): Promise<UserGroups[]> => {
+        const userGroupUrl = `${USER_GROUP_URL}/${userId}`;
         try {
-            const response = await axios.get(userGroupUrl, {
-                headers: {
-                    'X-RequestId': '3456778909',
-                },
-            }).then((res) => {
-            let apiResponse = res.data
+          const response: AxiosResponse<UserGroups[]> = await axios.get(userGroupUrl, {
+            headers: {
+              'X-RequestId': '3456778909',
+            },
+          });
 
-            if (apiResponse) {
-                let apiRes = apiResponse;
-                let userGroup: UserGroups[] = [
-                    ...apiRes,
-                ];
-                return userGroup;
-            } else {
-                throw new Error(apiResponse);
-            }
-            });
-            return response;
+          const apiResponse = response.data;
+      
+          if (apiResponse) {
+            const userGroup: UserGroups[] = [...apiResponse];
+            console.log(userGroup);
+            return userGroup;
+          } else {
+            throw new Error('API response is empty');
+          }
         } catch (error) {
-           throw error;
-        }       
-    };
+          throw error;
+        }
+      };
     const fetchAllGroups = async(
     ) : Promise<Groups[]> =>{
         const groupUrl = `${GROUP_URL}`;
