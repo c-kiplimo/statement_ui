@@ -25,10 +25,42 @@ const UserGroup = React.memo(({ setActive }: any) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.card}>
-          <div className={styles.cardWrapper}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: "19px",
+        alignSelf: "stretch",
+        background: tokenColor.default.white,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          padding: "8px 32px 16px 24px",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: "16px",
+          alignSelf: "stretch",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            alignSelf: "stretch",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
             <CardDescItem
               title="Meraki Systems - Accounts"
               description="High Volume Customer"
@@ -36,7 +68,8 @@ const UserGroup = React.memo(({ setActive }: any) => {
                 <CustomSvgIcon width={16} height={16} fillColor="#F5F5F5" />
               }
             />
-            <div className={styles.activity}>
+
+            <div style={{ marginLeft: "auto" }}>
               <ActivityBadge
                 icon={<ChevronDown />}
                 token={tokenColor}
@@ -49,7 +82,14 @@ const UserGroup = React.memo(({ setActive }: any) => {
             </div>
           </div>
         </div>
-        <div className={styles.contactCard}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
           <ContactCard
             title="Country"
             content="Kenya/Moi Avenue"
@@ -82,7 +122,14 @@ const UserGroup = React.memo(({ setActive }: any) => {
         </div>
       </div>
 
-      <div className={styles.tableHeader}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "0px 24px",
+          width: "100%",
+        }}
+      >
         <SearchInput onSearch={handleSearch}></SearchInput>
         <PrimaryButton
           buttonType="default"
@@ -104,6 +151,7 @@ const UserGroup = React.memo(({ setActive }: any) => {
     </div>
   );
 });
+
 type SearchInputProps = {
   onSearch: (searchTerm: string) => void;
 };
