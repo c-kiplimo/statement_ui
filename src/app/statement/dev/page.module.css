@@ -1,0 +1,73 @@
+.container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+gap: 54px;
+width: 100%;
+height: 176px;
+border: 2px solid gold;
+background:var(--white);
+}
+
+.wrapper{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 40px;
+width: 100%;
+height: 176px;
+border: 2px solid blue;
+}
+
+.header{
+display: flex;
+align-items: flex-start;
+gap: 24px;
+width: 100%;
+height: 80px;
+border: 2px solid green;
+}
+
+.icon{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 10px;
+width: 48px;
+height: 48px;
+background: #003A49;
+border-radius: 25px;
+}
+
+.userDetails{
+display: flex;
+justify-content: space-between;
+align-self: flex-start;
+align-items: center;
+gap: 40px;
+/* width: 100%; */
+height: 80px;
+border: 2px solid black;
+}
+
+.content{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+width: 517px;
+margin: 0 auto;
+height: 80px;
+}
+
+.stateBtn{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+margin: 0 auto;
+width: 83px;
+height: 34px;
+}
