@@ -1,73 +1,185 @@
-.container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-gap: 54px;
-width: 100%;
-height: 176px;
-border: 2px solid gold;
-background:var(--white);
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 54px;
+  width: 1013px;
+  height: 176px;
+  background: var(--white);
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
-.wrapper{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 40px;
-width: 100%;
-height: 176px;
-border: 2px solid blue;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 40px;
+  width: 1013px;
+  height: 176px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
-.header{
-display: flex;
-align-items: flex-start;
-gap: 24px;
-width: 100%;
-height: 80px;
-border: 2px solid green;
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 1013px;
+  height: 80px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
-.icon{
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding: 16px;
-gap: 10px;
-width: 48px;
-height: 48px;
-background: #003A49;
-border-radius: 25px;
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 10px;
+  width: 48px;
+  height: 48px;
+  background: #003a49;
+  border-radius: 25px;
 }
 
-.userDetails{
-display: flex;
-justify-content: space-between;
-align-self: flex-start;
-align-items: center;
-gap: 40px;
-/* width: 100%; */
-height: 80px;
-border: 2px solid black;
+.userDetails {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: 1013px;
+  height: 80px;
 }
 
-.content{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 8px;
-width: 517px;
-margin: 0 auto;
-height: 80px;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 517px;
+  margin: 0 auto;
+  height: 80px;
 }
 
-.stateBtn{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 8px;
-margin: 0 auto;
-width: 83px;
-height: 34px;
+.stateBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 auto;
+  width: 83px;
+  height: 34px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px 32px 0px 64px;
+  gap: 40px;
+  width: 1013px;
+  height: 56px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.sectionOne {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 288px;
+  height: 56px;
+  border-right: 1px solid var(--border-border-secondary);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 83px;
+  height: 24px;
+  color: var(--Text-Text-Description-01);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  width: 169px;
+  height: 24px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.sectionTwo {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 282px;
+  height: 56px;
+  border-right: 1px solid var(--border-border-secondary);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.sectionThree {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 136px;
+  height: 56px;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.texter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  width: 137px;
+  height: 24px;
+  color: var(--Text-Text-Description-01);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
