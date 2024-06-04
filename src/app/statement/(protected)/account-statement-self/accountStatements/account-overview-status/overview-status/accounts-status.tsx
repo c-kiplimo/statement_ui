@@ -76,15 +76,8 @@ function AccountStatus() {
               <span className={` bodyl `}>{statusData?.category}</span>
             </td>
             <td>{statusData?.customerNumber}</td>
-            <td
-              style={{
-                textAlign: "center",
-                borderRadius: "4px",
-                color: "#17D05B",
-                backgroundColor: "#E0FFEB",
-              }}
-            >
-              {statusData?.status}
+            <td>
+              <span className={styles.statusspan}>{statusData?.status}</span>
             </td>
           </tbody>
         </table>
