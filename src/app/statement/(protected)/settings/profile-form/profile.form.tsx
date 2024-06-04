@@ -7,9 +7,6 @@ import { useQuery } from "react-query";
 import { updateUserDetails } from "@/src/services/auth/get.user.byUserId";
 import { notification } from "antd";
 import { UserInformationContext } from "../context/user.info.context";
-import { message } from 'antd';
-
-
 
 export type UserInformationDetails = {
   firstname: string;
@@ -24,19 +21,21 @@ const ProfileForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [language, setLanguage] = useState("ENGLISH");
-  const [messageApi, contextHolder] = message.useMessage();
-
   const profile = useProfileCreated();
-  const {setUserInfodetails} = useContext(UserInformationContext)
+  const { setUserInfodetails } = useContext(UserInformationContext);
   let userId = profile?.userId;
+
+  const [initialUserName, setInitialUserName] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
+  const [initialPhone, setInitialPhone] = useState("");
+  const [initialLanguage, setInitialLanguage] = useState("ENGLISH");
 
   const fetchProfileData = async () => {
     const result = await profileInformationDetails(parseInt(userId!));
-    setUserInfodetails(result)
+    setUserInfodetails(result);
     return result;
   };
 
-  
   const { data: profileInfodata, error, isError, isLoading } = useQuery(
     ["userid", userId],
     fetchProfileData,
@@ -48,10 +47,16 @@ const ProfileForm = () => {
 
   useEffect(() => {
     if (profileInfodata) {
-      setUserName(`${profileInfodata.firstname} ${profileInfodata.lastname}`);
+      const fullName = `${profileInfodata.firstname} ${profileInfodata.lastname}`;
+      setUserName(fullName);
       setEmail(profileInfodata.email);
       setPhone(profileInfodata.phone);
-      setLanguage(profileInfodata.language)
+      setLanguage(profileInfodata.language);
+
+      setInitialUserName(fullName);
+      setInitialEmail(profileInfodata.email);
+      setInitialPhone(profileInfodata.phone);
+      setInitialLanguage(profileInfodata.language);
     }
   }, [profileInfodata]);
 
@@ -69,35 +74,42 @@ const ProfileForm = () => {
 
     const editProfileData = {
       firstName: firstname,
-      lastName:lastname,
+      lastName: lastname,
       email: email,
       mobileNumber: phone,
-      language: language
+      language: language,
     };
-    
+
     try {
       await updateUserDetails(parseInt(userId!), editProfileData);
       notification.success({
         message: "Account Profile Updated Successfully!",
       });
-      setUserName("");
-      setEmail("");
-      setPhone("");
-      setLanguage("ENGLISH");
+      setInitialUserName(userName);
+      setInitialEmail(email);
+      setInitialPhone(phone);
+      setInitialLanguage(language);
     } catch (error) {
       notification.error({
-        message: 'Failed to Update Profile.',
+        message: "Failed to Update Profile.",
       });
       throw error;
     }
   };
 
+  const handleCancel = () => {
+    setUserName(initialUserName);
+    setEmail(initialEmail);
+    setPhone(initialPhone);
+    setLanguage(initialLanguage);
+  };
+
   const getCurrentTime = () => {
     const now = new Date();
-    return new Intl.DateTimeFormat('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short'
+    return new Intl.DateTimeFormat("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
     }).format(now);
   };
 
@@ -146,14 +158,14 @@ const ProfileForm = () => {
       <form className={styles.formContainer} onSubmit={handleUpdateProfile}>
         <div className={styles.inputsContainer}>
           <ProfileForm.Input
-            placeholder="Abby"
+            placeholder="John James"
             labelName="User Name"
             inputType="text"
             value={userName}
             onChange={handleUserNameChange}
           />
           <ProfileForm.Input
-            placeholder="Kelixyabby@gmail.com"
+            placeholder="john@gmail.com"
             labelName="Email"
             inputType="email"
             value={email}
@@ -188,7 +200,12 @@ const ProfileForm = () => {
         </div>
 
         <div className={styles.buttonsContainer}>
-          <button type="submit" className={styles.updateButton}>Update Settings</button>
+          <button type="submit" className={styles.updateButton}>
+            Update Settings
+          </button>
+          <button type="button" className={styles.cancelButton} onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
       </form>
     </div>
