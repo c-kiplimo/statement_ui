@@ -110,6 +110,10 @@ export const UPDATE_ACCOUNT_SHEDULE = `${PROFILE_URL}/api/v1/accounts/schedule`;
 
 export const RAISE_QUESTION_URL = `${PROFILE_URL}/api/v1/customer-help`;
 
+export const CREATE_USER_NOTIFICATION_STATUS = `${PROFILE_URL}/api/v1/notification`;
+
+export const FETCH_USER_NOTIFICATION_STATUS = `${PROFILE_URL}/api/v1/notification`;
+
 export const ACCOUNT_STATEMENT_BY_USER_ID = `${PROFILE_URL}/api/v1/statement-request/user`;
 
 export const DELET_RESTRICTION_URL = `${PROFILE_URL}/api/v1/customers/restrictions`;
