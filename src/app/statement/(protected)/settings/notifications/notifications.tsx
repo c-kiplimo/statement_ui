@@ -33,6 +33,13 @@ const SettingsNotifications = () => {
   });
   const [selectedEmail, setSelectedEmail] = useState('');
 
+  const [initialSwitchStates, setInitialSwitchStates] = useState<SwitchStates>({
+    marketingContent: false,
+    events: false,
+    serviceUpdates: false
+  });
+  const [initialSelectedEmail, setInitialSelectedEmail] = useState('');
+
   const profile = useProfileCreated();
   const userId = profile?.userId;
 
@@ -41,13 +48,16 @@ const SettingsNotifications = () => {
     () => getAccountNotificationAction(parseInt(userId!)), {
       enabled: !!userId,
       onSuccess: (data) => {
-        setSwitchStates({
+        const initialStates = {
           marketingContent: data.allowMarketing,
           events: data.allowEvents,
           serviceUpdates: data.allowServiceUpdates
-        });
-
+        };
+        setSwitchStates(initialStates);
         setSelectedEmail(data.notificationMode);
+
+        setInitialSwitchStates(initialStates);
+        setInitialSelectedEmail(data.notificationMode);
       }
   });
 
@@ -120,6 +130,11 @@ const SettingsNotifications = () => {
     }
   };
 
+  const handleCancel = () => {
+    setSwitchStates(initialSwitchStates);
+    setSelectedEmail(initialSelectedEmail);
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading notification settings</div>;
 
@@ -135,16 +150,6 @@ const SettingsNotifications = () => {
         </p>
       </div>
       <div>
-        <div className={styles.textcontainer}>
-          <VerticalInfoDescription 
-            title="Debits and credit alerts" 
-            titleStyle={{ fontSize: '20px', paddingBottom: '8px' }} 
-            description="Get alerts about your account activity" 
-          />
-          <p className={`${isOn ? styles.onactive : styles.offactive}`} onClick={handleToggle}>
-            <span>{isOn ? 'ON' : 'OFF'}</span> <span>{isOn ? <CaretRightOutlined /> : <CaretLeftOutlined />}</span>
-          </p>
-        </div>
         <SettingsNotifications.Body 
           title="Marketing content" 
           description="Get alerts about your account activity" 
@@ -177,7 +182,11 @@ const SettingsNotifications = () => {
           selectedEmail={selectedEmail}
         />
       </Modal>
-      <button onClick={handleSubmit}>Submit</button>
+      <div className={styles.buttons}>
+      <button className={styles.cancelsubmit} onClick={handleCancel}>Cancel</button>
+        <button className={styles.submitbutton} onClick={handleSubmit}>Submit</button>
+      </div>
+      
     </div>
   );
 };
