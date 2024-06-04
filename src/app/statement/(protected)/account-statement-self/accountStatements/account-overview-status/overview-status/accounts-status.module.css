@@ -24,3 +24,10 @@
   font-weight: bold;
   align-items: flex-start;
 }
+.statusspan{
+  text-align: center;
+  border-radius: 4px;
+  color: #17D05B;
+  background: #E0FFEB;
+  padding: 8px;
+}

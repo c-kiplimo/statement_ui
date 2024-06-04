@@ -88,6 +88,7 @@ const AccountStatementSelf = () => {
                     id="account"
                     onChange={handleAccountChange}
                     value={selectedAccount || ""}
+                    className={styles.selectoption}
                   >
                     <option value="">Select The Account</option>
                     {options!.map((option) => (

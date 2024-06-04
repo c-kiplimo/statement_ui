@@ -219,6 +219,7 @@ ActiveStatement.Selection = (props: selectionProps) => (
     id="period"
     style={props.selectionStyles}
     onChange={props.onChange}
+    className={styles.selectoption}
   >
     <option value="">Select The Account</option>
     {props.options.map((option) => (
