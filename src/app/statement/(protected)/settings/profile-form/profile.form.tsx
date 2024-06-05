@@ -30,8 +30,9 @@ const ProfileForm = () => {
   const [initialPhone, setInitialPhone] = useState("");
   const [initialLanguage, setInitialLanguage] = useState("ENGLISH");
 
+  console.log(userId)
   const fetchProfileData = async () => {
-    const result = await profileInformationDetails(parseInt(userId!));
+    const result = await profileInformationDetails(userId!);
     setUserInfodetails(result);
     return result;
   };
@@ -81,7 +82,7 @@ const ProfileForm = () => {
     };
 
     try {
-      await updateUserDetails(parseInt(userId!), editProfileData);
+      await updateUserDetails(userId!, editProfileData);
       notification.success({
         message: "Account Profile Updated Successfully!",
       });
@@ -185,10 +186,11 @@ const ProfileForm = () => {
             <label htmlFor="language" className={`bodyr`}>
               Language
             </label>
+
+            <div className={styles.selectbox}>
             <select
               name="language"
               id="language"
-              className={styles.selectbox}
               value={language}
               onChange={handleLanguageChange}
               required
@@ -196,6 +198,7 @@ const ProfileForm = () => {
               <option value="ENGLISH">ENGLISH</option>
               <option value="SWAHILI">SWAHILI</option>
             </select>
+            </div>
           </div>
         </div>
 

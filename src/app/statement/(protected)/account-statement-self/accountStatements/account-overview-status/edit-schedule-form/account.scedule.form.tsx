@@ -156,6 +156,7 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
             <div className={styles.fileformat}>
               <div className={styles.format}>
                 <p>File Format</p>
+                <div className={styles.selectDiv}>
                 <select
                   name="format"
                   id="format"
@@ -165,9 +166,11 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
                   <option value="PDF">PDF</option>
                   <option value="CSV">CSV</option>
                 </select>
+                </div>
               </div>
               <div className={styles.template}>
                 <p>Template</p>
+                <div className={styles.selectDiv}>
                 <select
                   name="template"
                   id="template"
@@ -177,6 +180,7 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
                   <option value="CORPORATE">CORPORATE</option>
                   <option value="INDIVIDUAL">INDIVIDUAL</option>
                 </select>
+                </div>
               </div>
             </div>
           </div>

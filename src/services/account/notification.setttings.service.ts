@@ -1,4 +1,5 @@
 import { CREATE_USER_NOTIFICATION_STATUS, FETCH_USER_NOTIFICATION_STATUS } from "@/src/constants/environment";
+import { notification } from "antd";
 import axios from "axios";
 
 export const createUserNotifications = async (notificationData:NotificationSettingTypes):Promise<NotificationSettingTypes>=>{
@@ -18,7 +19,7 @@ export const createUserNotifications = async (notificationData:NotificationSetti
         }
     
 }
-export const fetchAccountNotificationsByUserId  = async (userId:number):Promise<NotificationSettingTypes>=>{
+export const fetchAccountNotificationsByUserId  = async (userId:string):Promise<NotificationSettingTypes>=>{
     const apiUrl = `${FETCH_USER_NOTIFICATION_STATUS}/${userId}`
     try {
         
@@ -48,3 +49,26 @@ export const fetchAccountNotificationsByUserId  = async (userId:number):Promise<
       throw error;
   }
   }
+
+  export const editAccountNotification = async (userId: string, notificationData: NotificationSettingTypes): Promise<NotificationSettingTypes> => {
+    const createScheduleUrl = `${FETCH_USER_NOTIFICATION_STATUS}/${userId}`;
+  console.log(notificationData);
+  
+    try {
+      const response = await axios.put(createScheduleUrl, notificationData, {
+        headers: {
+          "X-RequestId": "23456786543",
+        },
+      });
+  
+      notification.success({
+        message: 'Updated Notification Successfully',
+      });
+      return response.data;
+    } catch (error) {
+      notification.error({
+        message: 'Failed to Update Notifications. Try again later',
+      });
+      throw error;
+    }
+  };

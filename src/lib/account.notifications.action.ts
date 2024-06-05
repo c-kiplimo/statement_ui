@@ -1,6 +1,6 @@
 import { fetchAccountNotificationsByUserId } from "../services/account/notification.setttings.service"
 
-export const getAccountNotificationAction = async (userId:number): Promise<NotificationSettingTypes> =>{
+export const getAccountNotificationAction = async (userId:string): Promise<NotificationSettingTypes> =>{
     const response = await fetchAccountNotificationsByUserId(userId);
 
     if (response === undefined || null){

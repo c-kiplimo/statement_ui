@@ -2,7 +2,7 @@ import { GET_USER_PROFILE_DETAILS } from "@/src/constants/environment";
 import { notification } from "antd";
 import axios from "axios";
 // get user profile information on the settings page
-export const getUserDetails = async (userId:number):Promise<userDetails> => {
+export const getUserDetails = async (userId:string):Promise<userDetails> => {
     const apiUrl = `${GET_USER_PROFILE_DETAILS}/${userId}`;
 
     try {
@@ -33,7 +33,7 @@ export const getUserDetails = async (userId:number):Promise<userDetails> => {
 
 
 //update user profile details by id
-export const updateUserDetails = async (userId: number, editProfileData: userDetails): Promise<userDetails> => {
+export const updateUserDetails = async (userId: string, editProfileData: userDetails): Promise<userDetails> => {
   const createScheduleUrl = `${GET_USER_PROFILE_DETAILS}/${userId}`;
 
   try {

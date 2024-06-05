@@ -58,9 +58,7 @@ export const fetchAccountSheduleById  = async (id:number):Promise<SingleAccountS
   }
 
   export const editAccountSchedule = async (id: number, accountScheduleFormData: SingleAccountsSchedule): Promise<SingleAccountsSchedule> => {
-    const createScheduleUrl = `${UPDATE_ACCOUNT_SHEDULE}/${id}`;
-  console.log(accountScheduleFormData);
-  
+    const createScheduleUrl = `${UPDATE_ACCOUNT_SHEDULE}/${id}`;  
     try {
       const response = await axios.put(createScheduleUrl, accountScheduleFormData, {
         headers: {
@@ -68,9 +66,7 @@ export const fetchAccountSheduleById  = async (id:number):Promise<SingleAccountS
         },
       });
   
-      notification.success({
-        message: 'Updated Successfully',
-      });
+
       return response.data;
     } catch (error) {
       notification.error({
