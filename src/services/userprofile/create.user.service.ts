@@ -1,24 +1,32 @@
-import { ASSIGN_ACCOUNT_USER } from "@/src/constants/environment";
+import { ADD_CUSTOMER_USER_ACCOUNT } from "@/src/constants/environment";
 import axios from "axios";
 
-const createRestriction = async (
-  accountId: number,
-  accountRestrictions: any,
-): Promise<number> => {
+interface UserPayload {
+  accountId: number;
+  email: string;
+  role: string;
+  status: string;
+}
+
+
+
+const createCustomerAccountUser = async (
+  userPayload: UserPayload
+)=> {
   try {
-    const api = `${ASSIGN_ACCOUNT_USER}/${accountId}`;
+    const api = `${ADD_CUSTOMER_USER_ACCOUNT}`;
+    console.log(userPayload);
     
-    const response = await axios.post(api, accountRestrictions, {
+    const response = await axios.post(api, userPayload, {
       headers: {
         "X-RequestId": "3445",
       },
     });
-    console.log("Response:", response.data);
-    return response.data.id;
-  } catch (error) {
-    console.error("Error creating user:", error);
+    return response.data;
+  } catch (error:any) {
+    console.error("Error creating user:", error.message || error);
     throw error;
   }
 };
 
-export { createRestriction };
+export { createCustomerAccountUser };

@@ -134,5 +134,9 @@ export const LOGOUT_USER= `${API_URL}/api/v1/user/logout`;
 
 
 export const USER_ACCOUNTS_URL = `${PROFILE_URL}/api/v1/accounts/users`;
+
 export const All_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/restrictions?page=0&size=10&sort=name,asc`;
-export const  ASSIGN_ACCOUNT_USER = `${PROFILE_URL}/api/v1/accounts/assign`
+
+export const DELETE_ACCOUNT_USER =`${PROFILE_URL}/api/v1/accounts`;
+
+export const ADD_CUSTOMER_USER_ACCOUNT=`${PROFILE_URL}/api/v1/accounts/assign`

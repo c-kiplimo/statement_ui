@@ -99,6 +99,8 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       dataIndex: "userName",
       render: (text: any) => <span className={styles.ActivityName}>{text}</span>,
     },
+
+
     {
       Key:"status",
       title: "Status",
@@ -129,7 +131,7 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       render: (text: any, record: any, index: number) => (
         <Link href="/statement/accountsetup/widgets/configuration-form" key={`settings-${record.id}`}>
           <button
-            className={`${styles.settingsButton} ${
+            className={`${`${styles.settingsButton} captionr`} ${
               settingsClicked === record.id
                 ? styles.settingsButtonClicked
                 : styles.test
@@ -150,7 +152,7 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       render: (text: any, record: any, index: number) => (
         <Link href="/statement/accountsetup/users" key={`icons-${record.id}`}>
           <button
-            className={`${styles.settingsButton} ${
+            className={`${`${styles.eyeIconDiv} captionr`} ${
               viewClicked === record.id
                 ? styles.viewButtonClicked
                 : styles.test

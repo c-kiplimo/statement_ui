@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useMemo, useState } from "react";
 import CustomTable, { DataFetcher } from "../widgets/table/table";
 import { Select, Spin } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import styles from "./users.status.module.css";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
@@ -12,7 +13,7 @@ import { AccountsProfile } from "@/src/lib/actions/accountprofile.action";
 import { profilesTypeprops } from "../account-profile/account.profile";
 import AddItem from "@/src/components/atoms/add-item/add.item";
 import RemoveUserModal from "../page-manupilation/remove-from-page/user/remove.user";
-import AddUserModal from "../page-manupilation/Add-in-page/addUser/add.user";
+import AddUserModal from "../widgets/forms/add.form";
 
 const { Option } = Select;
 
@@ -41,16 +42,22 @@ const AccountsStatus = (props: UserIdProps) => {
   const [removeUser, setRemoveUser] = useState(false);
   const [addUser, setAddUser] = useState(false);
   const [dataId, setDataId] = useState<number | null>(null);
+  const [passedAccId, setPassedAccId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const passedAccId = sessionStorage.getItem("passedaccountId");
+    if (passedAccId) {
+      setPassedAccId(parseInt(passedAccId));
+    }
+  }, []);
 
+  useEffect(() => {
     if (!passedAccId) return;
 
     const fetchProfileData = async () => {
       try {
-        const accountProf = await AccountsProfile(parseInt(passedAccId));
+        const accountProf = await AccountsProfile(passedAccId);
         setProfile(accountProf);
       } catch (error) {
         console.error("Failed to fetch profile details", error);
@@ -58,17 +65,15 @@ const AccountsStatus = (props: UserIdProps) => {
     };
 
     fetchProfileData();
-  }, []);
+  }, [passedAccId]);
 
   useEffect(() => {
-    const passedAccId = sessionStorage.getItem("passedaccountId");
+    if (!passedAccId) return;
 
     const fetchData = async () => {
       setLoading(true);
-      if (!passedAccId) return;
-
       try {
-        let incomingAccountId = await UsersAction(parseInt(passedAccId));
+        const incomingAccountId = await UsersAction(passedAccId);
         setIncomingData(incomingAccountId);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -78,10 +83,10 @@ const AccountsStatus = (props: UserIdProps) => {
     };
 
     fetchData();
-  }, []);
+  }, [passedAccId]);
 
   const handleRoleChange = (value: string, id: React.Key) => {
-    console.log(`Role for user ${id} changed to ${value}`);
+    // Handle role change logic here
   };
 
   const handleRemoveClick = (entryId: number) => {
@@ -102,7 +107,7 @@ const AccountsStatus = (props: UserIdProps) => {
         const dateTime = new Date(text);
         const date = dateTime.toLocaleDateString();
         const time = dateTime.toLocaleTimeString();
-  
+
         return (
           <div className={styles.date}>
             <div className={styles.dateStyles}>{date}</div>
@@ -111,7 +116,7 @@ const AccountsStatus = (props: UserIdProps) => {
         );
       },
     },
-    
+
     {
       title: "User Name",
       dataIndex: "userName",
@@ -126,8 +131,8 @@ const AccountsStatus = (props: UserIdProps) => {
           defaultValue={text}
           onChange={(value) => handleRoleChange(value, record.id!)}
         >
-          <Option value="Admin">Admin</Option>
-          <Option value="Viewer">Viewer</Option>
+          <Option className={styles.option} value="Admin">Admin</Option>
+          <Option className={styles.option} value="Viewer">Viewer</Option>
         </Select>
       ),
     },
@@ -150,7 +155,10 @@ const AccountsStatus = (props: UserIdProps) => {
       title: "",
       dataIndex: "icon",
       render: (_, record) => (
-        <div className={styles.icons} onClick={() => handleRemoveClick(1)}>
+        <div
+          className={styles.icons}
+          onClick={() => handleRemoveClick(Number(record.id))}
+        >
           <img src="/trash.svg" alt="trash" />
         </div>
       ),
@@ -159,12 +167,34 @@ const AccountsStatus = (props: UserIdProps) => {
 
   const numberOfUsers = incomingData.length;
 
+  const getLastLoginTime = useMemo(() => {
+    const now = new Date();
+    const date = now.toLocaleDateString();
+    const time = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${date} ${time}`;
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const incomingAccountId = await UsersAction(passedAccId!);
+      setIncomingData(incomingAccountId);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       {profile && (
         <AccountProfilePage
           icon={<img src="/teamusericon.png" alt="teamusericon" />}
-          lastSeenTime={"Last login on 45 minutes ago"}
+          lastSeenTime={`Last login on ${getLastLoginTime}`}
           accountId={profile.accountId}
           accountName={profile.accountTitle}
           numberOfusers={`(${numberOfUsers} users)`}
@@ -201,17 +231,24 @@ const AccountsStatus = (props: UserIdProps) => {
       <RemoveUserModal
         visible={removeUser}
         onCancel={() => setRemoveUser(false)}
-        accountId={dataId!}
+        userId={dataId!} 
+        onRefreshData={fetchData}
       />
       <AddUserModal
         visible={addUser}
+        roleOptions={["ADMIN", "VIEWER"]}
+        statusOptions={["ACTIVE", "DISABLED"]}
+        accountId={passedAccId!}
+        closeIcon={<CloseOutlined />}
         onCancel={() => setAddUser(false)}
-        roleOptions={["Admin", "Viewer"]}
-        statusOptions={["Active", "Disabled"]}
+        fetchData={fetchData}
       />
-      {loading &&  <div className={styles.spinnerContainer}>
-        <Spin size="large" />
-      </div>}
+
+      {loading && (
+        <div className={styles.spinnerContainer}>
+          <Spin size="large" />
+        </div>
+      )}
     </div>
   );
 };

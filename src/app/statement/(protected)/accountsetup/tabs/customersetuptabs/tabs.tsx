@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import styles from "./tabs.module.css";
 import AccountsPage from '../../accounts/accounts';

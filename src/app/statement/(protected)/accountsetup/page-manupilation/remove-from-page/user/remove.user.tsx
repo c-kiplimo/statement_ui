@@ -1,54 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./remove.user.module.css";
 import { CloseOutlined } from "@ant-design/icons";
-import { deleteUser } from "@/src/services/account/delete.user.acct.service";
-import { Button } from "antd";
+import { Alert, Button } from "antd";
+import { deleteAccountUser } from "@/src/services/account/delete.account.user.service";
 
 interface RemoveUserModalProps {
   visible: boolean;
   onCancel: () => void;
-  accountId:number;
+  userId: number;
+  onRefreshData: () => void;
 }
 
-const RemoveUserModal: React.FC<RemoveUserModalProps> = ({ visible, onCancel,accountId }) => {
+const RemoveUserModal: React.FC<RemoveUserModalProps> = ({
+  visible,
+  onCancel,
+  userId,
+  onRefreshData,
+}) => {
+  const [error, setError] = useState<string | null>(null);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   if (!visible) {
     return null;
   }
 
   const handleYesClick = async () => {
+    setIsButtonClicked(true);
+    setError(null);
     try {
-      await deleteUser(accountId);
+      await deleteAccountUser(userId);
       onCancel();
+      onRefreshData();
     } catch (error) {
-      console.error("Error deleting restriction:", error);
+      console.error("Error deleting user:", error);
+      setError("Failed to delete the user. Please try again.");
     }
   };
 
   return (
-    <div className={styles.modalBackdrop}>
-    <form className={styles.modalContent}>
-      <div className={styles.closeIcon} onClick={onCancel}>
-        <div className={styles.close}>
-          <CloseOutlined />
+    <div
+      className={styles.modalBackdrop}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <form className={styles.modalContent}>
+        <div
+          className={styles.closeIcon}
+          onClick={onCancel}
+          role="button"
+          aria-label="Close"
+        >
+          <div className={styles.close}>
+            <CloseOutlined />
+          </div>
         </div>
-      </div>
-      <div className={styles.formdiv}>
-        <div className={`${styles.title} h4r`}>Remove User</div>
-        <div className={`${styles.query} bodyr`}>
-          Are you sure you want to delete this User?
+        <div className={styles.formdiv}>
+          <div className={`${styles.title} h4r`} id="modal-title">
+            Remove Restriction
+          </div>
+          <div className={`${styles.query} bodyr`}>
+            Are you sure you want to delete this restriction?
+          </div>
+          {error && (
+            <Alert
+              message="Error"
+              description={error}
+              type="error"
+              showIcon
+              className={styles.errorAlert}
+            />
+          )}
+          <Button.Group className={styles.buttonGroup}>
+            <Button
+              className={`${styles.Nobutton} bodym`}
+              onClick={onCancel}
+              style={{ color: "#F30039" }}
+            >
+              NO
+            </Button>
+            <Button
+              className={styles.Yesbutton}
+              style={{ color: "#FFFFFF", background: "#F30039" }}
+              onClick={handleYesClick}
+            >
+              YES
+            </Button>
+          </Button.Group>
         </div>
-        <Button.Group className={styles.buttonGroup}>
-          <Button className={styles.bttnStyle} onClick={onCancel}>
-            NO
-          </Button>
-          <Button className={styles.bttnStyle} type="primary" onClick={handleYesClick}>
-            YES
-          </Button>
-        </Button.Group>
-      </div>
-    </form>
-  </div>
-);
+      </form>
+    </div>
+  );
 };
 
 export default RemoveUserModal;

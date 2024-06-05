@@ -93,8 +93,36 @@ width: 215px;
 height: 42px;
   }
 
-  .bttnStyle{
+  .Yesbutton{
 box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+font-weight: 400px;
+gap: 8px;
+width: 85px;
+height: 42px;
+border: 1px solid #F30039;
+border-radius: 4px;
+outline: none; 
+  }
+
+
+  
+  .bttnStyle:hover {
+    background-color: #F30039; 
+  }
+  
+  
+  .bttnStyle:active {
+    background-color: #F30039; 
+  }
+
+  
+
+  .Nobutton{
+    box-sizing: border-box;
 display: flex;
 flex-direction: row;
 align-items: center;
@@ -104,23 +132,6 @@ width: 85px;
 height: 42px;
 border: 1px solid #F30039;
 border-radius: 4px;
-  }
-
-
-  
-  .bttnStyle:hover {
-    background-color: #F30039; 
-  }
-  
-  .bttnStyle:focus {
-    background-color: #F30039; 
-    outline: none; 
-  }
-  
-  .bttnStyle:active {
-    background-color: #F30039; 
-  }
-  
-  .errorAlert {
-    margin-top: 10px; 
+outline: none; 
+font-weight: 500px;
   }
