@@ -16,8 +16,8 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
   const [statementFrequency, setStatementFrequency] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-  const [fileformat, setFileFormat] = useState<string>("");
-  const [templateType, setTemplateType] = useState<string>("");
+  const [fileformat, setFileFormat] = useState<string>("PDF");
+  const [templateType, setTemplateType] = useState<string>("CORPORATE");
   const { selectedAccount } = useContext(SelectedAcountContext);
   const path = usePathname();
   const router = useRouter();
@@ -157,6 +157,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
             <div className={styles.fileformat}>
               <div className={styles.format}>
                 <p>File Format</p>
+                <div className={styles.selectDiv}>
                 <select
                   name="format"
                   id="format"
@@ -166,9 +167,11 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
                   <option value="PDF">PDF</option>
                   <option value="CSV">CSV</option>
                 </select>
+                </div>
               </div>
               <div className={styles.template}>
                 <p>Template</p>
+                <div className={styles.selectDiv}>
                 <select
                   name="template"
                   id="template"
@@ -178,6 +181,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
                   <option value="CORPORATE">CORPORATE</option>
                   <option value="INDIVIDUAL">INDIVIDUAL</option>
                 </select>
+                </div>
               </div>
             </div>
           </div>

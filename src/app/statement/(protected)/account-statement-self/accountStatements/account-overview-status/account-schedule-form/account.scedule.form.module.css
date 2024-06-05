@@ -55,18 +55,6 @@
   height: 72px;
 }
 
-.fileformat select {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
-  width: 188.13px;
-  height: 40px;
-  outline: none;
-  border: 0.5px solid #bec0ba;
-  border-radius: 4px;
-}
 .format,
 .template {
   display: flex;
@@ -83,7 +71,6 @@
   align-items: center;
   padding: 32px;
   gap: 10px;
-
   width: 761px;
   height: 40px;
 }
@@ -102,3 +89,20 @@
   border: 1px solid #e1e1e1;
   border-radius: 4px;
 }
+
+
+.selectDiv {
+  width: 100%;
+  border: 0.5px solid #bec0ba;
+  border-radius: 4px;
+}
+
+.selectDiv select{
+  outline: none;
+  height: 40px;
+  border-radius: 4px;
+  width: 200px;
+  padding: 8px;
+  border-right: 8px solid transparent;
+}
+

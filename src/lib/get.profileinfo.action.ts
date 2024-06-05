@@ -19,7 +19,7 @@ export const loggedInProfileDetails =async (userId:number):Promise<CustomerProfi
 
 //Endpoint to get user information for settings
 
-export const profileInformationDetails = async (userId:number):Promise<UserInformationDetails>=> {
+export const profileInformationDetails = async (userId:string):Promise<UserInformationDetails>=> {
     const profileInfo = await getUserDetails(userId);
 
     let response:UserInformationDetails = {
