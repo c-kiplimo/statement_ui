@@ -26,10 +26,13 @@ export type UserDetailProps = {
 
 export type UserDetails = {
   key: React.Key;
+  createdAt?:string;
   firstName: string;
   lastName: string;
   email: string;
   mobileNumber: string;
-};
+  status?:string;
+  username?:string;
+}
 
 

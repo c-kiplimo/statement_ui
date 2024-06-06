@@ -25,8 +25,6 @@ const ReusableModal = ({
   confirmText,
   cancelText,
   confirmLoading,
-  confirmButtonStyles,
-  cancelButtonStyles,
 }: ModalProps) => {
   const [hoveredButton, setHoveredButton] = useState<
     "confirm" | "cancel" | null
@@ -56,26 +54,18 @@ const ReusableModal = ({
         </div>
         <div className={styles.button}>
           <button
-            className={classNames(styles.btn, {
-              [styles.activeBtn]: hoveredButton === "cancel",
-            })}
-            onMouseEnter={() => handleMouseEnter("cancel")}
+            className={classNames(styles.btn, { [styles.activeBtn]: hoveredButton === 'cancel' })}
+            onMouseEnter={() => handleMouseEnter('cancel')}
             onMouseLeave={handleMouseLeave}
             onClick={onCancel}
-            style={hoveredButton === "cancel" ? cancelButtonStyles : undefined}
           >
             {cancelText}
           </button>
           <button
-            className={classNames(styles.btn, {
-              [styles.activeBtn]: hoveredButton === "confirm",
-            })}
-            onMouseEnter={() => handleMouseEnter("confirm")}
+            className={classNames(styles.btn, { [styles.activeBtn]: hoveredButton === 'confirm' })}
+            onMouseEnter={() => handleMouseEnter('confirm')}
             onMouseLeave={handleMouseLeave}
             onClick={onConfirm}
-            style={
-              hoveredButton === "confirm" ? confirmButtonStyles : undefined
-            }
           >
             {confirmText}
           </button>

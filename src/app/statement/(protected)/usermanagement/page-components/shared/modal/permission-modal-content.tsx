@@ -1,6 +1,5 @@
-import { Fragment } from "react";
-import FrequencyMoleculeComponent from "../../frequency-molecule-component/frequency-molecule-component";
-
+import React,{ Fragment } from "react";
+import styles from "./permission-modal-content.module.css"
 import { CustomText } from "@/src/components/atoms/typography/primary_text";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
@@ -28,16 +27,8 @@ const PermissionModalContent = ({
       return <Fragment>edit</Fragment>;
     case "delete":
       return (
-        <Fragment>
           <div
-            style={{
-              display: "flex",
-              paddingBottom: "24px",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "40px",
-            }}
+            className={styles.container}
           >
             <div
               style={{
@@ -53,7 +44,7 @@ const PermissionModalContent = ({
                 className="custom-text"
               />
               <CustomText
-                title="Are you Sure you want to delete this user ?"
+                title="Are you Sure you want to delete this user role?"
                 fontSize={font.typography.body.regular.fontSize}
                 textColor={token.text.description_01}
                 lineHeight={font.typography.body.regular.lineHeight}
@@ -100,7 +91,7 @@ const PermissionModalContent = ({
               </PrimaryButton>
             </div>
           </div>
-        </Fragment>
+
       );
     default:
       return null;

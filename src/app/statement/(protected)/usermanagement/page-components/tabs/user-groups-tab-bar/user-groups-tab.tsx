@@ -1,5 +1,4 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
-import styles from "./user-groups-tab.module.css";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import ContactCard from "@/src/components/atoms/cards/contact.card";
 import { InfoCircleFilled, SearchOutlined } from "@ant-design/icons";
@@ -14,9 +13,6 @@ import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-
 import { deleteIcon, editIcon } from "@/src/components/atoms/svg/document_svg";
 import moment from 'moment';
 import UserGroupRolesModal from "@/src/components/molecules/user-management/modal-content/user-group-roles-modal";
-import Texter from "@/src/components/atoms/text/texter";
-import HorizontalInfoDescription from "@/src/components/atoms/text/horizontal-info-description";
-import Image from "next/image";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const tokenColor = useTokens();
@@ -38,92 +34,90 @@ const UserGroup = React.memo(({ setActive }: any) => {
         background: tokenColor.default.white,
       }}
     >
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <div className={styles.icon}>
-              <Image
-                src="/UsersGroup.svg"
-                alt="user-icon"
-                width={16}
-                height={16}
+      <div
+        style={{
+          display: "flex",
+          padding: "8px 32px 16px 24px",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          gap: "16px",
+          alignSelf: "stretch",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            alignSelf: "stretch",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <CardDescItem
+              title="Meraki Systems - Accounts"
+              description="High Volume Customer"
+              icon={
+                <CustomSvgIcon width={16} height={16} fillColor="#F5F5F5" />
+              }
+            />
+
+            <div style={{ marginLeft: "auto" }}>
+              <ActivityBadge
+                icon={<ChevronDown />}
+                token={tokenColor}
+                paragraphSelectTextStyle={{
+                  ...font.typography.h6.regular,
+                  color: tokenColor.default.white,
+                }}
+                title="Active"
               />
             </div>
-            <div className={styles.userDetails}>
-              <div className={styles.content}>
-                <Texter
-                  className={"h6m"}
-                  textStyle={{ color: "var(--Text-Text-Secondary" }}
-                  text={"Meraki System Tech"}
-                />
-                <Texter
-                  className={"captionr"}
-                  textStyle={{ color: "var(--Text-Text-Description-01" }}
-                  text={"123456"}
-                />
-                <Texter
-                  className={"captionr"}
-                  textStyle={{ color: "var(--Text-Text-Secondary" }}
-                  text={"High Volume Customer"}
-                />
-              </div>
-              <div className={styles.stateBtn}>
-                <ActivityBadge
-                  icon={<ChevronDown />}
-                  token={tokenColor}
-                  paragraphSelectTextStyle={{
-                    ...font.typography.h6.regular,
-                    color: tokenColor.default.white,
-                  }}
-                  title="Active"
-                />
-              </div>
-            </div>
           </div>
-          <div className={styles.footer}>
-            <div className={styles.sectionOne}>
-              <span className={styles.title}>
-                <Texter className={"bodym"} text={"Country"} />
-                <span>
-                  <InfoCircleFilled />
-                </span>
-              </span>
-              <span className={styles.desc}>
-                <HorizontalInfoDescription
-                  title={"KENYA/"}
-                  titleStyle={{ fontWeight: "500", fontSize: "16px" }}
-                  description={"Moi Avenue"}
-                  descriptionStyle={{
-                    fontWeight: "500",
-                    fontSize: "16px",
-                    color: "var(--Text-Text-Description-01",
-                  }}
-                />
-              </span>
-            </div>
-            <div className={styles.sectionTwo}>
-              <span className={styles.title}>
-                <Texter className={"bodym"} text={"Email"} />
-                <span>
-                  <InfoCircleFilled />
-                </span>
-              </span>
-              <span className={styles.desc}>
-                <HorizontalInfoDescription title={"merakisystems@gmail.com"} />
-              </span>
-            </div>
-            <div className={styles.sectionThree}>
-              <span className={styles.texter}>
-                <Texter className={"bodym"} text={"Mobile Number"} />
-                <span>
-                  <InfoCircleFilled />
-                </span>
-              </span>
-              <span className={styles.desc}>
-                <HorizontalInfoDescription title={"0728000000"} />
-              </span>
-            </div>
-          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <ContactCard
+            title="Country"
+            content="Kenya/Moi Avenue"
+            additonalContent=""
+            icon={<InfoCircleFilled />}
+            style={{
+              borderRight: `1px solid ${tokenColor.default.grey}`,
+              background: tokenColor.default.white,
+            }}
+          />
+
+          <ContactCard
+            title="Email"
+            content="merakisstemstech@gmail.com"
+            icon={<InfoCircleFilled />}
+            style={{
+              borderRight: `1px solid ${tokenColor.default.grey}`,
+              background: tokenColor.default.white,
+            }}
+          />
+
+          <ContactCard
+            title="Mobile number"
+            content="0728000000"
+            icon={<InfoCircleFilled />}
+            style={{
+              background: tokenColor.default.white,
+            }}
+          />
         </div>
       </div>
 
@@ -305,7 +299,7 @@ const DisplayTable = () => {
       >
         <Table
           pagination={{
-            pageSize: 3,
+            pageSize: 10,
             itemRender: (current, type, originalElement) => {
               if (type === "page") {
                 return <span style={{ margin: "0 8px" }}>{current}</span>;
