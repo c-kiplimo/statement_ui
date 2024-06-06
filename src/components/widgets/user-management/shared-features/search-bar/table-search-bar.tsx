@@ -11,10 +11,6 @@ const SearchBar = () => {
     console.log("search-terms", searchTerm);
   };
 
-  const handlePrint = () => {
-    console.log("Print button clicked!");
-  };
-
   const handleDelete = () => {
     console.log("Delete button clicked!");
   };
@@ -37,11 +33,11 @@ const SearchBar = () => {
               onClick={handleDelete}
               icon={
                 <Image
-                  src={"/delete.svg"}
-                  alt="delete-icon"
-                  width={16}
-                  height={16}
-                />
+                    src={"/delete.svg"}
+                    alt="delete-icon"
+                    width={16}
+                    height={16}
+                  />
               }
               text="Delete"
             />
@@ -56,11 +52,6 @@ const SearchBar = () => {
                 />
               }
               text="Refresh"
-            />
-            <ActionButton
-              onClick={handlePrint}
-              icon={<PrinterFilled />}
-              text="Print"
             />
           </div>
           <MoreOption

@@ -14,7 +14,7 @@ import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
 import { UserDetails } from "@/src/types/user.type";
-import RegisterUser from "../tabs/users/register-user/register-user";
+import RegisterUser from "../../../../app/statement/(protected)/usermanagement/page-components/tabs/users-tab/register-user/register-user";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { useRouter } from "next/navigation";
 import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";

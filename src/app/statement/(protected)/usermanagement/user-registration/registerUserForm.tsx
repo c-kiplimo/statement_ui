@@ -29,7 +29,6 @@ const RegisterUserForm = () => {
   const handleCountry = (field: string, value: string) => {
     setUser({ ...user, [field]: value });
   };
-  // const options: SelectProps["options"] = [];
 
   for (let i = 10; i < 36; i++) {
     options.push({

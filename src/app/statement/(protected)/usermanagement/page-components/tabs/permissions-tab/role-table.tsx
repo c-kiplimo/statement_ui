@@ -1,15 +1,11 @@
-"use client";
-
 import React, { CSSProperties, useState } from "react";
-import { Modal, Space, Table } from "antd";
+import styles from "./role-table.module.css";
+import { Modal, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import {useTokens } from "@/src/app/(context)/ColorContext";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 import { Tabs } from "antd";
 import Button from "@/src/components/atoms/button/button";
-import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
-//remove molecule file
-import PermissionModalContent from "@/src/components/molecules/user-management/modal-content/permission-modal-content";
-//import PermissionModalContent from "../../modal-content/permission-modal-content";
+import PermissionModalContent from "../../shared/modal/permission-modal-content";
 
 const RoleTable = ({ setActive }: any) => {
   const token = useTokens();
@@ -46,49 +42,33 @@ const RoleTable = ({ setActive }: any) => {
   interface DataType {
     key: React.Key;
     name: string;
-    age: number;
-    address: string;
     description: string;
+    status: string;
   }
 
   const columns: ColumnsType<DataType> = [
     { title: "Role Name", dataIndex: "name", key: "name" },
-    { title: "Description", dataIndex: "age", key: "age" },
-    { title: "Status", dataIndex: "address", key: "address" },
+    { title: "Description", dataIndex: "description", key: "description" },
+    { title: "Status", dataIndex: "status", key: "status" },
     {
       title: "",
       dataIndex: "",
       key: "x",
       render: (text, record) => (
-        <Space>
-          <PrimaryButton
-            buttonType="default"
-            iconPosition="right"
-            shape="default"
-            size="small"
-            customStyles={{
-              background: token.default.white,
-              color: token.default.black,
-            }}
+        <div className={styles.actions}>
+          <button
+            className={`${styles.actionBtn} bodyr`}
             onClick={() => openModal("edit", record)}
           >
             Edit
-          </PrimaryButton>
-
-          <PrimaryButton
-            buttonType="default"
-            iconPosition="right"
-            shape="default"
-            size="small"
-            customStyles={{
-              background: token.default.white,
-              color: token.default.black,
-            }}
+          </button>
+          <button
+            className={`${styles.actionBtn} bodyr`}
             onClick={() => openModal("delete", record)}
           >
             Delete
-          </PrimaryButton>
-        </Space>
+          </button>
+        </div>
       ),
     },
   ];
@@ -107,63 +87,42 @@ const RoleTable = ({ setActive }: any) => {
   const data: DataType[] = [
     {
       key: 1,
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      description:
-        "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+      name: "CHANNEL_SUPPORT",
+      status: "Create-user _user view Dashboard Sync view customer",
+      description: "Data details",
     },
     {
       key: 2,
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+      name: "RECONCILIATION",
+      status: "Create-user _user view Dashboard Sync view customer",
+      description: "ReconTeam",
     },
     {
       key: 3,
-      name: "Not Expandable",
-      age: 29,
-      address: "Jiangsu No. 1 Lake Park",
-      description: "This not expandable",
+      name: "CUSTOMER CARE",
+      status: "Create-user _user view Dashboard Sync view customer",
+      description: "Customer Care",
     },
     {
       key: 4,
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      description:
-        "My name is Joe Black, I am 32 years old, living in Sydney No. 1 Lake Park.",
+      name: "BUSINESS_ANALYST",
+      status: "Create-user _user view Dashboard Sync view customer",
+      description: "Analyst",
+    },
+    {
+      key: 5,
+      name: "TESTER",
+      status: "Create-user _user view Dashboard Sync view customer",
+      description: "Test Team",
     },
   ];
 
-  const contentCss: CSSProperties = {
-    width: "100%",
-    padding: "20px",
-    display: "flex",
-    justifyContent: "flex-start",
-    position: "relative",
-    background: token.default.white,
-    flexDirection: "column",
-    alignItems: "flex-start",
-  };
-
   return (
-    <section
-      className="content"
-      style={{
-        display: "flex",
-        position: "relative",
-        width: "100%",
-        justifyContent: "start",
-      }}
-    >
-      <section className="content" style={contentCss}>
-        <div style={{ width: "100%" }}>
+    <section className={styles.content}>
+      <section className={styles.wrapper}>
+        <div className={styles.tab}>
           <Tabs
             onChange={onChange}
-            style={{ width: "100%" }}
             type="card"
             items={new Array(1).fill(null).map((_, i) => {
               const id = String(i + 1);
@@ -173,7 +132,7 @@ const RoleTable = ({ setActive }: any) => {
                 children: (
                   <Table
                     pagination={{
-                      pageSize: 2,
+                      pageSize: 5,
                       itemRender: (current, type, originalElement) => {
                         if (type === "page") {
                           return (
@@ -187,7 +146,7 @@ const RoleTable = ({ setActive }: any) => {
                         textAlign: "center",
                       },
                     }}
-                    style={{ marginTop: "15px", width: "100%" }}
+                    className={styles.table}
                     columns={columns}
                     dataSource={data}
                   />

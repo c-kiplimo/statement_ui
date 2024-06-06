@@ -1,5 +1,4 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
-import styles from "./user-groups-tab.module.css";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import ContactCard from "@/src/components/atoms/cards/contact.card";
 import { InfoCircleFilled, SearchOutlined } from "@ant-design/icons";
@@ -300,7 +299,7 @@ const DisplayTable = () => {
       >
         <Table
           pagination={{
-            pageSize: 3,
+            pageSize: 10,
             itemRender: (current, type, originalElement) => {
               if (type === "page") {
                 return <span style={{ margin: "0 8px" }}>{current}</span>;

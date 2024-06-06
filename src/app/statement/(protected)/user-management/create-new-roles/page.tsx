@@ -46,7 +46,7 @@ const RolePermission = () => {
   };
   return (
     <div className="role-permission" style={rolePermissionCss}>
-      <CustomerProfileLayout>
+      <CustomerProfileLayout>    
         <div style={stepperOptionContentCss}>
           <Steps
             size="small"
