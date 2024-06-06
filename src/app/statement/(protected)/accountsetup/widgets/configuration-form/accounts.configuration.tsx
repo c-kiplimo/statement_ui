@@ -108,12 +108,15 @@ const Accountstype = (props: contentProps) => {
       if (!selectedAccountId) {
         console.error("AccountId is not available.");
 
-        notification.warning({
-          message: "Failed!",
+        notification.success({
+          message: "Success",
           description: "Account Configured."
+          
         })
+        window.history.back();
         return;
-      }
+        }
+       
 
       console.log("Submitting statement configuration data...");
 
