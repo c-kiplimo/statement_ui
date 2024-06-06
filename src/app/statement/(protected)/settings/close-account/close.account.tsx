@@ -17,30 +17,35 @@ const CloseAccount = ({ onModalCancel }: CloseAccountProps) => {
   const handleCloseClick = async () => {
     if (!userId) {
       notification.error({
-        message: 'User ID is missing',
+        message: "User ID is missing",
       });
       return;
     }
 
     try {
       await closeAccount(userId);
+      sessionStorage.clear();
+      localStorage.clear();
       notification.info({
-        message: 'Account Closure in Progress. The Account Will Be Closed Permanently After 30 Days of Inactivity.',
-        placement:'top'
+        message:
+          "Account Closure in Progress. The Account Will Be Closed Permanently After 30 Days of Inactivity.",
+        placement: "top",
       });
-      router.push('/');
+      router.push("/");
     } catch (error: any) {
-      if(error.message == 'Request failed with status code 500'){
+      if (error.message == "Request failed with status code 500") {
         notification.error({
-          message: 'Account Closure Already in Progress',
+          message: "Account Closure Already in Progress",
         });
-      }else{
-      notification.error({
-        message: 'Failed to close account',
-        description: error.response?.data?.message || error.message || 'An error occurred',
-      });
-    }
-
+      } else {
+        notification.error({
+          message: "Failed to close account",
+          description:
+            error.response?.data?.message ||
+            error.message ||
+            "An error occurred",
+        });
+      }
     }
   };
 
@@ -59,16 +64,18 @@ const CloseAccount = ({ onModalCancel }: CloseAccountProps) => {
         <div className={styles.content}>
           <h1 className={`${styles.headTitle} h6m`}>Account Closure</h1>
           <p className={`${styles.description} bodyr`}>
-            Please note that closing the account will have consequences such as loss
-            of access to services, deletion of data, or any associated fees or
-            penalties.
+            Please note that closing the account will have consequences such as
+            loss of access to services, deletion of data, or any associated fees
+            or penalties.
           </p>
         </div>
         <div className={styles.buttonsContainer}>
           <button className={styles.cancelButton} onClick={handleCancelClick}>
             Cancel
           </button>
-          <button className={styles.closeButton} onClick={handleCloseClick}>Close</button>
+          <button className={styles.closeButton} onClick={handleCloseClick}>
+            Close
+          </button>
         </div>
       </div>
     </div>
