@@ -1,13 +1,12 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState, useEffect, useMemo } from "react";
 import styles from "./accounts.configuration.module.css";
-import { Radio, DatePicker, TimePicker, Select, notification } from "antd";
+import { Radio, DatePicker, TimePicker, Dropdown, Menu, notification } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 import { StatementConfig } from "@/src/services/account/account.statement.config.service";
 import moment from "moment";
 import dayjs from "dayjs";
 import { AccountsStmtConfig } from "@/src/lib/actions/account.ById.action";
 import StatementAccounts from "@/src/components/widgets/acconts-configuration/config-acct-fetch/account";
-
-
 
 export type acctData = {
   currency: string;
@@ -18,8 +17,6 @@ export type acctData = {
   availableAmount: string;
   termDuration: string;
 };
-
-const { Option } = Select;
 
 type contentProps = {
   fileformartHeader: string;
@@ -46,9 +43,8 @@ const Accountstype = (props: contentProps) => {
   const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
   const [accountDetailsdata, setAccountDetailsData] = useState<acctData>();
   
-  const accountPaased = sessionStorage.getItem("passedaccountId")
 
-  
+  const accountPaased = sessionStorage.getItem("passedaccountId")
 
   useEffect(() => {
     setSelectedAccountId(selectedAccountId);
@@ -57,7 +53,6 @@ const Accountstype = (props: contentProps) => {
       try {
         let accountData = await AccountsStmtConfig(parseInt(accountPaased!))
 
-        
         setAccountDetailsData(accountData);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -66,10 +61,6 @@ const Accountstype = (props: contentProps) => {
 
     fetchData();
   }, []);
-  
-  
-
-
 
   const handleMTStatementsChange = (e: any) => {
     setMTStatementsOption(e.target.value);
@@ -118,11 +109,10 @@ const Accountstype = (props: contentProps) => {
         console.error("AccountId is not available.");
 
         notification.warning({
-          message:"Failed!",
-          description:"Account Configured."
+          message: "Failed!",
+          description: "Account Configured."
         })
         return;
-        
       }
 
       console.log("Submitting statement configuration data...");
@@ -147,18 +137,39 @@ const Accountstype = (props: contentProps) => {
 
       console.log("Updated statement data:", response);
       notification.success({
-        message:"Success!",
-        description:"Your account was setup successfully."
+        message: "Success!",
+        description: "Your account was setup successfully."
       })
       window.history.back();
     } catch (error) {
       console.error("Error:", error);
       notification.warning({
-        message:"Failed!",
-        description:"Please check all Options!!!."
+        message: "Failed!",
+        description: "Please check all Options!!!."
       })
     }
   };
+
+  const fileFormatMenu = (
+    <Menu onClick={({ key }) => handleFileFormatChange(key)}>
+      <Menu.Item key="PDF">PDF</Menu.Item>
+      <Menu.Item key="Swift">Swift</Menu.Item>
+    </Menu>
+  );
+
+  const templateTypeMenu = (
+    <Menu onClick={({ key }) => handleTemplateTypeChange(key)}>
+      <Menu.Item key="CORPORATE">CORPORATE</Menu.Item>
+      <Menu.Item key="Individual">Individual</Menu.Item>
+    </Menu>
+  );
+
+
+  const lastLoginTime = useMemo(() => {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
+    return now.toLocaleDateString('en-US', options);
+  }, []);
 
   return (
     <div className={styles.container} onClick={props.onClick}>
@@ -166,7 +177,7 @@ const Accountstype = (props: contentProps) => {
         headIcon={<img src="/dice.svg" alt="dice" />}
         name={accountDetailsdata?.name!}
         account={accountDetailsdata?.account!}
-        lastSubmissionTime={accountDetailsdata?.lastSubmissionTime!}
+        lastSubmissionTime={lastLoginTime}
         availableAmount={accountDetailsdata?.availableAmount!}
         inforIcon={<img src="/info.svg" alt="info" />}
         amountInKES={"KES 35,071.28"}
@@ -186,16 +197,16 @@ const Accountstype = (props: contentProps) => {
               <div className={styles.desHeader}>
                 Allow MT 940 / MT 950 Statements
               </div>
-              <Radio.Group
+              <Radio.Group className={styles.radioG}
                 onChange={handleMTStatementsChange}
                 value={mtStatementsOption}
               >
-                <Radio className={styles.radio} value={true}>
+                <Radio className={`${styles.radio} bodyr`} value={true}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     YES
                   </div>
                 </Radio>
-                <Radio className={styles.radio} value={false}>
+                <Radio className={`${styles.radio} bodyr`} value={false}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     NO
                   </div>
@@ -209,16 +220,16 @@ const Accountstype = (props: contentProps) => {
               <div className={`${styles.desHeader} bodyr`}>
                 Allow for Online Statement
               </div>
-              <Radio.Group
+              <Radio.Group className={styles.radioG}
                 onChange={handleOnlineStatementChange}
                 value={onlineStatementOption}
               >
-                <Radio className={styles.radio} value={true}>
+                <Radio className={`${styles.radio} bodyr`} value={true}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     YES
                   </div>
                 </Radio>
-                <Radio className={styles.radio} value={false}>
+                <Radio className={`${styles.radio} bodyr`} value={false}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     NO
                   </div>
@@ -232,16 +243,17 @@ const Accountstype = (props: contentProps) => {
               <div className={`${styles.desHeader} bodyr`}>
                 Scheduled Statements
               </div>
-              <Radio.Group
+              <Radio.Group className={styles.radioG}
                 onChange={handleScheduledStatementsChange}
                 value={scheduledStatementsOption}
               >
-                <Radio className={styles.radio} value={true}>
+                <Radio className={`${styles.radio} bodyr`} value={true}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     YES
                   </div>
                 </Radio>
-                <Radio className={styles.radio} value={false}>
+
+                <Radio className={`${styles.radio} bodyr`} value={false}>
                   <div className={`${styles.radiotext} ${styles.radioLabel}`}>
                     NO
                   </div>
@@ -251,30 +263,31 @@ const Accountstype = (props: contentProps) => {
           </div>
 
           {scheduledStatementsOption === true && (
-            <>
+            <div className={styles.fretimedate}>
               <div className={`${styles.desHeader} bodyr`}>
-                <p>{props.fileformartHeader}</p>
-                <div className={styles.interval}>
-                <Radio.Group
-                  onChange={handlefrequencyOptionChange}
-                  value={frequencyOption}
-                >
-                  <Radio  value="Monthly">
-                    {props.optiona}
-                  </Radio>
-                  <Radio  value="Bi Weekly">
-                    {props.optionb}
-                  </Radio>
-                  <Radio  value="Weekly">
-                    {props.optionc}
-                  </Radio>
-                  <Radio  value="Daily">
-                    {props.optiond}
-                  </Radio>
-                </Radio.Group>
+              <div>{props.fileformartHeader}</div>
+                
+             
+                  <Radio.Group className={styles.interval}
+                    onChange={handlefrequencyOptionChange}
+                    value={frequencyOption}
+                  >
+                    <Radio value="Monthly">
+                      {props.optiona}
+                    </Radio>
+                    <Radio value="Bi Weekly">
+                      {props.optionb}
+                    </Radio>
+                    <Radio value="Weekly">
+                      {props.optionc}
+                    </Radio>
+                    <Radio value="Daily">
+                      {props.optiond}
+                    </Radio>
+                  </Radio.Group>
+               
               </div>
-              </div>
-              
+
               <div className={styles.dateTime}>
                 <DatePicker
                   className={styles.input}
@@ -287,40 +300,27 @@ const Accountstype = (props: contentProps) => {
                   onChange={handleTimeChange}
                 />
               </div>
-            </>
+            </div>
           )}
 
           <div className={styles.files} onClick={props.onClick}>
             <div className={styles.fileFormart}>
-              <div className={styles.dollaramount}>File Format</div>
-              <Select
-                value={fileFormatOption}
-                className={`${styles.PDF} bodyr`}
-                onChange={handleFileFormatChange}
-              >
-                <Option className={styles.optn} value="PDF">
-                  PDF
-                </Option>
-                <Option className={styles.optn} value="Swift">
-                  Swift
-                </Option>
-              </Select>
+              <div className= {styles.dollaramount}>File Format</div>
+              <Dropdown className={`${styles.PDF} bodyr`} overlay={fileFormatMenu} trigger={['click']}>
+                <div className={styles.dropdown}>
+                  {fileFormatOption} <DownOutlined />
+                </div>
+              </Dropdown>
             </div>
 
             <div className={styles.fileFormart}>
               <div className={styles.dollaramount}>Template</div>
-              <Select
-                value={templateTypeOption}
-                className={`${styles.templateOptions} bodyr`}
-                onChange={handleTemplateTypeChange}
-              >
-                <Option className={styles.optn} value="CORPORATE">
-                  CORPORATE
-                </Option>
-                <Option className={styles.optn} value="Individual">
-                  Individual
-                </Option>
-              </Select>
+
+              <Dropdown className= {`${styles.templateOptions} bodyr`} overlay={templateTypeMenu} trigger={['click']}>
+                <div className={styles.dropdown}>
+                  {templateTypeOption} <DownOutlined />
+                </div>
+              </Dropdown>
             </div>
           </div>
         </div>

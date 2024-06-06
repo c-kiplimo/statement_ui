@@ -57,7 +57,7 @@ align-items: center;
 padding: 0px 0px 24px;
 gap: 40px;
 width: 341px;
-height: 172px;
+height: fit-content;
 }
 
 .title{
@@ -71,14 +71,9 @@ width: 341px;
 height: 32px;
 }
 
-.querry{
+.query{
 width: 342px;
 height: 26px;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 26px;
 color: #6F7269;
 }
 
@@ -93,16 +88,45 @@ width: 215px;
 height: 42px;
 }
 
-.bttnStyle{
+.Yesbutton{
 box-sizing: border-box;
 display: flex;
 flex-direction: row;
 align-items: center;
 padding: 8px 32px;
-color: black;
+font-weight: 400px;
 gap: 8px;
 width: 85px;
 height: 42px;
 border: 1px solid #F30039;
 border-radius: 4px;
+outline: none; 
+}
+
+
+
+.bttnStyle:hover {
+  background-color: #F30039; 
+}
+
+
+.bttnStyle:active {
+  background-color: #F30039; 
+}
+
+
+
+.Nobutton{
+  box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 85px;
+height: 42px;
+border: 1px solid #F30039;
+border-radius: 4px;
+outline: none; 
+font-weight: 500px;
 }

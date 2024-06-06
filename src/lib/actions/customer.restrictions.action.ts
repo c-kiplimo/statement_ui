@@ -14,6 +14,7 @@ const data = await handler.fetchCustomerRestrictions( value)
     let restrictions:DataFetcher[] = data.map(restrictions=>({
 
         id:restrictions.customerId,
+        restrictionId:restrictions.restrictions.restrictionId,
         entryId:restrictions.id,
         createdOn:restrictions.restrictions.createdAt,
         userName:restrictions.restrictions.name,

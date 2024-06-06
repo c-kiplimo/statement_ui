@@ -121,18 +121,18 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-color: #6F7269;
 padding: 8px;
 gap: 8px;
+color: #6F7269;
 width: 71px;
 height: 32px;
-opacity: 0.8;
 border: 1px solid #E6E6E6;
 border-radius: 4px;
   }
 
   .settingsButtonClicked {
     background: #003A49;
+    color: #FFFFFF;
   }
 
 
@@ -158,3 +158,19 @@ font-size: 16px;
 line-height: 24px;
 color: #6F7269;
  } 
+
+
+ .eyeIconDiv{
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px 8px;
+gap: 10px;
+width: 32px;
+height: 28px;
+color: #6F7269;
+border: 0.5px solid #979992;
+border-radius: 4px;
+ }

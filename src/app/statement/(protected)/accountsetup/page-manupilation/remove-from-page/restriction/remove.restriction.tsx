@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import styles from "./remove.restriction.module.css";
 import { CloseOutlined } from "@ant-design/icons";
-import { deleteRestriction } from "@/src/services/account/delete.restriction.action";
 import { Button, Alert } from "antd";
+import { deleteRestriction } from "@/src/services/account/delete.restriction.service";
 
 interface RemoveRestrictionProps {
   visible: boolean;
@@ -15,15 +15,15 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
   onCancel,
   restrictionId,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   if (!visible) {
     return null;
   }
 
   const handleYesClick = async () => {
-    setLoading(true);
+    setIsButtonClicked(true);
     setError(null);
     try {
       await deleteRestriction(restrictionId);
@@ -31,8 +31,6 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
     } catch (error) {
       console.error("Error deleting restriction:", error);
       setError("Failed to delete the restriction. Please try again.");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -59,14 +57,13 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
             />
           )}
           <Button.Group className={styles.buttonGroup}>
-            <Button className={styles.bttnStyle} onClick={onCancel}>
+            <Button className={`${styles.Nobutton} bodym`} onClick={onCancel} style={{ color: "#F30039" }}>
               NO
             </Button>
             <Button
-              className={styles.bttnStyle}
-              type="primary"
+              className={styles.Yesbutton}
+              style={{ color: "#FFFFFF", background:"#F30039" }}
               onClick={handleYesClick}
-              loading={loading}
             >
               YES
             </Button>

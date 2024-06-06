@@ -28,6 +28,7 @@ interface DataType {
   icons?: React.ReactNode;
   currency?: string;
   userId?: number;
+  restrictionId?: number;
   entryId?: number;
 }
 
@@ -80,9 +81,8 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
     fetchData();
   }, []);
 
-  const handleEditClick = useCallback((entryId: number) => {
-    console.log("Picked ID for editing:", entryId);
-    setDataId(entryId);
+  const handleEditClick = useCallback((restrictionId: number) => {
+    setDataId(restrictionId);
     setModalVisible3(true);
     fetchData();
   }, []);
@@ -136,7 +136,7 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
             />
             <EditOutlined
               key="edit"
-              onClick={() => handleEditClick(record.entryId!)}
+              onClick={() => handleEditClick(record.restrictionId!)}
             />
           </div>
         </button>

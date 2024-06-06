@@ -23,9 +23,9 @@ interface DataType {
   role?: string;
   status?: string;
   icons?: React.ReactNode;
-  currency?:string;
-  accountId?:number;
-  entryId?:number;
+  currency?: string;
+  accountId?: number;
+  entryId?: number;
 }
 
 interface Datatype {
@@ -41,16 +41,14 @@ const RestrictionsOverview = (props: DataType) => {
   const [data, setData] = useState<DataFetcher[]>([]);
   const [dataId, setdataId] = useState<number | null>(null);
 
-  
-
   useEffect(() => {
-
     const passedAccid = sessionStorage.getItem("passedaccountId");
 
-    
     const fetchData = async () => {
       try {
-        let incomingData = await accountRestrictionsAction(parseInt(passedAccid!))
+        let incomingData = await accountRestrictionsAction(parseInt(passedAccid!));
+        console.log(incomingData);
+        
         setData(incomingData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -58,16 +56,18 @@ const RestrictionsOverview = (props: DataType) => {
     };
     fetchData();
   }, []);
-  
+
   const handleRemoveClick = (entryId: number) => {
     setdataId(entryId);
     setModalVisible2(true);
   };
 
-  const handleEditClick = (entryId:number) => {
+  const handleEditClick = (entryId: number) => {
     setdataId(entryId);
     setModalVisible3(true);
   };
+
+
 
   const columns: Datatype[] = [
     {

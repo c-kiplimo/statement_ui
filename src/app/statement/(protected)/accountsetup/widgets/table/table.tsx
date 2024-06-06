@@ -8,6 +8,7 @@ export interface DataFetcher {
   settingsClicked?: any;
   id: React.Key;
   entryId?:number;
+  restrictionId?:number;
   createdOn?: any;
   userName?: string;
   role?: string;

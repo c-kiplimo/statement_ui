@@ -28,21 +28,12 @@ const UserAccountprofile: React.FC<AccountProfileType> = () => {
         const accountProf = await AccountsProfile(parseInt(passedAccid));
         setProfile(accountProf);
       } catch (error) {
-        console.error('Failed to fetch profile details', error);
+        console.error("Failed to fetch profile details", error);
       }
     };
 
     fetchData();
   }, []);
-
-
-  // if (loading) {
-  //   return (
-  //     <div className={styles.spinnerContainer}>
-  //       <Spin size="large" />
-  //     </div>
-  //   );
-  // }
 
   if (error) {
     return <div>{error}</div>;
@@ -51,8 +42,6 @@ const UserAccountprofile: React.FC<AccountProfileType> = () => {
   if (!profile) {
     return <div>No profile data available</div>;
   }
-
-  
 
   return (
     <div className={styles.container}>
