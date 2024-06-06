@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.bodyContent {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0px;
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  top: 150px;
+  background: #ffffff;
+  border: 0.5px solid #979992;
+  box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.headercontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  gap: 40px;
+  width: 100%;
+}
+.closeIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0px 32px;
+  width: 100%;
+  height: auto;
+}
+.logout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 16px;
+  gap: 16px;
+}
+.bodydata {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+}
+.cancelButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 85px;
+  height: 40px;
+  color: #84bd00;
+  border: 1px solid #84bd00;
+  border-radius: 4px;
+}
+.confirmButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 90px;
+  height: 40px;
+  color: white;
+  background: #84bd00;
+  border-radius: 4px;
+}
