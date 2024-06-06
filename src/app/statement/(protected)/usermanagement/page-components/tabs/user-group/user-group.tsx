@@ -10,6 +10,7 @@ import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-
 import { ColumnsType } from "antd/es/table";
 import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 import classNames from "classnames";
+import useProfileId from "@/src/hooks/profileId";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -79,26 +80,31 @@ const Search = ({ onSearch }: SearchInputProps) => {
 
 const DisplayTable = () => {
   const token = useTokens();
-  const [data, setData] = useState<UserGroups[]>([]);
-  const { fetchAllUserGroups } = GroupHandler();
+  const [data, setData] = useState<UserGroup[]>([]);
+  const { fetchAllUserGroups, fetchUserGroups } = GroupHandler();
+  const profId = useProfileId();
   const userId = 624744553961;
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetchAllUserGroups(userId);
-      setData(response);
-    } catch (error) {
-      console.error("Failed to fetch user groups:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const fetchGroupData = async () => {
+      if (profId !== null && profId !== undefined) {
+        try {
+          const response = await fetchUserGroups(profId);
+          setData(response);
+          console.log("Table Data", response);
+        } catch (error) {
+          console.error("Failed to fetch user groups:", error);
+        }
+      }
+    };
+  
+    fetchGroupData();
+  }, [profId]);
+  
 
 
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const [currentRecord, setCurrentRecord] = useState<UserGroups | null>(null);
+  const [currentRecord, setCurrentRecord] = useState<UserGroup | null>(null);
   const [hoveredButton, setHoveredButton] = useState<
     "confirm" | "cancel" | null
   >(null);
@@ -111,48 +117,47 @@ const DisplayTable = () => {
     setHoveredButton(null);
   };
 
-
-  const handleDelete = (record: UserGroups) => {
+  const handleDelete = (record: UserGroup) => {
     setCurrentRecord(record);
     setDeleteModalVisible(true);
   };
 
   const handleDeleteOk = () => {
     setDeleteModalVisible(false);
-    fetchUsers(); 
+    // fetchGroupData();
   };
 
   const handleCancel = () => {
     setDeleteModalVisible(false);
   };
 
-  const columns: ColumnsType<UserGroups> = [
+  const columns: ColumnsType<UserGroup> = [
     {
-      title: "Groups",
-      dataIndex: ["platformGroup", "description"],
-      key: "description",
+      title: "Group Name",
+      dataIndex: "groupName",
+      key: "groupName",
     },
     {
       title: "Description",
-      dataIndex: ["platformGroup", "description"],
+      dataIndex: "description",
       key: "description",
     },
     {
       title: "Date Created",
-      dataIndex: ["platformGroup", "createdAt"],
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt: string) => moment(createdAt).format("DD-MM-YYYY HH:MM"),
+    },
+    {
+      title: "Joined On",
+      dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => moment(createdAt).format("DD-MM-YYYY"),
     },
     {
-      title: "Joined On",
-      dataIndex: "joinedOn",
-      key: "joinedOn",
-      render: (joinedOn: string) => moment(joinedOn).format("DD-MM-YYYY"),
-    },
-    {
       title: "",
       key: "actions",
-      render: (record: UserGroups) => (
+      render: (record: UserGroup) => (
         <div className={styles.actionBtn}>
           <PrimaryButton
             buttonType="default"
@@ -174,7 +179,6 @@ const DisplayTable = () => {
             icon={deleteIcon}
             customStyles={{
               background: token.default.white,
-             
             }}
             onClick={() => handleDelete(record)}
           />
