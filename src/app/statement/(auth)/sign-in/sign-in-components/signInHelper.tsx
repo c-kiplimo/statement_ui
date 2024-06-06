@@ -58,7 +58,6 @@ const SignInHelper = () => {
           description: "A new OTP has been generated. Please check your email.",
         });
         openModalHandler();
-        //router.push("/statement/otp-verification");
       })
       .catch((error) => {
         console.error("Login failed:", error);
@@ -75,7 +74,7 @@ const SignInHelper = () => {
     event.preventDefault();
     setTimeout(() => {
       router.push("/statement/create-account");
-    }, 1000);
+    }, 300);
   };
 
   return (

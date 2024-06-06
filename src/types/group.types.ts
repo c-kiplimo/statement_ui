@@ -12,6 +12,15 @@ type UserGroups = {
   };
   joinedOn: string;
 };
+type UserGroup = {
+  groupId: number;
+  customerId: number;
+  permission: string[];
+  description: string;
+  groupName: string;
+  createdAt: string; 
+}
+
 type Groups = {
   name?: string;
   description?: string;

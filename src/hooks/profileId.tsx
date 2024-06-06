@@ -25,7 +25,7 @@ const useProfileId  =  () =>{
   }, [userId])
 
 const profId = profileDetails?.customerId;
-console.log(profId);
+console.log("Customer Id:",profId);
 
 return profId;
 };
