@@ -129,6 +129,8 @@ export const GET_ACCOUNT_CONFIG = `${PROFILE_URL}/api/v1/accounts/configure`;
 
 export const GET_USERS_URL= `${PROFILE_URL}/api/v1/accounts/users`;
 
+export const GET_CUSTOMER_USERS_URL= `${PROFILE_URL}/api/v1/customers/users`;
+
 export const DELETE_USER_ACCOUNT_URL= `${PROFILE_URL}/api/v1/accounts`;
 
 export const LOGOUT_USER= `${API_URL}/api/v1/user/logout`;

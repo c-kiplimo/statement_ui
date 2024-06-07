@@ -45,7 +45,6 @@ interface RestrictionsOverviewProps {
 const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
-  const [modalVisible3, setModalVisible3] = useState(false);
   const [data, setData] = useState<DataFetcher[]>([]);
   const [dataId, setDataId] = useState<number | null>(null);
   const [datain, setdatain] = useState<EntriesProps[]>([]);
@@ -78,12 +77,6 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
   const handleRemoveClick = useCallback((entryId: number) => {
     setDataId(entryId);
     setModalVisible2(true);
-    fetchData();
-  }, []);
-
-  const handleEditClick = useCallback((restrictionId: number) => {
-    setDataId(restrictionId);
-    setModalVisible3(true);
     fetchData();
   }, []);
 
@@ -133,10 +126,6 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
             <MinusOutlined
               key="minus"
               onClick={() => handleRemoveClick(record.entryId!)}
-            />
-            <EditOutlined
-              key="edit"
-              onClick={() => handleEditClick(record.restrictionId!)}
             />
           </div>
         </button>
@@ -191,14 +180,6 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
         visible={modalVisible2}
         onCancel={() => setModalVisible2(false)}
         restrictionId={dataId!}
-      />
-      <EditPageModal
-        visible={modalVisible3}
-        onCancel={() => {
-          setModalVisible3(false);
-          setDataId(null);
-        }}
-        restrictionId={dataId}
       />
     </div>
   );

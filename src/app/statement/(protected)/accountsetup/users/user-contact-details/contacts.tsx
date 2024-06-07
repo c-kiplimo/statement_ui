@@ -54,25 +54,6 @@ const data = [
 const ContactDetails = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.cancel}>
-        <CloseOutlined />
-      </div>
-      <UserAcctStatus
-        userIcon={<img src="/userIcon.svg" alt="userIcon" />}
-        title={"Abia Mbabazi"}
-        titleDescript={"Viewer"}
-        lastseen={"Last login on 45 minutes ago"}
-        button1={"Groups"}
-        button2={"Accounts"}
-        button3={"Activity"}
-        button4={"Contact Details"}
-        button5={"Two-factor Authentication"}
-        mail={"abbymbabazi@gmail.com"}
-        location={"Kigali-Rwanda"}
-        timezone={"( GMT -11:46) Greenwich mean Time zone"}
-        updatebttn={"Update User"}
-      />
-
       <CustomTable columns={columns} data={data} pagination={false} />
     </div>
   );

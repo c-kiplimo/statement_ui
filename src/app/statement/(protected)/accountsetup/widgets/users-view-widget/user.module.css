@@ -1,12 +1,12 @@
 .container{
-    display: flex;
-flex-direction: column;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
 align-items: flex-start;
-padding: 0px 32px;
-gap: 54px;
-width: 1013px;
-height: fit-content;
-background-color: #FFFFFF;
+padding: 0px;
+gap: 32px;
+width: 934px;
+height: 186px;
 }
 
 
