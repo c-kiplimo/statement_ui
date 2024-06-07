@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AccountHeader } from "../account-ministatement/account.header";
 import styles from "./account.scedule.form.module.css";
-import { DatePicker, TimePicker, notification } from "antd";
 import { SelectedAcountContext } from "../context/accoint.overview.context";
 import { editAccountSchedule } from "@/src/services/account/account.schedule.service";
 import { usePathname, useRouter } from "next/navigation";
-import moment from "moment";
-import dayjs from "dayjs";
 import { getEditScheduleData } from "@/src/lib/account.status.action";
+import notification from 'antd/lib/notification'; // Assuming notification from antd
+import moment from 'moment';
 
 export type EditScheduletypes = {
   frequency: string;
@@ -33,14 +32,20 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
   const router = useRouter();
 
   useEffect(() => {
-    async function fetchData() {
-      let data = await getEditScheduleData(id);
-      setStatementFrequency(data.frequency);
-      setDate(data.date);
-      setTime(data.time);
-      setFileFormat(data.fileformat);
-      setTemplateType(data.templateFormat);
-    }
+    const fetchData = async () => {
+      try {
+        const data = await getEditScheduleData(id);
+        setStatementFrequency(data.frequency);
+        setDate(moment(data.date).format("YYYY-MM-DD")); // Formatting date
+        setTime(moment(data.time, "HH:mm:ss").format("HH:mm")); // Formatting time
+        setFileFormat(data.fileformat);
+        setTemplateType(data.templateFormat);
+      } catch (error) {
+        notification.error({
+          message: "Failed to load schedule data. Please try again later.",
+        });
+      }
+    };
     fetchData();
   }, [id]);
 
@@ -48,27 +53,23 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
     setStatementFrequency(e.target.value);
   };
 
-  const onDateChange = (date: any, dateString: any) => {
-    setDate(dateString);
+  const onDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
   };
 
-  const onTimeChange = (time: any, timeString: any) => {
-    setTime(timeString || "");
+  const onTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
   };
 
-  const templateFormatChange = (e: any) => {
+  const templateFormatChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTemplateType(e.target.value);
   };
-  const FileFormatChange = (e: any) => {
+
+  const fileFormatChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFileFormat(e.target.value);
   };
 
-  const fileFormatChange = (e: any) => {
-    setFileFormat(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleFormSubmit = async (e: any) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const editScheduleFormData = {
@@ -93,23 +94,29 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
       });
 
       router.push("/statement/account-statement-self");
-      closeModal()
+      closeModal();
     } catch (error) {
-      if (error === "Network Error") {
-        notification.error({
-          message: "Network Error",
-        });
-      } else if (error === 400) {
-        notification.error({
-          message: "Please ensure all inputs are valid.",
-        });
-      } else if (error === 500) {
-        notification.error({
-          message: "Internal server Error",
-        });
+      if (error instanceof Error) {
+        if (error.message === "Network Error") {
+          notification.error({
+            message: "Network Error",
+          });
+        } else if ((error as any).response?.status === 400) {
+          notification.error({
+            message: "Please ensure all inputs are valid.",
+          });
+        } else if ((error as any).response?.status === 500) {
+          notification.error({
+            message: "Internal Server Error",
+          });
+        } else {
+          notification.error({
+            message: "Something went wrong. Please try again...!",
+          });
+        }
       } else {
         notification.error({
-          message: "Something went wrong. Please try again...!",
+          message: "An unexpected error occurred. Please try again...!",
         });
       }
     }
@@ -141,14 +148,16 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
             </div>
             <div className={styles.datetime}>
               <div className={styles.date}>
-                <DatePicker
-                  value={date ? moment(date) : null}
+                <input
+                  type="date"
+                  value={date}
                   onChange={onDateChange}
                 />
               </div>
               <div className={styles.time}>
-                <TimePicker
-                  value={time ? dayjs(time, "HH:mm:ss") : null}
+                <input
+                  type="time"
+                  value={time}
                   onChange={onTimeChange}
                 />
               </div>
@@ -157,29 +166,29 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
               <div className={styles.format}>
                 <p>File Format</p>
                 <div className={styles.selectDiv}>
-                <select
-                  name="format"
-                  id="format"
-                  value={fileformat}
-                  onChange={FileFormatChange}
-                >
-                  <option value="PDF">PDF</option>
-                  <option value="CSV">CSV</option>
-                </select>
+                  <select
+                    name="format"
+                    id="format"
+                    value={fileformat}
+                    onChange={fileFormatChange}
+                  >
+                    <option value="PDF">PDF</option>
+                    <option value="CSV">CSV</option>
+                  </select>
                 </div>
               </div>
               <div className={styles.template}>
                 <p>Template</p>
                 <div className={styles.selectDiv}>
-                <select
-                  name="template"
-                  id="template"
-                  value={templateType}
-                  onChange={templateFormatChange}
-                >
-                  <option value="CORPORATE">CORPORATE</option>
-                  <option value="INDIVIDUAL">INDIVIDUAL</option>
-                </select>
+                  <select
+                    name="template"
+                    id="template"
+                    value={templateType}
+                    onChange={templateFormatChange}
+                  >
+                    <option value="CORPORATE">CORPORATE</option>
+                    <option value="INDIVIDUAL">INDIVIDUAL</option>
+                  </select>
                 </div>
               </div>
             </div>

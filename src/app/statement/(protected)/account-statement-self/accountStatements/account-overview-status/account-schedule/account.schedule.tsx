@@ -100,11 +100,14 @@ function AccountSchedule() {
         </div>
       )}
         <div className={styles.tableContainer}>
+          {statusData!.length === 0  && (
           <div className={styles.buttons}>
             <button onClick={handleAddButtonClick}>
               <PlusOutlined /> Add
             </button>
           </div>
+          )}
+
           {statusData && statusData.length > 0 ? (
           <table>
             <thead>
