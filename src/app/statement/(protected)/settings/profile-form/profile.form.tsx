@@ -236,6 +236,7 @@ ProfileForm.Input = (props: inputProps) => (
         value={props.value}
         className={styles.input}
         required
+        disabled={props.inputType === 'email'} 
       />
     </div>
   </div>
