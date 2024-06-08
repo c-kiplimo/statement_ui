@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 
 const GroupHandler = () => {
     const fetchUserGroups=async(customerId:number):Promise<UserGroup[]>=>{
-        const userGroupsUrl = `${USER_GROUPS_URL }/${customerId}`;
+        const userGroupsUrl = `${USER_GROUPS_URL }${customerId}`;
         try {
             const response: AxiosResponse<UserGroup[]> = await axios.get(userGroupsUrl, {
               headers: {
