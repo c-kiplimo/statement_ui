@@ -1,19 +1,17 @@
-
 import React, { useEffect, useMemo, useState } from "react";
-import CustomTable, { DataFetcher } from "../widgets/table/table";
 import { Select, Spin } from "antd";
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
+import { CloseOutlined, EditOutlined, EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import styles from "./users.status.module.css";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
 import { UsersAction } from "@/src/lib/actions/account.users.action";
-import AccountProfilePage from "@/src/components/widgets/userStatus/account.profile/account.profile";
-import { AccountsProfile } from "@/src/lib/actions/accountprofile.action";
-import { profilesTypeprops } from "../account-profile/account.profile";
 import AddItem from "@/src/components/atoms/add-item/add.item";
-import RemoveUserModal from "../page-manupilation/remove-from-page/user/remove.user";
-import AddUserModal from "../widgets/forms/add.form";
+import CustomTable, { DataFetcher } from "../../widgets/table/table";
+import { CustomersUsersAction } from "@/src/lib/actions/customer.users.action";
+import { useAccountProfileContext } from "../../context/account.contex";
+import RemoveUserModal from "./remove-customer-user/remove.customer.user";
+import AddUserModal from "./add-customer-user/add.customer.user";
 
 const { Option } = Select;
 
@@ -36,57 +34,42 @@ interface Datatype {
   render?: (text: any, record: DataType) => React.ReactNode;
 }
 
-const AccountsStatus = (props: UserIdProps) => {
+const CustomerUsers = (props: UserIdProps) => {
   const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
-  const [profile, setProfile] = useState<profilesTypeprops | null>(null);
   const [removeUser, setRemoveUser] = useState(false);
   const [addUser, setAddUser] = useState(false);
   const [dataId, setDataId] = useState<number | null>(null);
-  const [passedAccId, setPassedAccId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const { accountId, updateAccount } = useAccountProfileContext();
 
-  useEffect(() => {
-    const passedAccId = sessionStorage.getItem("passedaccountId");
-    if (passedAccId) {
-      setPassedAccId(parseInt(passedAccId));
-    }
-  }, []);
+  sessionStorage.setItem("passedaccountId", accountId.toString());
 
-  useEffect(() => {
-    if (!passedAccId) return;
-
-    const fetchProfileData = async () => {
-      try {
-        const accountProf = await AccountsProfile(passedAccId);
-        setProfile(accountProf);
-      } catch (error) {
-        console.error("Failed to fetch profile details", error);
-      }
-    };
-
-    fetchProfileData();
-  }, [passedAccId]);
-
-  useEffect(() => {
-    if (!passedAccId) return;
-
-    const fetchData = async () => {
+  const fetchData = async () => {
+    if (props.userId !== undefined) {
       setLoading(true);
       try {
-        const incomingAccountId = await UsersAction(passedAccId);
+        const incomingAccountId = await CustomersUsersAction(props.userId);
+        
         setIncomingData(incomingAccountId);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [passedAccId]);
+  }, [props.userId]);
 
-  const handleRoleChange = (value: string, id: React.Key) => {
-  
+  const handleRoleChange = async (value: string, id: React.Key) => {
+    try {
+      await UsersAction
+      fetchData();
+    } catch (error) {
+      console.error("Error updating role:", error);
+    }
   };
 
   const handleRemoveClick = (entryId: number) => {
@@ -94,8 +77,7 @@ const AccountsStatus = (props: UserIdProps) => {
     setRemoveUser(true);
   };
 
-  const handleAddUserClick = (entryId: number) => {
-    setDataId(entryId);
+  const handleAddUserClick = () => {
     setAddUser(true);
   };
 
@@ -116,7 +98,6 @@ const AccountsStatus = (props: UserIdProps) => {
         );
       },
     },
-
     {
       title: "User Name",
       dataIndex: "userName",
@@ -131,8 +112,8 @@ const AccountsStatus = (props: UserIdProps) => {
           defaultValue={text}
           onChange={(value) => handleRoleChange(value, record.id!)}
         >
-          <Option className={styles.option} value="Admin">Admin</Option>
-          <Option className={styles.option} value="Viewer">Viewer</Option>
+          <Option className={styles.option} value="Admin">ADMIN</Option>
+          <Option className={styles.option} value="Viewer">VIEW</Option>
         </Select>
       ),
     },
@@ -155,52 +136,16 @@ const AccountsStatus = (props: UserIdProps) => {
       title: "",
       dataIndex: "icon",
       render: (_, record) => (
-        <div
-          className={styles.icons}
-          onClick={() => handleRemoveClick(Number(record.id))}
-        >
-          <img src="/trash.svg" alt="trash" />
+        <div className={styles.icons}>
+          <EyeOutlined />
+          <MinusOutlined onClick={() => handleRemoveClick(Number(record.id))} />
         </div>
       ),
     },
   ];
 
-  const numberOfUsers = incomingData.length;
-
-  const getLastLoginTime = useMemo(() => {
-    const now = new Date();
-    const date = now.toLocaleDateString();
-    const time = now.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    return `${date} ${time}`;
-  }, []);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const incomingAccountId = await UsersAction(passedAccId!);
-      setIncomingData(incomingAccountId);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className={styles.container}>
-      {profile && (
-        <AccountProfilePage
-          icon={<img src="/teamusericon.png" alt="teamusericon" />}
-          lastSeenTime={`Last login on ${getLastLoginTime}`}
-          accountId={profile.accountId}
-          accountName={profile.accountTitle}
-          numberOfusers={`(${numberOfUsers} users)`}
-          currency={profile.currency}
-        />
-      )}
       <div className={styles.headerdiv}>
         <div className={styles.textdiv}>Users Overview</div>
         <div className={styles.atomsdiv}>
@@ -218,7 +163,7 @@ const AccountsStatus = (props: UserIdProps) => {
             icon={<PlusOutlined />}
             iconStyle={{ color: "gray" }}
             titleStyle={{ color: "gray" }}
-            onClick={() => handleAddUserClick(1)}
+            onClick={handleAddUserClick}
           />
         </div>
       </div>
@@ -231,19 +176,18 @@ const AccountsStatus = (props: UserIdProps) => {
       <RemoveUserModal
         visible={removeUser}
         onCancel={() => setRemoveUser(false)}
-        userId={dataId!} 
+        userId={dataId!}
         onRefreshData={fetchData}
       />
       <AddUserModal
         visible={addUser}
         roleOptions={["ADMIN", "VIEWER"]}
         statusOptions={["ACTIVE", "DISABLED"]}
-        accountId={passedAccId!}
+        accountId={accountId}
         closeIcon={<CloseOutlined />}
         onCancel={() => setAddUser(false)}
-        fetchData={fetchData}
+        onRefreshData={fetchData}
       />
-
       {loading && (
         <div className={styles.spinnerContainer}>
           <Spin size="large" />
@@ -253,4 +197,4 @@ const AccountsStatus = (props: UserIdProps) => {
   );
 };
 
-export default AccountsStatus;
+export default CustomerUsers;

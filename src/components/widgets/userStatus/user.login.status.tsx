@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import styles from "./user.login.status.module.css";
 import { CaretDownOutlined } from "@ant-design/icons";
 import Button from "../../atoms/dropDownButton/button";
-import TabsNav from "@/src/app/statement/(protected)/accountsetup/tabs/customersetuptabs/tabs";
+
 
 
 
@@ -65,7 +65,6 @@ const LastLogin = (props: StatusProps) => {
         
         </div>
       </div>
-      <div className={styles.lowerdiv}><TabsNav userId={props.userId}/></div>
     </div>
   );
 };

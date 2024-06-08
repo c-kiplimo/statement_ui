@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import styles from "./user.module.css";
 import { CaretDownOutlined, CloseOutlined } from "@ant-design/icons";
 import Button from "@/src/components/atoms/dropDownButton/button";
+import UserViewTabsNavigation from "../../tabs/user-view-tabs/user.view.tabs";
 
 type contentProps = {
   userIcon: ReactNode;
@@ -32,7 +33,7 @@ const options = [
   },
 ];
 
-const UserAcctStatus = (props: contentProps) => {
+const UserViewProfile = (props: contentProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.userDetails}>
@@ -65,14 +66,10 @@ const UserAcctStatus = (props: contentProps) => {
         </div>
       </div>
       <div className={styles.groupsDiv}>
-        <button className={`${"bttnDiv"} bodyr`}>{props.button1}</button>
-        <button className={`${"bttnDiv"} bodyr`}>{props.button2}</button>
-        <button className={`${"bttnDiv"} bodyr`}>{props.button3}</button>
-        <button className={`${"bttnDiv"} bodyr`}>{props.button4}</button>
-        <button className={`${"bttnDiv"} bodyr`}>{props.button5}</button>
+       <UserViewTabsNavigation/>
       </div>
       </div>
   );
 };
 
-export default UserAcctStatus;
+export default UserViewProfile;

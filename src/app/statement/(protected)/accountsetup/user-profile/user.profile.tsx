@@ -3,6 +3,20 @@ import LastLogin from "@/src/components/widgets/userStatus/user.login.status";
 import { profileDetails } from "@/src/lib/actions/profile.action";
 import styles from "./user.profile.module.css";
 import { Spin } from "antd";
+import AccountsPage from "../accounts/accounts";
+import ActivitiesStatus from "../activities/activities.status";
+import CustomerUsers from "../users/customer-users/users.status";
+import TabNavigations from "../widgets/acctSetup-navigations-items/tab.navigations";
+import RestrictionsOverview from "../restrictions/restrictions-overview/restrictions.overview";
+
+
+interface TabItem {
+  buttonName: string;
+  bodyContent: React.ReactNode;
+}
+interface TabsNavProps {
+  
+}
 
 type Profile = {
   userName: string;
@@ -43,6 +57,28 @@ const Userprofile: React.FC<UserProfileProps> = ({
     fetchProfileDetails();
   }, [userId]);
 
+
+
+  const tabItems: TabItem[] = [
+
+    {
+      buttonName: 'Users',
+      bodyContent: <CustomerUsers userId={userId} key="users" />,
+    },
+    {
+      buttonName: 'Accounts',
+      bodyContent: <AccountsPage userId={userId} key="accounts" />,
+    },
+    {
+      buttonName: 'Activities',
+      bodyContent: <ActivitiesStatus userId={userId} key="activities" />,
+    },
+    {
+      buttonName: 'Restrictions',
+      bodyContent: <RestrictionsOverview userId={userId} key="restrictions" />,
+    },
+  ];
+
   const getLastLoginTime = useMemo(() => {
     const now = new Date();
     const date = now.toLocaleDateString();
@@ -81,6 +117,7 @@ const Userprofile: React.FC<UserProfileProps> = ({
         userId={userId}
         icon={<img src="/teamusericon.png" alt="teamusericon" />}
       />
+      <TabNavigations tabItems={tabItems}/>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./remove.user.module.css";
+import styles from "./remove.customer.user.module.css"
 import { CloseOutlined } from "@ant-design/icons";
 import { Alert, Button } from "antd";
 import { deleteAccountUser } from "@/src/services/account/delete.account.user.service";

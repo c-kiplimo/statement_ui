@@ -26,6 +26,7 @@ interface DataType {
   currency?: string;
   accountId?: number;
   entryId?: number;
+  userId?: number;
 }
 
 interface Datatype {
@@ -46,9 +47,10 @@ const RestrictionsOverview = (props: DataType) => {
 
     const fetchData = async () => {
       try {
-        let incomingData = await accountRestrictionsAction(parseInt(passedAccid!));
-        console.log(incomingData);
-        
+        let incomingData = await accountRestrictionsAction(
+          parseInt(passedAccid!)
+        );
+
         setData(incomingData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -66,8 +68,6 @@ const RestrictionsOverview = (props: DataType) => {
     setdataId(entryId);
     setModalVisible3(true);
   };
-
-
 
   const columns: Datatype[] = [
     {
@@ -96,10 +96,6 @@ const RestrictionsOverview = (props: DataType) => {
               key="minus"
               onClick={() => handleRemoveClick(record.entryId!)}
             />
-            <EditOutlined
-              key="edit"
-              onClick={() => handleEditClick(record.entryId!)}
-            />
           </div>
         </button>
       ),
@@ -112,11 +108,6 @@ const RestrictionsOverview = (props: DataType) => {
 
   const handleModalCancel2 = () => {
     setModalVisible2(false);
-  };
-
-  const handleModalCancel3 = () => {
-    setModalVisible3(false);
-    setdataId(null);
   };
 
   return (
@@ -161,11 +152,6 @@ const RestrictionsOverview = (props: DataType) => {
         visible={modalVisible2}
         onCancel={handleModalCancel2}
         restrictionId={dataId!}
-      />
-      <EditPageModal
-        visible={modalVisible3}
-        onCancel={handleModalCancel3}
-        restrictionId={dataId}
       />
     </div>
   );

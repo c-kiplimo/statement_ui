@@ -5,7 +5,6 @@ import styles from "./activities.status.module.css";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
 import Search from "@/src/components/atoms/search/search";
-import Link from "next/link";
 import { ActivitiesAction } from "@/src/lib/actions/activities.action";
 
 interface ActivityData {
@@ -89,11 +88,11 @@ const columns: CustomColumn[] = [
     title: "",
     dataIndex: "icons",
     render: () => (
-      <Link href="/statement/accountsetup/users">
+      
         <button className={styles.iconsdiv}>
           <EyeOutlined />
         </button>
-      </Link>
+     
     ),
   },
 ];
