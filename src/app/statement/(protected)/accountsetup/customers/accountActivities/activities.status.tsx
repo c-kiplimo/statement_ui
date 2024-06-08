@@ -141,7 +141,7 @@ console.log(passedAccid);
           </div>
         </div>
       </div>
-      <CustomTable data={datacall} columns={columns} />
+      <CustomTable data={datacall} columns={columns as any} />
       <Link href="/statement/accountsetup/users">
       </Link>
     </div>

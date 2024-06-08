@@ -151,4 +151,16 @@ export const All_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/restrictions?page=0&s
 
 export const DELETE_ACCOUNT_USER =`${PROFILE_URL}/api/v1/accounts`;
 
-export const ADD_CUSTOMER_USER_ACCOUNT=`${PROFILE_URL}/api/v1/accounts/assign`
+export const ADD_CUSTOMER_USER_ACCOUNT=`${PROFILE_URL}/api/v1/accounts/assign`;
+
+export const CUSTOMER_USER_PROFILE=`${PROFILE_URL}/api/v1/customers/user`;
+
+export const DELETE_CUSTOMER_USER_URL= `${PROFILE_URL}/api/v1/customers/users`;
+
+export const GET_CUSTOMER_USER_ACTIVITIES_URL = `${PROFILE_URL}/api/account/user/activities/v1`;
+
+export const GET_CUSTOMER_USER_ACCOUNT_URL = `${PROFILE_URL}/api/v1/accounts/user`;
+
+export const  GET_CUSTOMER_USER_GROUPS_URL = `${API_URL}/api/platform/group/v1`;
+
+export const ADD_CUST_USER_URL =`${PROFILE_URL}/api/v1/customers/assign`;

@@ -24,10 +24,8 @@ height: auto;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-align-items: center;
-align-self: center;
 padding: 32px 0px 16px 16px;
-gap: 285px;
+gap: 385px;
 width: 100%;
 height: 80px;
   }
@@ -52,7 +50,7 @@ color: #151E00;
   padding: 0px;
   gap: 1px;
   margin-bottom: 20px;
-  width: 219px;
+  width: fit-content;
   height: 24px;
   color: #6f7269;
     }
@@ -83,3 +81,41 @@ width: 100%;
 height: 80px;
 border-bottom: 0.5px solid #979992;
     }
+
+    .timestyle{
+      width: 81px;
+      height: 24px;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 16px;
+      color: #6F7269;
+       }
+      
+       .dateStyles{
+      width: 81px;
+      height: fit-content;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #6F7269;
+       } 
+       
+       .date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 10px;
+        width: fit-content;
+        height: 44px;
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #6f7269;
+      }

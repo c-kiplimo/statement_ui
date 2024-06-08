@@ -1,26 +1,26 @@
 import React, { useState, FC } from "react";
 import styles from "./add.customer.user.module.css";
-import { createCustomerAccountUser } from "@/src/services/userprofile/create.user.service";
+import { createCustomerUser } from "@/src/services/userprofile/add.customer.user.service";
 import { notification } from "antd";
 
 type AddProps = {
-  accountId: number;
+  customerId: number;
   closeIcon: React.ReactNode;
   roleOptions?: string[];
   statusOptions?: string[];
   visible: boolean;
   onCancel: () => void;
-  onRefreshData: () => Promise<void>; // Added this line
+  onRefreshData: () => Promise<void>;
 };
 
 const AddUserModal: FC<AddProps> = ({
-  accountId,
+  customerId,
   closeIcon,
   roleOptions,
   statusOptions,
   visible,
   onCancel,
-  onRefreshData, // Updated this line
+  onRefreshData,
 }) => {
   const [username, setUsername] = useState("");
   const [userRole, setUserRole] = useState("");
@@ -31,8 +31,8 @@ const AddUserModal: FC<AddProps> = ({
     e.preventDefault();
     setIsLoading(true);
     try {
-      await createCustomerAccountUser({
-        accountId: accountId,
+      await createCustomerUser({
+        customerId: customerId,
         email: username,
         role: userRole,
         status: status,
@@ -44,25 +44,36 @@ const AddUserModal: FC<AddProps> = ({
         message: "Success",
         description: "User assigned successfully",
       });
-      onRefreshData(); // Updated this line
+      onRefreshData();
       onCancel();
     } catch (error: any) {
       console.error("Error creating user:", error);
-      if (error.response && error.response.status === 409) {
-        notification.error({
-          message: "Error",
-          description: "User already added",
-        });
-      } else if (error.response && error.response.status === 404) {
-        notification.error({
-          message: "Error",
-          description: "User not found",
-        });
-      } else if (error.response && error.response.status === 400) {
-        notification.error({
-          message: "Error",
-          description: "Submission was unsuccessful",
-        });
+      if (error.response) {
+        switch (error.response.status) {
+          case 409:
+            notification.error({
+              message: "Error",
+              description: "User already added",
+            });
+            break;
+          case 404:
+            notification.error({
+              message: "Error",
+              description: "User not found",
+            });
+            break;
+          case 400:
+            notification.error({
+              message: "Error",
+              description: "Submission was unsuccessful",
+            });
+            break;
+          default:
+            notification.error({
+              message: "Error",
+              description: "An unexpected error occurred",
+            });
+        }
       } else {
         notification.error({
           message: "Error",
@@ -83,7 +94,7 @@ const AddUserModal: FC<AddProps> = ({
       <div className={styles.modalContent}>
         <div className={styles.container}>
           <div
-            className={styles.counceIcon}
+            className={styles.closeIcon}
             style={{ color: "gray" }}
             onClick={onCancel}
           >
@@ -148,7 +159,7 @@ const AddUserModal: FC<AddProps> = ({
             )}
 
             <div className={`${styles.bttndiv} bodyr`}>
-              <button type="submit">
+              <button type="submit" disabled={isLoading}>
                 {isLoading ? "Creating User..." : "Create User"}
               </button>
             </div>

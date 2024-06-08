@@ -1,104 +1,109 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
 import styles from "./user.groups.module.css";
 import Search from "@/src/components/atoms/search/search";
-import Link from "next/link";
-import {PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import AddItem from "@/src/components/atoms/add-item/add.item";
-import CustomTable from "../../widgets/table/table";
+import CustomTable, { DataFetcher } from "../../widgets/table/table";
+import { CustomerUserGroupsAction } from "@/src/lib/actions/customer.user.groups.action";
+import AddUserGroupsModal from "./add-user-group/add.user.groups";
+import { Modal } from "antd";
 
 const columns = [
   {
     title: "Groups",
-    dataIndex: "createdOn",
-    render: (text: string) => (
-      <span className={`${styles.groupStyles} bodyr`}>{text}</span>
-    ),
-  },
-  {
-    title: "Description",
     dataIndex: "userName",
     render: (text: string) => (
       <span className={`${styles.groupStyles} bodyr`}>{text}</span>
     ),
   },
   {
-    title: "Date Created",
-    dataIndex: "currency",
+    title: "Description",
+    dataIndex: "description",
     render: (text: string) => (
       <span className={`${styles.groupStyles} bodyr`}>{text}</span>
     ),
   },
   {
+    title: "Date",
+    dataIndex: "createdOn",
+    render: (text: string) => {
+      const dateTime = new Date(text);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString();
+      return (
+        <div className={styles.date}>
+          <div className={styles.dateStyles}>{date}</div>
+          <div className={styles.timestyle}>{time}</div>
+        </div>
+      );
+    },
+  },
+  {
     title: "Joined On",
-    dataIndex: "settings",
-    render: (text: string) => ( 
-      <span className={`${styles.groupStyles} bodyr`}>{text}</span>
-    ),
+    dataIndex: "joinedOn",
+    render: (text: string) => {
+      const dateTime = new Date(text);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString();
+      return (
+        <div className={styles.date}>
+          <div className={styles.dateStyles}>{date}</div>
+          <div className={styles.timestyle}>{time}</div>
+        </div>
+      );
+    },
   },
   {
     title: "",
     dataIndex: "icons",
     render: () => (
-      <Link href="/statement/accountsetup/users">
-        <button className={styles.icon}>
-          <img src="/delete.svg" alt="delete" />
-        </button>
-      </Link>
+      <button className={styles.icon}>
+        <img src="/delete.svg" alt="delete" />
+      </button>
     ),
   },
 ];
 
-const data = [
-  {
-    id: 1,
-    createdOn: "Developers",
-    currency: "08-03-2021",
-    userName: "Description",
-    settings: "10-03-2022",
-  },
+type idProps = {
+  userId: string;
+};
 
-  {
-    id: 2,
-    createdOn: "Developers",
-    currency: "08-03-2021",
-    userName: "Description",
-    settings: "10-03-2022",
-  },
+const UserGroups = ({ userId }: idProps) => {
+  const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
-  {
-    id: 3,
-    createdOn: "Developers",
-    currency: "08-03-2021",
-    userName: "Description",
-    settings: "10-03-2022",
-  },
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userId !== undefined) {
+        try {
+          const data = await CustomerUserGroupsAction(parseInt(userId));
+          setIncomingData(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+    fetchData();
+  }, [userId]);
 
-  {
-    id: 4,
-    createdOn: "Developers",
-    currency: "08-03-2021",
-    userName: "Description",
-    settings: "10-03-2022",
-  },
+  const showModal = (userId: number) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
 
-  {
-    id: 5,
-    createdOn: "Developers",
-    currency: "08-03-2021",
-    userName: "Description",
-    settings: "10-03-2022",
-  },
-];
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
-const UserGroups = () => {
   return (
     <div className={styles.container}>
       <div className={styles.lowerDiv}>
         <div className={styles.tableHeader}>
           <div className={styles.headerdiv}>
-            <div className= {`${styles.textdiv} h6b`}>Groups</div>
+            <div className={`${styles.textdiv} h6b`}>Groups</div>
             <div className={styles.atomsdiv}>
               <Search
                 title={"Search"}
@@ -111,7 +116,7 @@ const UserGroups = () => {
               <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
               <AddItem
                 title={"Add user"}
-                icon={<PlusOutlined />}
+                icon={<PlusOutlined onClick={() => showModal(parseInt(userId))} />}
                 iconStyle={{ color: "gray" }}
                 titleStyle={{ color: "gray" }}
               />
@@ -119,7 +124,10 @@ const UserGroups = () => {
           </div>
         </div>
       </div>
-      <CustomTable data={data}columns={columns} pagination={false}/>
+      <CustomTable data={incomingData} columns={columns} pagination={false}  />
+      <Modal footer={false} width={669} open={isModalOpen} onCancel={handleCancel}>
+        <AddUserGroupsModal accountId={selectedUserId!} />
+      </Modal>
     </div>
   );
 };

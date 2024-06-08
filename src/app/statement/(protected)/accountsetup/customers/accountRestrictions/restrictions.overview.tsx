@@ -38,7 +38,6 @@ interface Datatype {
 const RestrictionsOverview = (props: DataType) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
-  const [modalVisible3, setModalVisible3] = useState(false);
   const [data, setData] = useState<DataFetcher[]>([]);
   const [dataId, setdataId] = useState<number | null>(null);
 
@@ -64,10 +63,6 @@ const RestrictionsOverview = (props: DataType) => {
     setModalVisible2(true);
   };
 
-  const handleEditClick = (entryId: number) => {
-    setdataId(entryId);
-    setModalVisible3(true);
-  };
 
   const columns: Datatype[] = [
     {

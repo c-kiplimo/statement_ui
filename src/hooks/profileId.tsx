@@ -5,7 +5,7 @@ import { loggedInProfileDetails } from '../lib/get.profileinfo.action';
 const useProfileId  =  () =>{
   const profile = useProfileCreated()
   let userId = profile?.userId;
-  console.log();
+  
   
   const [profileDetails, setProfileDetails] = useState<CustomerProfile>()
 
@@ -25,7 +25,6 @@ const useProfileId  =  () =>{
   }, [userId])
 
 const profId = profileDetails?.customerId;
-console.log("Customer Id:",profId);
 
 return profId;
 };

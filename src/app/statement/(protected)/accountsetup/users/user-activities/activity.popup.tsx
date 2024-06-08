@@ -1,131 +1,121 @@
-import React from 'react'
-import styles from "./activity.popup.module.css"
-import UserAcctStatus from '../../widgets/users-view-widget/user.groups'
-import { CloseOutlined, EyeInvisibleOutlined, EyeOutlined, PlusOutlined } from '@ant-design/icons'
-import CustomTable from '../../widgets/table/table'
+import React, { useEffect, useState } from 'react';
+import styles from "./activity.popup.module.css";
+import { EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import CustomTable, { DataFetcher } from '../../widgets/table/table';
 import AddItem from "@/src/components/atoms/add-item/add.item";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
-import Link from "next/link";
+import { UserActivitiesAction } from '@/src/lib/actions/customer.user.activities.action';
 
-const ActivityPopup = () => {
-    interface ActivityData {
-        id: React.Key;
-        createdOn?: string;
-        userName?: string;
-        role?: string;
-        status?: string;
-        icons?: React.ReactNode;
-        currency?:string;
+interface ActivityData extends DataFetcher {
+  // Extend DataFetcher with any additional properties if necessary
+}
+
+interface CustomColumn {
+  title: string;
+  dataIndex: keyof ActivityData;
+  render?: (text: any, record: ActivityData, index: number) => React.ReactNode;
+}
+
+const columns: CustomColumn[] = [
+  {
+    title: "Date",
+    dataIndex: "createdOn",
+    render: (text: string) => {
+      const dateTime = new Date(text);
+      const date = dateTime.toLocaleDateString();
+      const time = dateTime.toLocaleTimeString();
+
+      return (
+        <div className={styles.date}>
+          <div className={styles.dateStyles}>{date}</div>
+          <div className={styles.timestyle}>{time}</div>
+        </div>
+      );
+    },
+  },
+  {
+    title: "Activity Name",
+    dataIndex: "userName",
+    render: (text) => <span className={styles.ActivityName}>{text}</span>,
+  },
+  {
+    title: "Description",
+    dataIndex: "role",
+    render: (text) => <span className={styles.description}>{text}</span>,
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    render: (text, record) => {
+      let color = "";
+      let backgroundColor = "";
+
+      switch (record.status) {
+        case "COMPLETED":
+          color = "#17D05B";
+          backgroundColor = "#DFF0D8";
+          break;
+        case "PENDING":
+          color = "orange";
+          backgroundColor = "#FCF8E3";
+          break;
+        default:
+          color = "";
+          backgroundColor = "";
+          break;
       }
-      
-      interface CustomColumn {
-        title: string;
-        dataIndex: keyof ActivityData;
-        render?: (text: any, record: ActivityData, index: number) => React.ReactNode;
+
+      return (
+        <span
+          style={{ color: color, backgroundColor: backgroundColor }}
+          className={styles.status}
+        >
+          {text}
+        </span>
+      );
+    },
+  },
+  {
+    title: "",
+    dataIndex: "icons",
+    render: () => (
+      <button className={styles.iconsdiv}>
+        <EyeOutlined />
+      </button>
+    )
+  },
+];
+
+type IdProps = {
+  userId: string;
+};
+
+const ActivityPopup: React.FC<IdProps> = ({ userId }) => {
+  const [activityData, setActivityData] = useState<DataFetcher[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userId !== undefined) {
+          const data = await UserActivitiesAction(parseInt(userId));
+          setActivityData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-      
-      const columns: CustomColumn[] = [
-        {
-          title: "Date",
-          dataIndex: "createdOn",
-          render: (text: any, record: any) => ( 
-            <span className={styles.date}>
-              <span className={styles.account}>{text}</span>
-              <span className={styles.currency}>{record.currency}</span>
-            </span>
-          ),
-        },
-        {
-          title: "Activity Name",
-          dataIndex: "userName",
-          render: (text) => <span className={styles.ActivityName}>{text}</span>,
-        },
-        {
-          title: "Description",
-          dataIndex: "role",
-          render: (text) => (
-            <span className={styles.description}>{text}</span>
-          ),
-        },
-        {
-          title: "Status",
-          dataIndex: "status",
-          render: (text, record) => {
-            let color = "";
-            let backgroundColor = "";
-      
-            switch (record.status) {
-              case "Completed":
-                color = "#17D05B";
-                backgroundColor = "#DFF0D8";
-                break;
-              case "Pending":
-                color = "orange";
-                backgroundColor = "#FCF8E3";
-                break;
-              default:
-                color = "";
-                backgroundColor = "";
-                break;
-            }
-      
-            return (
-              <span
-                style={{ color: color, backgroundColor: backgroundColor }}
-                className={styles.status}
-              >
-                {text}
-              </span>
-            );
-          },
-        },
-        {
-          title: "",
-          dataIndex: "icons",
-          render: () => (
-            <Link href="/statement/accountsetup/users">
-            <button className={styles.iconsdiv}>
-              <EyeOutlined />
-            </button>
-            </Link>)
-        },
-      ];
-      
-      const data: ActivityData[] = [
-        {
-          id: 1,
-          createdOn: "23-05-2023",
-          currency: "10:45 a.m",
-          userName: "Downloaded statement",
-          role: "Description",
-          status: "Active",
-        },
-        {
-          id: 2,
-          createdOn: "23-05-2023",
-          currency: "10:45 a.m",
-          userName: "Downloaded statement",
-          role: "Description",
-          status: "Completed",
-        },
-        {
-          id: 3,
-          createdOn: "23-05-2023 ",
-          currency: "10:45 a.m",
-          userName: "Downloaded statement",
-          role: "Description",
-          status: "Pending",
-        },
-      ];
-      
+    };
+
+    fetchData();
+  }, [userId]);
+
   return (
     <div className={styles.container}>
-<div className={styles.lowerDiv}>
+      <div className={styles.lowerDiv}>
         <div className={styles.tableHeader}>
           <div className={styles.headerdiv}>
-            <div className={styles.textdiv}>Account Activity</div>
+            <div className={`${styles.textdiv} h6b`}>Account Activities</div>
             <div className={styles.atomsdiv}>
               <Search
                 title={"Search"}
@@ -142,18 +132,18 @@ const ActivityPopup = () => {
                 iconStyle={{ color: "gray" }}
                 titleStyle={{ color: "gray" }}
               />
-               </div>
             </div>
-      <CustomTable
-        data={data}
-        pageSize={4}
-        total={10}
-        columns={columns}
-      />
+          </div>
+          <CustomTable
+            data={activityData}
+            pageSize={4}
+            total={10}
+            columns={columns as any} 
+          />
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-  )
-}
+  );
+};
 
-export default ActivityPopup
+export default ActivityPopup;
