@@ -73,7 +73,7 @@ const SignInHelper = () => {
   ) => {
     event.preventDefault();
     setTimeout(() => {
-      router.push("/statement/create-account");
+      router.replace("/statement/create-account");
     }, 300);
   };
 

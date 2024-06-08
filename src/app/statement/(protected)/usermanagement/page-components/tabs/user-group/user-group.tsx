@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { Modal, Table, Form, Input, Button } from "antd";
+import { Modal, Table} from "antd";
 import styles from "./user-group.module.css";
 import GroupDetails from "@/src/components/widgets/user-management/tabs/user-group/group-details/group-details";
 import { SearchOutlined } from "@ant-design/icons";
-import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
+import {useTokens } from "@/src/app/(context)/ColorContext";
 import moment from "moment";
 import { deleteIcon, editIcon } from "@/src/components/atoms/svg/document_svg";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
@@ -11,6 +11,7 @@ import { ColumnsType } from "antd/es/table";
 import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 import classNames from "classnames";
 import useProfileId from "@/src/hooks/profileId";
+import StepperNav from "@/src/components/widgets/user-management/stepper-nav/stepper-nav";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -81,7 +82,7 @@ const Search = ({ onSearch }: SearchInputProps) => {
 const DisplayTable = () => {
   const token = useTokens();
   const [data, setData] = useState<UserGroup[]>([]);
-  const { fetchAllUserGroups, fetchUserGroups } = GroupHandler();
+  const {fetchUserGroups } = GroupHandler();
   const profId = useProfileId();
   const userId = 624744553961;
 
@@ -124,7 +125,6 @@ const DisplayTable = () => {
 
   const handleDeleteOk = () => {
     setDeleteModalVisible(false);
-    // fetchGroupData();
   };
 
   const handleCancel = () => {
@@ -169,7 +169,7 @@ const DisplayTable = () => {
               background: token.default.white,
               color: token.default.grey,
             }}
-            onClick={() => {}}
+            onClick={() => {<StepperNav/>}}
           />
           <PrimaryButton
             buttonType="default"

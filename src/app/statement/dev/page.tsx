@@ -11,7 +11,7 @@ import UserViewProfilePage from "../(protected)/accountsetup/user-view-profile/u
 const Dev = () => {
   return (
     <Fragment>
-      <UserViewProfilePage/>
+      <StepperNav/>
     </Fragment>
   );
 }
