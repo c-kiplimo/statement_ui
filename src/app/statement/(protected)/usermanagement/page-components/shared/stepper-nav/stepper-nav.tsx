@@ -4,8 +4,6 @@ import { Form, Input, Steps } from "antd";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import PermissionCreationForm from "@/src/app/statement/(protected)/usermanagement/page-components/shared/role-permission/permission-creation-form";
-import RolePermission from "@/src/app/statement/(protected)/user-management/create-new-roles/page";
-import RolesPermission from "@/src/app/statement/(protected)/usermanagement/page-components/shared/role-permission/roles";
 
 export const userManagementData = [
   {

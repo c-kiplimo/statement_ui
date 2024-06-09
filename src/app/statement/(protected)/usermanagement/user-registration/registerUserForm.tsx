@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import styles from "./registerUserForm.module.css";
 import { Checkbox, Form, Input, Select } from "antd";
-import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import Texter from "@/src/components/atoms/text/texter";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { authServiceHandler } from "@/src/services/auth/auth.service";
 
 const RegisterUserForm = () => {
+  const router = useRouter();
+  const { registerUserService } = authServiceHandler();
+  const [submitted, setSubmitted] = useState(false);
   const token = useTokens();
-  const font = useFont();
-  const [user, setUser] = useState({
-    countryCode: "",
-  });
 
   const countryOptions = [
     { value: "+254", label: "+254" },
@@ -20,15 +21,15 @@ const RegisterUserForm = () => {
     { value: "+250", label: "+250" },
   ];
 
+  const [user, setUser] = useState({
+    countryCode: countryOptions[0].value,
+  });
+
   const options = [
     { label: 'Team Administrator', value: 'Team Administrator' },
     { label: 'Engineers', value: 'Engineers' },
     { label: 'Select Roles', value: 'Select Roles' },
   ];
-
-  const handleCountry = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
-  };
 
   for (let i = 10; i < 36; i++) {
     options.push({
@@ -36,6 +37,11 @@ const RegisterUserForm = () => {
       value: i.toString(36) + i,
     });
   }
+
+  const handleCountry = (field: string, value: string) => {
+    setUser({ ...user, [field]: value });
+  };
+
   const handleChange = (value: string[]) => {
     console.log(`selected ${value}`);
   };
@@ -168,7 +174,6 @@ const RegisterUserForm = () => {
                   rules={[
                     {
                       required: false,
-
                       message: "Please enter a valid password address",
                     },
                   ]}
