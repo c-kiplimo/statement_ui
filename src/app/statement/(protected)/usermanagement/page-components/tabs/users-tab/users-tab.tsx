@@ -2,44 +2,52 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ColumnsType } from "antd/es/table";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
-import {
-  tickIcon,
-  xIcon,
-} from "@/src/components/atoms/svg/document_svg";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import Tab from "@/src/components/atoms/tabs/tab";
 import RegisterUser from "./register-user/register-user";
-import PendingAuthorization from "../../../../../../../components/widgets/user-management/tabs/users/pending-authorization/pending-authorization";
+import PendingAuthorization from "./pending-authorization/pending-authorization";
 import { useAccountStatementContext } from "@/src/app/(context)/account-statement-context";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 import { UserDetails } from "@/src/types/user.type";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import styles from "./users-tab.module.css";
 import { EyeIcon } from "lucide-react";
-import { DeleteOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import { Modal } from "antd";
 import classNames from "classnames";
-import RegisterUserForm from "../../../user-registration/registerUserForm";
+import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
+
 
 const Users: React.FC = () => {
   const { accountId } = useAccountStatementContext();
   const token = useTokens();
-  const { fetchAllUsers, deleteUser } = UserHandler();
+  const { fetchAllUsers,fetchPendingUser, deleteUser } = UserHandler();
   const router = useRouter();
-
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isRegisteredUserModalOpen, setIsRegisteredUserModalOpen] =
     useState<boolean>(false);
   const [isPendingAuthorizationModalOpen, setIsPendingAuthorizationModalOpen] =
     useState<boolean>(false);
-  const [deleteModalVisible, setDeleteModalVisible] =
-    useState<boolean>(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [modalType, setModalType] = useState<string>("add");
   const [selectedUser, setSelectedUser] = useState<UserDetails | null>(null);
-  const [data, setData] = useState<UserDetails[]>([]);
+  // const [data, setData] = useState<UserDetails[]>([]);
+  const [registeredUsers, setRegisteredUsers] = useState<UserDetails[]>([]);
+  const [pendingUsers, setPendingUsers] = useState<UserDetails[]>([]);
   const [hoveredButton, setHoveredButton] = useState<
     "confirm" | "cancel" | null
   >(null);
+  const [activeButton, setActiveButton] = useState<"check" | "cancel" | null>(
+    null
+  );
+
+  const handleButtonClick = (buttonType: "check" | "cancel") => {
+    setActiveButton(buttonType);
+  };
 
   const handleMouseEnter = (buttonType: "confirm" | "cancel") => {
     setHoveredButton(buttonType);
@@ -49,20 +57,32 @@ const Users: React.FC = () => {
     setHoveredButton(null);
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   const fetchUsers = async () => {
     try {
       const response = await fetchAllUsers();
-      setData(response);
+      setRegisteredUsers(response);
       console.log(response);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 
+  const displayPendingUsers = async () => {
+    try {
+      const response = await fetchPendingUser(); 
+      setPendingUsers(response); 
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching pending users:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+    // displayPendingUsers();
+  }, []);
+ 
   const openModal = (type: string, record: UserDetails) => {
     setModalType(type);
     setSelectedUser(record);
@@ -93,15 +113,15 @@ const Users: React.FC = () => {
     setDeleteModalVisible(false);
   };
 
-  const handleCreate = (data: UserDetails): void => {
+  const handleCreate = (registeredUsers: UserDetails): void => {
     console.log("handleCreate");
   };
 
-  const handleEdit = (data: UserDetails): void => {
+  const handleEdit = (registeredUsers: UserDetails): void => {
     console.log("handleEdit");
   };
 
-  const handleView = (data: UserDetails): void => {
+  const handleView = (registeredUsers: UserDetails): void => {
     console.log("handleView");
   };
 
@@ -136,16 +156,35 @@ const Users: React.FC = () => {
     },
   ];
 
-  const dynamicData = {
-    data: {
-      title: "Meraki Systems tech",
-      description: "234353",
-      lastActivity: "July, 07 2023",
-      availableBalance: "$146,786.33",
-      workingBalance: "$67,990.24",
-      terms: "12 months",
-    },
+  const modalWidth = () => {
+    switch (modalType) {
+      case "add":
+        return "800px";
+      case "edit":
+        return "500px";
+      case "delete":
+        return "500px";
+      default:
+        return "700px";
+    }
   };
+
+  const pendingAuthorizationColumn = (
+    actions: (record: UserDetails) => JSX.Element
+  ): ColumnsType<UserDetails> => [
+    { title: "First name", dataIndex: "first", key: "first" },
+    { title: "Last name", dataIndex: "last", key: "last" },
+    { title: "Phone number", dataIndex: "phone", key: "phone" },
+    { title: " Email Address", dataIndex: "email", key: "email" },
+    { title: "Role", dataIndex: "role", key: "role" },
+    { title: "Staff number", dataIndex: "staff", key: "Staff" },
+    {
+      title: "",
+      dataIndex: "",
+      key: "actions",
+      render: (record) => actions(record),
+    },
+  ];
 
   const tabsItems = [
     {
@@ -168,11 +207,11 @@ const Users: React.FC = () => {
                 className={styles.btn}
                 onClick={() => openModal("delete", record)}
               >
-                <DeleteOutlined style={{ color: "#c9c9cc" }} size={16}/>
+                <DeleteOutlined style={{ color: "#c9c9cc" }} size={16} />
               </button>
             </div>
           ))}
-          data={data}
+          data={registeredUsers}
           modalTitle=""
           isModalOpen={isRegisteredUserModalOpen}
           setIsModalOpen={setIsRegisteredUserModalOpen}
@@ -183,7 +222,55 @@ const Users: React.FC = () => {
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           modalType={modalType}
-          dynamicData={dynamicData}
+          setModalType={setModalType}
+        />
+      ),
+    },
+    {
+      title: "Pending Authorisation",
+      content: (
+        <PendingAuthorization
+          columns={pendingAuthorizationColumn((record) => (
+            <div className={styles.actionBtn}>
+              <button
+                className={styles.btn}
+                onClick={() => {
+                  router.push(
+                    "/statement/user-management/user-management-profile"
+                  );
+                }}
+              >
+                <EyeIcon style={{ color: "#c9c9cc" }} size={16} />
+              </button>
+              <button
+                className={`${styles.btn} ${activeButton === "check" ? styles.tickBtn : ""}`}
+                onClick={() => handleButtonClick("check")}
+              >
+                <CheckOutlined size={16} />
+              </button>
+              <button
+                className={`${styles.btn} ${activeButton === "cancel" ? styles.cancelBtn : ""}`}
+                onClick={() => {
+                  handleButtonClick("cancel");
+                }}
+              >
+                <CloseOutlined size={16} />
+              </button>
+            </div>
+          ))}
+          data={pendingUsers}
+          modalTitle=""
+          isModalOpen={isPendingAuthorizationModalOpen}
+          setIsModalOpen={setIsPendingAuthorizationModalOpen}
+          modalWidth={modalWidth()}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+          modalContentComponent={PendingAuthorizationModalContent}
+          accountId={accountId}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          modalType={modalType}
           setModalType={setModalType}
         />
       ),
@@ -216,9 +303,7 @@ const Users: React.FC = () => {
                     color: token.default.white,
                   }}
                   onClick={() =>
-                    router.push(
-                      "/statement/usermanagement/user-registration"
-                    )
+                    router.push("/statement/usermanagement/user-registration")
                   }
                 >
                   Register

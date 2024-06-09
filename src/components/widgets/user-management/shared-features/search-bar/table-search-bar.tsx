@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState } from "react";
 import styles from "./table-search-bar.module.css";
-import { PrinterFilled, SearchOutlined } from "@ant-design/icons";
+import {SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
 
 const SearchBar = () => {

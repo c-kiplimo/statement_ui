@@ -64,9 +64,14 @@ export const CUSTOMER_RESTRICTIONS_URL = `${PROFILE_URL}/api/v1/restrictions`;
 
 export const ACCOUNT_STATEMENT_REQUEST_URL = `${PROFILE_URL}/api/v1/statement-request`;
 
+export const REGISTER_PENDING_USER= `${API_URL}/api/v1/user`;
+
+export const PENDING_USER=`${API_URL}/api/v1/user/pending`;
+
 export const USER_PERMISSION_URL = `${API_URL}/api/v1/user-permission`;
 
 export const USER_GROUP_URL = `${API_URL}/api/platform/group/v1`;
+
 export const USER_GROUPS_URL =`${PROFILE_URL}/api/v1/groups/`;
 
 export const USER_URL = `${API_URL}/api/v1/user`;

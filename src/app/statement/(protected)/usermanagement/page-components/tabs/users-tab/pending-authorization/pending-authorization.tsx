@@ -2,9 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Table, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { UserDetails } from "@/src/types/user.type";
-import SearchBar from "../../../shared-features/search-bar/table-search-bar";
-
-
+import SearchBar from "../../../../../../../../components/widgets/user-management/shared-features/search-bar/table-search-bar";
 
 type ModalContentComponentType = React.ComponentType<{
   accountId: string;
@@ -12,7 +10,7 @@ type ModalContentComponentType = React.ComponentType<{
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData: { data: any }; // Adjust this based on your actual dynamicData structure
+  dynamicData: { data: any };
   setIsModalOpen: (isOpen: boolean) => void;
   setModalType: (type: string) => void;
   isModalOpen: boolean;
@@ -34,7 +32,7 @@ interface PendingAuthorization {
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData: { data: any }; // Adjust this based on your actual dynamicData structure
+  dynamicData?: { data: any };
 }
 
 const PendingAuthorization = (props: PendingAuthorization) => {
@@ -45,7 +43,7 @@ const PendingAuthorization = (props: PendingAuthorization) => {
         style={{ marginTop: "15px", width: "100%" }}
         columns={props.columns}
         pagination={{
-          pageSize: 1,
+          pageSize: 5,
           itemRender: (current, type, originalElement) => {
             if (type === "page") {
               return <span style={{ margin: "0 8px" }}>{current}</span>;
@@ -54,13 +52,17 @@ const PendingAuthorization = (props: PendingAuthorization) => {
           },
           style: {
             display: "flex",
+            justifyContent:"flex-end",
+            alignItems:"flex-end",
+            padding:"0px 32px",
+            gap:"16px",
+            width:"100%",
             textAlign: "center",
           },
         }}
         dataSource={props.data}
       />
-
-      <Modal
+      {/* <Modal
         title={props.modalTitle}
         open={props.isModalOpen}
         width={props.modalWidth}
@@ -75,13 +77,13 @@ const PendingAuthorization = (props: PendingAuthorization) => {
             handleEdit={props.handleEdit}
             handleDelete={props.handleDelete}
             modalType={props.modalType}
-            dynamicData={props.dynamicData}
+            dynamicData={props.dynamicData!}
             setIsModalOpen={props.setIsModalOpen}
             setModalType={props.setModalType}
             isModalOpen={props.isModalOpen}
-          />
+          /> 
         )}
-      </Modal>
+      </Modal>*/}
     </Fragment>
   );
 };

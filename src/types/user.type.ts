@@ -35,4 +35,15 @@ export type UserDetails = {
   username?:string;
 }
 
+export type PendingUser = {
+  userName?: string;
+  firstName: string;
+  lastName: string;
+  userType?: string;
+  password: string;
+  status?: string;
+  mobileNumber: string;
+  email: string;
+};
+
 

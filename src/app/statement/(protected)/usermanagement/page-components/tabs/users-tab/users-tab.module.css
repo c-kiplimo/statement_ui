@@ -7,19 +7,65 @@
   height: 32px;
 }
 
-.btn{
-box-sizing: border-box;
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 16px;
-width: 32px;
-height: 32px;
-border: 0.5px solid #e6e6e6;
-border-radius: 4px;
-flex: none;
-order: 1;
-flex-grow: 0;
+.actionBtn {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  margin: 0 auto;
+  width: 88px;
+  height: 32px;
+  flex: none;
+  order: 7;
+  flex-grow: 0;
+}
+
+.btn {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 32px;
+  height: 32px;
+  color: #e6e6e6;
+  border: 0.5px solid var(--neutral-grey-900);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.tickBtn {
+  border: 1px solid var(--functional-colors-success);
+  color: var(--functional-colors-success);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.cancelBtn {
+  border:1px solid var(--functional-colors-danger);
+  color: var(--functional-colors-danger);  
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.btn {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
 
 .userTab {

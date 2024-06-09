@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import RegisterUserModalContent from "@/src/components/molecules/user-management/modal-content/registerUserModal";
 import PendingAuthorizationModalContent from "@/src/components/molecules/user-management/modal-content/pendingAuthorizationModal";
 import Tab from "@/src/components/atoms/tabs/tab";
-import PendingAuthorization from "../tabs/users/pending-authorization/pending-authorization";
+import PendingAuthorization from "../../../../app/statement/(protected)/usermanagement/page-components/tabs/users-tab/pending-authorization/pending-authorization";
 
 const UsersTab = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);

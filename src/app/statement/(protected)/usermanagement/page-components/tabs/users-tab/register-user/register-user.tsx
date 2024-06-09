@@ -1,5 +1,5 @@
 import React, { Key, useState } from "react";
-import { Modal, Table } from "antd";
+import {Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { UserDetails } from "@/src/types/user.type";
 import SearchBar from "../../../../../../../../components/widgets/user-management/shared-features/search-bar/table-search-bar";
@@ -31,25 +31,12 @@ interface RegisterUserProps {
   handleDelete: (data: UserDetails) => void;
   modalType: string;
   setModalType: (type: string) => void;
-  dynamicData: { data: any };
+  dynamicData?: { data: any };
 }
 
 const RegisterUser: React.FC<RegisterUserProps> = ({
   columns,
-  data, 
-  modalTitle, 
-  isModalOpen,
-  setIsModalOpen,
-  handleOk, 
-  handleCancel, 
-  modalContentComponent: ModalContent, 
-  accountId, 
-  handleCreate, 
-  handleEdit, 
-  handleDelete, 
-  setModalType, 
-  modalType, 
-  dynamicData,
+  data,  
 }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
@@ -61,13 +48,12 @@ const RegisterUser: React.FC<RegisterUserProps> = ({
     <>
       <SearchBar />
   <Table
-        className=""
         style={{ boxSizing:"border-box",marginTop: "15px", width: "100%" }}
         rowSelection={{
           type:'checkbox',
           selectedRowKeys,
           onChange: onSelectChange,
-          checkStrictly: false,
+          checkStrictly: true,
         }}
         pagination={{
           pageSize: 5,
