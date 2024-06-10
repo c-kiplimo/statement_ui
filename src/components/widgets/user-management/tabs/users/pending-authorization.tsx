@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Table, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { UserDetails } from "@/src/types/user.type";
-import TableSearchBar from "../shared/table-search-bar/table-search-bar";
+import SearchBar from "../../shared-features/search-bar/table-search-bar";
 
 type ModalContentComponentType = React.ComponentType<{
   accountId: string;
@@ -10,7 +10,7 @@ type ModalContentComponentType = React.ComponentType<{
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData: { data: any }; // Adjust this based on your actual dynamicData structure
+  dynamicData: UserDetails | null;
   setIsModalOpen: (isOpen: boolean) => void;
   setModalType: (type: string) => void;
   isModalOpen: boolean;
@@ -32,13 +32,13 @@ interface PendingAuthorization {
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData?: { data: any }; // Adjust this based on your actual dynamicData structure
+  dynamicData: UserDetails | null;
 }
 
 const PendingAuthorization = (props: PendingAuthorization) => {
   return (
     <Fragment>
-      <TableSearchBar />
+      <SearchBar />
       <Table
         style={{ marginTop: "15px", width: "100%" }}
         columns={props.columns}
@@ -65,6 +65,18 @@ const PendingAuthorization = (props: PendingAuthorization) => {
         onOk={props.handleOk}
         onCancel={props.handleCancel}
         footer={null}
+        style={{
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "32px 32px 32px 0px",
+          gap: "24px",
+          position: "absolute",
+          left: "650px",
+          top: "200px",
+        }}
       >
         {props.modalContentComponent && (
           <props.modalContentComponent

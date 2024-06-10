@@ -30,6 +30,12 @@ const RegisterUserForm = () => {
   const options = [
     { label: 'Team Administrator', value: 'Team Administrator' },
     { label: 'Engineers', value: 'Engineers' },
+    { label: 'System Analyst', value: 'System Analyst' },
+    { label: 'Data Engineer', value: 'Data Engineer' },
+    { label: 'Intern', value: 'Intern' },
+    { label: 'UI Developer', value: 'UI Developer' },
+    { label: 'Strategic planning', value: 'Strategic planning' },
+    { label: 'Project Manager', value: 'Project Manager' },
     { label: 'Select Roles', value: 'Select Roles' },
   ];
 

@@ -7,6 +7,7 @@ import Button from "@/src/components/atoms/button/button";
 import PermissionModalContent from "../../shared/modal/permission-modal-content";
 import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 import useProfileId from "@/src/hooks/profileId";
+import StepperNav from "../../shared/stepper-nav/stepper-nav";
 
 
 const RoleTable = ({ setActive }: any) => {
@@ -45,7 +46,7 @@ const RoleTable = ({ setActive }: any) => {
         <div className={styles.actions}>
           <button
             className={`${styles.actionBtn} bodyr`}
-            onClick={() => openModal("edit", record)}
+            onClick={() => {StepperNav}}
           >
             Edit
           </button>

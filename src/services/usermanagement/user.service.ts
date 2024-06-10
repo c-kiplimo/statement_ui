@@ -1,4 +1,4 @@
-import { USER_URL,REGISTER_PENDING_USER, PENDING_USER} from "@/src/constants/environment";
+import { USER_URL,REGISTER_PENDING_USER, PENDING_USER, AUTHORIZE_USER, UNAUTHORIZE_USER} from "@/src/constants/environment";
 import { PendingUser, UserDetails } from "@/src/types/user.type";
 import {notification } from "antd";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -106,9 +106,50 @@ const UserHandler = () => {
       };
   
       const response = await axios.request(config);
-      return response.data as UserDetails[]; 
+      return response.data.content as UserDetails[]; 
     } catch (error) {
       console.error('Error fetching pending users:', error);
+      throw error;
+    }
+  };
+
+  const authorizeUser = async (userId: string): Promise<UserDetails> => {
+    const config: AxiosRequestConfig = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: `${AUTHORIZE_USER}/${userId}`,
+      headers: {
+        'X-RequestId': '35342323'
+      },
+      data: ''
+    };
+  
+    try {
+      const response = await axios.request<UserDetails>(config);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const unauthorizeUser = async (userId: string): Promise<UserDetails> => {
+    const config: AxiosRequestConfig = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: `${UNAUTHORIZE_USER}/${userId}`,
+      headers: {
+        'X-RequestId': '35342323'
+      },
+      data: ''
+    };
+  
+    try {
+      const response = await axios.request<UserDetails>(config);
+      console.log("Unauthorized user>>",response)
+      return response.data;
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   };
@@ -117,7 +158,9 @@ const UserHandler = () => {
     fetchAllUsers,
     deleteUser,
     registerUser,
-    fetchPendingUser
+    fetchPendingUser,
+    authorizeUser,
+    unauthorizeUser
   };
 };
 

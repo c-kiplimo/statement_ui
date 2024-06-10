@@ -9,10 +9,9 @@
 
 .actionBtn {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: 0px;
   gap: 16px;
-  margin: 0 auto;
   width: 88px;
   height: 32px;
   flex: none;
@@ -114,13 +113,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 32px 32px 32px 0px;
+  padding: 32px 32px 32px 32px;
   gap: 24px;
   position: absolute;
   left: 650px;
-  top: 200px;
-  width: 517px;
-  height: 276px;
+  top: 200px; 
+  width: 100%;
 }
 
 .modalContainer {
