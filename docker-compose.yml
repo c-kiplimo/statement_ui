@@ -1,0 +1,15 @@
+version: "3.8"
+services: 
+  frontend:
+    container_name: frontend
+    image: collins6299/statement_ui:1.0.9
+    restart: always
+    command: npm start
+    environment:
+      - NODE_ENV=production 
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3000:3000

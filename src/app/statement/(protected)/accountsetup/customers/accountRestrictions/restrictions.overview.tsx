@@ -26,7 +26,7 @@ interface DataType {
   currency?: string;
   accountId?: number;
   entryId?: number;
-  userId?: number;
+  userId?: string;
 }
 
 interface Datatype {

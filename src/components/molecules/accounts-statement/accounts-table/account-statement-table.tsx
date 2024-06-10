@@ -30,16 +30,16 @@ const TableDisplay = (props: {
         if (statementRequestId) {
           const response = await fetchStatementRequestById(statementRequestId);
           console.log(response);
-          setResponse(response);
+          // setResponse(response);
           //convert json object to array
           let parsedResponse;
-          if (response.data) {
-            parsedResponse = JSON.parse(response?.data);
-            console.log(parsedResponse);
+          if (response) {
+            // parsedResponse = JSON.parse(response);
+            // console.log(parsedResponse);
           }
           if (response) {
-            setData(parsedResponse.statementEntries);
-            setAccountDetails(parsedResponse.accountDTO);
+            // setData(parsedResponse.statementEntries);
+            // setAccountDetails(parsedResponse.accountDTO);
           }
         }
       } catch (error) {
@@ -100,7 +100,7 @@ const TableDisplay = (props: {
       dataIndex: "amount",
       key: "amount1",
       render: (text, record) => {
-        if (record.data) {
+        if (record) {
           return (
             <span
               style={{
@@ -122,7 +122,9 @@ const TableDisplay = (props: {
       dataIndex: "amount",
       key: "amount",
       render: (text, record) => {
-        if (!record.data) {
+        if (!record
+          
+        ) {
           return (
             <span
               style={{

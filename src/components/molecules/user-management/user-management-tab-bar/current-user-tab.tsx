@@ -282,10 +282,10 @@ const UsersTab = () => {
                 tabsItems={tabsItems}
                 onSelectTab={(index) => setSelectedTab(index)}
                 selectedTab={selectedTab}
-                backgroundColor={token.border.primary}
-                fontWeight={0}
-                borderColor={token.border.primary}
-                textColor={""}
+                // backgroundColor={token.border.primary}
+                // fontWeight={0}
+                // borderColor={token.border.primary}
+                // textColor={""}
               />
 
               {selectedTab === 0 && (

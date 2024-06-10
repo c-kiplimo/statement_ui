@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { notification, Spin } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import styles from "./cust.details.search.module.css";
-import Accountsetup from "@/src/components/widgets/accountsetup-widget/cust.details.search";
 import Createdrecord, { DataSearch } from "@/src/components/widgets/account-created-recors-widget/created.record";
 import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
 import CustdetailsnotFound from "../search-not-found/cust.details.notFound";
+import dynamic from "next/dynamic";
+
+const Accountsetup = dynamic(() => import("@/src/components/widgets/accountsetup-widget/cust.details.search"), { ssr: false });
 
 const AccountsetupPage = () => {
   const [data, setData] = useState<DataSearch[]>([]);

@@ -1,8 +1,7 @@
 "use client";
-import Card from "@/src/components/atoms/navigation/card/card_with_icon_image_text";
-import GreenTextWithAtick from "@/src/components/atoms/typography/green_text_with_atick";
 import Image from "next/image";
 import { useTokens } from "@/src/app/(context)/ColorContext";
+import Card from "@/src/components/atoms/navigation/card/reusable_card";
 
 const IdentifyVerification = ({
   formData,
@@ -91,7 +90,7 @@ const IdentifyVerification = ({
             marginTop: "4px",
           }}
         >
-          <GreenTextWithAtick isSuccess="true" text="Government-Issued" />
+          {/* <GreenTextWithAtick isSuccess="true" text="Government-Issued" />
           <GreenTextWithAtick
             isSuccess="true"
             text="Original full-size, unedited documents"
@@ -104,10 +103,10 @@ const IdentifyVerification = ({
           <GreenTextWithAtick
             isSuccess="true"
             text="Readable, well-lit, coloured images"
-          />
+          /> */}
 
-          <GreenTextWithAtick text="No black and white images" />
-          <GreenTextWithAtick text="No edited or expired images" />
+          {/* <GreenTextWithAtick text="No black and white images" />
+          <GreenTextWithAtick text="No edited or expired images" /> */}
         </div>
 
         <div className="id-photo-upload flex mb-6 gap-10">

@@ -22,7 +22,7 @@ const DateCard = (props: DateCardProps) => {
         onDateChange={props.onEndDateChange}
       />
       <div className={styles.submit}>
-        <SubmitButton onSubmit={props.onSubmitChange} />
+        <SubmitButton  />
       </div>
     </div>
   );

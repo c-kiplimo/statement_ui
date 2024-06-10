@@ -10,16 +10,16 @@ const RestrictionPage = () => {
     <div className={styles.container}>
       <LastLogin
         userName={"Meraki System Tech"}
-        mail={"Banking Industry"}
+        // mail={"Banking Industry"}
         town={"Kampala Uganda"}
         timezone={"( GMT -11:46) Greenwich mean Time zone"}
         icon={<img src="/teamusericon.png" alt="teamusericon" />}
-        lastSeenTime={"Last login on 45 minutes ago"}
-        button1={"Accounts"}
-        button2={"Users"}
-        button3={"Activity"}
-        button4={"Restrictions"} 
-        titleDescription={""}      />
+        lastSeenTime={"Last login on 45 minutes ago"} industry={"Banking Industry"} customerType={""}        // button1={"Accounts"}
+        // button2={"Users"}
+        // button3={"Activity"}
+        // button4={"Restrictions"} 
+        // titleDescription={""}      
+        />
 
       <div className={styles.addRestrictiondiv}>
         <div className={styles.searchDiv}>

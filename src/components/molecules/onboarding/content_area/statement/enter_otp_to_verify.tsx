@@ -19,7 +19,6 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
   const user_details = userDetails();
   const firstName = user_details?.firstName;
   const [value, valueChanged] = useState("");
-  const { token } = useAuthContext();
   const { requestOtpService, verifyOtpService } = authServiceHandler();
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +57,7 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
     event.preventDefault();
     timerChanged(300);
     stopTimer();
-    requestOtpService(token?.accessToken || "");
+    // requestOtpService(token?.accessToken || "");
   }
 
   useEffect(() => {
@@ -82,8 +81,8 @@ const EnterOtpToVerify = (props: OtpVerifytProps) => {
         </div>
         <div className="space-y-5">
           <OTPInputContainer
-            valueLength={6}
-            value={value}
+            length={6}
+            // value={value}
             onChange={(e: string) => {
               valueChanged(e);
             }}

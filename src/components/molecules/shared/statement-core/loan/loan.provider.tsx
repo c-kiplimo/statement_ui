@@ -6,7 +6,7 @@ import "../account_statement_search.css"
   
   
   type LoanProviderProp ={
-    onValueChange:(el)=>void
+    onValueChange:(el:any)=>void
   }
   const LoanProvider = ({onValueChange}:LoanProviderProp) => {
   

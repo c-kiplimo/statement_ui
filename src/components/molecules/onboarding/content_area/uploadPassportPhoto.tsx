@@ -1,6 +1,5 @@
 "use client";
 
-import GreenTextWithAtick from "@/src/components/atoms/typography/green_text_with_atick";
 import Image from "next/image";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 
@@ -61,7 +60,7 @@ const UploadPassportPhoto = ({
               src="/passport189.svg"
             />
           </div>
-          <GreenTextWithAtick
+          {/* <GreenTextWithAtick
             isSuccess="true"
             text="Upload a passport photo of your self with a neutral expression"
           />
@@ -75,7 +74,7 @@ const UploadPassportPhoto = ({
           />
           <GreenTextWithAtick text="Do not crop your ID or use screenshots of your ID" />
           <GreenTextWithAtick text="Do not hide or alter parts of your face (No hats, Beauty images, Filters, Headgear) " />
-          <GreenTextWithAtick text="Avoid wearing hats,  avoid using filter, avoid wearing glasses" />
+          <GreenTextWithAtick text="Avoid wearing hats,  avoid using filter, avoid wearing glasses" /> */}
         </div>
 
         <p className="p-4  text-primary">

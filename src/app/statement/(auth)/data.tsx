@@ -1,4 +1,4 @@
-import { CardData } from "@/src/components/atoms/cards/infoCard";
+import { CardData } from "@/src/components/atoms/cards/customerinfo/infoCard";
 
 export const carPhysicaldData: CardData = [
   [

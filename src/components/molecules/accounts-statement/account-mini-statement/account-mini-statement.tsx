@@ -124,7 +124,7 @@ const DisplayTable = () => {
       const { fetchAccountMiniStatement } = AccountMiniStatementHandler();
       try {
         if (accountId) {
-          const response = await fetchAccountMiniStatement(accountId);
+          const response = await fetchAccountMiniStatement(parseInt(accountId));
           console.log(response);
           if (response) {
             setData(response);

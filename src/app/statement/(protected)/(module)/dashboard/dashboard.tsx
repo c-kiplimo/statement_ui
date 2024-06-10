@@ -61,8 +61,7 @@ const Dashboard = () => {
             bgColor={token.default.white}
             borderColor={token.border.primary}
             textColor={token.default.black}
-            onClick={() => handleDelete(record)}
-          />
+            onClick={() => handleDelete(record)} style={{}}          />
         </Space>
       ),
     },

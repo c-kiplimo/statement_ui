@@ -229,7 +229,7 @@ const UsersTab = () => {
           modalTitle=""
           isModalOpen={isRegisteredUserModalOpen}
           setIsModalOpen={setIsRegisteredUserModalOpen}
-          modalWidth={modalWidth()}
+          // modalWidth={modalWidth()}
           handleOk={handleOk}
           handleCancel={handleCancel}
           modalContentComponent={RegisterUserModalContent}

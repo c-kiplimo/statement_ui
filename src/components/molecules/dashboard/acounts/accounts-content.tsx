@@ -18,7 +18,7 @@ const AccountContent = () => {
 
       const response = await profileService(userId);
 
-      const profileId = response.payload[0]?.profileId;
+      const profileId = response.profileId;
       if(profileId){
         const profileData = await profileDataService(profileId);
          setProfileData(profileData);

@@ -44,7 +44,7 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export function App({
+function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
@@ -114,5 +114,5 @@ const LNavbar = ({ children, bgColor }: any) => {
   );
 };
 
-export { Sidebar, LNavbar };
+// export { Sidebar, LNavbar };
 export default ProtectedLayout;

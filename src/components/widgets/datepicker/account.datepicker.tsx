@@ -37,8 +37,8 @@ const AccountDatePicker = <T extends Dayjs | string>(
         }}
         id="endDate"
         placement="bottomLeft"
-        onChange={handleDateChange}
-      />
+
+        />
     </div>
   );
 };

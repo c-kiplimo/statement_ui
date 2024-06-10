@@ -1,6 +1,6 @@
-"use client";
-import styles from "./logout.module.css";
+"use client"
 import React from "react";
+import styles from "./logout.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

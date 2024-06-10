@@ -1,8 +1,9 @@
 "use client";
 import React, { Fragment } from "react";
 import withContainer from "@/src/components/molecules/shared/statement-core/statement.container.hoc";
-import Accountstype from "./accounts.configuration";
+import dynamic from "next/dynamic";
 
+const Accountstype = dynamic(() => import("./accounts.configuration"), { ssr: false });
 
 
 

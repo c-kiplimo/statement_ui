@@ -94,13 +94,13 @@ const CardStatementHome = () => {
       <div className={style.activitysetupheader}>
         <div className={style.activitysetupheadertabs}>
           <Tabs
-            textColor={token.default.black}
-            textColorActive={token.accent.info}
-            borderColor={token.accent.info}
-            backgroundColor={token.default.white}
-            borderBottom={token.default.grey}
-            isUnderlined={true}
-            fontWeight={font.typography.body.medium.fontWeight}
+            // textColor={token.default.black}
+            // textColorActive={token.accent.info}
+            // borderColor={token.accent.info}
+            // backgroundColor={token.default.white}
+            // borderBottom={token.default.grey}
+            // isUnderlined={true}
+            // fontWeight={font.typography.body.medium.fontWeight}
             tabsItems={items}
             onSelectTab={(index) => setSelectedTab(index)}
             selectedTab={selectedTab}

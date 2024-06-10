@@ -182,10 +182,10 @@ const AccountSetupActivity = () => {
         <UserSetupDetails />
         <div className={style.activitysetupheadertabs}>
           <Tabs
-            textColor={token.default.black}
-            borderColor={token.default.grey}
-            backgroundColor={token.border.primary}
-            fontWeight={font.typography.body.medium.fontWeight}
+            // textColor={token.default.black}
+            // borderColor={token.default.grey}
+            // backgroundColor={token.border.primary}
+            // fontWeight={font.typography.body.medium.fontWeight}
             tabsItems={items}
             onSelectTab={(index) => setSelectedTab(index)}
             selectedTab={selectedTab}

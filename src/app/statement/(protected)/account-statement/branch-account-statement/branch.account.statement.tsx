@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./branch.account.statement.module.css";
 import CompletedStatement from "./completed-statement/completed.statement";
 import { AccountStatementContext } from "./context/getAccountNumberContext";
@@ -33,22 +33,21 @@ function BranchAccountStatement() {
   return (
     <AccountStatementContext.Provider value={{ accountNo, setAccountNo }}>
       <QueryClientProvider client={queryClient}>
-
-      <div className={styles.start}>
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <div className={styles.header}>
-              <BranchAccountStatement.Header
-                title="Provide Account Details"
-                description="Search Account statement by providing customers account number"
-              />
-            </div>
-            <div>
-            {isMounted && <TabNavigations tabItems={tabitems} />}
+        <div className={styles.start}>
+          <div className={styles.container}>
+            <div className={styles.content}>
+              <div className={styles.header}>
+                <BranchAccountStatement.Header
+                  title="Provide Account Details"
+                  description="Search Account statement by providing customers account number"
+                />
+              </div>
+              <div>
+                {isMounted && <TabNavigations tabItems={tabitems} />}
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </QueryClientProvider>
     </AccountStatementContext.Provider>
   );

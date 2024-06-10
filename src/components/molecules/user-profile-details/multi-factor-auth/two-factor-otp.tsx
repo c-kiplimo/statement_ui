@@ -51,8 +51,8 @@ const TwoFactorOtpCard = (props: TwoFactorOtpInputProps) => {
         data-autosubmit="true"
       >
         <OTPInputContainer
-          valueLength={4}
-          value={value}
+          length={4}
+          // value={value}
           onChange={(e: string) => {
             valueChanged(e);
           }}

@@ -46,6 +46,7 @@ const AccountStatementTab = () => {
             startDate: formattedStartDate,
             endDate: formattedEndDate,
             accountId,
+            userId: 0
           });
           console.log('api response', createResponse);
           console.log('api response', createResponse?.statementRequestId);

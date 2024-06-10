@@ -127,8 +127,8 @@ function OtpVerifyHelper(props: OtpVerifytProps) {
         </div>
         <div className="space-y-5">
           <OTPInputContainer
-            valueLength={6}
-            value={value}
+            length={6}
+            // value={value}
             onChange={(e: string) => {
               valueChanged(e);
             }}

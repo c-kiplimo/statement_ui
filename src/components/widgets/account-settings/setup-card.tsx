@@ -1,11 +1,11 @@
 import React from 'react';
 import style from './account-setup-activity.module.css';
 import RadioButton from '@/src/components/atoms/button/radioButton/radio';
-import Label from '@/src/components/atoms/label/label';
 import { DatePicker, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 import Button from '@/src/components/atoms/button/button';
 import { useTokens } from '@/src/app/(context)/ColorContext';
+import { Label } from '../../atoms/label/label';
 
 function SetupCard() {
   const currentDate = new Date();
@@ -18,7 +18,6 @@ function SetupCard() {
           <Label
             htmlFor="radio1"
             label="Allow MT 940 / MT 950 Statements"
-            required={false}
             style={{ marginBottom: '50rem' }}
           />
           <div className={style.setupCardRadio}>
@@ -43,7 +42,7 @@ function SetupCard() {
           <Label
             htmlFor="radio2"
             label="Allow for Online Statement"
-            required={false}
+            
           />
           <div className={style.setupCardRadio}>
             <RadioButton
@@ -67,7 +66,7 @@ function SetupCard() {
           <Label
             htmlFor="radio3"
             label="Scheduled Statements"
-            required={false}
+            
           />
           <div className={style.setupCardRadio}>
             <RadioButton
@@ -91,7 +90,7 @@ function SetupCard() {
           <Label
             htmlFor="radio3"
             label="Statement Frequency"
-            required={false}
+            
           />
           <div className={style.setupCardRadio}>
             <RadioButton
@@ -144,8 +143,7 @@ function SetupCard() {
           label="Next"
           bgColor={token.brand.primary}
           textColor="white"
-          onClick={() => console.log('clicked')}
-        />
+          onClick={() => console.log('clicked')} style={{}}        />
       </div>
     </>
   );

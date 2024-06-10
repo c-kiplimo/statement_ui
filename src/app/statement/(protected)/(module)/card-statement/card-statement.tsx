@@ -7,10 +7,10 @@ import StatementSelectionContainer from "@/src/components/molecules/shared/state
 import CardProvider from "@/src/components/molecules/shared/statement-core/card/statement.cards.provider";
 import StatementWrapper from "../../../../../components/molecules/shared/statement-core/statement.wrapper";
 
-import AccountSearchResults from "@/src/components/molecules/account-search-results/account-search-results";
 import ViewEyeIcon from "@/src/components/atoms/view-eye-icon/view-eye-icon";
 import { Tag } from "antd";
 import TableDisplay from "@/src/components/molecules/accounts-statement/accounts-table/account-statement-table";
+import AccountSearchResults from "@/src/components/widgets/account-search-results/account-search-results";
 
 const CardStatementModule = () => {
   let startDate = useRef(null);
@@ -39,28 +39,28 @@ const CardStatementModule = () => {
   const time_of_day = hours >= 12 ? "PM" : "AM";
   const formatted_hours = hours % 12 || 12;
 
-  const onStartDateChanged = (el) => {
+  const onStartDateChanged = (el:any) => {
     if (el) {
       startDate.current = el.format("YYYY-MM-DD");
       console.log(`on Start Date selected ${el.format("YYYY-MM-DD")}`);
     }
   };
 
-  const onEndDateChanged = (el) => {
+  const onEndDateChanged = (el:any) => {
     if (el) {
       endDate.current = el.format("YYYY-MM-DD");
       console.log(`on End Date selected  ${el.format("YYYY-MM-DD")}`);
     }
   };
 
-  const onSubmit = (el) => {
+  const onSubmit = (el:any) => {
     console.log(
       `startDate ${startDate.current} and end date ${endDate.current} account statement ${accountNumber.current}`
     );
     setLoading(true);
   };
 
-  const onAccountChange = (el) => {
+  const onAccountChange = (el:any) => {
     console.log(`selected ${el}`);
     accountNumber.current = el;
   };

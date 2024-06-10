@@ -130,7 +130,7 @@ const FrequencyMoleculeComponent: React.FC<FrequencyMoleculeProps> = ({
             onChange={handleStartDateChange}
           />
           <TimePicker
-            onChange={onChange}
+            // onChange={onChange}
             defaultValue={dayjs('00:00:00', 'HH:mm:ss')}
           />
         </div>

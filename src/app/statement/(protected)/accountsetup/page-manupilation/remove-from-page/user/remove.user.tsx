@@ -8,7 +8,7 @@ interface RemoveUserModalProps {
   visible: boolean;
   onCancel: () => void;
   userId: number;
-  onRefreshData: () => void;
+  onRefreshData?: () => void;
 }
 
 const RemoveUserModal: React.FC<RemoveUserModalProps> = ({
@@ -30,7 +30,7 @@ const RemoveUserModal: React.FC<RemoveUserModalProps> = ({
     try {
       await deleteAccountUser(userId);
       onCancel();
-      onRefreshData();
+      onRefreshData!();
     } catch (error) {
       console.error("Error deleting user:", error);
       setError("Failed to delete the user. Please try again.");

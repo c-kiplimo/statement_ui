@@ -5,7 +5,7 @@ import { Select } from "antd";
 import "../account_statement_search.css"
 
 type CardProviderProp ={
-  onValueChange:(el)=>void
+  onValueChange:(el:any)=>void
 }
 const CardProvider = ({onValueChange}:CardProviderProp) => {
 

@@ -4,7 +4,6 @@ import './account_statement_search.css';
 import styles from "./provider-account.module.css"
 import ButtonTab from '@/src/components/atoms/tabs/button_tab';
 import AccountMiniStatement from '../account-mini-statement/account-mini-statement';
-import DisplayTable from '../account-overview';
 import AccountScheduleTable from '../account-schedule/account-schedule';
 import AccountDatePicker from '../../../widgets/datepicker/account.datepicker';
 import SubmitButton from '../../shared/statement-search-button/statement.search.button';
@@ -37,7 +36,7 @@ const TabContent = React.memo(
               title={'End Date:'}
             />
             <div className={styles.submitButtonContainer}>
-              <SubmitButton />
+              <SubmitButton  />
             </div>
 
           </div>
@@ -45,13 +44,12 @@ const TabContent = React.memo(
       case 'Account Mini statement':
         return (
           <div className="border-blue-400 rounded-lg p-4">
-            <AccountMiniStatement selectedAccount={selectedAccount} />
+            <AccountMiniStatement  />
           </div>
         );
       case 'Account Overview':
         return (
           <div className="border-blue-400 rounded-lg p-4">
-            <DisplayTable />
           </div>
         );
       case 'Schedules':
@@ -64,7 +62,7 @@ const TabContent = React.memo(
         return (
           <div className="border-blue-400 flex  rounded-lg p-4">
             <div
-              style={styles.providerContainer}
+              className={styles.providerContainer}
             >
               <AccountDatePicker
                 onDateChange={() => {

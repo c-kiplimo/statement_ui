@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useCallback } from "react";
 import CustomTable, { DataFetcher } from "../widgets/table/table";
 import { EyeOutlined, SettingOutlined } from "@ant-design/icons";

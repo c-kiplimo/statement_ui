@@ -8,7 +8,7 @@ import RoleCreationForm from "../../../../../components/molecules/user-managemen
 import PermissionCreationForm from "../../../../../components/molecules/user-management/shared/role-permission/permission-creation-form";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 
-export const userManagementData = [
+const userManagementData = [
   {
     title: "Create Role",
     description: "Description",

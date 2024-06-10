@@ -88,3 +88,7 @@ const CardContent = () => {
 };
 
 export default CardContent;
+
+function dashboardHandler(): { profileService: any; profileDataService: any; } | PromiseLike<{ profileService: any; profileDataService: any; }> {
+  throw new Error('Function not implemented.');
+}

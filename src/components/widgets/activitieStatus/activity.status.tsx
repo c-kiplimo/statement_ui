@@ -93,15 +93,14 @@ const Activitystatus = (props: activitiesProps) => {
       <div className={styles.topDiv}>
         <LastLogin
           userName={"Meraki systems tech"}
-          mail={"merakitech.ac.rw"}
+          // mail={"merakitech.ac.rw"}
           town={"Kampala Uganda"}
           timezone={"( GMT -11:46) Greenwich mean Time zone"}
           icon={<img src="/teamusericon.png" alt="teamusericon" />}
-          lastSeenTime={"Last login on 45 minutes ago"}
-          accounts={"Accounts"}
-          users={"Users"}
-          activities={"Activity"}
-          restrictions={"Restrictions"}
+          lastSeenTime={"Last login on 45 minutes ago"} industry={""} customerType={""}          // accounts={"Accounts"}
+          // users={"Users"}
+          // activities={"Activity"}
+          // restrictions={"Restrictions"}
         />
       </div>
 

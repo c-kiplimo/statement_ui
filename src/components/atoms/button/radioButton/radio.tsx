@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './radioButton.module.css';
-import Label from '../../label/label';
+import { Label } from '../../label/label';
 
 type RadioButtonProps = {
   id: string;
@@ -35,7 +35,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         onChange={() => onChange(!checked)}
         {...additionalProps}
       />
-      <Label htmlFor={id} label={label} required={required} />
+      <Label htmlFor={id} label={label!}/>
     </div>
   );
 };

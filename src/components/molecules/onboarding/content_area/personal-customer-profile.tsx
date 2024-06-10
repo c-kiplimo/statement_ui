@@ -8,8 +8,8 @@ import {
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
 
-import TextDescription, {
-  Text,
+import {
+  Text, TextDescription,
 } from "@/src/components/atoms/typography/primary_text";
 
 const PersonalCustomerProfile = (props: any) => {

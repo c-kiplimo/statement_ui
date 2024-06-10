@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from "react";
-import styles from "./transactionflow.module.css";
+import styles from "./transactionFlow.module.css";
 import { Flex, Progress } from "antd";
 import VerticalInfoDescription from "../../atoms/text/vertical-info-description";
 

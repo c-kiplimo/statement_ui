@@ -6,7 +6,7 @@ const useProfileCreated = (): CustomerProfile | null => {
   const [profile, setProfile] = useState<CustomerProfile | null>(null);
 
   useEffect(() => {
-    if (typeof sessionStorage !== "undefined") {
+    if (typeof window !== "undefined") {
       try {
         const storedResponse = sessionStorage.getItem(PROFILE_CONTEXT_STORE);
         if (storedResponse) {
@@ -23,7 +23,7 @@ const useProfileCreated = (): CustomerProfile | null => {
 };
 
 export const storeProfile = (profileInfo: CustomerProfile): void => {
-  if (typeof sessionStorage !== "undefined") {
+  if (typeof window !== "undefined") {
     try {
       sessionStorage.setItem(PROFILE_CONTEXT_STORE, JSON.stringify(profileInfo));
     } catch (error) {

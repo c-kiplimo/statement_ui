@@ -4,9 +4,11 @@ import AccountStatementSelf from './accountStatements/account-overview-status/ac
 
 function page() {
   return (
+    <>
     <div>
       <AccountStatementSelf/>
     </div>
+    </>
   )
 }
 

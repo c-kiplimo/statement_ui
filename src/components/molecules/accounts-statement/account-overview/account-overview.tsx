@@ -14,10 +14,9 @@ const AccountOverview = () => {
     const fetchData = async () => {
       const { getAccountOverview } = AccountHandler();
       try {
-        const response = await getAccountOverview(accountId);
+        const response = await getAccountOverview(parseInt(accountId));
         console.log(response);
         if (response) {
-          setData(response);
         }
       } catch (error) {
         console.error('Error fetching account statement:', error);
