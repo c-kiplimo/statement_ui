@@ -62,7 +62,8 @@ const RegisterUserForm = () => {
         lastName: values.lastName,
         email: values.email,
         password: values.password,
-        mobileNumber: `${values.countryCode}${values.phoneNumber}`,
+        mobileNumber:values.phoneNumber,
+        // mobileNumber: `${values.countryCode}${values.phoneNumber}`,
       };
       const response = await registerUser(REGISTER_PENDING_USER, payload);
       console.log("User registered successfully:", response);

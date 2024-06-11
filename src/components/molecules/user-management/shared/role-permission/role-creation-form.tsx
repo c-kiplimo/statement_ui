@@ -13,7 +13,6 @@ type RoleCreationFormProps = {
 };
 
 const RoleCreationForm: React.FC<RoleCreationFormProps> = ({
-  checkIcon,
   setActiveStep,
 }) => {
   const token = useTokens();

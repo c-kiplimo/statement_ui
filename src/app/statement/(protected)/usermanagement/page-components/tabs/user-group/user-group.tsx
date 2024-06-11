@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { Modal, Table} from "antd";
+import { Modal, Table } from "antd";
 import styles from "./user-group.module.css";
 import GroupDetails from "@/src/components/widgets/user-management/tabs/user-group/group-details/group-details";
 import { SearchOutlined } from "@ant-design/icons";
-import {useTokens } from "@/src/app/(context)/ColorContext";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 import moment from "moment";
 import { deleteIcon, editIcon } from "@/src/components/atoms/svg/document_svg";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
@@ -11,28 +11,58 @@ import { ColumnsType } from "antd/es/table";
 import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 import classNames from "classnames";
 import useProfileId from "@/src/hooks/profileId";
-import StepperNav from "@/src/app/statement/(protected)/usermanagement/page-components/shared/stepper-nav/stepper-nav";
+import EditRolesStepper from "@/src/app/statement/(protected)/usermanagement/page-components/edit-roles/edit-roles-stepper/edit-roles-stepper";
 
 const UserGroup = React.memo(({ setActive }: any) => {
+  const profId = useProfileId();
+  const [customerData, setCustomerData] = useState<customerInfo | null>(null);
+  const { fetchCustomerData } = GroupHandler();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);   
+  const fetchCustomerDetails = async () => {
+    if (profId !== null && profId !== undefined) {
+      try {
+        const response = await fetchCustomerData(profId);
+        setCustomerData(response);
+        console.log("Customer Data", response);
+      } catch (error) {
+        console.error("Failed to fetch customer data:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomerDetails();
+  }, [profId]);
 
   const handleSearch = (terms: any) => {
     setSearchTerm(terms);
     console.log("search-terms", searchTerm);
   };
 
+  const handleGroupSelection = (groupId: number) => {
+    setSelectedGroupId(groupId); 
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.groupDetails}>
-        <GroupDetails
-          userName={"Meraki Systems Tech"}
-          userId={"12345678"}
-          userType={"High Volume Customer"}
-          country={"KENYA/"}
-          town={"Moi Avenue"}
-          email={"merakisystems@gmail.com"}
-          mobileNumber={"0728000000"}
-        />
+      {selectedGroupId !== null ? (
+          <EditRolesStepper groupId={selectedGroupId} />
+        ):(
+          <Fragment>
+            <div className={styles.groupDetails}>
+        {customerData && (
+          <GroupDetails
+            userName={customerData.payload.customerName}
+            userId={customerData.payload.customerId.toString()}
+            userType={customerData.payload.customerGroup}
+            country={customerData.payload.country}
+            town={customerData.payload.branch}
+            email={customerData.payload.email}
+            mobileNumber={customerData.payload.mobileNumber}
+            customerStatus={customerData.payload.customerStatus}
+          />
+        )}
       </div>
       <div className={styles.tableFrame}>
         <div className={styles.tableHeader}>
@@ -48,8 +78,11 @@ const UserGroup = React.memo(({ setActive }: any) => {
             </button>
           </div>
         </div>
-        <DisplayTable />
+        <DisplayTable onGroupSelect={handleGroupSelection} setSelectedGroupId={setSelectedGroupId}/>        
       </div>
+          </Fragment>
+        )}
+      
     </div>
   );
 });
@@ -79,10 +112,15 @@ const Search = ({ onSearch }: SearchInputProps) => {
   );
 };
 
-const DisplayTable = () => {
+type DisplayTableProps = {
+  onGroupSelect: (groupId: number) => void;
+  setSelectedGroupId: (groupId: number | null) => void;
+};
+
+const DisplayTable = ({onGroupSelect,setSelectedGroupId}:DisplayTableProps) => {
   const token = useTokens();
   const [data, setData] = useState<UserGroup[]>([]);
-  const {fetchUserGroups } = GroupHandler();
+  const { fetchUserGroups } = GroupHandler();
   const profId = useProfileId();
 
   useEffect(() => {
@@ -97,17 +135,19 @@ const DisplayTable = () => {
         }
       }
     };
-  
+
     fetchGroupData();
   }, [profId]);
-  
-
 
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState<UserGroup | null>(null);
   const [hoveredButton, setHoveredButton] = useState<
     "confirm" | "cancel" | null
   >(null);
+
+  const handleEdit = (groupId: number) => {
+    setSelectedGroupId(groupId);
+  };
 
   const handleMouseEnter = (buttonType: "confirm" | "cancel") => {
     setHoveredButton(buttonType);
@@ -130,6 +170,7 @@ const DisplayTable = () => {
     setDeleteModalVisible(false);
   };
 
+
   const columns: ColumnsType<UserGroup> = [
     {
       title: "Group Name",
@@ -145,7 +186,8 @@ const DisplayTable = () => {
       title: "Date Created",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: string) => moment(createdAt).format("DD-MM-YYYY HH:MM"),
+      render: (createdAt: string) =>
+        moment(createdAt).format("DD-MM-YYYY HH:MM"),
     },
     {
       title: "Joined On",
@@ -168,7 +210,7 @@ const DisplayTable = () => {
               background: token.default.white,
               color: token.default.grey,
             }}
-            onClick={() => {<StepperNav/>}}
+            onClick={() => handleEdit(record.groupId!)}
           />
           <PrimaryButton
             buttonType="default"
@@ -206,9 +248,13 @@ const DisplayTable = () => {
           style={{ marginTop: "15px", width: "100%" }}
           columns={columns}
           dataSource={data}
+          onRow={(record) => ({
+            onClick: () => {
+              onGroupSelect(record.groupId!); 
+            },
+          })}
         />
-      </div>
-
+      </div>      
       <Modal
         className={styles.modal}
         footer={null}

@@ -1,29 +1,3 @@
-.container {
-  display: flex;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 48px;
-  width: 739px;
-  height: 602px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-.stepperWrapper {
-  display: flex;
-  align-items: flex-start;
-  padding: 16px;
-  gap: 8px;
-  width: 173px;
-  height: 326px;
-  border-radius: 4px;
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 1;
-}
-
 .formContainer {
   display: flex;
   flex-direction: column;
@@ -56,7 +30,7 @@
   align-items: flex-start;
   padding: 0px;
   gap: 32px;
-  width: Hug(736px)px;
+  width: Hug(736px) px;
   height: 180px;
   flex: none;
   order: 1;
@@ -95,9 +69,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 10px;
+  gap: 8px;
   width: 318px;
   height: 42px;
   flex: none;

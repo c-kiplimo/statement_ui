@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding:32px 48px;
+  align-items: flex-start;
+  gap: 64px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.stepperWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
