@@ -26,6 +26,7 @@ export type UserDetailProps = {
 
 export type UserDetails = {
   key: React.Key;
+  content?:string[];
   createdAt?:string;
   firstName: string;
   lastName: string;
@@ -34,5 +35,16 @@ export type UserDetails = {
   status?:string;
   username?:string;
 }
+
+export type PendingUser = {
+  userName?: string;
+  firstName: string;
+  lastName: string;
+  userType?: string;
+  password: string;
+  status?: string;
+  mobileNumber: string;
+  email: string;
+};
 
 

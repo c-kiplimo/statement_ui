@@ -32,7 +32,7 @@ interface PendingAuthorization {
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData: { data: any }; // Adjust this based on your actual dynamicData structure
+  dynamicData?: { data: any }; // Adjust this based on your actual dynamicData structure
 }
 
 const PendingAuthorization = (props: PendingAuthorization) => {
@@ -43,7 +43,7 @@ const PendingAuthorization = (props: PendingAuthorization) => {
         style={{ marginTop: "15px", width: "100%" }}
         columns={props.columns}
         pagination={{
-          pageSize: 1,
+          pageSize: 3,
           itemRender: (current, type, originalElement) => {
             if (type === "page") {
               return <span style={{ margin: "0 8px" }}>{current}</span>;
@@ -73,7 +73,7 @@ const PendingAuthorization = (props: PendingAuthorization) => {
             handleEdit={props.handleEdit}
             handleDelete={props.handleDelete}
             modalType={props.modalType}
-            dynamicData={props.dynamicData}
+            dynamicData={props.dynamicData!}
             setIsModalOpen={props.setIsModalOpen}
             setModalType={props.setModalType}
             isModalOpen={props.isModalOpen}

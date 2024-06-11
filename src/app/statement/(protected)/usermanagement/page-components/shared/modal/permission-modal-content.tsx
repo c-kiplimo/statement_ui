@@ -8,7 +8,6 @@ interface PermissionModalProps {
   handleEdit: (data: any) => void;
   handleDelete: (data: any) => void;
   modalType: string;
-
   setIsModalOpen: (isOpen: boolean) => void;
   setModalType: (type: string) => void;
   isModalOpen: boolean;
@@ -23,8 +22,6 @@ const PermissionModalContent = ({
   const token = useTokens();
   const font = useFont();
   switch (modalType) {
-    case "edit":
-      return <Fragment>edit</Fragment>;
     case "delete":
       return (
           <div

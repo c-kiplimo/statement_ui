@@ -11,7 +11,7 @@ import { ColumnsType } from "antd/es/table";
 import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 import classNames from "classnames";
 import useProfileId from "@/src/hooks/profileId";
-import StepperNav from "@/src/components/widgets/user-management/stepper-nav/stepper-nav";
+import StepperNav from "@/src/app/statement/(protected)/usermanagement/page-components/shared/stepper-nav/stepper-nav";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -84,7 +84,6 @@ const DisplayTable = () => {
   const [data, setData] = useState<UserGroup[]>([]);
   const {fetchUserGroups } = GroupHandler();
   const profId = useProfileId();
-  const userId = 624744553961;
 
   useEffect(() => {
     const fetchGroupData = async () => {

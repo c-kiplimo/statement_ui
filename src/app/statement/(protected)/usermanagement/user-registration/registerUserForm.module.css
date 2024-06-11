@@ -9,6 +9,7 @@
   height: 699px;
   left: 632px;
   top: 24px;
+  background: var(--white);
 }
 
 .wrapper {

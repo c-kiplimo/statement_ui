@@ -1,6 +1,6 @@
-import React, { Key, useState } from "react";
-import {Table } from "antd";
-import { ColumnsType } from "antd/lib/table";
+import React, { Fragment, useState } from "react";
+import { Table, Modal } from "antd";
+import { ColumnsType } from "antd/es/table";
 import { UserDetails } from "@/src/types/user.type";
 import SearchBar from "../../../../../../../../components/widgets/user-management/shared-features/search-bar/table-search-bar";
 
@@ -16,12 +16,14 @@ type ModalContentComponentType = React.ComponentType<{
   isModalOpen: boolean;
 }>;
 
-interface RegisterUserProps {
+interface PendingAuthorization {
   columns: ColumnsType<UserDetails>;
   data: UserDetails[];
   modalTitle: string;
+  setModalType: (type: string) => void;
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
+  modalWidth: string;
   handleOk: () => void;
   handleCancel: () => void;
   modalContentComponent?: ModalContentComponentType;
@@ -30,31 +32,16 @@ interface RegisterUserProps {
   handleEdit: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  setModalType: (type: string) => void;
   dynamicData?: { data: any };
 }
 
-const RegisterUser: React.FC<RegisterUserProps> = ({
-  columns,
-  data,  
-}) => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-
-  const onSelectChange = (selectedRowKeys: Key[]) => {
-    setSelectedRowKeys(selectedRowKeys);
-  };
-
+const PendingAuthorization = (props: PendingAuthorization) => {
   return (
-    <>
+    <Fragment>
       <SearchBar />
-  <Table
-        style={{ boxSizing:"border-box",marginTop: "15px", width: "100%" }}
-        rowSelection={{
-          type:'checkbox',
-          selectedRowKeys,
-          onChange: onSelectChange,
-          checkStrictly: true,
-        }}
+      <Table
+        style={{ marginTop: "15px", width: "100%" }}
+        columns={props.columns}
         pagination={{
           pageSize: 5,
           itemRender: (current, type, originalElement) => {
@@ -73,11 +60,32 @@ const RegisterUser: React.FC<RegisterUserProps> = ({
             textAlign: "center",
           },
         }}
-        columns={columns}
-        dataSource={data}
+        dataSource={props.data}
       />
-    </>
+      {/* <Modal
+        title={props.modalTitle}
+        open={props.isModalOpen}
+        width={props.modalWidth}
+        onOk={props.handleOk}
+        onCancel={props.handleCancel}
+        footer={null}
+      >
+        {props.modalContentComponent && (
+          <props.modalContentComponent
+            accountId={props.accountId}
+            handleCreate={props.handleCreate}
+            handleEdit={props.handleEdit}
+            handleDelete={props.handleDelete}
+            modalType={props.modalType}
+            dynamicData={props.dynamicData!}
+            setIsModalOpen={props.setIsModalOpen}
+            setModalType={props.setModalType}
+            isModalOpen={props.isModalOpen}
+          /> 
+        )}
+      </Modal>*/}
+    </Fragment>
   );
 };
 
-export default RegisterUser;
+export default PendingAuthorization;

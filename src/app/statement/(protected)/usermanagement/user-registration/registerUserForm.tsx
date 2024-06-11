@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import styles from "./registerUserForm.module.css";
-import { Checkbox, Form, Input, Select } from "antd";
-import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
+import { Checkbox, Form, Input, Select, notification } from "antd";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import Texter from "@/src/components/atoms/text/texter";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { UserHandler } from "@/src/services/usermanagement/user.service";
+import { REGISTER_PENDING_USER } from "@/src/constants/environment";
+import { PendingUser } from "@/src/types/user.type";
 
 const RegisterUserForm = () => {
+  const router = useRouter();
+  const { registerUser } = UserHandler();
+  const [submitted, setSubmitted] = useState(false);
   const token = useTokens();
-  const font = useFont();
-  const [user, setUser] = useState({
-    countryCode: "",
-  });
 
   const countryOptions = [
     { value: "+254", label: "+254" },
@@ -20,15 +23,21 @@ const RegisterUserForm = () => {
     { value: "+250", label: "+250" },
   ];
 
+  const [user, setUser] = useState({
+    countryCode: countryOptions[0].value,
+  });
+
   const options = [
     { label: 'Team Administrator', value: 'Team Administrator' },
     { label: 'Engineers', value: 'Engineers' },
+    { label: 'System Analyst', value: 'System Analyst' },
+    { label: 'Data Engineer', value: 'Data Engineer' },
+    { label: 'Intern', value: 'Intern' },
+    { label: 'UI Developer', value: 'UI Developer' },
+    { label: 'Strategic planning', value: 'Strategic planning' },
+    { label: 'Project Manager', value: 'Project Manager' },
     { label: 'Select Roles', value: 'Select Roles' },
   ];
-
-  const handleCountry = (field: string, value: string) => {
-    setUser({ ...user, [field]: value });
-  };
 
   for (let i = 10; i < 36; i++) {
     options.push({
@@ -36,8 +45,41 @@ const RegisterUserForm = () => {
       value: i.toString(36) + i,
     });
   }
+
+  const handleCountry = (field: string, value: string) => {
+    setUser({ ...user, [field]: value });
+  };
+
   const handleChange = (value: string[]) => {
     console.log(`selected ${value}`);
+  };
+
+  const onFinish = async (values: any) => {
+    setSubmitted(true);
+    try {
+      const payload: PendingUser = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+        mobileNumber: `${values.countryCode}${values.phoneNumber}`,
+      };
+      const response = await registerUser(REGISTER_PENDING_USER, payload);
+      console.log("User registered successfully:", response);
+      notification.success({
+        message: "Registration Successful!",
+        description: "The user has been registered successfully!",
+      });
+      router.push("/statement/usermanagement"); 
+    } catch (error) {
+      console.error("User registration failed:", error);
+      notification.error({
+        message: "Registration Failed!",
+        description: "An error occurred during registration. Please try again.",
+      });
+    } finally {
+      setSubmitted(false);
+    }
   };
 
   return (
@@ -45,7 +87,7 @@ const RegisterUserForm = () => {
       <Form
         style={{ width: "100%" }}
         layout={"vertical"}
-        onFinish={(values) => console.log("Form values:", values)}
+        onFinish={onFinish}
       >
         <div className={styles.wrapper}>
           <div className={styles.form}>
@@ -71,7 +113,7 @@ const RegisterUserForm = () => {
                   >
                     <Input className={`${styles.input} bodyr`} />
                   </Form.Item>
-                </div>
+                </div>              
                 <div style={{ flex: 1 }}>
                   <Form.Item
                     name="lastName"
@@ -122,7 +164,7 @@ const RegisterUserForm = () => {
                   ]}
                 >
                   <Input.Group className={styles.inputGroup}>
-                    <Form.Item name="prefix" noStyle>
+                    <Form.Item name="countryCode" noStyle>
                       <select
                         className={`${styles.customSelect} bodyr`}
                         value={user.countryCode}
@@ -144,7 +186,7 @@ const RegisterUserForm = () => {
                       noStyle
                       rules={[
                         {
-                          required: false,
+                          required: true,
                           message: "Please enter Phone Number",
                         },
                       ]}
@@ -168,12 +210,11 @@ const RegisterUserForm = () => {
                   rules={[
                     {
                       required: false,
-
-                      message: "Please enter a valid password address",
+                      message: "Please enter a valid password",
                     },
                   ]}
                 >
-                  <Input className={`${styles.rowInput} bodyr`} />
+                  <Input.Password className={`${styles.rowInput} bodyr`} />
                 </Form.Item>
               </div>
               <div className={styles.multiSelect}>
@@ -198,7 +239,7 @@ const RegisterUserForm = () => {
                     className={styles.roleSelect}
                     placeholder="Please select"
                     defaultValue={[
-                      "Team Administrator ",
+                      "Team Administrator",
                       "Engineers",
                       "Select Roles",
                     ]}
@@ -249,9 +290,9 @@ const RegisterUserForm = () => {
               color: token.default.white,
               border: `1px solid ${token.brand.primary}`,
             }}
-            onClick={() => console.log("clicked")}
+            disabled={submitted} 
           >
-            Create User
+            {submitted ? "Creating User..." : "Create User"}
           </PrimaryButton>
         </Form.Item>
       </Form>
