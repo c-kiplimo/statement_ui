@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Divider, Radio, Table } from "antd";
 import type { TableColumnsType } from "antd";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
+import Confirmrestrictions from "../(protected)/accountsetup/account-restrictions/comfirm-add-restriction/confirm.restrictions";
 
 type DataType = {
   key: React.Key;
@@ -76,28 +77,7 @@ const Dev = () => {
 
   return (
     <Fragment>
-      <div>
-        <Radio.Group
-          onChange={({ target: { value } }) => {
-            setSelectionType(value);
-          }}
-          value={selectionType}
-        >
-          <Radio value="checkbox">Checkbox</Radio>
-          <Radio value="radio">radio</Radio>
-        </Radio.Group>
-
-        <Divider />
-
-        <Table
-          rowSelection={{
-            type: selectionType,
-            ...rowSelection,
-          }}
-          columns={columns}
-          dataSource={data}
-        />
-      </div>
+      <Confirmrestrictions/>
     </Fragment>
   );
 };

@@ -10,6 +10,8 @@ import { CustomerUserGroupsAction } from "@/src/lib/actions/customer.user.groups
 import AddUserGroupsModal from "./add-user-group/add.user.groups";
 import { Modal } from "antd";
 
+
+
 const columns = [
   {
     title: "Groups",
@@ -75,6 +77,7 @@ const UserGroups = ({ userId }: idProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
+
   useEffect(() => {
     const fetchData = async () => {
       if (userId !== undefined) {
@@ -116,7 +119,8 @@ const UserGroups = ({ userId }: idProps) => {
               <Sort title={"Sort"} icon={<img src="/sort.svg" alt="sort" />} />
               <AddItem
                 title={"Add user"}
-                icon={<PlusOutlined onClick={() => showModal(parseInt(userId))} />}
+                icon={<PlusOutlined />}
+                onClick={() => showModal(parseInt(userId))}
                 iconStyle={{ color: "gray" }}
                 titleStyle={{ color: "gray" }}
               />

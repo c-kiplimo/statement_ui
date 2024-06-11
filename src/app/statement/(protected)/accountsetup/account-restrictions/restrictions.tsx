@@ -2,7 +2,8 @@ import React, { ReactNode, useState } from "react";
 import styles from "./restrictions.module.css";
 import SelectionCard from "@/src/components/widgets/card-info/card-info-radio";
 import { createRestriction } from "@/src/services/account/create.account.restriction.service";
-import { notification } from "antd";
+import { Modal, notification } from "antd";
+import Confirmrestrictions from "./comfirm-add-restriction/confirm.restrictions";
 
 export type EntriesProps = {
   id?: number;
@@ -22,7 +23,7 @@ type RestrictionsProps = {
   filterIcon: ReactNode;
   visible: boolean;
   resId: number;
-  onSubmit: () => void; // Add this prop
+  onSubmit: () => void;
 };
 
 const CreateRestrictionModal: React.FC<RestrictionsProps> = ({
@@ -32,16 +33,21 @@ const CreateRestrictionModal: React.FC<RestrictionsProps> = ({
   visible,
   restrictionArray,
   resId,
-  onSubmit, // Destructure the onSubmit prop
+  onSubmit,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleOptionChange = async (newValue: number | null) => {
+  const handleOptionChange = (newValue: number | null) => {
     setSelectedOption((prevValue) =>
       prevValue === String(newValue) ? null : String(newValue)
     );
-    const selectedData = restrictionArray.find((item) => item.id === newValue);
+    setIsModalVisible(true); // Show modal when an option is selected
+  };
+
+  const handleConfirm = async () => {
+    const selectedData = restrictionArray.find((item) => item.id === Number(selectedOption));
     const accountRestrictions = [selectedData?.id!];
     if (selectedData) {
       setIsLoading(true);
@@ -51,8 +57,8 @@ const CreateRestrictionModal: React.FC<RestrictionsProps> = ({
           message: "Success",
           description: "Restriction was created successfully",
         });
-
         onSubmit();
+        setIsModalVisible(false); // Close the modal on success
       } catch (error) {
         console.error("Error creating restriction:", error);
         notification.error({
@@ -63,6 +69,10 @@ const CreateRestrictionModal: React.FC<RestrictionsProps> = ({
         setIsLoading(false);
       }
     }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false); // Close the modal on cancel
   };
 
   if (!visible) {
@@ -96,6 +106,13 @@ const CreateRestrictionModal: React.FC<RestrictionsProps> = ({
           ))}
         </div>
       </div>
+      <Modal
+        visible={isModalVisible}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <Confirmrestrictions onCancel={handleCancel} onConfirm={handleConfirm} />
+      </Modal>
     </div>
   );
 };

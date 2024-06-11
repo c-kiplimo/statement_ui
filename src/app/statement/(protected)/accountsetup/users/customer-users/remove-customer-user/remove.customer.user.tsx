@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styles from "./remove.customer.user.module.css"
 import { CloseOutlined } from "@ant-design/icons";
 import { Alert, Button } from "antd";
-import { deleteAccountUser } from "@/src/services/account/delete.account.user.service";
 import { deleteCustomerUser } from "@/src/services/customer/customer.user.service";
+
 
 interface RemoveUserModalProps {
   visible: boolean;

@@ -92,7 +92,7 @@ const UserViewProfilePageModal: React.FC<UserProfileProps> = ({ userId }) => {
           userIcon={<img src="/userIcon.svg" alt="userIcon" />}
           title={userprofileinfor?.username || ''}
           titleDescript={userprofileinfor?.role || ''}
-          lastseen={"Last login on 45 minutes ago"}
+          lastseen={getLastLoginTime}
           mail={userprofileinfor?.email || ''}
           location={"Kigali-Rwanda"}
           timezone={"( GMT -11:46) Greenwich mean Time zone"}

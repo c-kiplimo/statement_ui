@@ -107,7 +107,7 @@ height: 16px;
   padding: 0px;
   gap: 8px;
   margin: 0;
-  width: 206px;
+  width: fit-content;
   height: 66px;
   flex: none;
 }
@@ -119,14 +119,7 @@ height: 16px;
   padding: 0px;
   justify-content: flex-end;
   gap: 10px;
-  width: 216px;
-  height: 24px;
-  flex: none;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
+  width: fit-content;
   color: #6f7269;
 }
 

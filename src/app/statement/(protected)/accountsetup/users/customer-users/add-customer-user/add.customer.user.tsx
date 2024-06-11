@@ -32,7 +32,7 @@ const AddUserModal: FC<AddProps> = ({
     setIsLoading(true);
     try {
       await createCustomerUser({
-        customerId: customerId,
+        customerId: 1,
         email: username,
         role: userRole,
         status: status,
@@ -51,21 +51,21 @@ const AddUserModal: FC<AddProps> = ({
       if (error.response) {
         switch (error.response.status) {
           case 409:
-            notification.error({
-              message: "Error",
-              description: "User already added",
+            notification.warning({
+              message: "User already assigned!!",
+              description: "Please try again",
             });
             break;
           case 404:
             notification.error({
-              message: "Error",
-              description: "User not found",
+              message: "User not found",
+              description: "Please try again",
             });
             break;
           case 400:
             notification.error({
-              message: "Error",
-              description: "Submission was unsuccessful",
+              message: "User already assigned!!",
+              description: "Try again different user",
             });
             break;
           default:
@@ -158,11 +158,11 @@ const AddUserModal: FC<AddProps> = ({
               </>
             )}
 
-            <div className={`${styles.bttndiv} bodyr`}>
+            <button className={`${styles.bttndiv} bodyr`}>
               <button type="submit" disabled={isLoading}>
                 {isLoading ? "Creating User..." : "Create User"}
               </button>
-            </div>
+            </button>
           </form>
         </div>
       </div>

@@ -27,7 +27,7 @@ interface DataType {
   status?: string;
   icons?: React.ReactNode;
   currency?: string;
-  userId?: number;
+  userId?: string;
   restrictionId?: number;
   entryId?: number;
 }

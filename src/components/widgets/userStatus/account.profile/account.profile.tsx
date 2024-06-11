@@ -55,7 +55,7 @@ const AccountProfilePage = (props: StatusProps) => {
           </div>
         </div>
         <div className={styles.status}>
-          <div className={styles.lastseen}>{props.lastSeenTime}</div>
+          <div className={`${styles.lastseen} bodyr`}>{props.lastSeenTime}</div>
           <Button
             icon={<CaretDownOutlined />}
             options={options}

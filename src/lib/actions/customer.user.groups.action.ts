@@ -6,7 +6,6 @@ export const CustomerUserGroupsAction = async (value: number): Promise<DataFetch
 
     try {
         const data = await handler.getUserGroupsByUserId(value);
-        console.log(data);
 
         if (!data || data.length === 0) {
             return [];
