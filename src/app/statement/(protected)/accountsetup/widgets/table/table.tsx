@@ -6,8 +6,10 @@ import styles from "./table.module.css";
 export interface DataFetcher {
   viewClicked?: any;
   settingsClicked?: any;
-  id: React.Key;
+  joinedOn?:string;
+  id?: React.Key;
   entryId?:number;
+  userId?:string;
   restrictionId?:number;
   createdOn?: any;
   userName?: string;

@@ -1,40 +1,38 @@
-import React from "react";
-import UserAcctStatus from "../../widgets/users-view-widget/user.groups";
+import React, { useEffect, useState } from "react";
 import Filter from "@/src/components/atoms/filter/filter";
 import Sort from "@/src/components/atoms/sort/sort";
 import styles from "./accounts.module.css";
-import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
+import {PlusOutlined } from "@ant-design/icons";
 import AddItem from "@/src/components/atoms/add-item/add.item";
-import CustomTable from "../../widgets/table/table";
-import { Currency } from "lucide-react";
+import CustomTable, { DataFetcher } from "../../widgets/table/table";
+import Search from "../../widgets/search/search";
+import { CustomerUserAccountAction } from "@/src/lib/actions/customer.user.accounts.action";
 
-const UserAccounts = () => {
+
   const columns = [
     {
       title: "Date",
       dataIndex: "createdOn",
       render: (text: string) => {
-        const [date, time] = text.split(" ");
+        const [date] = text.split(" ");
 
         return (
-          <div className={styles.dateTime}>
-            <span className={styles.top}>{date}</span>
+          <div className={styles.groupStyles}>
+            <div className={styles.top}>{date}</div>
             <br />
-            <span className={styles.lower}>{time}</span>
           </div>
         );
       },
     },
     {
       title: "Account Number",
-      dataIndex: "userName",
+      dataIndex: "id",
       render: (text: string) => {
         const [account, currency] = text.split(" ");
 
         return (
-          <div className={styles.accountCurrency}>
+          <div className={styles.groupStyles}>
             <span className={styles.top}>{account}</span>
             <br />
             <span className={styles.lower}>{currency}</span>
@@ -44,16 +42,16 @@ const UserAccounts = () => {
     },
     {
       title: "Account Name",
-      dataIndex: "currency",
+      dataIndex: "userName",
       render: (text: string) => (
-        <span className={`${styles.accName} bodyr`}>{text}</span>
+        <span className={`${styles.groupStyles} bodyr`}>{text}</span>
       ),
     },
     {
       title: "Status",
-      dataIndex: "settings",
+      dataIndex: "status",
       render: (text: string) => (
-        <span className={`${styles.status} bodyr`}>{text}</span>
+        <span className={`${styles.groupStyles} bodyr`}>{text}</span>
       ),
     },
     {
@@ -69,50 +67,44 @@ const UserAccounts = () => {
     },
   ];
 
-  const data = [
-    {
-      id: 1,
-      createdOn: "23-05-2023 10:45a.m",
-      userName: "0032-7650-8820 KES  132314245",
-      currency: "Meraki Systems Tech",
-      settings: "Pending",
-    },
+  type idProps ={
+    userId:string;
+  }
 
-    {
-      id: 2,
-      createdOn: "23-05-2023 10:45a.m",
-      userName: "0032-7650-8820 KES  132314245",
-      currency: "Meraki Systems Tech",
-      settings: "Pending",
-    },
+  const UserAccounts = ({userId}:idProps) => {
 
-    {
-      id: 2,
-      createdOn: "23-05-2023 10:45a.m",
-      userName: "0032-7650-8820 KES  132314245",
-      currency: "Meraki Systems Tech",
-      settings: "Pending",
-    },
+    const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
 
-    {
-      id: 4,
-      createdOn: "23-05-2023 10:45a.m",
-      userName: "0032-7650-8820 KES  132314245",
-      currency: "Meraki Systems Tech",
-      settings: "Pending",
-    },
-  ];
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        if (userId !== undefined) {
+          try {
+            const data = await CustomerUserAccountAction(parseInt(userId));
+            
+            setIncomingData(data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+  
+          }
+        }
+      };
+  
+      fetchData();
+    }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.lowerDiv}>
         <div className={styles.tableHeader}>
-          <div className={styles.headerdiv}>
-            <div className={`${styles.textdiv} h6b`}>Accounts</div>
             <div className={styles.atomsdiv}>
+            <div className={`${styles.textdiv} h6b`}>Accounts</div>
+
+            <div className={styles.fileimports}>
               <Search
                 title={"Search"}
-                icon={<img src="/searchicon.svg" alt="searchicon" />}
+                icon={<img src="/search.svg" alt="search" />}
               />
               <Filter
                 title={"Filter"}
@@ -125,11 +117,12 @@ const UserAccounts = () => {
                 iconStyle={{ color: "gray" }}
                 titleStyle={{ color: "gray" }}
               />
+              </div>
             </div>
-          </div>
         </div>
       </div>
-      <CustomTable data={data} pageSize={2} total={10} columns={columns} />
+      
+      <CustomTable data={incomingData} pageSize={2} total={10} columns={columns} />
     </div>
   );
 };

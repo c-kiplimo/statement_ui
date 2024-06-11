@@ -9,12 +9,12 @@ type SearchProps = {
 const Search = (props: SearchProps) => {
   return (
     <div className={styles.inputWrapper}>
-      
+      {props.icon}
       <input
         placeholder={props.title}
         className={styles.input}
       />
-      {props.icon}
+      
     </div>
   );
 };

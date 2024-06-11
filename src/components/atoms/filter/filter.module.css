@@ -9,10 +9,7 @@
   height: 32px;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
+  color: #6F7269;
   cursor: pointer;
 }
 
@@ -24,10 +21,7 @@
   gap: 10px;
   width: 12px;
   height: 12px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
- 
+  color: #6F7269;
 }
 
 .textdiv {

@@ -1,45 +1,47 @@
 .container{
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  padding: 0px;
+  align-items: center;
   gap: 24px;
   width: 100%;
   height: auto;
+
   }
 
-.topdiv {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px 32px;
-  gap: 54px;
-  width: 1013px;
-  height: 278px;
-  background-color: #ffffff;
-}
+  .textdiv{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 5px;
+gap: 10px;
+margin: 0 auto;
+align-self: flex-start;
+width: 96px;
+height: 32px;
+  }
 
 .atomsdiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0px;
-  gap: 16px;
-  width: 100%;
-  height: 32px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 32px 0px 16px 16px;
+gap: 300px;
+width: 100%;
+height: 80px;
 }
 
-.headerdiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 32px 0px 16px 16px;
-  gap: 285px;
-  width: 1013px;
-  height: 80px;
+.fileimports{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+gap: 16px;
+width: fit-content;
+height: 32px;
 }
+
+
 
 .icon {
   box-sizing: border-box;
@@ -105,3 +107,16 @@
   color: #6f7269;
   margin-bottom: 20px;
 }
+
+.groupStyles{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+  padding: 0px;
+  gap: 1px;
+  margin-bottom: 20px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+    }

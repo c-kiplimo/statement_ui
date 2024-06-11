@@ -13,11 +13,12 @@
 
 .container {
 display: flex;
+justify-content: space-between;
 flex-direction: column;
 padding: 48px 32px;
 gap: 24px;
 width: 669px;
-height: fit-content;
+height:622px;
 background: #FFFFFF;
 box-shadow: 0px 2px 12px -2px rgba(0, 0, 0, 0.1), 0px 2px 2px -1px rgba(10, 9, 11, 0.04), 0px 0px 0px 1px rgba(10, 9, 11, 0.05);
 border-radius: 8px;
@@ -37,6 +38,7 @@ height: 16px;
 .form{
 display: flex;
 flex-direction: column;
+justify-content: space-between;
 align-items: center;
 padding: 0px;
 width: 605px;
@@ -100,13 +102,14 @@ outline: none;
   justify-content: center;
   align-items: center;
   padding: 8px;
-  margin-top: 36px;
   gap: 24px;
   width: 318px;
   height: 40px;
   background: #84BD00;
+  align-self: center;
   opacity: 0.8;
   border-radius: 4px;
+  margin-top: 56px;
   color: #FFFFFF;
 }
 

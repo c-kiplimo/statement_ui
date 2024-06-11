@@ -1,31 +1,28 @@
-import { ADD_CUSTOMER_USER_ACCOUNT } from "@/src/constants/environment";
+import { ADD_CUST_USER_URL } from "@/src/constants/environment";
 import axios from "axios";
 
 interface UserPayload {
-  accountId: number;
+  platformUserId?: number;
+  customerId: number;
   email: string;
+  description?: string;
   role: string;
   status: string;
 }
 
-
-
-const createCustomerAccountUser = async (
-  userPayload: UserPayload
-)=> {
+const createCustomerUser = async (userPayload: UserPayload) => {
   try {
-    const api = `${ADD_CUSTOMER_USER_ACCOUNT}`;
-    
+    const api = `${ADD_CUST_USER_URL}`;
     const response = await axios.post(api, userPayload, {
       headers: {
         "X-RequestId": "3445",
       },
     });
     return response.data;
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error creating user:", error.message || error);
     throw error;
   }
 };
 
-export { createCustomerAccountUser };
+export { createCustomerUser };

@@ -4,6 +4,8 @@ import { CaretDownOutlined, CloseOutlined } from "@ant-design/icons";
 import Button from "@/src/components/atoms/dropDownButton/button";
 import UserViewTabsNavigation from "../../tabs/user-view-tabs/user.view.tabs";
 
+
+
 type contentProps = {
   userIcon: ReactNode;
   title: string;
@@ -13,11 +15,6 @@ type contentProps = {
   timezone: string;
   updatebttn?: string;
   lastseen: string;
-  button1: string;
-  button2: string;
-  button3: string;
-  button4: string;
-  button5: string;
 };
 
 const options = [
@@ -42,13 +39,13 @@ const UserViewProfile = (props: contentProps) => {
           <div className={styles.details}>
             <div className={styles.headDiv}>
               <div className={`${"title"} h6r`}>{props.title}</div>
-              <div className={`${"descript"} captionl`}>
+              <div className={`${styles.descript} captionr`}>
                 {props.titleDescript}
               </div>
             </div>
-            <div className={styles.mail}>{props.mail}</div>
-            <div className={styles.location}>{props.location}</div>
-            <div className={styles.timezone}>{props.timezone}</div>
+            <div className={`${styles.mail} bodyr`}>{props.mail}</div>
+            <div className={`${styles.location} bodyr`}>{props.location}</div>
+            <div className={`${styles.timezone} bodyr`}>{props.timezone}</div>
             <button style={{color:"#84BD00"}}>{props.updatebttn}</button>
           </div>
           <div className={styles.status}>
