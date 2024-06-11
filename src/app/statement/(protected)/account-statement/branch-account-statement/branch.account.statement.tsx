@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./branch.account.statement.module.css";
-import ActiveStatement from "./active-statement-item/active.statement.item";
 import CompletedStatement from "./completed-statement/completed.statement";
 import { AccountStatementContext } from "./context/getAccountNumberContext";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import TabNavigations from "@/src/components/widgets/tab-navigations-items/tab.navigations";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
+import dynamic from "next/dynamic";
+
+const ActiveStatement = dynamic(() => import("./active-statement-item/active.statement.item"), { ssr: false });
 
 const queryClient = new QueryClient();
 
@@ -21,8 +23,12 @@ const tabitems = [
 ];
 
 function BranchAccountStatement() {
-  const [completedata, setcompleteData] = useState<CompleteTransactions[]>([]);
   const [accountNo, setAccountNo] = useState();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <AccountStatementContext.Provider value={{ accountNo, setAccountNo }}>
@@ -38,7 +44,7 @@ function BranchAccountStatement() {
               />
             </div>
             <div>
-              <TabNavigations tabItems={tabitems} />
+            {isMounted && <TabNavigations tabItems={tabitems} />}
             </div>
           </div>
         </div>

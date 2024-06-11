@@ -15,11 +15,6 @@ export const getUserProfileDetails = async (userId:number):Promise<CustomerProfi
       let profileData:CustomerProfile = {
         ...apiRes
       }
-
-      console.log(profileData);
-      sessionStorage.setItem('selectedprofileId', profileData.profileId!)
-      sessionStorage.setItem('selectedcustomereId', profileData.customerId!.toString())
-
       
       return profileData;
     } catch (error) {

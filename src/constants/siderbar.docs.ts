@@ -1,8 +1,6 @@
 import {
   AccountStatementIcon,
-  CardStatementIcon,
   DashboardIcon,
-  DevelopmentIcon,
   LoanStatementIcon,
   LogoutIcon,
   SettingsIcon,
@@ -58,24 +56,12 @@ export const MenuData: SideNavMenu[] = [
         ],
       },
       {
-        title: "Swift Statement",
-        path: "/statement/swift-statement",
-        icon: CardStatementIcon,
-        opened: false,
-      },
-      {
         title: "Account Setup",
         path: "/statement/accountsetup",
         icon: SwiftStatementIcon,
         opened: false,
       },
 
-      {
-        title: "Development",
-        path: "/statement/dev",
-        icon: DevelopmentIcon,
-        opened: false,
-      },
     ],
   },
 

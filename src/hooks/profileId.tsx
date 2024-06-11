@@ -2,30 +2,30 @@ import { useEffect, useState } from 'react';
 import useProfileCreated from './useProfileCreated';
 import { loggedInProfileDetails } from '../lib/get.profileinfo.action';
 
-const useProfileId  =  () =>{
-  const profile = useProfileCreated()
-  let userId = profile?.userId;
+const useProfileId = () => {
+  const profile = useProfileCreated();
+  const userId = profile?.userId;
   
-  
-  const [profileDetails, setProfileDetails] = useState<CustomerProfile>()
+  const [profileDetails, setProfileDetails] = useState<CustomerProfile>();
 
-  useEffect(()=>{
-    const fetchData = async ()=>{
-      try {
-        const response = await loggedInProfileDetails(parseInt(userId!));
-        setProfileDetails(response)
-        console.log(response);
-        return response;
-      } catch (error) {
-        console.error('Failed to fetch profile ID:', error);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userId) { 
+        try {
+          const response = await loggedInProfileDetails(parseInt(userId));
+          setProfileDetails(response);
+        } catch (error) {
+          console.error('Failed to fetch profile details:', error);
+        }
       }
-    }
+    };
     
     fetchData();
-  }, [userId])
+  }, [userId]);
 
-const profId = profileDetails?.customerId;
+  const customerId = profileDetails?.customerId;
 
-return profId;
+  return customerId;
 };
+
 export default useProfileId;

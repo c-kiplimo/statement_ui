@@ -21,8 +21,10 @@ const Setting = () => {
   const handleConfirmLogout = async () => {
     try {
       await logout(userId!);
-      sessionStorage.clear();
-      localStorage.clear();
+      if (typeof window !== "undefined") {
+        sessionStorage.clear();
+        localStorage.clear();
+      }
       notification.info({
         message: "Logged Out Successfully.",
         placement: "top",
