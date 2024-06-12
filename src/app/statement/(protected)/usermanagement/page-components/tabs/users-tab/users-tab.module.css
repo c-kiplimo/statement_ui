@@ -12,7 +12,7 @@
   align-items: center;
   padding: 0px;
   gap: 16px;
-  width: 88px;
+  width: 96px;
   height: 32px;
   flex: none;
   order: 7;
@@ -116,8 +116,8 @@
   padding: 32px 32px 32px 32px;
   gap: 24px;
   position: absolute;
-  left: 650px;
-  top: 200px; 
+  left: 8vw;
+  top: 50vh; 
   width: 100%;
 }
 

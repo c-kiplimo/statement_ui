@@ -16,7 +16,7 @@ import {
   CloseOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import classNames from "classnames";
 import PendingModal from "../../shared/modal/pending-modal";
 import PendingAuthorization from "@/src/components/widgets/user-management/tabs/users/pending-authorization";
@@ -57,8 +57,13 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       const response = await fetchAllUsers();
-      setRegisteredUsers(response);
+      const usersWithKeys = response.map((user, index) => ({
+        ...user,
+        key: index.toString(),
+      }));
+      setRegisteredUsers(usersWithKeys);
       console.log(response);
+      console.log(usersWithKeys);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -67,7 +72,11 @@ const Users = () => {
   const displayPendingUsers = async () => {
     try {
       const response = await fetchPendingUser();
-      setPendingUsers(response);
+      const usersWithKeys = response.map((user, index) => ({
+        ...user,
+        key: index.toString(),
+      }));
+      setPendingUsers(usersWithKeys);
       console.log("Pending users", response);
     } catch (error) {
       console.error("Error fetching pending users:", error);
@@ -110,18 +119,6 @@ const Users = () => {
     setModalVisible(false);
   };
 
-  const handleCreate = (registeredUsers: UserDetails): void => {
-    console.log("handleCreate");
-  };
-
-  const handleEdit = (registeredUsers: UserDetails): void => {
-    console.log("handleEdit");
-  };
-
-  const handleView = (registeredUsers: UserDetails): void => {
-    console.log("handleView");
-  };
-
   const handleDelete = async () => {
     if (selectedUser && selectedUser.username) {
       try {
@@ -136,20 +133,58 @@ const Users = () => {
 
   const handleDeleteOk = handleDelete;
 
-  const RegisterUserColumns = (
-    actions: (record: UserDetails) => JSX.Element
-  ): ColumnsType<UserDetails> => [
-    { title: "First name", dataIndex: "firstName", key: "firstName" },
-    { title: "Last name", dataIndex: "lastName", key: "lastName" },
-    { title: "Phone number", dataIndex: "mobileNumber", key: "mobileNumber" },
-    { title: "Email Address", dataIndex: "email", key: "email" },
-    { title: "Role", dataIndex: "role", key: "role" },
-    { title: "Staff number", dataIndex: "staff", key: "staff" },
+  const RegisterUserColumns: ColumnsType<UserDetails> = [
     {
-      title: "",
-      dataIndex: "",
+      title: "First Name",
+      dataIndex: "firstName",
+      key: "firstName",
+    },
+    {
+      title: "Last Name",
+      dataIndex: "lastName",
+      key: "lastName",
+    },
+    {
+      title: "Mobile Number",
+      dataIndex: "mobile",
+      key: "mobile",
+    },
+    {
+      title: "Email Address",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Staff number",
+      dataIndex: "staff",
+      key: "staff",
+    },
+    {
+      title: "Actions",
       key: "actions",
-      render: (record) => actions(record),
+      render: (record: UserDetails) => (
+        <span className={styles.tableAction}>
+          <Button
+            className={styles.btn}
+            onClick={() => {
+              router.push(
+                `/statement/usermanagement/user-profile?userId=${record.username}`
+              );
+            }}
+            icon={<EyeIcon style={{ color: "#c9c9cc" }} size={16} />}
+          />
+          <Button
+            className={styles.btn}
+            onClick={() => openModal("delete", record)}
+            icon={<DeleteOutlined style={{ color: "#c9c9cc" }} size={16} />}
+          />
+        </span>
+      ),
     },
   ];
 
@@ -167,63 +202,76 @@ const Users = () => {
   };
 
   const pendingAuthorizationColumn: ColumnsType<UserDetails> = [
-    { title: "First name", dataIndex: "first", key: "first" },
-    { title: "Last name", dataIndex: "last", key: "last" },
-    { title: "Phone number", dataIndex: "phone", key: "phone" },
-    { title: " Email Address", dataIndex: "email", key: "email" },
-    { title: "Role", dataIndex: "role", key: "role" },
-    { title: "Staff number", dataIndex: "staff", key: "Staff" },
+    {
+      title: "First Name",
+      dataIndex: "firstName",
+      key: "firstName",
+    },
+    {
+      title: "Last Name",
+      dataIndex: "lastName",
+      key: "lastName",
+    },
+    {
+      title: "Mobile Number",
+      dataIndex: "mobile",
+      key: "mobile",
+    },
+    {
+      title: "Email Address",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Staff number",
+      dataIndex: "staff",
+      key: "staff",
+    },
 
     {
-      title: "Action",
-      dataIndex: "",
-      key: "x",
-      render: (record) => (
-        <div className={styles.actionBtn}>
-          <PrimaryButton
-            buttonType="default"
-            iconPosition="right"
-            shape="default"
-            size="small"
-            icon={<EyeIcon style={{ color: "#c9c9cc" }} size={16} />}
-            customStyles={{
-              background: token.default.white,
-              color: token.default.grey,
-            }}
+      title: "Actions",
+      key: "actions",
+      render: (record: UserDetails) => (
+        <span className={styles.actionBtn}>
+          <Button
+            className={styles.btn}
             onClick={() => {
-              router.push("/statement/user-management/user-management-profile");
+              router.push(
+                `/statement/usermanagement/user-profile?userId=${record.username}`
+              );
             }}
+            icon={<EyeIcon style={{ color: "#c9c9cc" }} size={16} />}
           />
-          <PrimaryButton
-            buttonType="default"
-            iconPosition="right"
-            shape="default"
-            size="small"
-            icon={<CheckOutlined size={16} />}
-            customStyles={{
+          <Button
+            className={styles.btn}
+            onClick={() => openModal("authorize", record)}
+            style={{
               background: token.default.white,
               border: `1px solid ${token.accent.success}`,
               color: token.accent.success,
             }}
-            onClick={() => openModal("authorize", record)}
+            icon={<CheckOutlined size={16} />}
           />
-          <PrimaryButton
-            buttonType="default"
-            iconPosition="right"
-            shape="default"
-            size="small"
-            icon={<CloseOutlined size={16} />}
-            customStyles={{
+          <Button
+            className={styles.btn}
+            style={{
+              color: token.accent.danger,
               background: token.default.white,
               border: `1px solid ${token.accent.danger}`,
-              color: token.accent.danger,
             }}
             onClick={() => {
               console.log(record);
               openModal("unauthorize", record);
             }}
+            icon={<CloseOutlined size={16} />}
           />
-        </div>
+          
+        </span>
       ),
     },
   ];
@@ -233,26 +281,7 @@ const Users = () => {
       title: "Registered user",
       content: (
         <RegisterUser
-          columns={RegisterUserColumns((record) => (
-            <div className={styles.tableAction}>
-              <button
-                className={styles.btn}
-                onClick={() =>
-                  router.push(
-                    "/statement/user-management/user-management-profile"
-                  )
-                }
-              >
-                <EyeIcon style={{ color: "#c9c9cc" }} size={16} />
-              </button>
-              <button
-                className={styles.btn}
-                onClick={() => openModal("delete", record)}
-              >
-                <DeleteOutlined style={{ color: "#c9c9cc" }} size={16} />
-              </button>
-            </div>
-          ))}
+          columns={RegisterUserColumns}
           data={registeredUsers}
           modalTitle=""
           isModalOpen={isRegisteredUserModalOpen}
@@ -260,8 +289,6 @@ const Users = () => {
           handleOk={handleOk}
           handleCancel={handleCancel}
           accountId={accountId}
-          handleCreate={handleCreate}
-          handleEdit={handleEdit}
           handleDelete={handleDelete}
           modalType={modalType}
           setModalType={setModalType}
@@ -274,6 +301,7 @@ const Users = () => {
         <PendingAuthorization
           columns={pendingAuthorizationColumn}
           data={pendingUsers}
+          accountId={accountId}
           modalTitle=""
           isModalOpen={isPendingAuthorizationModalOpen}
           setIsModalOpen={setIsPendingAuthorizationModalOpen}
@@ -281,9 +309,6 @@ const Users = () => {
           handleOk={handleOk}
           handleCancel={handleCancel}
           modalContentComponent={PendingModal}
-          accountId={accountId}
-          handleCreate={handleCreate}
-          handleEdit={handleEdit}
           handleDelete={handleDelete}
           modalType={modalType}
           setModalType={setModalType}

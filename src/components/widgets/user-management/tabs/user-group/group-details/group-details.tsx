@@ -1,11 +1,9 @@
 import React from 'react'
 import styles from "./group-details.module.css"
-import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import Button from "@/src/components/atoms/dropDownButton/button"
 import HorizontalInfoDescription from '@/src/components/atoms/text/horizontal-info-description'
 import Texter from '@/src/components/atoms/text/texter'
 import { CaretDownOutlined, InfoCircleFilled } from '@ant-design/icons'
-import { ChevronDown } from 'lucide-react'
 import Image from 'next/image'
 
 type GroupProps={

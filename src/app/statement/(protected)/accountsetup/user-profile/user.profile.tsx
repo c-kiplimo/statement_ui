@@ -43,7 +43,7 @@ const Userprofile: React.FC<UserProfileProps> = ({
         setLoading(false);
         return;
       }
-
+      
       try {
         const profileData = await profileDetails(userId.toString());
         setProfile(profileData);

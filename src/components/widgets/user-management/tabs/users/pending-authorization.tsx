@@ -27,20 +27,32 @@ interface PendingAuthorization {
   handleOk: () => void;
   handleCancel: () => void;
   modalContentComponent?: ModalContentComponentType;
-  accountId: string;
-  handleCreate: (data: UserDetails) => void;
-  handleEdit: (data: UserDetails) => void;
+  accountId?: string;
+  handleCreate?: (data: UserDetails) => void;
+  handleEdit?: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
   dynamicData: UserDetails | null;
 }
 
 const PendingAuthorization = (props: PendingAuthorization) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys: React.Key[], selectedRows: UserDetails[]) => {
+      console.log('Selected Row Keys:', newSelectedRowKeys);
+      console.log('Selected Rows:', selectedRows);
+      setSelectedRowKeys(newSelectedRowKeys);
+    },
+  };
+
   return (
     <Fragment>
       <SearchBar />
       <Table
         style={{ marginTop: "15px", width: "100%" }}
+        rowSelection={rowSelection}
         columns={props.columns}
         pagination={{
           pageSize: 3,
@@ -80,9 +92,9 @@ const PendingAuthorization = (props: PendingAuthorization) => {
       >
         {props.modalContentComponent && (
           <props.modalContentComponent
-            accountId={props.accountId}
-            handleCreate={props.handleCreate}
-            handleEdit={props.handleEdit}
+            accountId={props.accountId!}
+            handleCreate={props.handleCreate!}
+            handleEdit={props.handleEdit!}
             handleDelete={props.handleDelete}
             modalType={props.modalType}
             dynamicData={props.dynamicData!}

@@ -61,6 +61,7 @@ const LastLogin = (props: StatusProps) => {
             textColor={"#ffffff"}
             iconColor={"#ffffff"}
             bgColor={"#84bd00"}
+            defaultValue="Active"
           />
         
         </div>

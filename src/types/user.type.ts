@@ -36,6 +36,15 @@ export type UserDetails = {
   username?:string;
 }
 
+export type profileDetails={
+  userId:string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  language:string;
+  mobileNumber:string;
+}
+
 export type PendingUser = {
   userName?: string;
   firstName: string;
