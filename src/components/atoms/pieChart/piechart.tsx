@@ -35,7 +35,7 @@ function Piechart(props: PieChartProps) {
           <Label
             position="center"
             content={({ viewBox }) => {
-              const { cx, cy } = viewBox;
+              const { cx, cy }:any = viewBox;
               return (
                 <text
                   x={cx}
@@ -53,7 +53,7 @@ function Piechart(props: PieChartProps) {
           <Label
             position="center"
             content={({ viewBox }) => {
-              const { cx, cy } = viewBox;
+              const { cx, cy }:any = viewBox;
               return (
                 <text
                   x={cx}

@@ -11,7 +11,7 @@ const DocsLayout = ({ children }: { children: ReactNode }) => {
         <div style={{ "display": "flex", flexDirection: "row", "height": "100vh" }}>
 
             <nav>
-                <MulaPaySideBar {...MenuData} />
+                <MulaPaySideBar items={[]} {...MenuData} />
             </nav>
             <main>
                 {children}

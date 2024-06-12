@@ -10,7 +10,6 @@ import { singleUsersAccounts } from "@/src/lib/account.overview.actions";
 import { UsersAccounts } from "../active-statement-item/active.statement.item";
 import { notification } from "antd";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { PROFILE_ID } from "@/src/constants/common";
 import useProfileId from "@/src/hooks/profileId";
 
 const queryClient = new QueryClient();

@@ -24,8 +24,10 @@ const CloseAccount = ({ onModalCancel }: CloseAccountProps) => {
 
     try {
       await closeAccount(userId);
-      sessionStorage.clear();
-      localStorage.clear();
+      if (typeof window !== "undefined") {
+        sessionStorage.clear();
+        localStorage.clear();
+      }
       notification.info({
         message:
           "Account Closure in Progress. The Account Will Be Closed Permanently After 30 Days of Inactivity.",

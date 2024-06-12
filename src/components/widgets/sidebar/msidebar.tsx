@@ -2,19 +2,20 @@
 import Link from 'next/link'
 import { DropDownIcon } from './custom.icon'
 import styles from '@/src/components/widgets/sidebar/sidebar.module.css'
-import { ReactNode, useState } from 'react'
-import Image from 'next/image'
+import {useState } from 'react'
 import classNames from 'classnames/bind'
 import simbaPic from '@/src/components/widgets/sidebar/simbaportallogo.svg'
 import { SideNavItem, SideNavMenu } from '@/src/types/sidebar.types'
 import { SiderBarTitle } from './sidebar.title'
+import { usePathname } from 'next/navigation' 
+
 
 type SideBarProp = {
     items: SideNavMenu[]
 }
 export const MulaPaySideBar = (props: SideBarProp) => {
     const [opened, setOpened] = useState(true)
-
+    
 
     const cx = classNames.bind(styles);
 
@@ -59,19 +60,21 @@ export const MulaPaySideBar = (props: SideBarProp) => {
 MulaPaySideBar.Item = (item: SideNavItem) => {
     const [opened, setOpened] = useState(false)
     const cx = classNames.bind(styles);
+    const currentPath = usePathname()
+    const isActive = currentPath === item.path 
     const className = cx('sublink', { 'sublinkOpen': opened, 'closed': !opened });
     function clicked(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         setOpened(!opened)
     }
     return (
         <>
-            <div className={styles.menuLink}>
+            <div className={`${isActive ? styles.menuActive : styles.menuLink}`}>
                 <div className={styles.menuIcon}>
                     {item.icon}
                 </div>
                 <div className={`${styles.menuText} ${styles.withSublink}  bodyr`} onClick={clicked}>
                     <div className={styles.mainMenuText}>
-                        {item.hasSubMenu ? <p> {item.title}</p> : <Link href={item.path}>{item.title}</Link>}
+                        {item.hasSubMenu ? <p> {item.title}</p> : <Link className={`${isActive ? styles.linkActive : styles.tag}`} href={item.path}>{item.title}</Link>}
 
                         {
                             item.hasSubMenu && (
@@ -95,3 +98,6 @@ MulaPaySideBar.Item = (item: SideNavItem) => {
 
     )
 }
+
+
+
