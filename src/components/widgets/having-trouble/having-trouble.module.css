@@ -1,0 +1,12 @@
+.havingTrouble {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+    position: absolute;
+    width: 176px;
+    height: 24px;
+    left: 85vw;
+    top: 16px;
+  }

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import {
   OnboardingProvider,
 } from "../../context/onBoardingContext";
-import Stepper, {
-  StepperContentProps,
-} from "@/src/components/atoms/navigation/stepper/stepper";
+import { Steps } from "antd";
 import SearchDetails from "../search-details/search-details";
 import VerifyIdentity from "../verifyIdentity/verify-identity";
+
+const { Step } = Steps;
 
 export const ProfileOnboardIng = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -14,7 +14,7 @@ export const ProfileOnboardIng = () => {
     setActiveStep(activeStep + 1);
   };
 
-  let steps: StepperContentProps[] = [
+  const steps= [
     {
       title: "Search Details",
       description: "Search Customer Details",
@@ -28,11 +28,13 @@ export const ProfileOnboardIng = () => {
   ];
 
   return (
-    <>
       <OnboardingProvider>
-        <Stepper steps={steps} direction="horizontal" current={activeStep} />
+      <Steps current={activeStep} direction="horizontal" >
+        {steps.map((step, index) => (
+          <Step key={index} title={step.title} description={step.description} />
+        ))}
+      </Steps>
         <div>{steps[activeStep].content}</div>
       </OnboardingProvider>
-    </>
   );
 };

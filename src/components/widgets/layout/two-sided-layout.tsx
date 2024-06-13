@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import styles from "./two-sided-layout.module.css";
+import { AuthFlowSideBar } from "../sidebar/common.sidebar";
+import simbaPic from "@/src/components/widgets/sidebar/simbaportallogo.svg";
 
 type LayoutProps = {
   sidebar: ReactNode;
@@ -7,16 +9,18 @@ type LayoutProps = {
   content: ReactNode;
 };
 
-const TwosidedLayout = ({ sidebar, link, content }: LayoutProps) => {
+const TwosidedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>{sidebar}</div>
-
-      <div className={styles.content}>
-        <div className={styles.linkHeader}>{link}</div>
-        {content}
-      </div>
-    </div>
+    <div style={{ "display": "flex", "height": "100vh"}}>
+    <nav>
+      <AuthFlowSideBar title={"Simba"}
+         description={"Portal"}
+          icon={simbaPic}/>
+    </nav>
+    <main style={{width:"100%"}}>
+      {children}
+    </main>
+  </div>
   );
 };
 
