@@ -14,6 +14,7 @@ type onClickprop = {
   textColor: string;
   iconColor: string;
   bgColor: string;
+  defaultValue:string;
   onClick?: (e: any) => void;
   onChange?: (e: any) => void;
 };
@@ -33,7 +34,7 @@ const Buttonitem = (props: onClickprop) => {
             onChange={props.onChange}
           >
             {props.options.map((option) => (
-              <option key={option.key} className={styles.op1} value={option.value}>
+              <option key={option.key} className={styles.op1} value={option.value} defaultValue={props.defaultValue}> 
                 {option.option}
               </option>
             ))}

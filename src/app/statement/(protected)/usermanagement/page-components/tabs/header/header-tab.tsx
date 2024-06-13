@@ -1,13 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import styles from "./header-tab.module.css";
-import RolePermission from "@/src/app/statement/(protected)/user-management/create-new-roles/page";
 import Tabs from "@/src/components/atoms/tabs/tab-item/tab-item";
 import TabContent from "@/src/components/atoms/tabs/tab-content/tab-content";
 import RoleTable from "@/src/app/statement/(protected)/usermanagement/page-components/tabs/permissions-tab/role-table";
 import UserGroup from "../user-group/user-group";
 import Users from "../users-tab/users-tab";
-
+import CreateRole from "../../create-roles/create-stepper/create-stepper";
 
 const HeaderTabs = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
@@ -27,11 +26,9 @@ const HeaderTabs = () => {
       content: (
         <div style={{ background: "white", padding: "16px" }}>
           {activeUserGroup ? (
-            <RolePermission />
+            <CreateRole />
           ) : (
-            <UserGroup
-          setActive={setActiveUserGroup}
-              />
+            <UserGroup setActive={setActiveUserGroup} />
           )}
         </div>
       ),
@@ -41,7 +38,7 @@ const HeaderTabs = () => {
       content: (
         <Fragment>
           {activePermission ? (
-            <RolePermission />
+              <CreateRole />
           ) : (
             <RoleTable setActive={setActivePermission} />
           )}

@@ -45,6 +45,7 @@ export const ACCOUNT_STATEMENT_URL = `${PROFILE_URL}/api/v1/accounts/statements`
 export const ACCOUNT_MINI_STATEMENT_URL = `${PROFILE_URL}/api/v1/accounts/ministatement`;
 
 export const ACCOUNT_OVERVIEW_URL = `${PROFILE_URL}/api/v1/accounts`;
+
 export const CUSTOMERS_URL = `${PROFILE_URL}/api/v1/customers`;
 
 export const ACCOUNT_SCHEDULES_URL = `${PROFILE_URL}/api/v1/accounts/schedule`;
@@ -77,6 +78,10 @@ export const USER_PERMISSION_URL = `${API_URL}/api/v1/user-permission`;
 export const USER_GROUP_URL = `${API_URL}/api/platform/group/v1`;
 
 export const USER_GROUPS_URL =`${PROFILE_URL}/api/v1/groups/`;
+
+export const CREATE_ROLE_URL=`${PROFILE_URL}/api/v1/groups`;
+
+export const EDIT_ROLE_URL=`${PROFILE_URL}/api/v1/groups`;
 
 export const USER_URL = `${API_URL}/api/v1/user`;
 

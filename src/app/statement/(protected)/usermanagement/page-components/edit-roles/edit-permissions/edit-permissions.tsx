@@ -1,17 +1,13 @@
 import React, { CSSProperties, Fragment, useState } from "react";
-import styles from "./permission-creation-form.module.css";
+import styles from "./edit-permissions.module.css";
 import { useFont, useTokens } from "@/src/app/(context)/ColorContext";
 import { checkIcon } from "@/src/components/atoms/svg/document_svg";
 import Checkbox from "@/src/components/atoms/input/checkbox/checkbox";
-import Button from "@/src/components/atoms/button/button";
-import { FontType } from "@/src/types/context.types";
-import ReusableText from "@/src/components/atoms/paragraph/reusableText";
 import { Form } from "antd";
+import Texter from "@/src/components/atoms/text/texter";
+import { useRoleContext } from "../../../context/rolesContext";
+import { GroupHandler } from "@/src/services/usermanagement/user.goups.service";
 
-type PermissionProp = {
-  title: string;
-  description: string;
-};
 export type CheckboxItem = {
   id: string;
   label: string;
@@ -51,25 +47,20 @@ export const checkboxData: { [group: string]: CheckboxItem[] } = {
     {
       id: "cardStatementDownload",
       label: "Card Statement Download",
-      checked: false,
-    },
+      checked: false },
     { id: "cardSchedule", label: "Card Schedule", checked: false },
   ],
 };
 
-const PermissionCreationForm = ({ title, description }: PermissionProp) => {
+const EditPermissionForm = () => {
   const token = useTokens();
   const font = useFont();
+  const { role } = useRoleContext(); 
+  const {editUserGroup} =GroupHandler();
 
-  const [checkboxGroups, setCheckboxGroups] = useState<{
-    [group: string]: CheckboxItem[];
-  }>(checkboxData);
+  const [checkboxGroups, setCheckboxGroups] = useState<{ [group: string]: CheckboxItem[] }>(checkboxData);
 
-  const handleCheckboxChange = (
-    id: string,
-    checked: boolean,
-    group: string
-  ) => {
+  const handleCheckboxChange = (id: string, checked: boolean, group: string) => {
     setCheckboxGroups((prevGroups) => ({
       ...prevGroups,
       [group]: prevGroups[group].map((checkbox) =>
@@ -78,46 +69,51 @@ const PermissionCreationForm = ({ title, description }: PermissionProp) => {
     }));
   };
 
-  const paragraphCss: CSSProperties = {
-    color: token.text.primary,
-    ...font.typography.h5.regular,
-  };
+  const handleFinish = () => {
+    const selectedPermissions = Object.entries(checkboxGroups).flatMap(([group, checkboxes]) =>
+      checkboxes.filter((checkbox) => checkbox.checked).map((checkbox) => checkbox.id)
+    );
 
-  const paragraphStylesCss: CSSProperties = {
-    color: token.text.primary,
-    ...font.typography.h6.regular,
+    const updatedRole = {
+      ...role,
+      permission: selectedPermissions,
+    };
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span className={`${styles.title} h6r`}>{title}</span>
-        <span className={`${styles.subTitle} bodyr`}>{description}</span>
+        <Texter text="Edit Permissions" className={`${styles.title} h6r`} />
+        <Texter text="Select all that apply" className={`${styles.subTitle} bodyr`} />
       </div>
-      <Form className={styles.wrapper}>
+      <Form className={styles.wrapper} onFinish={handleFinish}>
         <div className={styles.permissions}>
           {Object.entries(checkboxGroups).map(([group, checkboxes]) => (
             <CheckboxGroup
               key={group}
               title={group}
+              font={font}
               checkboxes={checkboxes}
-              onCheckboxChange={(id, checked) =>
-                handleCheckboxChange(id, checked, group)
-              }
+              onCheckboxChange={(id, checked) => handleCheckboxChange(id, checked, group)}
             />
           ))}
         </div>
         <Form.Item className={styles.button}>
           <div className={styles.buttonWrapper}>
-            <Button
-              label="Complete"
-              bgColor={token.brand.primary}
-              textColor={token.default.white}
-              onClick={() => {
-                console.log("button-clicked");
+            <button
+              type="submit"
+              style={{
+                backgroundColor: token.brand.primary,
+                color: token.default.white,
+                width: "100%",
+                border: "none",
+                padding: "10px",
+                borderRadius: "5px",
+                cursor: "pointer",
               }}
-              style={{ width: "100%" }}
-            />
+            >
+              Complete
+            </button>
           </div>
         </Form.Item>
       </Form>
@@ -127,15 +123,12 @@ const PermissionCreationForm = ({ title, description }: PermissionProp) => {
 
 type CheckboxGroupProps = {
   title: string;
+  font: any; // Update this to your actual font type
   checkboxes: CheckboxItem[];
   onCheckboxChange: (id: string, checked: boolean) => void;
 };
 
-const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
-  title,
-  checkboxes,
-  onCheckboxChange,
-}) => {
+const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ title, font, checkboxes, onCheckboxChange }) => {
   const token = useTokens();
   return (
     <div className={styles.checkBox}>
@@ -158,4 +151,4 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   );
 };
 
-export default PermissionCreationForm;
+export default EditPermissionForm;

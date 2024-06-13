@@ -106,6 +106,8 @@
   padding: 0px;
   gap: 8px;
   color: var(--Text-Text-Secondary);
+  border: none;
+  outline: none;
   flex: none;
   order: 0;
   flex-grow: 0;

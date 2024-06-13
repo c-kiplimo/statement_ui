@@ -16,6 +16,7 @@ type GroupProps={
   town:string;
   email:string;
   mobileNumber:string;
+  customerStatus:string;
 }
 const options = [
   {
@@ -30,7 +31,7 @@ const options = [
   },
 ];
 
-const GroupDetails = ({userName,userId,userType,country,town,email,mobileNumber}:GroupProps) => {
+const GroupDetails = ({userName,userId,userType,country,town,email,mobileNumber,customerStatus}:GroupProps) => {
   return (
     <div className={styles.wrapper}>
           <div className={styles.header}>
@@ -64,6 +65,7 @@ const GroupDetails = ({userName,userId,userType,country,town,email,mobileNumber}
               <Button
             icon={<CaretDownOutlined />}
             options={options}
+            defaultValue={customerStatus}
             textColor={"#ffffff"}
             iconColor={"#ffffff"}
             bgColor={"#84bd00"}

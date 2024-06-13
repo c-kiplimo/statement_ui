@@ -14,24 +14,19 @@ import { ChevronDown } from "lucide-react";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";
 import { deleteIcon, editIcon } from "@/src/components/atoms/svg/document_svg";
 import UserGroupRolesModal from "../../modal-content/user-group-roles-modal";
+import StepperNav from "@/src/app/statement/(protected)/usermanagement/page-components/edit-roles/edit-roles-stepper/edit-roles-stepper";
+import useProfileId from "@/src/hooks/profileId";
 
 const UserGroup = React.memo(({ setActive }: any) => {
   const tokenColor = useTokens();
   const font = useFont();
   const [data, setData] = useState<UserGroups[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { fetchAllUserGroups } = GroupHandler();
+  const { fetchUserGroups } = GroupHandler();
   const handleSearch = (terms: any) => {
     setSearchTerm(terms);
     console.log("search-terms", searchTerm);
   };
-  const fetchUsers = async () => {
-    const response = await fetchAllUserGroups();
-    setData(response);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
   return (
     <div
       style={{
@@ -186,6 +181,7 @@ const DisplayTable = () => {
   const font = useFont();
   const [modalType, setModalType] = useState<string>("add");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const profId = useProfileId();
 
   const openModal = (type: string, record: {}) => {
     console.log("record", record);
@@ -212,17 +208,25 @@ const DisplayTable = () => {
   const handleDelete = (record: any) => {
     console.log("Delete clicked for:", record);
   };
-  const [data, setData] = useState<UserGroups[]>([]);
-  const { fetchAllUserGroups } = GroupHandler();
-  const fetchUsers = async () => {
-    const response = await fetchAllUserGroups();
-    console;
-    setData(response);
-  };
+  const [data, setData] = useState<UserGroup[]>([]);
+  const { fetchUserGroups } = GroupHandler();
   useEffect(() => {
-    fetchUsers();
-  }, []);
-  const columns: ColumnsType<UserGroups> = [
+    const fetchGroupData = async () => {
+      if (profId !== null && profId !== undefined) {
+        try {
+          const response = await fetchUserGroups(profId);
+          setData(response);
+          console.log("Table Data", response);
+        } catch (error) {
+          console.error("Failed to fetch user groups:", error);
+        }
+      }
+    };
+
+    fetchGroupData();
+  }, [profId]);
+
+  const columns: ColumnsType<UserGroup> = [
     {
       title: "Groups",
       dataIndex: "groupId",
@@ -264,7 +268,7 @@ const DisplayTable = () => {
                 background: token.default.white,
                 color: token.default.grey,
               }}
-              onClick={() => openModal("edit", record)}
+              onClick={}
             ></PrimaryButton>
             <PrimaryButton
               buttonType="default"
