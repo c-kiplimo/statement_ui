@@ -63,7 +63,7 @@ height: 68px;
 }
 
 .lastSeen{
-width: 206px;
+width: fit-content;
 height: 26px;
 font-family: 'Roboto';
 font-style: normal;

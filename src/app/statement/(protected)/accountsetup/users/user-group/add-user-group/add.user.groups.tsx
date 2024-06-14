@@ -1,8 +1,15 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import styles from "./add.user.groups.module.css";
 import { createCustomerAccountUser } from "@/src/services/userprofile/create.user.service";
 import { notification } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { CustomerAllUserGroupsAction } from "@/src/lib/actions/all.user.groups.action";
+
+export type allgroupsTypes = {
+  groupId: number;
+  platformId: number;
+  groupName: string;
+  description: string;
+};
 
 type AddProps = {
   accountId: number;
@@ -10,11 +17,33 @@ type AddProps = {
 
 const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
   const [username, setUsername] = useState("");
-  const [userRole, setUserRole] = useState("");
+  const [userGroups, setuserGroups] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectOptions, setSelectOptions] = useState<allgroupsTypes[]>([]);
 
-  const roleOptions = ["Admin", "Editor", "Viewer"];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await CustomerAllUserGroupsAction(1);
+        setSelectOptions(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleuserGroupsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedGroupId = parseInt(e.target.value, 10);
+    const selectedGroup = selectOptions.find(group => group.groupId === selectedGroupId);
+    setuserGroups(e.target.value);
+    if (selectedGroup) {
+      setDescription(selectedGroup.description);
+    } else {
+      setDescription("");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,17 +52,16 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
       await createCustomerAccountUser({
         accountId: accountId,
         email: username,
-        role: userRole,
+        role: userGroups,
         status: description,
       });
       setUsername("");
-      setUserRole("");
+      setuserGroups("");
       setDescription("");
       notification.success({
         message: "Success",
         description: "User assigned successfully",
       });
-     
     } catch (error: any) {
       console.error("Error creating user:", error);
       if (error.response && error.response.status === 409) {
@@ -68,7 +96,7 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
         <div className={styles.container}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.header}>
-              <div className={styles.headerText}>Add user group</div>
+              <div className={styles.headerText}>Add user to a group</div>
             </div>
 
             <label className={styles.inputdiv}>
@@ -91,13 +119,13 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
             <label className={styles.inputdiv}>Select Group</label>
             <select
               className={styles.input}
-              value={userRole}
-              onChange={(e) => setUserRole(e.target.value)}
+              value={userGroups}
+              onChange={handleuserGroupsChange}
             >
               <option value="">Select Group</option>
-              {roleOptions.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
+              {selectOptions.map((option) => (
+                <option key={option.groupId} value={option.groupId}>
+                  {option.groupName}
                 </option>
               ))}
             </select>
@@ -110,7 +138,7 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
               name="description"
               placeholder="Enter Description"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              readOnly
             />
 
             <div className={styles.bttndiv}>

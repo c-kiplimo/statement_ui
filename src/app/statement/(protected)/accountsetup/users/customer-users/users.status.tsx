@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Select, Spin } from "antd";
-import { CloseOutlined, EditOutlined, EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  EditOutlined,
+  EyeOutlined,
+  MinusOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import styles from "./users.status.module.css";
 import Search from "@/src/components/atoms/search/search";
 import Filter from "@/src/components/atoms/filter/filter";
@@ -9,7 +15,6 @@ import { UsersAction } from "@/src/lib/actions/account.users.action";
 import AddItem from "@/src/components/atoms/add-item/add.item";
 import CustomTable, { DataFetcher } from "../../widgets/table/table";
 import { CustomersUsersAction } from "@/src/lib/actions/customer.users.action";
-import { useAccountProfileContext } from "../../context/account.contex";
 import RemoveUserModal from "./remove-customer-user/remove.customer.user";
 import AddUserModal from "./add-customer-user/add.customer.user";
 import UserViewProfilePageModal from "../../user-view-profile/user.view.profile";
@@ -43,9 +48,6 @@ const CustomerUsers = (props: UserIdProps) => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-  
-
-  
 
   const fetchData = async () => {
     if (props.userId !== undefined) {
@@ -53,8 +55,6 @@ const CustomerUsers = (props: UserIdProps) => {
       try {
         const incomingAccountId = await CustomersUsersAction(props.userId);
 
-        
-        
         setIncomingData(incomingAccountId);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -70,32 +70,28 @@ const CustomerUsers = (props: UserIdProps) => {
 
   const handleRoleChange = async (value: string, id: React.Key) => {
     try {
-      await UsersAction
+      await UsersAction;
       fetchData();
     } catch (error) {
       console.error("Error updating role:", error);
     }
   };
 
-
-
   const showModal = (userId: number) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
   };
 
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
 
   const handleRemoveClick = (entryId: number) => {
     setDataId(entryId);
     setRemoveUser(true);
   };
 
-  const handleAddUserClick = () => {
+  const handleAddUserClick = (p0: boolean) => {
     setAddUser(true);
   };
 
@@ -125,13 +121,17 @@ const CustomerUsers = (props: UserIdProps) => {
       title: "Role",
       dataIndex: "role",
       render: (text, record) => (
-        <Select
+        <Select 
           className={styles.selectdiv}
           defaultValue={text}
           onChange={(value) => handleRoleChange(value, record.id!)}
         >
-          <Option className={styles.option} value="Admin">ADMIN</Option>
-          <Option className={styles.option} value="Viewer">VIEW</Option>
+          <Option className={styles.option} value="Admin">
+            ADMIN
+          </Option>
+          <Option className={styles.option} value="Viewer">
+            VIEWER
+          </Option>
         </Select>
       ),
     },
@@ -155,8 +155,14 @@ const CustomerUsers = (props: UserIdProps) => {
       dataIndex: "icon",
       render: (_, record) => (
         <div className={styles.icons}>
-          <EyeOutlined key="eyeicon" onClick={() => showModal(Number(record.id))} />
-          <MinusOutlined key="minus" onClick={() => handleRemoveClick(Number(record.id))} />
+          <EyeOutlined
+            key="eyeicon"
+            onClick={() => showModal(Number(record.id))}
+          />
+          <MinusOutlined
+            key="minus"
+            onClick={() => handleRemoveClick(Number(record.id))}
+          />
         </div>
       ),
     },
@@ -181,7 +187,7 @@ const CustomerUsers = (props: UserIdProps) => {
             icon={<PlusOutlined />}
             iconStyle={{ color: "gray" }}
             titleStyle={{ color: "gray" }}
-            onClick={handleAddUserClick}
+            onClick={() => handleAddUserClick(true)}
           />
         </div>
       </div>
@@ -194,27 +200,32 @@ const CustomerUsers = (props: UserIdProps) => {
       <RemoveUserModal
         visible={removeUser}
         onCancel={() => setRemoveUser(false)}
-        userId={props.userId!}
+        userId={dataId!}
         onRefreshData={fetchData}
       />
       <AddUserModal
         visible={addUser}
         roleOptions={["ADMIN", "VIEWER"]}
         statusOptions={["ACTIVE", "DISABLED"]}
-        customerId={dataId!} 
+        customerId={dataId!}
         closeIcon={<CloseOutlined />}
         onCancel={() => setAddUser(false)}
-        onRefreshData={fetchData}      />
-      
+        onRefreshData={fetchData}
+      />
+
       {loading && (
         <div className={styles.spinnerContainer}>
           <Spin size="large" />
         </div>
       )}
 
-
-<Modal footer={false} width={"60%"} open={isModalOpen}  onCancel={handleCancel}>
-{selectedUserId !== null && (
+      <Modal
+        footer={false}
+        width={"60%"}
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+        {selectedUserId !== null && (
           <UserViewProfilePageModal userId={selectedUserId} />
         )}
       </Modal>

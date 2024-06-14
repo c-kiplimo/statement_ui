@@ -12,11 +12,7 @@ const UserGroupsHandler = () => {
                 },
             });
 
-            console.log(response);
-            
-
             if (response.data) {
-                console.log("Response data:", response.data);
                 return response.data;
             } else {
                 throw new Error("No data received from API");
@@ -27,8 +23,33 @@ const UserGroupsHandler = () => {
         }
     };
 
+    const getUserGroupsByPlatformId = async (platformId: number): Promise<allUserGroupsTypes[]> => {
+        const customerAccountUrl = `${GET_CUSTOMER_USER_GROUPS_URL}`;
+
+        try {
+            const response: AxiosResponse<allUserGroupsTypes[]> = await axios.get(customerAccountUrl, {
+                headers: {
+                    'X-RequestId': '34567',
+                },
+                params: {
+                    platformId,
+                },
+            });
+
+            if (response.data) {
+                return response.data;
+            } else {
+                throw new Error("No data received from API");
+            }
+        } catch (error) {
+            console.error("Error fetching groups by platform ID:", error);
+            throw error;
+        }
+    };
+
     return {
         getUserGroupsByUserId,
+        getUserGroupsByPlatformId,
     };
 };
 

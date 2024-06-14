@@ -161,14 +161,7 @@ const AccountsDelete = (props: userid) => {
           />
         </div>
       </div>
-      <CustomTable
-        data={incomingData}
-        pageSize={3}
-        total={10}
-        columns={columns}
-      />
-
-      <RemoveUserModal visible={modalVisible1} onCancel={handleModalCancel1} accountId={0} />
+    
     </div>
   );
 };

@@ -12,3 +12,12 @@ type UserGroupType = {
     };
     joinedOn: string;
 };
+
+type allUserGroupsTypes = {
+
+        groupId: number;
+        platformId: number;
+        groupName: string;
+        description: string;
+        permission: [];   
+};

@@ -2,8 +2,8 @@ import axios from "axios";
 import {DELETE_CUSTOMER_USER_URL } from "@/src/constants/environment";
 import { notification } from "antd";
 
-export const deleteCustomerUser = async (userId: number) => {  
-  const deleteUrl = `${DELETE_CUSTOMER_USER_URL}/${userId}`;
+export const deleteCustomerUser = async (platformUserId: number) => {  
+  const deleteUrl = `${DELETE_CUSTOMER_USER_URL}/${platformUserId}`;
 
   try {
     const response = await axios.delete(deleteUrl, {

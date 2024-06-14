@@ -40,15 +40,16 @@
   color: #6F7269;
 }
 
-.selectdiv {
+.selectdiv{
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 16px;
+  gap: 160px;
   width: fit-content;
+  outline:none;
   height: 24px;
-  border: none;
+  border-radius: none !important;
   color: #6F7269;
 }
 
@@ -159,6 +160,7 @@
     align-items: center;
     height: 100vh; 
   }
+
 
 
   

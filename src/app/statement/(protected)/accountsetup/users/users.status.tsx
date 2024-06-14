@@ -45,8 +45,12 @@ const AccountsStatus = (props: UserIdProps) => {
   const [passedAccId, setPassedAccId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
+  console.log(dataId);
+  
   useEffect(() => {
     const passedAccId = sessionStorage.getItem("passedaccountId");
+  
+    
     if (passedAccId) {
       setPassedAccId(parseInt(passedAccId));
     }
@@ -74,6 +78,8 @@ const AccountsStatus = (props: UserIdProps) => {
       setLoading(true);
       try {
         const incomingAccountId = await UsersAction(passedAccId);
+        console.log(incomingAccountId);
+        
         setIncomingData(incomingAccountId);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -94,8 +100,7 @@ const AccountsStatus = (props: UserIdProps) => {
     setRemoveUser(true);
   };
 
-  const handleAddUserClick = (entryId: number) => {
-    setDataId(entryId);
+  const handleAddUserClick = () => {
     setAddUser(true);
   };
 
@@ -218,7 +223,7 @@ const AccountsStatus = (props: UserIdProps) => {
             icon={<PlusOutlined />}
             iconStyle={{ color: "gray" }}
             titleStyle={{ color: "gray" }}
-            onClick={() => handleAddUserClick(1)}
+            onClick={() => handleAddUserClick()}
           />
         </div>
       </div>
