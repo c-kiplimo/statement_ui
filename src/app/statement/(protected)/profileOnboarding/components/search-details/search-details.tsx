@@ -26,13 +26,13 @@ const LoginCard = [
   {
     id: "CUSTOMER_NUMBER",
     icon: <UserAddOutlined />,
-    CardTitle: "Customer  Number",
+    CardTitle: "Customer Number",
     CardDescription: "View Statements",
   },
   {
     id: "ACCOUNT_NUMBER",
     icon: <UsergroupAddOutlined />,
-    CardTitle: "Account  Number",
+    CardTitle: "Account Number",
     CardDescription: "Manage corporate users",
   },
   {
@@ -42,9 +42,9 @@ const LoginCard = [
     CardDescription: "Use your National id number",
   },
   {
-    id: "PASSPORT NUMBER",
+    id: "PASSPORT_NUMBER",
     icon: <ContactsOutlined />,
-    CardTitle: "Passport  Number",
+    CardTitle: "Passport Number",
     CardDescription: "Use your National id number",
   },
 ];
@@ -69,14 +69,18 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
   ];
 
   const openModalHandler = () => {
+    console.log("Opening modal.....");
     setShowModal(true);
   };
 
   const closeModalHandler = () => {
     setShowModal(false);
+    console.log("Closing modal.....");
+    
   };
 
   const handleOptionChange = (newValue: string | null) => {
+    console.log("Option selected:", newValue);
     setSelectedOption(newValue);
     openModalHandler();
     const selectedCard = LoginCard.find((card) => card.id.toString() === newValue);
@@ -131,7 +135,7 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <Texter
-          text="Select the option you prefer for to use for onboarding?"
+          text="Select the option you prefer for onboarding"
           className="h6b"
         />
       </div>
@@ -161,7 +165,7 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
                   <div className={styles.formHeader}>
                     <VerticalInfoDescription
                       title="Provide Details to allow us create your profile"
-                      description="We provide ability for you to on board to any country of your choice and ability to switch between different countries"
+                      description="We provide the ability for you to onboard to any country of your choice and the ability to switch between different countries."
                       titleStyle={{
                         color: token.text.secondary,
                         fontSize: "20px",
