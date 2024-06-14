@@ -25,6 +25,7 @@
   width: 552px;
   height: 376px;
 }
+
 .submitBtn {
   display: flex;
   justify-content: center;
@@ -39,67 +40,58 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
-  width: Hug (647px)px;
-  height: Fixed (468px)px;
-  position:absolute;
-  top: 16vh;
-  left: 32vw;
+
+  width: 647px;
+  height: 460px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 8px 32px 24px 32px;
   gap: 16px;
   border-radius: 8px 0px 0px 0px;
-  border: 0.5px 0px 0px 0px;
-  opacity: 0px; 
+  border: 0.5px solid;
+  z-index: 1000;
+  background: white; /* Ensure the background is visible */
 }
 
 .modalContainer {
-/* display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 40px;
-width: 583px;
-height: 372px; */
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px;
-gap: 40px;
-width: 583px;
-height: 372px;
-flex: none;
-order: 0;
-flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 583px;
+  height: 354px;
 }
 
 .formBody {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 8px;
-width: 583px;
-height: 274px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 583px;
+  height: 274px;
 }
 
 .formHeader {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 8px;
-width: 100%;
-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 72px;
 }
 
 .inputContainer {
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: flex-start;
-gap: 8px;
-width: 100%;
-height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: 72px;
 }
 
 .inputField {
@@ -112,28 +104,28 @@ height: 72px;
 }
 
 .input {
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-padding: 8px 16px;
-gap: 8px;
-width:100%;
-height: 40px;
-background: var(--Background-Background-Primary);
-border: 0.5px solid var(--border-border-secondary);
-border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  background: var(--Background-Background-Primary);
+  border: 0.5px solid var(--border-border-secondary);
+  border-radius: 4px;
 }
 
 .button {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 8px 16px;
-width: 184px;
-height: 40px;
-border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 16px;
+  width: 184px;
+  height: 40px;
+  border-radius: 4px;
 }
 
 .searchBtn {
