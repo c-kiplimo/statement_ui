@@ -69,14 +69,11 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
   ];
 
   const openModalHandler = () => {
-    console.log("Opening modal.....");
     setShowModal(true);
   };
 
   const closeModalHandler = () => {
-    setShowModal(false);
-    console.log("Closing modal.....");
-    
+    setShowModal(false);  
   };
 
   const handleOptionChange = (newValue: string | null) => {
