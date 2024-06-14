@@ -105,8 +105,7 @@ SavingAccountBalance.SelectAccount = (props:selectProps) => (
     bgColor="#F5F5F5"
     icon1={<img src="/savingss.svg" alt="icon" />}
     onChange={props.onChange}
-    onClick={props.onClick}
-  />
+    onClick={props.onClick} defaultValue={""}  />
 );
 
 type ButtonProps = {

@@ -61,7 +61,7 @@ const AccountProfilePage = (props: StatusProps) => {
             options={options}
             textColor={"#ffffff"}
             iconColor={"#ffffff"}
-            bgColor={"#84bd00"}/>
+            bgColor={"#84bd00"} defaultValue={""}          />
         
         </div>
       </div>

@@ -35,7 +35,7 @@ const PaymentMethod = (props: paymentmethodProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.drptcontainer}>
-        <Button icon={<CaretDownOutlined />} options={options} textColor={"#6F7269"} iconColor={"#6F7269"} bgColor={"#F5F5F5"} icon1={props.icon}/>
+        <Button icon={<CaretDownOutlined />} options={options} textColor={"#6F7269"} iconColor={"#6F7269"} bgColor={"#F5F5F5"} icon1={props.icon} defaultValue={""}/>
       </div>
       <div className={styles.bodycontainer}>
         <div className={styles.card}>
