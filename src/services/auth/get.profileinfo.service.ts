@@ -16,7 +16,6 @@ export const getUserProfileDetails = async (userId:string):Promise<CustomerProfi
         ...apiRes
       }
 
-      console.log(profileData);
       return profileData;
     } catch (error) {
       throw error;

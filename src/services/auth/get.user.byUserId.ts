@@ -17,7 +17,6 @@ export const getUserDetails = async (userId:string):Promise<userDetails> => {
         ...apiRes
       }
 
-      console.log();
       
       return userData;
     } catch (error) {

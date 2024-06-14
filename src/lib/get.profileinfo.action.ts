@@ -11,7 +11,6 @@ export const loggedInProfileDetails =async (userId:string):Promise<CustomerProfi
         profileName: response.name!,
         userId: response.userId,
     }
-    console.log(responseData);
     
     return responseData
 }
@@ -30,7 +29,6 @@ export const profileInformationDetails = async (userId:string):Promise<UserInfor
         language: profileInfo.language
     }
 
-    console.log(response);
     
     return response;
 }

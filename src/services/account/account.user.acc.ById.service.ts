@@ -12,8 +12,6 @@ export const AccountUserHandler = () => {
           "X-RequestId": "4566",
         },
       });
-
-      console.log("Fetched data:", response.data);
       
       return response.data;
       

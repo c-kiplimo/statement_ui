@@ -30,7 +30,7 @@ const ProfileForm = () => {
   const [initialPhone, setInitialPhone] = useState("");
   const [initialLanguage, setInitialLanguage] = useState("ENGLISH");
 
-  console.log(userId)
+
   const fetchProfileData = async () => {
     const result = await profileInformationDetails(userId!);
     setUserInfodetails(result);

@@ -80,7 +80,6 @@ const getAccountByCustomerId =async(
             }).then((res) => {
             let apiResponse = res.data
 
-            
 
             if (apiResponse) {
                 let apiRes = apiResponse;

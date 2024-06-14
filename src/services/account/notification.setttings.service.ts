@@ -52,7 +52,6 @@ export const fetchAccountNotificationsByUserId  = async (userId:string):Promise<
 
   export const editAccountNotification = async (userId: string, notificationData: NotificationSettingTypes): Promise<NotificationSettingTypes> => {
     const createScheduleUrl = `${FETCH_USER_NOTIFICATION_STATUS}/${userId}`;
-  console.log(notificationData);
   
     try {
       const response = await axios.put(createScheduleUrl, notificationData, {

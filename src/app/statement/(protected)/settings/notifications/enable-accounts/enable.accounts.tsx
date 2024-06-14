@@ -51,7 +51,6 @@ const EnableAccountsItem = ({ switches, onSwitchChange, onEmailChange, selectedE
 
   const handleEmailChange = (event: any) => {
     onEmailChange(event.target.value);
-    console.log(event.target.value);
   };
 
   return (

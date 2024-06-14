@@ -25,11 +25,9 @@ export const fetchAccountStatus = async (accountNumber: number): Promise<Account
       
       return accountInformation;
     } else {
-      console.error("Empty API response");
       throw new Error("Empty API response");
     }
   } catch (error) {
-    console.error("Error fetching account data:", error);
     throw error;
   }
 };

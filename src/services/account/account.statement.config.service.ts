@@ -12,7 +12,6 @@ export const StatementConfig = async (
   statementData: StatementSetup
 ): Promise<StatementSetup> => {
   try {
-    console.log("Statement Data for Update:", statementData);
     statementData.accountId = accountId;
 
     const response = await axios.post(ACCT_STMT_URL, statementData, {
@@ -21,7 +20,6 @@ export const StatementConfig = async (
       },
     });
 
-    console.log("Response:", response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
