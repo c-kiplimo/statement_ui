@@ -20,14 +20,7 @@ const AccountStatementSelf = () => {
   const [options, setOptions] = useState<UsersAccounts[] | null>(null);
 
   let profileId = useProfileId();
-
-  useEffect(() => {
-    const storedTab = localStorage.getItem("activeTab");
-    if (storedTab) {
-      setActiveTab(storedTab);
-    }
-  }, []);
-
+  
   useEffect(() => {
     if (profileId !== null && profileId !== undefined) {
 
@@ -54,7 +47,6 @@ const AccountStatementSelf = () => {
 
   const handleButtonClick = (tabName: string) => {
     setActiveTab(tabName);
-    localStorage.setItem("activeTab", tabName);
   };
 
   return (

@@ -5,10 +5,10 @@ type AccountInformations = {
         accountTitle: string,
         accountType: string,
         currency: string,
-        openingBalance: string,
-        spending: string,
-        received: string,
-        closingBalance: string,
+        openingBalance: number,
+        spending: number,
+        received: number,
+        closingBalance: number,
         category: string
     };
    
@@ -20,7 +20,7 @@ type AccountInformations = {
             debitAmount: string,
             creditAccount: string,
             creditCurrency: string,
-            creditAmount: string,
+            creditAmount: number,
             lcyAmount: string,
             fcyAmount: string,
             paymentDetails: string,
@@ -56,9 +56,9 @@ type AccountInformations = {
  }>;
  summary: {
     numberOfDebits: number,
-    totalDebitAmount: string,
+    totalDebitAmount: number,
     numberOfCredits: number,
-    totalCreditAmount: string,
+    totalCreditAmount: number,
     closingBalance: string
 }
 

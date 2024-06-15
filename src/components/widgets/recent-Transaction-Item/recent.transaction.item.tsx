@@ -13,8 +13,8 @@ type cardDescription = {
 const RecentTransactionItem = (props: cardDescription) => {
   const formattedAmount =
     parseInt(props.amount) >= 0
-      ? `$${parseInt(props.amount).toFixed(2)}`
-      : `-$${Math.abs(parseInt(props.amount)).toFixed(2)}`;
+      ? `$${props.amount}`
+      : `-$${Math.abs(parseInt(props.amount))}`;
   const amountColor = parseInt(props.amount) >= 0 ? "green" : "red";
 
   return (
