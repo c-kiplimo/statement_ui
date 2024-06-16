@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import styles from './balance.info.card.module.css';
 import VerticalInfoDescription from '../../atoms/text/vertical-info-description';
-import { EyeOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import ImageIcon from '../../atoms/imageIcon/imageIcon';
 
 type clikCard={
@@ -30,10 +30,15 @@ function BalanceInfoCard(props:clikCard) {
           <div>
             {isVisible ?  <VerticalInfoDescription title={props.availableBalance} description={props.currencyCode} titleStyle={{fontWeight:'bold'}}/> : <div className={styles.displayContent}> <VerticalInfoDescription title={'*********'} description={'***'} titleStyle={{fontWeight:'bold'}} /></div>}
           </div>
-
+          {isVisible ?(
           <div className={styles.eyeicon}>
-            <EyeOutlined onClick={handleClick} style={{}}/>
+            <EyeInvisibleOutlined onClick={handleClick} style={{}}/>
           </div>
+          ):(
+          <div className={styles.eyeicon}>
+            <EyeOutlined  onClick={handleClick}/>
+          </div>
+          )}
         </div>
       
     </div>

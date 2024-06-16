@@ -19,10 +19,12 @@ export const getTransactionAccounts = async (
       icon: accountIcons(balance.creditAccount),
       title: balance.creditAccount,
       date: balance.processingDate.split("T")[0],
-      amount: balance.creditAmount,
+      amount: balance.creditAmount.toLocaleString('en-US'),
     })
   );
 
+  console.log(transactions);
+  
   return transactions;
 
   function accountIcons(accounttype: string): ReactNode {
@@ -74,8 +76,8 @@ export const getMoneyInOut = async (
     await fetchAccountDetailsById(accountNumber);
 
   let money: AccountMoneyInOut = {
-    moneyIn: moneyflow.summary.totalDebitAmount,
-    moneyOut: moneyflow.summary.totalCreditAmount,
+    moneyIn: moneyflow.summary.totalDebitAmount.toLocaleString(),
+    moneyOut: moneyflow.summary.totalCreditAmount.toLocaleString(),
   };
 
   return money;
@@ -88,10 +90,10 @@ export const getAccountSummaryBalances = async (
     await fetchAccountDetailsById(accountNumber);
 
   let balances: Accountbalances = {
-    openingBalance: accountbalances.accountDTO.openingBalance,
-    closingBalance: accountbalances.accountDTO.closingBalance,
-    spending: accountbalances.accountDTO.spending,
-    received: accountbalances.accountDTO.received,
+    openingBalance: accountbalances.accountDTO.openingBalance.toLocaleString(),
+    closingBalance: accountbalances.accountDTO.closingBalance.toLocaleString(),
+    spending: accountbalances.accountDTO.spending.toLocaleString(),
+    received: accountbalances.accountDTO.received.toLocaleString(),
     openingBalIcon: undefined,
     closingBalIcon: undefined,
     spendingBalIcon: undefined,

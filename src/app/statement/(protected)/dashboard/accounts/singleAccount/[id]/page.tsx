@@ -111,7 +111,8 @@ let accountId = params.id;
 
 
   let balancedata = await getTransactionAccounts(parseInt(accountId));
-
+  console.log(balancedata);
+  
   let cashflowdata = await getCashFlowData(parseInt(accountId))
 
   let moneyInOut:AccountMoneyInOut = await getMoneyInOut(parseInt(accountId))
