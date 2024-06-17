@@ -7,32 +7,20 @@ import { AUTH_URL_LOGIN } from "@/src/constants/environment";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 import { useRouter } from "next/navigation";
 import { authServiceHandler } from "@/src/services/auth/auth.service";
-<<<<<<< HEAD
 import {Form, Input, Modal, notification } from "antd";
-=======
-import { Checkbox, Form, Input, Modal, notification } from "antd";
->>>>>>> 74f5b45 (Refactoring sign in change)
 import {
   MyFormItemGroup,
   MyFormItem,
 } from "@/src/components/molecules/shared-features/form_builder_component";
 import EnterOtpToVerify from "./otp-verify/enter_otp_to_verify";
-<<<<<<< HEAD
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-=======
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Import eye icons
->>>>>>> 74f5b45 (Refactoring sign in change)
 
 const SignInHelper = () => {
   const router = useRouter();
   const { storeToken } = AuthServiceProvider();
   const { loginService, requestOtpService } = authServiceHandler();
   const [showModal, setShowModal] = useState(false);
-<<<<<<< HEAD
   const [showPassword, setShowPassword] = useState(false);
-=======
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
->>>>>>> 74f5b45 (Refactoring sign in change)
   const [rememberMe, setRememberMe] = useState(false);
 
   type LoginProps = {

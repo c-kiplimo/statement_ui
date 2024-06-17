@@ -242,6 +242,20 @@ const SignUpWidget = () => {
           text="Create Account"
         />
       </Form>
+      <div className={styles.footer}>
+        <p className="captionr">
+          Already have an account?
+          <span>
+            <Link
+              href="/statement/sign-in"
+              className="sign-up-link"
+              onClick={redirectToCreateAccount}
+            >
+              Sign in.
+            </Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };
