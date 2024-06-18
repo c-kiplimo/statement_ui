@@ -1,6 +1,13 @@
-import { USER_URL,REGISTER_PENDING_USER, PENDING_USER, AUTHORIZE_USER, UNAUTHORIZE_USER} from "@/src/constants/environment";
-import { PendingUser, UserDetails } from "@/src/types/user.type";
-import {notification } from "antd";
+import {
+  USER_URL,
+  REGISTER_PENDING_USER,
+  PENDING_USER,
+  AUTHORIZE_USER,
+  UNAUTHORIZE_USER,
+  USER_BY_USERID_URL,
+} from "@/src/constants/environment";
+import { PendingUser, UserDetails, profileDetails } from "@/src/types/user.type";
+import { notification } from "antd";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const UserHandler = () => {
@@ -31,6 +38,26 @@ const UserHandler = () => {
 
       return response;
     } catch (error) {
+      throw error;
+    }
+  };
+
+  const fetchUserByUserId = async (userId: string): Promise<profileDetails> => {
+    const config: AxiosRequestConfig = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${USER_BY_USERID_URL}/${userId}`,
+      headers: {
+        "X-RequestId": "2345678",
+      },
+    };
+    try {
+      const response = await axios.request<profileDetails>(config);
+      const userDetails: profileDetails = response.data;
+      console.log(JSON.stringify(userDetails));
+      return userDetails;
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   };
@@ -68,9 +95,12 @@ const UserHandler = () => {
     }
   };
 
-  const registerUser = async (URL: string, PAYLOAD: PendingUser): Promise<PendingUser[]> => {
+  const registerUser = async (
+    URL: string,
+    PAYLOAD: PendingUser
+  ): Promise<PendingUser[]> => {
     const { password, firstName, lastName, mobileNumber, email } = PAYLOAD;
-  
+
     const payload = {
       password,
       firstName,
@@ -78,7 +108,7 @@ const UserHandler = () => {
       mobileNumber,
       email,
     };
-  
+
     try {
       const response = await axios.post<PendingUser[]>(URL, payload, {
         headers: {
@@ -97,33 +127,33 @@ const UserHandler = () => {
   const fetchPendingUser = async (): Promise<UserDetails[]> => {
     try {
       const config = {
-        method: 'get',
+        method: "get",
         maxBodyLength: Infinity,
         url: PENDING_USER,
         headers: {
-          'X-RequestId': '35342323'
+          "X-RequestId": "35342323",
         },
       };
-  
+
       const response = await axios.request(config);
-      return response.data.content as UserDetails[]; 
+      return response.data.content as UserDetails[];
     } catch (error) {
-      console.error('Error fetching pending users:', error);
+      console.error("Error fetching pending users:", error);
       throw error;
     }
   };
 
   const authorizeUser = async (userId: string): Promise<UserDetails> => {
     const config: AxiosRequestConfig = {
-      method: 'delete',
+      method: "delete",
       maxBodyLength: Infinity,
       url: `${AUTHORIZE_USER}/${userId}`,
       headers: {
-        'X-RequestId': '35342323'
+        "X-RequestId": "35342323",
       },
-      data: ''
+      data: "",
     };
-  
+
     try {
       const response = await axios.request<UserDetails>(config);
       return response.data;
@@ -135,18 +165,18 @@ const UserHandler = () => {
 
   const unauthorizeUser = async (userId: string): Promise<UserDetails> => {
     const config: AxiosRequestConfig = {
-      method: 'delete',
+      method: "delete",
       maxBodyLength: Infinity,
       url: `${UNAUTHORIZE_USER}/${userId}`,
       headers: {
-        'X-RequestId': '35342323'
+        "X-RequestId": "35342323",
       },
-      data: ''
+      data: "",
     };
-  
+
     try {
       const response = await axios.request<UserDetails>(config);
-      console.log("Unauthorized user>>",response)
+      console.log("Unauthorized user>>", response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -156,11 +186,12 @@ const UserHandler = () => {
 
   return {
     fetchAllUsers,
+    fetchUserByUserId,
     deleteUser,
     registerUser,
     fetchPendingUser,
     authorizeUser,
-    unauthorizeUser
+    unauthorizeUser,
   };
 };
 

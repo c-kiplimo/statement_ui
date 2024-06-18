@@ -85,6 +85,8 @@ export const EDIT_ROLE_URL=`${PROFILE_URL}/api/v1/groups`;
 
 export const USER_URL = `${API_URL}/api/v1/user`;
 
+export const USER_BY_USERID_URL=`${API_URL}/api/v1/user/profile`;
+
 export const PERMISSION_URL = `${API_URL}/api/v1/permission`;
 
 export const GROUP_URL = `${API_URL}/api/v1/group`;
