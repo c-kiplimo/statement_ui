@@ -42,8 +42,8 @@
   width: Hug (647px)px;
   height: Fixed (460px)px;
   position:absolute;
-  top: 160px;
-  left:  648px;
+  top: 24vh;
+  left: 32vw;
   padding: 8px 32px 24px 32px;
   gap: 16px;
   border-radius: 8px 0px 0px 0px;

@@ -1,4 +1,3 @@
-
 import { jwtDecode } from "jwt-decode";
 import { User } from "../../types/user.type";
 import { MyToken, TokenPayload } from "../../types/auth.types";

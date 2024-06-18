@@ -15,6 +15,7 @@ import { useTokens } from "@/src/app/(context)/ColorContext";
 import OtpInput from "@/src/components/atoms/input/otp/otpInputContainer";
 import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
 import { User } from "@/src/types/user.type";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const RecoverPassword = () => {
   const tokenColor = useTokens();
@@ -36,6 +37,13 @@ const RecoverPassword = () => {
     setShowModal(false);
   };
 
+  const handleRedirect = (e: any) => {
+    e.preventDefault();
+    setTimeout(() => {
+      router.replace("/statement/sign-in");
+    }, 300);
+  };
+
   const onFinish = async (values: any) => {
     const response = await resetPasswordService(email);
     console.log("response", response);
@@ -46,8 +54,7 @@ const RecoverPassword = () => {
     openModalHandler();
   };
 
-  const onOtpSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const onOtpSubmit = async () => {
     await validateOtpService(value, userId);
     router.push("/statement/password-recovery/create-new-password");
   };
@@ -92,10 +99,17 @@ const RecoverPassword = () => {
     };
   }, [timer]);
 
+  useEffect(() => {
+    if (value.length === 6) {
+      onOtpSubmit();
+    }
+  }, [value]);
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
         <div className={styles.header}>
+          <ArrowLeftOutlined size={16} onClick={handleRedirect} />
           <Texter
             text="Verify Existing Account"
             className={`${styles.title} h4r`}
@@ -126,7 +140,7 @@ const RecoverPassword = () => {
                   />
                 </MyFormItem>
               </div>
-              <div className={styles.button}>
+              <div className={styles.btn}>
                 <CustomButton
                   bgColor="var(--brand-brand-primary)"
                   type="submit"

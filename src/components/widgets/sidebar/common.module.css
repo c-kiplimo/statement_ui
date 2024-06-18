@@ -5,6 +5,7 @@
   width: 20vw;
   background: var(--Brand-Brand-Secondary, #003a49);
   gap: 144px;
+  overflow-y: auto;
 }
 .content {
   display: flex;
@@ -26,3 +27,4 @@
     padding-right: 60px;
   }
 }
+

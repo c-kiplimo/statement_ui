@@ -12,8 +12,7 @@ import { notification } from "antd";
 import { useRouter } from "next/navigation";
 import { storeProfile } from "@/src/hooks/useProfileCreated";
 
-
-let profileStatus:boolean;
+let profileStatus: boolean;
 const EnterOtpToVerify = () => {
   const [value, valueChanged] = useState("");
   const [myUser, setMyUser] = useState<User>();
@@ -38,17 +37,19 @@ const EnterOtpToVerify = () => {
       await verifyOtpService(tokenPayload.accessToken, otp)
         .then((response) => {
           storeToken(response);
-          console.log("Otp verified",response);
+          console.log("Otp verified", response);
           notification.success({
             message: "OTP Verified",
             description: "Your OTP has been successfully verified.",
           });
-          {profileStatus ? 
-          router.push("/statement/dashboard"):router.push("/statement/profileOnboarding")
-        }
+          {
+            profileStatus
+              ? router.push("/statement/dashboard")
+              : router.push("/statement/profileOnboarding");
+          }
         })
         .catch((error) => {
-          if (error.response.status == 400) {
+          if (error.response.status === 400) {
             notification.error({
               message: error.response.data.error,
               description: error.response.data.error_description,
@@ -71,15 +72,21 @@ const EnterOtpToVerify = () => {
   };
 
   useEffect(() => {
+    if (value.length === 6) {
+      onOtpSubmit(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
     console.log("User's details==>" + JSON.stringify(getLoggedInUser()));
-    let data = getLoggedInUser()
+    const data = getLoggedInUser();
     profileStatus = data.profileComplete!;
     setMyUser(getLoggedInUser);
-    let loggedUser:CustomerProfile={
-      profileName:data.firstName,
-      userId:data.id,
-    }
-    storeProfile(loggedUser)
+    const loggedUser: CustomerProfile = {
+      profileName: data.firstName,
+      userId: data.id,
+    };
+    storeProfile(loggedUser);
   }, [myUser?.email]);
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -106,11 +113,11 @@ const EnterOtpToVerify = () => {
     };
   }, [timer]);
 
-  function resendOtp(event: React.MouseEvent<HTMLDivElement>): void {
+  const resendOtp = (event: React.MouseEvent<HTMLDivElement>): void => {
     event.preventDefault();
     timerChanged(300);
     stopTimer();
-    let token = getToken();
+    const token = getToken();
     if (token) {
       requestOtpService(token?.accessToken);
     } else {
@@ -120,74 +127,72 @@ const EnterOtpToVerify = () => {
       });
       router.push("/statement/sign-in");
     }
-  }
+  };
 
   return (
-    <>
-      <FormBuilder>
-        <div className={styles.otpContainer}>
-          {profileStatus}
-          <div className={styles.title}>
-            <Texter className="h4b text-left" text="Enter OTP To Verify" />
+    <FormBuilder>
+      <div className={styles.otpContainer}>
+        {profileStatus}
+        <div className={styles.title}>
+          <Texter className="h4b text-left" text="Enter OTP To Verify" />
+        </div>
+        <div className={styles.otpBody}>
+          <div className={styles.otpPrompt}>
+            <p className="bodyr">
+              Please enter the verification code just sent to your email
+              <span
+                className="otp-email-link-text bodyr"
+                style={{ margin: "5px" }}
+              >
+                {myUser?.email}
+              </span>
+            </p>
           </div>
-          <div className={styles.otpBody}>
-            <div className={styles.otpPrompt}>
-              <p className="bodyr">
-                Please enter the verification code just sent to your email
-                <span
-                  className="otp-email-link-text bodyr"
-                  style={{ margin: "5px" }}
-                >
-                  {myUser?.email}
+          <div className={styles.otpInput}>
+            <OtpInput
+              length={6}
+              onChange={(e: string) => {
+                valueChanged(e);
+              }}
+            />
+            <div className="otp-leading-text-description text-left">
+              <p className="otp-leading-text-description text-left">
+                Didn’t get code?
+                <span className="otp-email-link-text" onClick={resendOtp}>
+                  Send again
                 </span>
               </p>
             </div>
-            <div className={styles.otpInput}>
-              <OtpInput
-                length={6}
-                onChange={(e: string) => {
-                  valueChanged(e);
-                }}
-              />
-              <div className="otp-leading-text-description text-left">
-                <p className="otp-leading-text-description text-left">
-                  Didn’t get code? 
-                  <span className="otp-email-link-text" onClick={resendOtp}>
-                    Send again
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className={styles.timer}>
-            <p
-              style={{ color: tokenColor.text.description_01 }}
-              className="mt-5 w-52 text-left"
-            >
-              Time Remaining:{" "}
-              <strong style={{ color: tokenColor.default.black }}>
-                {formatTime(timer)}
-              </strong>
-            </p>
-          </div>
-          <div className={styles.button}>
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              style={{
-                height: "40px",
-                borderRadius: "5px",
-                minWidth: "250px",
-                color: tokenColor.default.white,
-                backgroundColor: "var(--brand-brand-primary)",
-              }}
-            >
-              Verify
-            </button>
           </div>
         </div>
-      </FormBuilder>
-    </>
+        <div className={styles.timer}>
+          <p
+            style={{ color: tokenColor.text.description_01 }}
+            className="mt-5 w-52 text-left"
+          >
+            Time Remaining:{" "}
+            <strong style={{ color: tokenColor.default.black }}>
+              {formatTime(timer)}
+            </strong>
+          </p>
+        </div>
+        <div className={styles.button}>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            style={{
+              height: "40px",
+              borderRadius: "5px",
+              minWidth: "250px",
+              color: tokenColor.default.white,
+              backgroundColor: "var(--brand-brand-primary)",
+            }}
+          >
+            Verify
+          </button>
+        </div>
+      </div>
+    </FormBuilder>
   );
 };
 
