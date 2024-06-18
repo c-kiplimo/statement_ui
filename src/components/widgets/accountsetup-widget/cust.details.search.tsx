@@ -29,12 +29,7 @@ const Accountsetup = (props: AccountSetupProps) => {
 
   const handleSubmit = async () => {
     const onboardingType = searchOption === "account" ? "ACCOUNT_NUMBER" : "CUSTOMER_NUMBER";
-    const searchValue = searchOption === "account" ? accountNumber : customerName;
-
-    
-
-   
-   
+    const searchValue = searchOption === "account" ? accountNumber : customerName;   
 
     if (!searchValue) {
       alert("Please enter a valid id.");

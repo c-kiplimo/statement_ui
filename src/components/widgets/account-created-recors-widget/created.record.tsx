@@ -7,15 +7,14 @@ export type DataSearch =  {
   industry: string;
   customerType: string;
   customerStatus: string;
-  id?:string,
+  id?:number,
 
 }
 
 type AccountSearch = {
   hideicon?: ReactNode;
   editicon?: ReactNode;
-  data: DataSearch[];
-  
+  data: DataSearch[];  
   columnNames: string[];
   onClick?: () => void;
 };
