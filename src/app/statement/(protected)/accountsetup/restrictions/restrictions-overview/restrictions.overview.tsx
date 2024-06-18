@@ -95,8 +95,8 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
         const time = dateTime.toLocaleTimeString();
         return (
           <div className={styles.createdOn}>
-            <div className={styles.dateStyles}>{date}</div>
-            <div className={styles.timestyles}>{time}</div>
+            <div className={`${styles.dateStyles} bodyr`}>{date}</div>
+            <div className={`${styles.timestyles} captionr`}>{time}</div>
           </div>
         );
       },
@@ -104,7 +104,7 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
     {
       title: "Name",
       dataIndex: "userName",
-      render: (text) => <span className={styles.columnstyles}>{text}</span>,
+      render: (text) => <span className={`${styles.columnstyles} bodyr`}>{text}</span>,
     },
     {
       title: "Description",
@@ -137,7 +137,7 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
     <div className={styles.container}>
       <div className={styles.tableHeader}>
         <div className={styles.headerdiv}>
-          <div className={styles.textdiv}>Restrictions</div>
+          <div className={`${styles.textdiv} h6b`}>Restrictions</div>
           <div className={styles.atomsdiv}>
             <Search
               key="search"

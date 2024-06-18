@@ -62,12 +62,13 @@ const Userprofile: React.FC<UserProfileProps> = ({
   const tabItems: TabItem[] = [
 
     {
-      buttonName: 'Users',
-      bodyContent: <CustomerUsers userId={userId} key="users" />,
-    },
-    {
       buttonName: 'Accounts',
       bodyContent: <AccountsPage userId={userId} key="accounts" />,
+    },
+
+    {
+      buttonName: 'Users',
+      bodyContent: <CustomerUsers userId={userId} key="users" />,
     },
     {
       buttonName: 'Activities',

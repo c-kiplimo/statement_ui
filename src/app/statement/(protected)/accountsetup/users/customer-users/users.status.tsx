@@ -106,8 +106,8 @@ const CustomerUsers = (props: UserIdProps) => {
 
         return (
           <div className={styles.date}>
-            <div className={styles.dateStyles}>{date}</div>
-            <div className={styles.timestyles}>{time}</div>
+            <div className={`${styles.dateStyles} bodyr`}>{date}</div>
+            <div className={`${styles.timestyles} captionr`}>{time}</div>
           </div>
         );
       },
@@ -115,7 +115,7 @@ const CustomerUsers = (props: UserIdProps) => {
     {
       title: "User Name",
       dataIndex: "userName",
-      render: (text) => <span className={styles.UserName}>{text}</span>,
+      render: (text) => <span className={`${styles.UserName} bodyr`}>{text}</span>,
     },
     {
       title: "Role",
@@ -171,7 +171,7 @@ const CustomerUsers = (props: UserIdProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.headerdiv}>
-        <div className={styles.textdiv}>Users Overview</div>
+        <div className={`${styles.textdiv} h6b`}>Users Overview</div>
         <div className={styles.atomsdiv}>
           <Search
             title={"Search"}
