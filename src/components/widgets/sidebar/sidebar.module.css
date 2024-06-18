@@ -7,6 +7,11 @@
 
 .menuIcon path {
   fill: #fff;
+  stroke: #fff;
+}
+.activeicon path {
+  fill: #003A49;
+  color:#003A49 ;
 }
 
 .mainMenuText {
@@ -74,6 +79,10 @@
   padding-top: 4px;
   margin-left: 28px;
 }
+.opened .activeicon{
+  padding-top: 4px;
+  margin-left: 28px;
+}
 
 .opened.sidebar {
   display: flex;
@@ -130,6 +139,7 @@ padding: 8px 0px;
 .section {
   color: var(--Text-Text-Description-02, #979992);
   margin-left: 8px;
+  margin-bottom: 16px;
 }
 
 .opened .menuText {
@@ -179,6 +189,10 @@ padding: 8px 0px;
   padding-top: 8px;
   margin-left: 28px;
 }
+.closed .activeicon {
+  padding-top: 8px;
+  margin-left: 28px;
+}
 
 .closed .menuText {
   color: var(--Default-White, #fff);
@@ -218,6 +232,19 @@ padding: 8px 0px;
   z-index: 10;
   padding-top: 16px;
 }
+.closed .menuLink {
+  color: var(--Default-White, #fff);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-self: flex-start;
+  gap: 30px;
+  position: relative;
+  overflow: none;
+  z-index: 10;
+  padding: 8px 0px 8px 0px;
+}
+
 .closed .menuLink:hover .menuText {
   opacity: 1;
   transition: opacity cubic-bezier(0.55, 0.055, 0.675, 0.19);

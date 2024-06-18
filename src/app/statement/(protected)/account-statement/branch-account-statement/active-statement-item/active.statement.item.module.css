@@ -1,7 +1,7 @@
 .contentContainer {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 48px;
   width: 100%;
 }
 .container {
@@ -32,11 +32,7 @@
   border-radius: 4px;
 }
 .searchoutput {
-  margin-top: 20px;
-  /* background: aliceblue;
-  position: absolute;
-  margin-top: 200px;
-  width: 100%; */
+  margin-top: 5px;
 }
 .inputDate {
   height: 36px;

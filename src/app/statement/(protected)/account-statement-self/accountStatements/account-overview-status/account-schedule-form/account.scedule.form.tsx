@@ -99,7 +99,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
           <div className={styles.formBody}>
             <p>Statement Frequency</p>
             <div className={styles.radioContainer}>
-              <div>
+              <div className={styles.frequencyoptions}>
                 <input
                   type="radio"
                   name="frequency"
@@ -109,7 +109,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
                 />
                 <label htmlFor="MONTHLY"> MONTHLY</label>
               </div>
-              <div>
+              <div className={styles.frequencyoptions}>
                 <input
                   type="radio"
                   name="frequency"
@@ -119,7 +119,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
                 />
                 <label htmlFor="BI WEEKLY"> BI WEEKLY</label>
               </div>
-              <div>
+              <div className={styles.frequencyoptions}>
                 <input
                   type="radio"
                   name="frequency"
@@ -129,7 +129,7 @@ function AccountScheduleForm({ closeModal }: AccountScheduleFormProps) {
                 />
                 <label htmlFor="WEEKLY"> WEEKLY</label>
               </div>
-              <div>
+              <div className={styles.frequencyoptions}>
                 <input
                   type="radio"
                   name="frequency"

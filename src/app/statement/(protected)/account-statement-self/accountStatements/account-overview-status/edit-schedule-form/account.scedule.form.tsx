@@ -5,7 +5,7 @@ import { SelectedAcountContext } from "../context/accoint.overview.context";
 import { editAccountSchedule } from "@/src/services/account/account.schedule.service";
 import { usePathname, useRouter } from "next/navigation";
 import { getEditScheduleData } from "@/src/lib/account.status.action";
-import notification from 'antd/lib/notification'; // Assuming notification from antd
+import notification from 'antd/lib/notification';
 import moment from 'moment';
 
 export type EditScheduletypes = {
@@ -36,8 +36,8 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
       try {
         const data = await getEditScheduleData(id);
         setStatementFrequency(data.frequency);
-        setDate(moment(data.date).format("YYYY-MM-DD")); // Formatting date
-        setTime(moment(data.time, "HH:mm:ss").format("HH:mm")); // Formatting time
+        setDate(moment(data.date).format("YYYY-MM-DD"));
+        setTime(moment(data.time, "HH:mm:ss").format("HH:mm"));
         setFileFormat(data.fileformat);
         setTemplateType(data.templateFormat);
       } catch (error) {
@@ -134,7 +134,7 @@ function EditScheduleForm({ closeModal, id }: EditScheduleFormProps) {
             <p>Statement Frequency</p>
             <div className={styles.radioContainer}>
               {["MONTHLY", "BI WEEKLY", "WEEKLY", "DAILY"].map((freq) => (
-                <div key={freq}>
+                <div key={freq} className={styles.frequencyoptions}>
                   <input
                     type="radio"
                     name="frequency"

@@ -69,7 +69,7 @@ MulaPaySideBar.Item = (item: SideNavItem) => {
     return (
         <>
             <div className={`${isActive ? styles.menuActive : styles.menuLink}`}>
-                <div className={styles.menuIcon}>
+                <div className={`${isActive ? styles.activeicon: styles.menuIcon}`}>
                     {item.icon}
                 </div>
                 <div className={`${styles.menuText} ${styles.withSublink}  bodyr`} onClick={clicked}>
