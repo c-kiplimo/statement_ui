@@ -51,7 +51,7 @@ const SearchedRecord = ({ icon, data, columns, onClick }: AccountSearch) => (
                 <span className={styles.active}>{item.customerStatus}</span>
               </td>
               <td>
-                  <Link href={`branch/user-profile/`}>
+                  <Link href={`branch/user-profile/${item.id}`}>
                     <Button icon={icon} className={styles.icondiv} onClick={onClick} />
                   </Link>
               </td>
