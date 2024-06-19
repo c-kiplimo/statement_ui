@@ -11,6 +11,7 @@ const OtpVerification = () => {
       <HavingTrouble />
       <OtpVerify />
     </TwosidedLayout>
+      
   );
 };
 

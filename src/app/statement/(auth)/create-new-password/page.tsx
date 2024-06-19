@@ -7,10 +7,11 @@ import HavingTrouble from "@/src/components/widgets/having-trouble/having-troubl
 
 const page = () => {
   return (
-    <TwosidedLayout>
+      <TwosidedLayout>
       <HavingTrouble />
       <NewPasswordHelper />
     </TwosidedLayout>
+       
   );
 };
 
