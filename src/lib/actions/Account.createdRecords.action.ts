@@ -1,4 +1,4 @@
-import { DataSearch } from "@/src/components/widgets/account-created-recors-widget/created.record";
+import { DataSearch } from "@/src/components/widgets/searched-record/searched-record";
 import { AccountSetupHandler } from "@/src/services/account/account.setup.service";
 
 export const customerCardDetailsAction = async (onboardingtype: string, value: string): Promise<DataSearch[]> => {
@@ -16,12 +16,12 @@ export const customerCardDetailsAction = async (onboardingtype: string, value: s
 
         const account: DataSearch[] = [{
             customerName: data?.customerName!,
+            email:data.email,
             industry: data.industry!,
             customerType: data.customerType,
             customerStatus: data.customerStatus!,
             id:data.customerId!
         }];
-
 
         return account;
     } catch (error) {

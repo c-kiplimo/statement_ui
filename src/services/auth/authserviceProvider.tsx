@@ -5,7 +5,7 @@ import { MyToken, TokenPayload } from "../../types/auth.types";
 const tokenKey: string ="tokenDetails"
 const AuthServiceProvider = () => {
 
-  const storeToken = (tokenDetails: TokenPayload) => {
+  const storeToken = (tokenDetails: TokenPayload,rememberMe:boolean=false) => {
     if (tokenDetails && tokenDetails.accessToken) {
       localStorage.setItem(tokenKey, JSON.stringify(tokenDetails));
     }
