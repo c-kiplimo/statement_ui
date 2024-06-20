@@ -29,8 +29,7 @@ const OnboardingOtp = () => {
   const { profile } = useOnboardingContext();
   const { accessToken } = useUserSession();
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     if (!value) return;
     const tokenData = getToken();
     if (!tokenData) {
@@ -143,6 +142,12 @@ const OnboardingOtp = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (value.length === 6) {
+      handleSubmit();
+    }
+  }, [value]);
 
   return (
     <FormBuilder>

@@ -16,7 +16,7 @@ let profileStatus: boolean;
 const EnterOtpToVerify = () => {
   const [value, valueChanged] = useState("");
   const [myUser, setMyUser] = useState<User>();
-  const [timer, timerChanged] = useState(300);
+  const [timer, timerChanged] = useState(120);
   const tokenColor = useTokens();
   const interValRef = useRef<number>();
   const router = useRouter();
@@ -115,7 +115,7 @@ const EnterOtpToVerify = () => {
 
   const resendOtp = (event: React.MouseEvent<HTMLDivElement>): void => {
     event.preventDefault();
-    timerChanged(300);
+    timerChanged(120);
     stopTimer();
     const token = getToken();
     if (token) {

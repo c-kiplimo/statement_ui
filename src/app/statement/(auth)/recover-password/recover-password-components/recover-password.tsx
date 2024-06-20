@@ -1,33 +1,28 @@
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import styles from "./recover-password.module.css";
 import Texter from "@/src/components/atoms/text/texter";
-import InputComponent from "@/src/components/atoms/input/inputComponent";
-import { Label } from "@/src/components/atoms/label/label";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import { resetPasswordHandler } from "@/src/services/auth/reset-password";
 import { useRouter } from "next/navigation";
-import { Form, Modal, notification } from "antd";
+import { Form, Input, Modal, Radio, notification } from "antd";
 import {
   MyFormItem,
   MyFormItemGroup,
 } from "@/src/components/molecules/shared-features/form_builder_component";
-import { useTokens } from "@/src/app/(context)/ColorContext";
 import OtpInput from "@/src/components/atoms/input/otp/otpInputContainer";
-import { AuthServiceProvider } from "@/src/services/auth/authserviceProvider";
-import { User } from "@/src/types/user.type";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 
 const RecoverPassword = () => {
   const tokenColor = useTokens();
   const [value, valueChanged] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [userId, setUserId] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [myUser, setMyUser] = useState<User>();
+  const [deliveryMethod, setDeliveryMethod] = useState(2);
   const router = useRouter();
 
   const { resetPasswordService, validateOtpService } = resetPasswordHandler();
-  const { getLoggedInUser } = AuthServiceProvider();
 
   const openModalHandler = () => {
     setShowModal(true);
@@ -41,7 +36,7 @@ const RecoverPassword = () => {
     e.preventDefault();
     setTimeout(() => {
       router.replace("/statement/sign-in");
-    }, 300);
+    }, 120);
   };
 
   const onFinish = async (values: any) => {
@@ -56,10 +51,10 @@ const RecoverPassword = () => {
 
   const onOtpSubmit = async () => {
     await validateOtpService(value, userId);
-    router.push("/statement/password-recovery/create-new-password");
+    router.push("/statement/create-new-password");
   };
 
-  const [timer, timerChanged] = useState(300);
+  const [timer, timerChanged] = useState(120);
 
   const interValRef = useRef<number>(0);
 
@@ -75,7 +70,7 @@ const RecoverPassword = () => {
 
   function resendOtp(event: React.MouseEvent<HTMLDivElement>): void {
     event.preventDefault();
-    timerChanged(300);
+    timerChanged(120);
     stopTimer();
     notification.info({
       message: "OTP Resent",
@@ -84,10 +79,12 @@ const RecoverPassword = () => {
     });
   }
 
-  useEffect(() => {
-    console.log("User details==>" + JSON.stringify(getLoggedInUser()));
-    setMyUser(getLoggedInUser);
-  }, [myUser?.email]);
+  const maskEmail = (email: string) => {
+    const [localPart, domainPart] = email.split("@");
+    const maskedLocalPart =
+      localPart.slice(0, 4) + "*".repeat(Math.max(localPart.length - 4, 0));
+    return `${maskedLocalPart}@${domainPart}`;
+  };
 
   useEffect(() => {
     interValRef.current = window.setInterval(() => {
@@ -109,13 +106,9 @@ const RecoverPassword = () => {
     <div className={styles.container}>
       <div className={styles.form}>
         <div className={styles.header}>
-          <ArrowLeftOutlined size={16} onClick={handleRedirect} />
+          <Texter text="Reset Password" className={`${styles.title} h3b`} />
           <Texter
-            text="Verify Existing Account"
-            className={`${styles.title} h4r`}
-          />
-          <Texter
-            text="Please enter your email address to check if you already have account"
+            text="We will send you one time password to verify your account"
             className={`${styles.titleDesc} bodyr`}
           />
         </div>
@@ -125,31 +118,68 @@ const RecoverPassword = () => {
           name="sign"
           layout="vertical"
         >
-          <MyFormItemGroup prefix={["city_gender"]}>
-            <div className={styles.email}>
-              <div className={`${styles.emailFrame} bodyr`}>
-                <MyFormItem name="email">
-                  <Label htmlFor="email" label="Your email" className="bodyr" />
-                  <InputComponent
-                    className={`${styles.input} bodyr`}
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="Enter your email"
-                    required={true}
-                  />
-                </MyFormItem>
-              </div>
-              <div className={styles.btn}>
-                <CustomButton
-                  bgColor="var(--brand-brand-primary)"
-                  type="submit"
-                  className={styles.searchBtn}
-                  text="Search"
-                />
-              </div>
-            </div>
-          </MyFormItemGroup>
+          <Form.Item className={styles.radioForm}>
+            <Texter
+              text="Where do you want your OTP notification delivered?"
+              className={`${styles.radioDesc} bodyr`}
+            />
+            <Radio.Group
+              name="radiogroup"
+              className={styles.radio}
+              defaultValue={2}
+              onChange={(e) => setDeliveryMethod(e.target.value)}
+            >
+              <Radio value={1} className={`${styles.radioBtn} bodyr`}>
+                Phone Number
+              </Radio>
+              <Radio value={2} className={`${styles.radioBtn} bodyr`}>
+                Email
+              </Radio>
+            </Radio.Group>
+          </Form.Item>
+          {deliveryMethod === 1 && (
+            <Form.Item
+              className={`${styles.email} bodyr`}
+              label="Your phone number"
+            >
+              <Input
+                className={`${styles.input} bodyr`}
+                type="phone"
+                value={phoneNumber}
+                onChange={(event) => setPhoneNumber(event.target.value)}
+                placeholder="Enter your phone number"
+                required={true}
+              />
+            </Form.Item>
+          )}
+          {deliveryMethod === 2 && (
+            <Form.Item className={`${styles.email} bodyr`} label="Your email">
+              <Input
+                className={`${styles.input} bodyr`}
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="Enter your email"
+                required={true}
+              />
+            </Form.Item>
+          )}
+
+          <div className={styles.btn}>
+            <CustomButton
+              bgColor="var(--white)"
+              textColor="var(--Text-Text-Description-01)"
+              className={`${styles.backBtn} bodyr`}
+              text="Back"
+              onClick={() => router.push("statement/sign-in")}
+            />
+            <CustomButton
+              bgColor="var(--brand-brand-primary)"
+              type="submit"
+              className={`${styles.searchBtn}`}
+              text="Reset Password"
+            />
+          </div>
         </Form>
         {showModal && (
           <Modal
@@ -171,7 +201,7 @@ const RecoverPassword = () => {
                       className="otp-email-link-text bodyr"
                       style={{ margin: "5px" }}
                     >
-                      {myUser?.email}
+                      {maskEmail(email)}
                     </span>
                   </p>
                 </div>
