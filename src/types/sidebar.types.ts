@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export declare type SideNavItem = {
+  rootPath?: string;
   title: string;
   path: string;
   icon?: ReactNode;

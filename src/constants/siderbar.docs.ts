@@ -55,6 +55,12 @@ export const MenuData: SideNavMenu[] = [
           },
         ],
       },
+      // {
+      //   title: "Account Setup",
+      //   path: "/statement/accountsetup",
+      //   icon: SwiftStatementIcon,
+      //   opened: false,
+      // },
       {
         title: "Account Setup Self",
         path: "/statement/account-setup-self",
