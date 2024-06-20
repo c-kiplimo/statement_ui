@@ -124,8 +124,7 @@
 
 .textdiv {
   display: flex;
-  flex-direction: row;
-  width: fit-content;
+  width: 2058px;
   height: 32px;
   color: #151e00;
 }
@@ -136,7 +135,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 32px 0px 16px 16px;
-  gap: 185px;
+  gap: 175px;
   width: 100%;
   height: 80px;
   align-self: stretch;

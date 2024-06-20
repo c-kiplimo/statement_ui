@@ -88,8 +88,8 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       dataIndex: "createdOn",
       render: (text: any, record: any) => (
         <span className={styles.date}>
-          <span className={styles.account}>{text}</span>
-          <span className={styles.currency}>{record.currency}</span>
+          <span className={`${styles.account} bodyr`}>{text}</span>
+          <span className={`${styles.currency} captionl`}>{record.currency}</span>
         </span>
       ),
     },
@@ -97,7 +97,7 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       Key:"accountName",
       title: "Account Name",
       dataIndex: "userName",
-      render: (text: any) => <span className={styles.ActivityName}>{text}</span>,
+      render: (text: any) => <span className={`${styles.ActivityName} bodyr`}>{text}</span>,
     },
 
 
@@ -118,7 +118,7 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
             color = "black";
         }
         return (
-          <span style={{ color: color }} className={styles.status}>
+          <span style={{ color: color }} className={`${styles.status} bodyr`}>
             {text}
           </span>
         );

@@ -14,7 +14,7 @@ type onClickprop = {
   textColor: string;
   iconColor: string;
   bgColor: string;
-  defaultValue:string;
+  defaultValue?:string;
   onClick?: (e: any) => void;
   onChange?: (e: any) => void;
 };

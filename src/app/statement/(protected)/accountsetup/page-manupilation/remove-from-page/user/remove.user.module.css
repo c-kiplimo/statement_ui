@@ -72,8 +72,11 @@ height: 32px;
 }
 
 .query{
+  display: flex;
 width: 342px;
 height: 26px;
+justify-content: center;
+align-content: center;
 color: #6F7269;
 }
 

@@ -34,8 +34,8 @@ const columns: CustomColumn[] = [
 
       return (
         <div className={styles.date}>
-          <div className={styles.dateStyles}>{date}</div>
-          <div className={styles.timestyle}>{time}</div>
+          <div className={`${styles.dateStyles} bodyr`}>{date}</div>
+          <div className={`${styles.timestyle} captionr`}>{time}</div>
         </div>
       );
     },
@@ -119,7 +119,7 @@ const ActivitiesStatus = (props: { userId?: number }) => {
     <div className={styles.container}>
       <div className={styles.tableHeader}>
         <div className={styles.headerdiv}>
-          <div className={styles.textdiv}>Account Activity</div>
+          <div className={`${styles.textdiv} h6b`}>Account Activity</div>
           <div className={styles.atomsdiv}>
             <Search
               title={"Search"}

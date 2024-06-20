@@ -1,3 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  align-self: flex-start;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+  }
+
 .tableHeader{
   display: flex;
   flex-direction: column;
@@ -6,8 +18,7 @@
   padding: 0px;
   gap: 24px;
   width: 100%;
-  height: 501px;
-  margin-top: 0px;
+  height: auto;
   }
   
   
@@ -48,17 +59,10 @@ border-radius: 4px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 4px 16px;
-    gap: 15px;
+    align-items: flex-start;
     width: 102px;
     height: 32px;
     border-radius: 4px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
     color: #6f7269;
   }
   
@@ -68,14 +72,20 @@ border-radius: 4px;
     align-items: center;
     padding: 0px;
     gap: 16px;
-    width: fit-content;
-    height: 44px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
     color: #6f7269;
+    width: fit-content;
+  }
+
+  .allColumns{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 24px 32px;
+width: 100%;
+height: 92px;
+background: #FFFFFF;
+border-bottom: 1px solid #E6E6E6;
   }
   
 
@@ -94,10 +104,9 @@ border-radius: 4px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 32px 0px 16px 16px;
     gap: 285px;
     width: 100%;
-    height: 80px;
+    height: auto;
     align-self: stretch;
     justify-content: space-between;
   }
@@ -111,7 +120,7 @@ border-radius: 4px;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
-    line-height: 32px;
+    line-height: auto;
     color: #151e00;
   }
 

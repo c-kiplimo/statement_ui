@@ -44,8 +44,6 @@ const AccountsStatus = (props: UserIdProps) => {
   const [dataId, setDataId] = useState<number | null>(null);
   const [passedAccId, setPassedAccId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-
-  console.log(dataId);
   
   useEffect(() => {
     const passedAccId = sessionStorage.getItem("passedaccountId");
@@ -207,7 +205,7 @@ const AccountsStatus = (props: UserIdProps) => {
         />
       )}
       <div className={styles.headerdiv}>
-        <div className={styles.textdiv}>Users Overview</div>
+        <div className={styles.textdiv}>Account Users</div>
         <div className={styles.atomsdiv}>
           <Search
             title={"Search"}
