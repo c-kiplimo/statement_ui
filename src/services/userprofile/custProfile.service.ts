@@ -9,6 +9,7 @@ const ProfileAccountHandler = () => {
     try {
       const response = await axios.get(profileUrl, { headers: plainHeaders });
       const apiResponse = response.data;
+      console.log(apiResponse);
       
       if (apiResponse) {
         return {
