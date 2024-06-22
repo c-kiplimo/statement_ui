@@ -1,0 +1,13 @@
+
+.moreIcon{
+    text-align: center;
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+.icon{
+    border: 1px solid #949292;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+

@@ -9,6 +9,9 @@ import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdReco
 import CustdetailsnotFound from "../../accountsetup/search-pages/search-not-found/cust.details.notFound";
 import SearchedRecord, { DataSearch } from "@/src/components/widgets/searched-record/searched-record";
 import { EyeIcon } from "lucide-react";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const useCustomerSearch = () => {
   const [data, setData] = useState<DataSearch[]>([]);
@@ -37,7 +40,8 @@ const CustomerSearch = () => {
   const { data, loading, error, handleClick } = useCustomerSearch();
 
   return (
-    <div className={styles.container}>
+    <QueryClientProvider client={queryClient}>
+      <div className={styles.container}>
       <Accountsetup
         title="Customer Details Search"
         instruction="Setup the customer by using account number or customer number"
@@ -58,6 +62,9 @@ const CustomerSearch = () => {
         )}
       </Spin>
     </div>
+    </QueryClientProvider>
+    
+
   );
 };
 
