@@ -1,14 +1,15 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   padding: 16px;
-  gap: 16px;
+  gap: 0px;
   width: 100%;
-  align-self: stretch;
+  background-color: var(--Background-Background-Primary);
+  overflow: hidden;
 }
 
-.groupDetails {
+.header {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,3 +25,25 @@
   flex-grow: 0;
 }
 
+.groupDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  width: 1012px;
+  height: 176px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8px;
+  width: 100%;
+  background: var(--white);
+}

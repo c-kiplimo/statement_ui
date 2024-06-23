@@ -1,0 +1,78 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0px 0px 0px;
+    gap: 24px;
+    position: relative;
+    width: 100%;
+    height:auto;
+    }
+    .usericon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 17px;
+    gap: 10px;
+    color: #F30039;
+    background: #FEDEE5;
+    border-radius: 49px;
+    }
+    .body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 24px;
+    gap: 40px;
+    }
+    .title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    }
+    .buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 40px;
+        }
+        .yesButton{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 8px 32px;
+        width: 90px;
+        height: 42px;
+        background: #F30039;
+        border-radius: 4px;
+        color: white;
+        }
+        .noButton{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 8px 32px;
+        gap: 8px;
+        width: 85px;
+        height: 42px;
+        border: 1px solid #F30039;
+        border-radius: 4px;
+        color: #F30039;
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -1,13 +1,139 @@
-
-.moreIcon{
-    text-align: center;
-    cursor: pointer;
-    transform: rotate(90deg);
+.moreIcon {
+  text-align: center;
+  cursor: pointer;
+  transform: rotate(90deg);
 }
-.icon{
-    border: 1px solid #949292;
-    padding: 4px;
-    border-radius: 4px;
+.icon {
+  border: 1px solid #949292;
+  padding: 4px;
+  border-radius: 4px;
 }
 
+.actionBtn {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 96px;
+  height: 32px;
+  flex: none;
+  order: 7;
+  flex-grow: 0;
+}
 
+.btn {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 32px;
+  height: 32px;
+  color: #e6e6e6;
+  border: 0.5px solid var(--neutral-grey-900);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.tickBtn {
+  border: 1px solid var(--functional-colors-success);
+  color: var(--functional-colors-success);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.cancelBtn {
+  border:1px solid var(--functional-colors-danger);
+  color: var(--functional-colors-danger);  
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.userTab {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  background: var(--white);
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 571px;
+  width: 100%;
+  height: 64px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 571px;
+  width: 100%;
+  height: 40px;
+}
+
+.container {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 4px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 0px;
+  gap: 22px;
+  width: 1076px;
+  height: 646px;
+  background: var(--white);
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* padding: 0px 16px 32px; */
+  width: 100%;
+  height: auto;
+  background: var(--white);
+  border-radius: 4px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  align-self: stretch;
+  background: var(--white);
+}
