@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import styles from "./widgets/page.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import { Spin } from "antd"; 
-import Accountsetup from "@/src/components/widgets/accountsetup-widget/cust.details.search";
 import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
 import CustdetailsnotFound from "../../accountsetup/search-pages/search-not-found/cust.details.notFound";
 import { EyeIcon } from "lucide-react";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import dynamic from "next/dynamic";
 import SearchedRecord from "../../account-setup-branch/searched-record/searched-record";
+
+const Accountsetup = dynamic(() => import("@/src/components/widgets/accountsetup-widget/cust.details.search"), { ssr: false })
+
 
 const queryClient = new QueryClient();
 
