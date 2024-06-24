@@ -206,7 +206,7 @@ const CustomerUsers = (props: UserIdProps) => {
         visible={addUser}
         roleOptions={["ADMIN", "VIEWER"]}
         statusOptions={["ACTIVE", "DISABLED"]}
-        customerId={dataId!}
+        customerId={props.userId!}
         closeIcon={<CloseOutlined />}
         onCancel={() => setAddUser(false)}
         onRefreshData={fetchData}

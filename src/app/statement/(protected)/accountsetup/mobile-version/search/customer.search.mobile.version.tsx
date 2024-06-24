@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { notification, Spin } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import styles from "./cust.details.search.module.css";
-import Accountsetup from "@/src/components/widgets/accountsetup-widget/cust.details.search";
-import Createdrecord, { DataSearch } from "@/src/components/widgets/account-created-recors-widget/created.record";
+import styles from "./customer.search.mobile.version.module.css";
+import Createdrecord, {
+  DataSearch,
+} from "@/src/components/widgets/account-created-recors-widget/created.record";
 import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
-import CustdetailsnotFound from "../search-not-found/cust.details.notFound";
+import CustdetailsnotFound from "../../search-pages/search-not-found/cust.details.notFound";
+import CustomerSearchMobiVersion from "@/src/components/widgets/accountsetup-widget/customer-search-mobi-version/cust.search.mobile.varsion.widget";
 
-const AccountsetupPage = () => {
+const CustomerSearchPage = () => {
   const [data, setData] = useState<DataSearch[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<React.ReactNode | null>(null);
@@ -17,16 +19,19 @@ const AccountsetupPage = () => {
     setError(null);
 
     try {
-      const search: DataSearch[] = await customerCardDetailsAction(searchOption, searchValue);
+      const search: DataSearch[] = await customerCardDetailsAction(
+        searchOption,
+        searchValue
+      );
       setData(search);
     } catch (error) {
       setError(<CustdetailsnotFound />);
       console.error("Error fetching customer details:", error);
-      
-      
+
       notification.error({
-        message: 'Error',
-        description: 'Error fetching the customer details. Please try again later.',
+        message: "Error",
+        description:
+          "Error fetching the customer details. Please try again later.",
         duration: 3,
       });
     } finally {
@@ -36,14 +41,15 @@ const AccountsetupPage = () => {
 
   return (
     <div className={styles.container}>
-      <Accountsetup
+      <CustomerSearchMobiVersion
         title={"Customer Details Search"}
-        instruction={"Setup the customer by using account number or customer number"}
+        instruction={
+          "Setup the customer by using account number or customer number"
+        }
         option={"Do you want to search by ?"}
-        icon={<SearchOutlined />}
         account={"Account Number"}
         customer={"Customer Number"}
-        onClick={handleClick}
+        icon={<SearchOutlined/>}
       />
       <Spin className={styles.loading} spinning={loading}>
         {error && <div>{error}</div>}
@@ -53,7 +59,12 @@ const AccountsetupPage = () => {
               <Createdrecord
                 data={data}
                 hideicon={<img src="/hide.svg" alt="hide" />}
-                columnNames={["Customer Name", "Industry", "Customer Type", "Status"]}
+                columnNames={[
+                  "Customer Name",
+                  "Industry",
+                  "Customer Type",
+                  "Status",
+                ]}
               />
             ) : null}
           </div>
@@ -63,4 +74,4 @@ const AccountsetupPage = () => {
   );
 };
 
-export default AccountsetupPage;
+export default CustomerSearchPage;
