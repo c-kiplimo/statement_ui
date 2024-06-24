@@ -1,0 +1,41 @@
+.container{
+display: flex;
+flex-direction: column;
+padding-top: 8px;
+border-radius: 4px;
+}
+.title{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px 8px 32px;
+gap: 24px;
+}
+.button{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px 8px 8px;
+gap: 24px;
+width: 100%;
+height: 48px;
+color: #34373C;
+}
+.active{
+    display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px 8px 8px;
+gap: 24px;
+width: 100%;
+height: 48px;
+color: #0A58C7;
+border-radius: 4px;
+background-color: #EEF1F5;
+outline: none;
+border: none;
+}
+.image{
+    padding: 4px;
+}
+
