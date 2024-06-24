@@ -12,16 +12,19 @@ import { AppProps } from "next/app";
 import { MulaPaySideBar } from "@/src/components/widgets/sidebar/msidebar";
 import { MenuData } from "@/src/constants/siderbar.docs";
 import { ProfileProvider } from "./context/useProfileContext";
+import Topbar from "./topbar/top.bar";
+import styles from './statement.module.css'
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
       <ProfileProvider>
       <div style={{ "display": "flex", flexDirection: "row", "height": "100vh"}}>
-        <nav>
+        <nav className={styles.sidebar}>
           <MulaPaySideBar items={MenuData} />
         </nav>
         <main style={{width:"100%", overflowY:'auto'}}>
+          <Topbar/>
           {children}
         </main>
       </div>

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ProfileContext } from "./context/customerContext";
 import { Spin } from "antd";
 import useProfileId from "@/src/hooks/profileId";
+import HomePageMobileVersion from "./mobile-version/homepage/homepage";
 
 const options = [
   {
@@ -95,7 +96,7 @@ const Page = () => {
         <div className={styles.container}>
           <div className={styles.header}>
             {currencyBalanceData && currencyBalanceData.length >0 ?(
-            <TotalAvailableBalanceCard balancesBycurrency={currencyBalanceData} />
+              <div><TotalAvailableBalanceCard balancesBycurrency={currencyBalanceData} /></div>
           ):(
             <div>NO BALANCES.</div>
           )}
@@ -148,8 +149,17 @@ const Page = () => {
               sortBtnlabel={"Sort"}
             />
             ): (
-              <div className="font-bold text-center p-6">NO TRANSACTIONAL HISTORY AVAILABLE.</div>
+              <div className={`font-bold text-center p-6`}>NO TRANSACTIONAL HISTORY AVAILABLE.</div>
             )}
+          </div>
+
+          <div className={styles.transactionHistory}>
+          {transactionData && transactionData.length > 0 ? (
+
+            <HomePageMobileVersion transactions={transactionData} options={options}/>
+          ): (
+            <div className="font-bold text-center p-6">NO TRANSACTIONS.</div>
+          )}
           </div>
         </div>
       </ProfileContext.Provider>

@@ -31,22 +31,23 @@
 .show {
   display: block;
 }
+
 @media (max-width: 1124px) {
   .container {
-    width: 800px;
+    width: 100%;
     background-color: #ffffff;
   }
 }
 @media (max-width: 768px) {
   .container {
-    width: 500px;
+    width: 100%;
     background-color: #ffffff;
   }
 }
 
 @media (max-width: 620px) {
   .container {
-    width: 300px;
+    width: 100%;
     background-color: #ffffff;
   }
 }

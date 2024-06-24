@@ -37,7 +37,12 @@
     height: fit-content;
     padding: 8px;
   }
-  .container {
-    width: 100px;
+  .cardoverview{
+    width: 100%;
   }
+  .summary{
+    width: 100%;
+    padding:16px;
+  }
+  
 }

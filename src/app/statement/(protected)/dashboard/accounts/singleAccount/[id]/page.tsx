@@ -7,6 +7,7 @@ import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-d
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
 import { ReactNode, SetStateAction, useState } from "react";
 import { getAccountSummaryBalances, getCashFlowData, getMoneyInOut, getTransactionAccounts } from "@/src/lib/account.actions";
+import AccountSummaryBalances from "../account-summary/account.summary";
 
 
 const optiondata = [
@@ -111,7 +112,6 @@ let accountId = params.id;
 
 
   let balancedata = await getTransactionAccounts(parseInt(accountId));
-  console.log(balancedata);
   
   let cashflowdata = await getCashFlowData(parseInt(accountId))
 
@@ -144,35 +144,9 @@ let accountId = params.id;
         <div className={styles.container}>
           <div className={styles.balances}>
             {/* <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} /> */}
-            <div className={styles.balancetype}>
-              <div className={styles.icondivs}>
-                <span>{<img src="/openingbal.svg"/>}</span>
-                <span className={`${styles.balancetext} bodyr`}>Opening Balance</span>
-              </div>
-              <span className={`h6b`}>{ '$ ' + `${balances.openingBalance}`}</span>
-            </div>
-            <div className={styles.balancetype}>
-              <div className={styles.icondivs}>
-                <span>{<img src="/spending.svg"/>}</span>
-                <span className={ `${styles.balancetext} bodyr`}>Spending</span>
-              </div>
-              <span className={`h6b`}>{'$ ' + `${balances.spending}`}</span>
-            </div>
-            <div className={styles.balancetype}>
-              <div className={styles.icondivs}>
-                <span>{<img src="/received.svg"/>}</span>
-                <span className={`${styles.balancetext} bodyr`}>Received</span>
-              </div>
-              <span className={`h6b`}>{'$ ' + `${balances.received}`}</span>
-            </div>
-            <div className={styles.balancetype}>
-              <div className={styles.icondivs}>
-                <span>{<img src="/closing.svg"/>}</span>
-                <span className={`${styles.balancetext} bodyr`}>Closing Balance</span>
-              </div>
-              <span className={`h6b`}>{'$ ' + `${balances.closingBalance}`}</span>
-            </div>
+            <AccountSummaryBalances openingBalance={balances.openingBalance} spending={balances.spending} received={balances.received} closingBalance={balances.closingBalance}/>
           </div>
+          
           {/* <div>
             <GraphItem
               data={graphData}

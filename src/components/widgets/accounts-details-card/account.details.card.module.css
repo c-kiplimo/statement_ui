@@ -18,6 +18,7 @@
   width: 250px;
 
 }
+
 .filterSelected{
   display: block;
   width: 250px;
@@ -27,6 +28,6 @@
 
 @media (max-width: 640px) {
   .container {
-    width: 550px;
+    width: 100%;
   }
 }

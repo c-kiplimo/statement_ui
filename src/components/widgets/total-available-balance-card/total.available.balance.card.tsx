@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import BalanceInfoCard from "../balance-info-card/balance.info.card";
-import styes from "./total.available.balance.card.module.css";
+import styles from "./total.available.balance.card.module.css";
 
 
 
@@ -18,7 +18,7 @@ type TotalAvailableBalanceCardProps ={
 }
 const TotalAvailableBalanceCard = (props:TotalAvailableBalanceCardProps) => {
   return (
-    <div className={'grid grid-cols-2 sm:align-middle md:grid-cols-3 lg:grid-cols-4 gap-4'}>
+    <div className={`${styles.container} `}>
       {props.balancesBycurrency.map((balance) => (
         <div key={balance.id} className="">
           <BalanceInfoCard
