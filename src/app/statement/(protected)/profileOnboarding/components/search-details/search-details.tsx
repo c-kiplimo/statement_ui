@@ -6,15 +6,15 @@ import {
   UserAddOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import {Form, Modal, Select, notification } from "antd";
+import { Form, Modal, Select, notification } from "antd";
 import Texter from "@/src/components/atoms/text/texter";
 import SelectionItem from "@/src/components/widgets/selectionItem/selectionItem";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import { Label } from "@/src/components/atoms/label/label";
-import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.service";
-import { useTokens } from "@/src/app/(context)/ColorContext";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import { useOnboardingContext } from "../../context/onBoardingContext";
+import { SearchCustomerHandler } from "@/src/services/auth/searchCustomer.service";
+import { useTokens } from "@/src/app/(context)/ColorContext";
 
 interface SearchDetailsProps {
   onSuccess: () => void;
@@ -47,13 +47,13 @@ const LoginCard = [
   },
 ];
 
-const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess })=> {
+const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedCardTitle, setSelectedCardTitle] = useState<string>(" ");
   const token = useTokens();
   const [searchType, setSearchType] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState(""); // Initialize with empty string
 
   const handler = SearchCustomerHandler();
   const { profile, updateProfile } = useOnboardingContext();
@@ -77,9 +77,7 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess })=> {
   const handleOptionChange = (newValue: string | null) => {
     setSelectedOption(newValue);
     openModalHandler();
-    const selectedCard = LoginCard.find(
-      (card) => card.id.toString() === newValue
-    );
+    const selectedCard = LoginCard.find((card) => card.id.toString() === newValue);
     if (selectedCard) {
       setSelectedCardTitle(selectedCard.CardTitle);
     }
@@ -91,36 +89,29 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess })=> {
     let option = selectedOption;
 
     try {
-      await handler
-        .SearchCustomerService(option!, account, country)
-        .then((response) => {
-          console.log(response);
-          notification.success({
-            message: "Account found",
-          });
-          let newProfile: OnBoarding = {
-            email: response.email,
-            mobileNumber: response.mobileNumber,
-            customerId: response.customerId,
-            country: response.country,
-            customerName: response.customerName,
-            
-          };
-          updateProfile({ ...profile, ...newProfile });
-          console.log("Values>>", newProfile);
-          onSuccess();
-        })
-
-        .catch((error) => {
-          console.error("Account search failed:", error);
-          notification.error({
-            message: "Account not found",
-            description: "Please try again.",
-          });
+      await handler.SearchCustomerService(option!, account, country).then((response) => {
+        console.log(response);
+        notification.success({
+          message: "Account found",
         });
+        let newProfile: OnBoarding = {
+          email: response.email,
+          mobileNumber: response.mobileNumber,
+          customerId: response.customerId,
+          country: response.country,
+          customerName: response.customerName,
+        };
+        updateProfile({ ...profile, ...newProfile });
+        console.log("Values>>", newProfile);
+        onSuccess();
+      });
       setShowModal(false);
     } catch (error) {
-      console.error("API call failed:", error);
+      console.error("Account search failed:", error);
+      notification.error({
+        message: "Account not found",
+        description: "Please try again.",
+      });
     }
   };
 
@@ -178,7 +169,7 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess })=> {
                     >
                       <Select
                         className="w-full"
-                        value={selectedCountry}
+                        defaultValue="Select country"
                         onChange={setSelectedCountry}
                       >
                         {countries.map((country) => (

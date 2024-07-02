@@ -52,7 +52,7 @@ const ResetPasswordHelper = () => {
     );
   };
 
-  const [timer, timerChanged] = useState(300);
+  const [timer, timerChanged] = useState(120);
 
   const interValRef = useRef<number>(0);
 
@@ -68,7 +68,7 @@ const ResetPasswordHelper = () => {
 
   function resendOtp(event: React.MouseEvent<HTMLDivElement>): void {
     event.preventDefault();
-    timerChanged(300);
+    timerChanged(120);
     stopTimer();
 
     notification.info({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./sign-up.module.css";
-import { Checkbox, Form, Input, notification } from "antd";
+import { Checkbox, Form, Input, notification, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import { Label } from "@/src/components/atoms/label/label";
 import Texter from "@/src/components/atoms/text/texter";
@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { authServiceHandler } from "@/src/services/auth/auth.service";
 import Link from "next/link";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
+const { Option } = Select;
 
 type RegisterProps = {
   password: string;
@@ -75,7 +77,7 @@ const SignUpWidget = () => {
     e.preventDefault();
     setTimeout(() => {
       router.replace("/statement/sign-in");
-    }, 300);
+    }, 120);
   };
 
   return (
@@ -175,6 +177,7 @@ const SignUpWidget = () => {
                         </option>
                       ))}
                     </select>
+                    <span className={`${styles.divider} h4r`}>/</span>
                     <Input
                       name="mobileNumber"
                       className={`${styles.selectorInput} bodyr`}
@@ -200,9 +203,15 @@ const SignUpWidget = () => {
                         className={styles.passwordToggleIcon}
                       >
                         {showPassword ? (
-                          <AiOutlineEyeInvisible />
+                          <AiOutlineEyeInvisible
+                            style={{ color: "#c9c9cc" }}
+                            size={16}
+                          />
                         ) : (
-                          <AiOutlineEye />
+                          <AiOutlineEye
+                            style={{ color: "#c9c9cc" }}
+                            size={16}
+                          />
                         )}
                       </span>
                     }

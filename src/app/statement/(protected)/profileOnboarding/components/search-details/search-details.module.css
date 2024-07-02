@@ -40,9 +40,9 @@
   flex-direction: column;
   align-items: flex-start; 
   width: Hug (647px)px;
-  height: Fixed (460px)px;
+  height: Fixed (468px)px;
   position:absolute;
-  top: 24vh;
+  top: 16vh;
   left: 32vw;
   padding: 8px 32px 24px 32px;
   gap: 16px;
@@ -52,13 +52,25 @@
 }
 
 .modalContainer {
-display: flex;
+/* display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 40px;
 width: 583px;
-height: 354px;
+height: 372px; */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+width: 583px;
+height: 372px;
+flex: none;
+order: 0;
+flex-grow: 0;
 }
 
 .formBody {

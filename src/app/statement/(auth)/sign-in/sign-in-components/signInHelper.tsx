@@ -85,7 +85,7 @@ const SignInHelper = () => {
     event.preventDefault();
     setTimeout(() => {
       router.replace("/statement/sign-up");
-    }, 300);
+    }, 120);
   };
 
   return (
@@ -140,9 +140,9 @@ const SignInHelper = () => {
                       className={styles.passwordToggleIcon}
                     >
                       {showPassword ? (
-                        <AiOutlineEyeInvisible />
+                        <AiOutlineEyeInvisible  style={{ color: "#c9c9cc" }} size={16} />
                       ) : (
-                        <AiOutlineEye />
+                        <AiOutlineEye style={{ color: "#c9c9cc" }} size={16} />
                       )}
                     </span>
                   }
@@ -165,7 +165,7 @@ const SignInHelper = () => {
               </div>
               <div className={styles.recover}>
                 <Link
-                  href="/statement/password-recovery/recover-password"
+                  href="/statement/recover-password"
                   className={`${styles.recoverLink} captionr`}
                 >
                   Forgot Password
