@@ -54,7 +54,6 @@ const CustomerUsers = (props: UserIdProps) => {
       setLoading(true);
       try {
         const incomingAccountId = await CustomersUsersAction(props.userId);
-
         setIncomingData(incomingAccountId);
       } catch (error) {
         console.error("Error fetching data:", error);

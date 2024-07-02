@@ -2,15 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import styles from "./customer-profile.module.css";
 import GroupDetails from "@/src/components/widgets/user-management/tabs/user-group/group-details/group-details";
 import { profileDetails } from "@/src/lib/actions/customer.profile.action";
-import RestrictionsOverview from "../../../../accountsetup/customers/accountRestrictions/restrictions.overview";
 import ActivitiesStatus from "../../../../accountsetup/activities/activities.status";
-import AccountsPage from "../../../../accountsetup/accounts/accounts";
-import CustomerUsers from "../../../../accountsetup/users/customer-users/users.status";
-import TabNavigations from "@/src/app/statement/(protected)/accountsetup/widgets/acctSetup-navigations-items/tab.navigations";
-import UsersBranch from "../../widgets/tabs/users/users";
-import UserGroups from "@/src/app/statement/(protected)/accountsetup//users/user-group/user.groups";
 import UserGroupBranch from "../../widgets/tabs/user-group/user-group-branch";
 import CreateRole from "../../../page-components/create-roles/create-stepper/create-stepper";
+import BranchUsersTable from "../../widgets/users-table/users.table";
+import TabNavigations from "../../widgets/shared/tab-navigations/tab-navigations";
 
 type UserProfileProps = {
   customerId?: number;
@@ -63,7 +59,7 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
   const tabItems: TabItem[] = [
     {
       buttonName: "Users",
-      bodyContent: <UsersBranch userId={customerId} key="users" />,
+      bodyContent: <BranchUsersTable customerId={customerId!} key="users" />,
     },
     {
       buttonName: "User Groups",
@@ -75,6 +71,7 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
             <UserGroupBranch
               customerId={customerId!.toString()}
               setActive={setActiveUserGroup}
+              key="userGroups"
             />
           )}
         </Fragment>
@@ -88,21 +85,24 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.groupDetails}>
-        <GroupDetails
-          userName={profile?.userName!}
-          userId={profile?.userId!.toString()!}
-          userType={profile?.userType!}
-          country={profile?.country!}
-          town={profile?.branch!}
-          email={profile?.email!}
-          mobileNumber={profile?.phoneNumber!}
-          customerStatus={profile?.status!}
-        />
+      <div className={styles.header}>
+        <div className={styles.groupDetails}>
+          <GroupDetails
+            userName={profile?.userName!}
+            userId={profile?.userId!.toString()!}
+            userType={profile?.userType!}
+            country={profile?.country!}
+            town={profile?.branch!}
+            email={profile?.email!}
+            mobileNumber={profile?.phoneNumber!}
+            customerStatus={profile?.status!}
+          />
+        </div>
       </div>
+      <div className={styles.tabs}>
       <TabNavigations tabItems={tabItems} />
+      </div>
     </div>
   );
 };
-
 export default CustomerProfile;

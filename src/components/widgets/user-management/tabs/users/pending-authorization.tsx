@@ -32,7 +32,7 @@ interface PendingAuthorization {
   handleEdit?: (data: UserDetails) => void;
   handleDelete: (data: UserDetails) => void;
   modalType: string;
-  dynamicData: UserDetails | null;
+  dynamicData?: UserDetails | null;
 }
 
 const PendingAuthorization = (props: PendingAuthorization) => {

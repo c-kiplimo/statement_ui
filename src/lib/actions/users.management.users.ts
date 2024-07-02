@@ -1,4 +1,4 @@
-import { UserInfoType } from "@/src/app/statement/dev/tab/users.table";
+import { UserInfoType } from "@/src/app/statement/(protected)/usermanagement/branch/widgets/users-table/users.table";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { UserDetails } from "@/src/types/user.type";
 

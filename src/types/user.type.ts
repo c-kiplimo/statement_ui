@@ -28,6 +28,8 @@ export type UserDetails = {
   key: React.Key;
   content?:string[];
   createdAt?:string;
+  id?:string;
+  usersName?:string;
   firstName: string;
   lastName: string;
   email: string;

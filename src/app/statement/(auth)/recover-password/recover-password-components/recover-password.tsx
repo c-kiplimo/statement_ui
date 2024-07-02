@@ -5,10 +5,6 @@ import CustomButton from "@/src/components/atoms/button/customButton";
 import { resetPasswordHandler } from "@/src/services/auth/reset-password";
 import { useRouter } from "next/navigation";
 import { Form, Input, Modal, Radio, notification } from "antd";
-import {
-  MyFormItem,
-  MyFormItemGroup,
-} from "@/src/components/molecules/shared-features/form_builder_component";
 import OtpInput from "@/src/components/atoms/input/otp/otpInputContainer";
 import { useTokens } from "@/src/app/(context)/ColorContext";
 
@@ -171,7 +167,7 @@ const RecoverPassword = () => {
               textColor="var(--Text-Text-Description-01)"
               className={`${styles.backBtn} bodyr`}
               text="Back"
-              onClick={() => router.push("statement/sign-in")}
+              onClick={handleRedirect}
             />
             <CustomButton
               bgColor="var(--brand-brand-primary)"
