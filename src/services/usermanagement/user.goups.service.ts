@@ -173,7 +173,7 @@ const GroupHandler = () => {
 
   //DELETE USER GROUP BY ID by GROUP ID
   const deleteUserGroup = async (groupId: number): Promise<string> => {
-    const userGroupUrl = `${USER_GROUPS_URL}/${groupId}`;
+    const userGroupUrl = `${USER_GROUPS_URL}${groupId}`;
     try {
       const response = await axios
         .delete(userGroupUrl, {
@@ -181,11 +181,14 @@ const GroupHandler = () => {
             "X-RequestId": "3456778909",
           },
         })
-        .then((res) => {
-          return res.data;
+        .then((response) => {
+          console.log("Deleted data>>",response)
+          return response.data;
         });
+        
       return response;
     } catch (error) {
+      console.error('Error deleting group:', error);
       throw error;
     }
   };
