@@ -57,7 +57,7 @@
 }
 @media (max-width: 1124px) {
   .container {
-    width: 850px;
+    width:100%;
     background-color: #ffffff;
   }
   .accountsinputs{
@@ -66,7 +66,7 @@
 }
 @media (max-width: 768px) {
   .container {
-    width: 550px;
+    width: 100%;
     background-color: #ffffff;
   }
   .accountsinputs{
@@ -78,9 +78,9 @@
   
 }
 
-@media (max-width: 620px) {
+@media (max-width: 640px) {
   .container {
-    width: 350px;
+    width: 100%;
     background-color: #ffffff;
   }
   .accountsinputs {

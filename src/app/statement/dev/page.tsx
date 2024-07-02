@@ -1,24 +1,60 @@
 "use client";
 import React, {Fragment} from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-const queryClient = new QueryClient();
-
+import HomePageMobileVersion from "../(protected)/dashboard/mobile-version/homepage/homepage";
+const options = [
+  {
+    key: 1,
+    value: "period",
+    period: "Period",
+  },
+  {
+    key: 2,
+    value: "onemonth",
+    period: "1 Month",
+  },
+  {
+    key: 3,
+    value: "twomonth",
+    period: "2 Month",
+  },
+];
+const data = [
+  {
+    key: '1',
+    account: 'string;',
+    dateTime: 'string',
+    time:'string',
+    number: 'string',
+    description: 'string',
+    currency: 'string',
+    status: 'completed'
+  },
+  {
+    key: '2',
+    account: 'num;',
+    dateTime: 'string',
+    time:'string',
+    number: 'string',
+    description: 'string',
+    currency: 'string',
+    status: 'Pending'
+  },
+  {
+    key: '3',
+    account: 'and;',
+    dateTime: 'string',
+    time:'string',
+    number: 'string',
+    description: 'string',
+    currency: 'string',
+    status: 'completed'
+  }
+]
 const Dev = () => {
-  
-  return (
-  
-  return (
+    return (
     <Fragment>
-      <QueryClientProvider client={queryClient}>
-      <div style={{width:'100%'}}>
-      </div>
-      </QueryClientProvider>
-      <QueryClientProvider client={queryClient}>
-      <div style={{width:'100%'}}>
-      </div>
-      </QueryClientProvider>
+      <HomePageMobileVersion transactions={data} options={options}/>
     </Fragment>
   );
 };
