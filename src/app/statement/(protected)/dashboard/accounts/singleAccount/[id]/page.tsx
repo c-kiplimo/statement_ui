@@ -1,13 +1,13 @@
 "use client";
 import AccountTransactionSummary from "@/src/components/widgets/accounts-transactions-summary/accounts.transactions.summary";
 import CashflowCardHome from "@/src/components/widgets/cash-flow-card-home/cashflow.card.home";
-import SavingAccountBalance from "@/src/components/widgets/saving-account-balances/saving.account.balance";
 import styles from "./single.account.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import GraphItem from "@/src/components/widgets/graph-item/graph.item";
-import { ReactNode, SetStateAction, useState } from "react";
+import { ReactNode} from "react";
 import { getAccountSummaryBalances, getCashFlowData, getMoneyInOut, getTransactionAccounts } from "@/src/lib/account.actions";
-import AccountSummaryBalances from "../account-summary/account.summary";
+import AccountSummaryBalances from "@/src/components/widgets/account-summary-Balances/account.summary";
+import SavingAccountBalance from "@/src/components/widgets/saving-account-balances/saving.account.balance";
 
 
 const optiondata = [
@@ -85,8 +85,6 @@ const graphData = [
   },
 ];
 
-
-
 export type AccountMoneyInOut={
   moneyIn:string,
   moneyOut:string
@@ -103,38 +101,19 @@ export type Accountbalances ={
   receivedBalIcon:ReactNode
 }
 
+
 const page = async ({params}:{params:{id:string}}) => {
-let accountId = params.id;
-
-  const [selectedAccount, setSelectedAccount] = useState('onemonth');
-  const [selectedTransaction, setSelectedTransaction] = useState('onemonth');
-  const [selectAccountType, setselectAccountType] = useState('savingAccount');
-
-
+  let accountId = params.id;
   let balancedata = await getTransactionAccounts(parseInt(accountId));
-  
   let cashflowdata = await getCashFlowData(parseInt(accountId))
-
   let moneyInOut:AccountMoneyInOut = await getMoneyInOut(parseInt(accountId))
-
-  let balances:Accountbalances = await getAccountSummaryBalances(parseInt(accountId))
-
-  
+  let balances = await getAccountSummaryBalances(parseInt(accountId))  
   const handleAccountChange = (event: any) => {
   };
-  const handleTransactionChange = (event: any) => {
-    setSelectedTransaction(event.target.value);
-  };
 
-  const handleselectAccountTypeChange =(event:any)=>{
-    setselectAccountType(event.target.value)
-    console.log('The Selected Account is', event.target.value);
-  }
-  
   return (
-    <div className="p-9 bg-slate-100">
-      <div className={styles.cont}>
-        <div>
+      <div className={`${styles.cont} bg-slate-100`}>
+        <div className={styles.header}>
           <VerticalInfoDescription
             title={"Overview"}
             titleStyle={{ fontWeight: "700", fontSize: "25px" }}
@@ -143,21 +122,10 @@ let accountId = params.id;
 
         <div className={styles.container}>
           <div className={styles.balances}>
-            {/* <SavingAccountBalance accountBalances={accountBalances} accountSelectionOptions={accountOptions} /> */}
-            <AccountSummaryBalances openingBalance={balances.openingBalance} spending={balances.spending} received={balances.received} closingBalance={balances.closingBalance}/>
+            <AccountSummaryBalances balances={balances}/>
           </div>
-          
-          {/* <div>
-            <GraphItem
-              data={graphData}
-              balanceTitle={"Current Balance"}
-              amount={"$21,850.50"}
-              moneyIntitle={"Money In"}
-              moneyoutTitle={"Money Out"}
-            />
-          </div> */}
         </div>
-
+        
         <div className={styles.cards}>
           <div className={styles.transaction}>
             {balancedata && balancedata.length >0 ? (
@@ -193,7 +161,6 @@ let accountId = params.id;
           
         </div>
       </div>
-    </div>
   );
 };
 

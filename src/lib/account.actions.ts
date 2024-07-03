@@ -6,6 +6,7 @@ import {
 import { TransfersData } from "../components/widgets/accounts-transactions-summary/accounts.transactions.summary";
 import { CashFlowProgress } from "../components/widgets/cash-flow-card-home/cashflow.card.home";
 import { fetchAccountDetailsById } from "../services/account/account";
+import { AccountsDara } from "../components/widgets/account-summary-Balances/account.summary";
 
 export const getTransactionAccounts = async (
   accountNumber: number
@@ -21,10 +22,7 @@ export const getTransactionAccounts = async (
       date: balance.processingDate.split("T")[0],
       amount: balance.creditAmount.toLocaleString('en-US'),
     })
-  );
-
-  console.log(transactions);
-  
+  );  
   return transactions;
 
   function accountIcons(accounttype: string): ReactNode {
@@ -61,7 +59,6 @@ export const getCashFlowData = async (
   let transactions: CashFlowProgress[] =
     accounttransactions.statementEntries.map((data) => ({
       id: data.statementEntryId,
-      // icon: undefined,
       title: data.productCategory,
       description: data.transactionDetails,
     }));
@@ -85,20 +82,37 @@ export const getMoneyInOut = async (
 
 export const getAccountSummaryBalances = async (
   accountNumber: number
-): Promise<Accountbalances> => {
+): Promise<AccountsDara[]> => {
   let accountbalances: AccountInformations =
     await fetchAccountDetailsById(accountNumber);
-
-  let balances: Accountbalances = {
-    openingBalance: accountbalances.accountDTO.openingBalance.toLocaleString(),
-    closingBalance: accountbalances.accountDTO.closingBalance.toLocaleString(),
-    spending: accountbalances.accountDTO.spending.toLocaleString(),
-    received: accountbalances.accountDTO.received.toLocaleString(),
-    openingBalIcon: undefined,
-    closingBalIcon: undefined,
-    spendingBalIcon: undefined,
-    receivedBalIcon: undefined,
-  };
-
+    
+  let balances: AccountsDara[] = [
+    {
+      type: 'Opening Balance',
+      value: accountbalances.accountDTO.openingBalance.toLocaleString(),
+      icon: 'openingbal.svg',
+    },
+    {
+      type: 'Closing Balance',
+      value: accountbalances.accountDTO.closingBalance.toLocaleString(),
+      icon: 'closing.svg',
+    },
+    {
+      type: 'Spending',
+      value: accountbalances.accountDTO.spending.toLocaleString(),
+      icon: 'spending.svg',
+    },
+    {
+      type: 'Received',
+      value: accountbalances.accountDTO.received.toLocaleString(),
+      icon: 'received.svg',
+    },
+  ];
+  
   return balances;
 };
+
+
+
+
+

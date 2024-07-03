@@ -18,8 +18,6 @@
   align-items: center;
   padding: 0px;
   gap: 16px;
-
-  width: 125px;
   height: 40px;
   flex: none;
   order: 0;
@@ -63,10 +61,8 @@
   justify-content: space-evenly;
   padding: 0px;
   gap: 40px;
-
   width: 100%;
   height: 308px;
-  
 }
 .formcontainer {
   display: flex;
@@ -74,8 +70,8 @@
   align-items: flex-start;
   padding: 8px 24px 24px;
   gap: 16px;
-  width: 442px;
-  height: 308px;
+  width: 47%;
+  height: auto;
   background: #ffffff;
   border: 1px solid #e6e6e6;
   border-radius: 12px;
@@ -87,25 +83,39 @@
   align-items: center;
   padding: 8px 0px 12px;
   gap: 10px;
-  width: 394px;
-  height: 52px;
+  width: 100%;
+  height: auto;
   border-bottom: 1px solid #e6e6e6;
 }
 
-@media only screen and (max-width: 720px) {
+.card{
+  width:47%;
+  padding:48px;
+}
+@media only screen and (max-width: 640px) {
   .container{
     height: auto;
-    width: 550px;
+    width: 100%;
+    padding: 0px;
+
   }
   .bodycontainer {
     display: flex;
-  flex-direction: column;
-  padding: 0px;
-  align-items: flex-start;
-  height: auto;
+    flex-direction: column;
+    padding: 8px;
+    align-items: flex-start;
+    height: auto;
+    justify-content: flex-start;
   }
   .card{
-    display: none;
+    width:100%;
+    padding:2px;
   }
+  .drptcontainer{
+    margin: 16px 0px 0px 16px;
+  }.formcontainer{
+    width:100%;
+  }
+
 }
 
