@@ -1,21 +1,25 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import FilterButton from "@/src/components/widgets/filter-button/filter.button";
-import { FilterOutlined } from "@ant-design/icons";
+import SearchButton from "@/src/components/widgets/search-button/search-button";
+import { SearchOutlined } from "@ant-design/icons";
 
 const Dev = () => {
-  const handleClick=()=>{
+  const [searchTerm, setSearchTerm] = useState("");
 
-  }
+  const handleSearch = (terms: any) => {
+    setSearchTerm(terms);
+    console.log("search-terms", searchTerm);
+  };
+
   return (
     <Fragment>
-      <FilterButton onClick={handleClick}>
-        <FilterButton.Icon>
-          <FilterOutlined/>
-        </FilterButton.Icon>
-        <FilterButton.Text title="Filter"/>
-      </FilterButton>
+      <SearchButton >
+         <SearchButton.Icon>
+          <SearchOutlined size={16}/>
+        </SearchButton.Icon>
+        <SearchButton.Input text="Search" onSearch={handleSearch}/>
+         </SearchButton>
     </Fragment>
   );
 };
