@@ -91,7 +91,7 @@ const Page = () => {
   }
 
   return (
-    <div className="p-9 bg-slate-100">
+    <div className={`${styles.wrapper} bg-slate-100`}>
       <ProfileContext.Provider value={{ custId, setCustId }}>
         <div className={styles.container}>
           <div className={styles.header}>
@@ -138,8 +138,6 @@ const Page = () => {
           </div>
 
           <div className={styles.table}>
-          {transactionData && transactionData.length > 0 ? (
-
             <TransactionHistoryTable
               data={transactionData}
               option={options}
@@ -148,9 +146,7 @@ const Page = () => {
               filterBtnlabel={"Filter"}
               sortBtnlabel={"Sort"}
             />
-            ): (
-              <div className={`font-bold text-center p-6`}>NO TRANSACTIONAL HISTORY AVAILABLE.</div>
-            )}
+            
           </div>
 
           <div className={styles.transactionHistory}>
