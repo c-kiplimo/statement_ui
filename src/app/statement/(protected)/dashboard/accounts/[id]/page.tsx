@@ -26,8 +26,8 @@ const page = async ({params}:{params:{id:number}}) => {
 
 
   return (
-    <div className="p-9 bg-slate-100">
-      <div className={styles.container}>
+    <div className={` ${styles.container} bg-slate-100`}>
+        <div className={styles.wrapper}>
         <div className={styles.headerContent}>
           <div className={styles.cardoverview}>
             <ChartOverview
@@ -48,7 +48,7 @@ const page = async ({params}:{params:{id:number}}) => {
             />
           </div>
         </div>
-
+        </div>
         <div className={styles.accountsTable}>
           <AccountsTableInfo
             accountsData={balancesData}
@@ -57,7 +57,6 @@ const page = async ({params}:{params:{id:number}}) => {
           />
         </div>
       </div>
-    </div>
   );
 };
 

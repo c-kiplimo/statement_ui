@@ -38,16 +38,11 @@ export type CardDetailsData ={
     
     let cardnumber = params.id;
     const cardData:CardDetailsData = await customerCardDetailsAction(cardnumber)
-    
-    
-
     const transactionHistory = await CardTransactions(cardnumber) 
      
-
   return (
-    <div className="p-9 bg-slate-100">
-      <div className={styles.container}>
-        <div>
+    <div className={`${styles.container} bg-slate-100`}>
+      <div className={styles.header}>
           <VerticalInfoDescription
             title={"Card Overview"}
             titleStyle={{ fontWeight: "700", fontSize: "20px" }}
@@ -83,7 +78,6 @@ export type CardDetailsData ={
         )}
         </div>
       </div>
-    </div>
   );
 };
 

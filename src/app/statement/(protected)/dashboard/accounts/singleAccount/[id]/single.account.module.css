@@ -5,6 +5,10 @@
   gap: 16px;
   width: 100%;
   height: fit-content;
+  padding: 24px;
+}
+.header{
+  margin: 0px;
 }
 
 .container {
@@ -34,7 +38,6 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
-padding: 8px 0px;
 padding: 24px;
 width: 100%;
 height: auto;
@@ -52,13 +55,25 @@ height: auto;
   .transaction{
     width: 100%;
   }
+  .cont{
+    padding: 0px;
+  }
+  .header{
+    margin: 8px;
+  }
+  .container{
+    margin: 8px;
+    border-radius: 8px;
+  }
   /* Allows scrolling of the tabs on the X-axis */
   .balances {
     overflow-x: auto;
     gap:8px;
+    padding: 8px;
   }
   /* removes the scrollbar on the axis */
   .balances::-webkit-scrollbar{
     width: 0px;
+    padding: 0px;
   }
 }

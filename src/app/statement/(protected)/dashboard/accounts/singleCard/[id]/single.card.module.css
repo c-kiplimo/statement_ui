@@ -2,16 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  padding: 24px;
   gap: 24px;
   width: 100%;
   height: fit-content;
   left: 364px;
   top: 83px;
 }
+.header{
+  padding: 0px;
+}
 .table{
   width: 100%;
 }
 .card{
   width: 100%;
+}
+
+@media only screen and (max-width:640px) {
+  .container{
+    padding: 8px 0px;
+  }
+  .card{
+    padding: 8px;
+    width: 100%;
+  }
+  .header{
+    padding: 8px 0px 0px 8px;
+  }
 }

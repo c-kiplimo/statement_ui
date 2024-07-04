@@ -49,7 +49,7 @@ const PaymentMethod = (props: paymentmethodProps) => {
             chips1={props.chips1}
           />
         </div>
-        <div>
+        <>
           <div className={styles.formcontainer}>
             <div className={styles.header}>
               <VerticalInfoDescription
@@ -72,7 +72,7 @@ const PaymentMethod = (props: paymentmethodProps) => {
               />
             </div>
           </div>
-        </div>
+        </>
       </div>
     </div>
   );
