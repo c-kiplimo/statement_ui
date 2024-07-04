@@ -36,13 +36,26 @@ const RecoverPassword = () => {
   };
 
   const onFinish = async (values: any) => {
-    const response = await resetPasswordService(email);
-    console.log("response", response);
-    const userId = response.userId;
-    localStorage.setItem("userId", userId);
-    console.log("userId", userId);
-    setUserId(userId);
-    openModalHandler();
+    try {
+      const response = await resetPasswordService(email);
+      console.log("response", response);
+      const userId = response.userId;
+      localStorage.setItem("userId", userId);
+      console.log("userId", userId);
+      setUserId(userId);
+      openModalHandler();
+
+      notification.success({
+        message: 'Email Sent',
+        description: `An OTP will be sent to ${email}. Please check your inbox.`,
+      });
+    } catch (error) {
+      notification.error({
+        message: 'Email address not found',
+        description: `It appears ${email} is not signed up to the portal. Please create an account.`,
+      });
+      console.error("Email not found:", error);
+    }
   };
 
   const onOtpSubmit = async () => {
