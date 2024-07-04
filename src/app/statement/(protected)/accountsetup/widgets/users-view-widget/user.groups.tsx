@@ -62,9 +62,9 @@ const UserViewProfile = (props: contentProps) => {
           </div>
         </div>
       </div>
-      <div className={styles.groupsDiv}>
+      
        <UserViewTabsNavigation/>
-      </div>
+      
       </div>
   );
 };

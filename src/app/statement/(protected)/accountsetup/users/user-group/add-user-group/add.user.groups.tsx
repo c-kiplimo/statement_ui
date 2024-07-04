@@ -1,23 +1,24 @@
 import React, { useState, FC, useEffect } from "react";
 import styles from "./add.user.groups.module.css";
-import { createCustomerAccountUser } from "@/src/services/userprofile/create.user.service";
 import { notification } from "antd";
 import { CustomerAllUserGroupsAction } from "@/src/lib/actions/all.user.groups.action";
+import { AddUserToGroup } from "@/src/services/userprofile/add.user.togroup.service";
 
 export type allgroupsTypes = {
   groupId: number;
-  platformId: number;
+  platformId?: number;
   groupName: string;
   description: string;
+  userId?: number;
 };
 
 type AddProps = {
-  accountId: number;
+  userId: number;
 };
 
-const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
+const AddUserGroupsModal: FC<AddProps> = ({ userId }) => {
   const [username, setUsername] = useState("");
-  const [userGroups, setuserGroups] = useState("");
+  const [userGroups, setUserGroups] = useState<number | "">("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectOptions, setSelectOptions] = useState<allgroupsTypes[]>([]);
@@ -34,10 +35,10 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
     fetchData();
   }, []);
 
-  const handleuserGroupsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleUserGroupsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGroupId = parseInt(e.target.value, 10);
     const selectedGroup = selectOptions.find(group => group.groupId === selectedGroupId);
-    setuserGroups(e.target.value);
+    setUserGroups(selectedGroupId);
     if (selectedGroup) {
       setDescription(selectedGroup.description);
     } else {
@@ -49,14 +50,14 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await createCustomerAccountUser({
-        accountId: accountId,
-        email: username,
-        role: userGroups,
-        status: description,
+      await AddUserToGroup({
+        customerId:userId, 
+        groupName: selectOptions.find(group => group.groupId === userGroups)?.groupName || "",
+        createdAt: Date.now(), 
+        permission: [] 
       });
       setUsername("");
-      setuserGroups("");
+      setUserGroups("");
       setDescription("");
       notification.success({
         message: "Success",
@@ -120,7 +121,7 @@ const AddUserGroupsModal: FC<AddProps> = ({ accountId }) => {
             <select
               className={styles.input}
               value={userGroups}
-              onChange={handleuserGroupsChange}
+              onChange={handleUserGroupsChange}
             >
               <option value="">Select Group</option>
               {selectOptions.map((option) => (

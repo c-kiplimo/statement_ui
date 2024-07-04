@@ -32,7 +32,7 @@ const AddUserModal: FC<AddProps> = ({
     setIsLoading(true);
     try {
       await createCustomerUser({
-        customerId: 1,
+        customerId: customerId,
         email: username,
         role: userRole,
         status: status,

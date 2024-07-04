@@ -77,7 +77,6 @@ const UserGroups = ({ userId }: idProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       if (userId !== undefined) {
@@ -130,7 +129,7 @@ const UserGroups = ({ userId }: idProps) => {
       </div>
       <CustomTable data={incomingData} columns={columns} pagination={false}  />
       <Modal footer={false} width={669} open={isModalOpen} onCancel={handleCancel}>
-        <AddUserGroupsModal accountId={selectedUserId!} />
+        <AddUserGroupsModal userId={0} />
       </Modal>
     </div>
   );

@@ -1,0 +1,165 @@
+.form {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 13px 24px;
+top: 147px;
+gap: 12px;
+width: 100%;
+height: auto;
+left: 339px;
+background: #FFFFFF;
+box-shadow: 0px 4px 16px rgba(149, 154, 136, 0.25);
+border-radius: 8px;
+}
+
+.titleContainer {
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 24px 0px 16px;
+gap: 24px;
+width: 100%;
+height: auto;
+}
+
+
+
+.title {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 23px;
+width: fit-content;
+height: auto;
+color: #151E00;
+}
+
+.description {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 23px;
+width: fit-content;
+height: auto; 
+color: #151E00;
+}
+
+
+.radioContainer{
+display: flex;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+width: 100%;
+height: auto;
+}
+
+
+.radioGroup{
+color: #979992;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 2px;
+width: fit-content;
+height: auto;
+}
+
+.querry {
+  width: 100%;
+  height: auto;
+  color: #1A2600;
+}
+
+.radio {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+width: fit-content;
+height: auto;
+color: #6F7269;
+}
+
+.formContainer{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+justify-content: space-between;
+padding: 0px;
+gap: 6px;
+margin: 0 auto;
+width: 100%;
+height: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+  width: fit-content;
+  height: auto;
+  color: #151E00;
+}
+
+.input{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+width: fit-content;
+height: auto;
+}
+
+.button{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-end;
+align-self: flex-end;
+padding: 0px 0px 4px;
+gap: 10px;
+width: 32px;
+height: 36px;
+}
+
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+  background: #979992;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.label{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+width: fit-content;
+height: 32px;
+border: 0.5px solid #979992;
+border-radius: 4px;
+}

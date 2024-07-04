@@ -6,9 +6,7 @@ export const CustomerAllUserGroupsAction = async (value: number): Promise<allgro
 
     try {
         const data = await handler.getUserGroupsByPlatformId(value);
-        console.log(data);
-        
-
+      
         if (!data || data.length === 0) {
             return [];
         }
@@ -19,9 +17,6 @@ export const CustomerAllUserGroupsAction = async (value: number): Promise<allgro
             groupName: account.groupName,
             description: account.description,
         }));
-
- 
-console.log(result);
 
         return result;
     } catch (error) {

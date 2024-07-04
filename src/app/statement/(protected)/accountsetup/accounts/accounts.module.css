@@ -157,7 +157,7 @@ color: #6F7269;
  }
 
  .account{
-width: 81px;
+width: fit-content;
 margin-top: 12px;
 height: fit-content;
 font-family: 'Roboto';
