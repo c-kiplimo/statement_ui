@@ -5,7 +5,7 @@ import { BalanceByCurrencyHome } from "../components/widgets/total-available-bal
 import { TranSactionHistoryHome } from "../components/widgets/transaction-history-card/transaction.history.card";
 import { AccountHandler } from "../services/account/account.service";
 import { UsersAccounts } from "../app/statement/(protected)/account-statement-self/accountStatements/active-statement-item/active.statement.item";
-import { notificationAccounts } from "../app/statement/(protected)/settings/notifications/enable-accounts/enable.accounts";
+import { NotificationAccounts } from "../app/statement/(protected)/settings/notifications/enable-accounts/enable.accounts";
 
 //Personal Accounts server Action
 export const PersonalAccountOverviewActions = async (
@@ -50,7 +50,7 @@ export const PersonalAccountOverviewActions = async (
           accountIcon = "moneymarket.svg";
           break;
       default:
-        accountIcon = "";
+        accountIcon = "currentAccount.svg";
         break;
     }
     return accountIcon;
@@ -219,11 +219,11 @@ export const singleUsersAccounts = async (
 
 export const notificationsersAccounts = async (
   profileId: number
-): Promise<notificationAccounts[]> => {
+): Promise<NotificationAccounts[]> => {
   const accountHandler = AccountHandler();
   const accountOverview = await accountHandler.getAccountOverview(profileId);
 
-  let accounts: notificationAccounts[] = accountOverview.accounts.map((account) => ({
+  let accounts: NotificationAccounts[] = accountOverview.accounts.map((account) => ({
     accountNumber:account.accountId,
     accountDescription:account.accountTitle
   }));

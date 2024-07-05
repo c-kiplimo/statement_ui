@@ -43,7 +43,7 @@ export const getTransactionAccounts = async (
       case "Apple Music":
         accountIcon = "apple.svg";
       default:
-        accountIcon = "";
+        accountIcon = "accounts.svg";
         break;
     }
     return accountIcon;
