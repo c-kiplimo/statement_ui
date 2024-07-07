@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./activity.history.table.module.css";
-import { EyeOutlined } from "@ant-design/icons";
-import { usePathname } from "next/navigation";
+import Pagination from "@/src/components/atoms/pagination/pagination";
 export type TransactionsDataType = {
   id: number;
   date: string;
@@ -18,8 +17,17 @@ type StatementProps = {
 };
 
 const StatementTable = (props: StatementProps) => {
-  const path = usePathname()
+  const [currentPage, setCurrentPage] = useState(1);
+  const transactionsPerPage = 10;
+  const startIndex = (currentPage - 1) * transactionsPerPage;
+  const endIndex = startIndex + transactionsPerPage;
+  const currentTransactions = props.statementdata.slice(startIndex, endIndex);
 
+  const totalPages = Math.ceil(props.statementdata.length / transactionsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
   const handleEyeIconClick = (id: number) => {
     if (props.onEyeIconClick) {
       props.onEyeIconClick(id);
@@ -39,7 +47,7 @@ const StatementTable = (props: StatementProps) => {
           </tr>
         </thead>
         <tbody className="bodyr">
-          {props.statementdata.map((data) => (
+          {currentTransactions.map((data) => (
             <tr key={data.id}>
               <td className={`${styles.dateTime} `}>
                 <span className={`${styles.date} `}>{data.date}</span>
@@ -76,16 +84,17 @@ const StatementTable = (props: StatementProps) => {
                   onClick={() => handleEyeIconClick(data.id)}>
                     View
                   </button>
-                  {/* <EyeOutlined
-                  style={{ width: "11px", height: "8px", cursor: "pointer" }}
-                  onClick={() => handleEyeIconClick(data.id)}
-                /> */}
                 </span>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
     </div>
   );
 };
