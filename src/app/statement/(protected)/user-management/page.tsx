@@ -1,12 +1,12 @@
-import React from "react";
-import UserManagementHeaderTabs from "@/src/components/molecules/user-management/tabs/user-management-header-tabs/user-management-header-tabs";
+import React from 'react'
+import PermissionPage from './permissions/page'
 
-const UserManagementPage = () => {
+const page = () => {
   return (
-    <div className="w-full min-h-screen bg-[var(--Background-Background-Primary)] overflow-hidden">
-      <UserManagementHeaderTabs />
+    <div className='p-9'>
+        <PermissionPage/>
     </div>
-  );
-};
+  )
+}
 
-export default UserManagementPage;
+export default page

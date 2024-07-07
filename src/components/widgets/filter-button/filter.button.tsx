@@ -1,31 +1,20 @@
-import styles from './filter.button.module.css'
-import { ReactNode } from "react";
+import { FilterOutlined } from "@ant-design/icons";
+import Button from "@/src/components/atoms/buttons/button";
+import { CSSProperties } from "react";
 
-type FilterButtonProps ={
-    children:ReactNode;
-    onClick:(e:any)=>void;
-}
-const FilterButton = ({onClick, children}:FilterButtonProps) => {
+type FilterButtonProps = {
+  onClick: (e: any) => void;
+  buttonStyles?: CSSProperties;
+};
+
+const FilterButton = ({ onClick, buttonStyles }: FilterButtonProps) => {
   return (
-    <div className={styles.container} onClick={onClick}>
-      {children}
-    </div>
+    <Button onClick={onClick} buttonStyle={buttonStyles!}>
+      <Button.Icon>
+        <FilterOutlined />
+      </Button.Icon>
+      <Button.Text title="Filter" />
+    </Button>
   );
 };
 export default FilterButton;
-
-type ButtonTextProps = {
-  title:string;
-}
-FilterButton.Text = ({title}:ButtonTextProps)=>(
-  <div>{title}</div>
-)
-
-type IconProps ={
-  children:ReactNode;
-}
-
-FilterButton.Icon = ({children}:IconProps)=>(
-  <div>{children} </div>
-)
-

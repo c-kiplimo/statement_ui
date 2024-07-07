@@ -1,6 +1,15 @@
 type Permission = {
-   
-    name: string
-
+  name: string;
 };
+
+type UserPermission = {
+  permissionId: number;
+  recordStatus: boolean;
+  dateCreated: Date;
+  permissionName: string;
+  description: string;
+};
+
+
+
 
