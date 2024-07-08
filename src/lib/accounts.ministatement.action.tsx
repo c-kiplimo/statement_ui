@@ -9,10 +9,11 @@ export const GetMinistatementAction =async (accountNumber:number): Promise<Minis
         transferDate: convertDateString(data.bookingDate.toString()),
         paymentDetails: data.transactionDetails,
         valueDate: convertDateString(data.valueDate.toString()),
-        moneyOut:data.amount.toLocaleString(),
-        moneyIn:data.amount.toLocaleString(),
-        Balance:data.runningBalance,
+        moneyOut:data.debit ? data.amount.toLocaleString(): "",
+        moneyIn:data.credit === true ? data.amount.toLocaleString():"",
+        balance:data.runningBalance.toLocaleString(),
     }))    
+    
     return accountStatement
 
     function convertDateString(dateString: string): string {

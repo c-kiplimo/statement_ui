@@ -9,7 +9,7 @@ export type MinistatementTableData = {
   valueDate: string;
   moneyOut: string;
   moneyIn: string;
-  Balance: number;
+  balance: string;
 };
 
 const columns: TableColumnsType<MinistatementTableData> = [

@@ -15,7 +15,7 @@ const AccountMiniStatementHandler = () => {
           },
         })
         .then((res) => {
-          let apiResponse = (res.data);          
+          let apiResponse = (res.data); 
           if (apiResponse) {
             let apiRes = apiResponse;
             let miniStatement = 

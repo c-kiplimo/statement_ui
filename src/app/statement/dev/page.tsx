@@ -1,12 +1,21 @@
 "use client";
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import CustomerSearchPage from "../(protected)/accountsetup/mobile-version/search/customer.search.mobile.version";
+import FilterButton from "@/src/components/widgets/filter-button/filter.button";
+import { FilterOutlined } from "@ant-design/icons";
 
 const Dev = () => {
-    return (
+  const handleClick=()=>{
+
+  }
+  return (
     <Fragment>
-      <CustomerSearchPage/>
+      <FilterButton onClick={handleClick}>
+        <FilterButton.Icon>
+          <FilterOutlined/>
+        </FilterButton.Icon>
+        <FilterButton.Text title="Filter"/>
+      </FilterButton>
     </Fragment>
   );
 };

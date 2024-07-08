@@ -52,6 +52,6 @@ SelfAccountStatement.Header = (props: HeaderProps) => (
     title={props.title!}
     description={props.description}
     titleStyle={{ fontSize: "20px", fontWeight: "500", marginBottom: "16px" }}
-    descriptionStyle={{ fontWeight: "300", width: "100%" }}
+    descriptionStyle={{ fontWeight: "300", width: "100%", fontSize:'18px'}}
   />
 );
