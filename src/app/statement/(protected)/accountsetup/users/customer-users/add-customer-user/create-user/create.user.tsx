@@ -94,6 +94,7 @@ const RegisterUser = () => {
         <div className={styles.form}>
             <div className={styles.doubleRow}>
               <div style={{ flex: 1 }}>
+
                 <Form.Item
                   name="firstName"
                   label={<span className={`${styles.inputLabel} bodyr`}>First Name</span>}
@@ -105,6 +106,7 @@ const RegisterUser = () => {
                 </Form.Item>
               </div>
               <div style={{ flex: 1 }}>
+
                 <Form.Item
                   name="lastName"
                   label={<span className={`${styles.inputLabel} bodyr`}>Last Name</span>}
@@ -112,10 +114,13 @@ const RegisterUser = () => {
                     { required: true, message: "Please enter your last name" },
                   ]}
                 >
+
                   <Input className={`${styles.input} bodyr`} />
                 </Form.Item>
               </div>
             </div>
+
+
             <div className={styles.vertical}>
               <Form.Item
                 name="email"
@@ -127,7 +132,11 @@ const RegisterUser = () => {
                 <Input className={`${styles.rowInput} bodyr`} />
               </Form.Item>
             </div>
+
+
             <div className={styles.selector}>
+
+            
               <Form.Item className={styles.here}
                 label={<span className={`${styles.inputLabel} bodyr`}>Phone Number</span>}
                 rules={[
@@ -142,10 +151,6 @@ const RegisterUser = () => {
                       onChange={(e) => handleCountry("countryCode", e.target.value)}
                       name="countryCode"
                     >
-
-
-
-
                       {countryOptions.map((option) => (
                         <option key={option.value} value={option.value}>
                           {option.label}
@@ -154,7 +159,8 @@ const RegisterUser = () => {
                     </select>
                   </Form.Item>
 
-                  {/* <Form.Item
+
+                  <Form.Item className={styles.here2}
                     name="phoneNumber"
                     noStyle
                     rules={[
@@ -162,7 +168,7 @@ const RegisterUser = () => {
                     ]}
                   >
                     <Input className={styles.selectInput} placeholder="Phone Number" />
-                  </Form.Item> */}
+                  </Form.Item>
                 </Input.Group>
               </Form.Item>
             </div>
