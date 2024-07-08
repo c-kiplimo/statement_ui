@@ -1,8 +1,9 @@
 "use client";
 import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import SearchButton from "@/src/components/widgets/search-button/search-button";
-import { SearchOutlined } from "@ant-design/icons";
+import FilterButton from "@/src/components/widgets/filter-button/filter.button";
+import { CloudDownloadOutlined, FilterOutlined } from "@ant-design/icons";
+import DownloadWidget from "@/src/components/widgets/download-widget/download";
 
 const Dev = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,12 +15,12 @@ const Dev = () => {
 
   return (
     <Fragment>
-      <SearchButton >
-         <SearchButton.Icon>
-          <SearchOutlined size={16}/>
-        </SearchButton.Icon>
-        <SearchButton.Input text="Search" onSearch={handleSearch}/>
-         </SearchButton>
+      <DownloadWidget>
+        <DownloadWidget.Icon>
+          <CloudDownloadOutlined/>
+        </DownloadWidget.Icon>
+        <DownloadWidget.text text="Download"/>
+      </DownloadWidget>
     </Fragment>
   );
 };
