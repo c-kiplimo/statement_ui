@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState, useMemo } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> f626722 (Adding users table)
 import styles from "./users.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
