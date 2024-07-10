@@ -20,6 +20,7 @@ export type acctData = {
 
 type contentProps = {
   fileformartHeader: string;
+  accountId: number;
   optiona: string;
   optionb: string;
   optionc: string;
@@ -28,10 +29,11 @@ type contentProps = {
   time: string;
   dateIcon: ReactNode;
   timeIcon: ReactNode;
+  onSuccess?: () => void;
   onClick?: () => void;
 };
 
-const Accountstype = (props: contentProps) => {
+const AccountConfifModal = (props: contentProps) => {
   const [mtStatementsOption, setMTStatementsOption] = useState<boolean | undefined>(undefined);
   const [onlineStatementOption, setOnlineStatementOption] = useState<boolean | undefined>(undefined);
   const [scheduledStatementsOption, setScheduledStatementsOption] = useState<boolean | undefined>(undefined);
@@ -40,19 +42,14 @@ const Accountstype = (props: contentProps) => {
   const [templateTypeOption, setTemplateTypeOption] = useState<string>("CORPORATE");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
   const [accountDetailsdata, setAccountDetailsData] = useState<acctData>();
-  
 
-  const accountPaased = sessionStorage.getItem("passedaccountId")
+  const { accountId } = props;
 
   useEffect(() => {
-    setSelectedAccountId(selectedAccountId);
-
     const fetchData = async () => {
       try {
-        let accountData = await AccountsStmtConfig(parseInt(accountPaased!))
-
+        let accountData = await AccountsStmtConfig(accountId);
         setAccountDetailsData(accountData);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -60,7 +57,7 @@ const Accountstype = (props: contentProps) => {
     };
 
     fetchData();
-  }, []);
+  }, [accountId]);
 
   const handleMTStatementsChange = (e: any) => {
     setMTStatementsOption(e.target.value);
@@ -105,23 +102,36 @@ const Accountstype = (props: contentProps) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      if (!selectedAccountId) {
+      if (!accountId) {
         console.error("AccountId is not available.");
 
         notification.success({
           message: "Success",
           description: "Account Configured."
-          
-        })
-        window.history.back();
+        });
         return;
-        }
-       
+      }
 
-      console.log("Submitting statement configuration data...");
+      
+      if (scheduledStatementsOption && !frequencyOption) {
+        notification.warning({
+          message: "Validation Error",
+          description: "Please select statement frequency."
+        });
+        return;
+      }
+
+      if (scheduledStatementsOption && (!selectedDate || !selectedTime)) {
+        notification.warning({
+          message: "Error!!",
+          description: "Please select both date and time."
+        });
+        return;
+      }
+
 
       const statementData: any = {
-        accountId: selectedAccountId.toString(),
+        accountId: accountId.toString(),
         fileFormat: fileFormatOption,
         statementFrequency: frequencyOption || "",
         templateType: templateTypeOption,
@@ -132,24 +142,19 @@ const Accountstype = (props: contentProps) => {
         statementData.startDateTime = `${formattedDate}T${selectedTime}`;
       }
 
-      console.log("Statement Data before update:", statementData);
-
-      const response = await StatementConfig(selectedAccountId, statementData);
-
-      console.log("Response from backend:", response);
-
-      console.log("Updated statement data:", response);
       notification.success({
         message: "Success!",
         description: "Your account was setup successfully."
-      })
-      window.history.back();
+      });
+      if (props.onSuccess) {
+        props.onSuccess();
+      }
     } catch (error) {
       console.error("Error:", error);
       notification.warning({
         message: "Failed!",
-        description: "Please check all Options!!!."
-      })
+        description: "Please check all options."
+      });
     }
   };
 
@@ -166,7 +171,6 @@ const Accountstype = (props: contentProps) => {
       <Menu.Item key="Individual">Individual</Menu.Item>
     </Menu>
   );
-
 
   const lastLoginTime = useMemo(() => {
     const now = new Date();
@@ -268,27 +272,25 @@ const Accountstype = (props: contentProps) => {
           {scheduledStatementsOption === true && (
             <div className={styles.fretimedate}>
               <div className={`${styles.desHeader} bodyr`}>
-              <div>{props.fileformartHeader}</div>
-                
-             
-                  <Radio.Group className={styles.interval}
-                    onChange={handlefrequencyOptionChange}
-                    value={frequencyOption}
-                  >
-                    <Radio value="Monthly">
-                      {props.optiona}
-                    </Radio>
-                    <Radio value="Bi Weekly">
-                      {props.optionb}
-                    </Radio>
-                    <Radio value="Weekly">
-                      {props.optionc}
-                    </Radio>
-                    <Radio value="Daily">
-                      {props.optiond}
-                    </Radio>
-                  </Radio.Group>
-               
+                <div>{props.fileformartHeader}</div>
+
+                <Radio.Group className={styles.interval}
+                  onChange={handlefrequencyOptionChange}
+                  value={frequencyOption}
+                >
+                  <Radio value="Monthly">
+                    {props.optiona}
+                  </Radio>
+                  <Radio value="Bi Weekly">
+                    {props.optionb}
+                  </Radio>
+                  <Radio value="Weekly">
+                    {props.optionc}
+                  </Radio>
+                  <Radio value="Daily">
+                    {props.optiond}
+                  </Radio>
+                </Radio.Group>
               </div>
 
               <div className={styles.dateTime}>
@@ -308,7 +310,7 @@ const Accountstype = (props: contentProps) => {
 
           <div className={styles.files} onClick={props.onClick}>
             <div className={styles.fileFormart}>
-              <div className= {styles.dollaramount}>File Format</div>
+              <div className={styles.dollaramount}>File Format</div>
               <Dropdown className={`${styles.PDF} bodyr`} overlay={fileFormatMenu} trigger={['click']}>
                 <div className={styles.dropdown}>
                   {fileFormatOption} <DownOutlined />
@@ -319,7 +321,7 @@ const Accountstype = (props: contentProps) => {
             <div className={styles.fileFormart}>
               <div className={styles.dollaramount}>Template</div>
 
-              <Dropdown className= {`${styles.templateOptions} bodyr`} overlay={templateTypeMenu} trigger={['click']}>
+              <Dropdown className={`${styles.templateOptions} bodyr`} overlay={templateTypeMenu} trigger={['click']}>
                 <div className={styles.dropdown}>
                   {templateTypeOption} <DownOutlined />
                 </div>
@@ -337,4 +339,4 @@ const Accountstype = (props: contentProps) => {
   );
 };
 
-export default Accountstype;
+export default AccountConfifModal;

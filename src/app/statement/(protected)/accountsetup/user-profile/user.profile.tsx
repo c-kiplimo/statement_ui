@@ -14,9 +14,7 @@ interface TabItem {
   buttonName: string;
   bodyContent: React.ReactNode;
 }
-interface TabsNavProps {
-  
-}
+
 
 type Profile = {
   userName: string;

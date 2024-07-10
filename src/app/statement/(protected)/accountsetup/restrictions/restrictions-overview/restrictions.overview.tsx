@@ -30,6 +30,7 @@ interface DataType {
   userId?: string;
   restrictionId?: number;
   entryId?: number;
+  
 }
 
 interface Datatype {
@@ -180,6 +181,7 @@ const RestrictionsOverview: React.FC<RestrictionsOverviewProps> = (props) => {
         visible={modalVisible2}
         onCancel={() => setModalVisible2(false)}
         restrictionId={dataId!}
+        onRefreshData={fetchData}
       />
     </div>
   );
