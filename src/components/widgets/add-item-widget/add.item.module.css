@@ -6,7 +6,7 @@
     padding: 8px 16px;
     gap: 8px;
     width: fit-content;
-    height: auto;
+    height: 32px;
     border: 1px solid #e6e6e6;
     border-radius: 4px;
     cursor: pointer;
