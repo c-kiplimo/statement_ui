@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  color: var(--Text-Text-Description-01);
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  width: 169px;
+  height: autox;
+}
