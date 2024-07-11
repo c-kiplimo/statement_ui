@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { CloudDownloadOutlined, MoreOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
@@ -90,13 +90,20 @@ const UserGroupsHomePage: React.FC = () => {
     setSearchTerm(terms);
   };
 
+  const filteredData = useMemo(() => {
+    return dummyData.filter((item) => {
+      return Object.values(item).some(value =>
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  }, [searchTerm]);
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.headDiv}>
           <div className={`${styles.title} h6b`}>Group</div>
           <div className={styles.buttonsDiv}>
-            
             <SearchButton>
               <SearchButton.Icon>
                 <SearchOutlined />
@@ -121,7 +128,7 @@ const UserGroupsHomePage: React.FC = () => {
         <div className={styles.body2}>
           <Table
             columns={columns}
-            dataSource={dummyData}
+            dataSource={filteredData}
             size="middle"
             pagination={{
               pageSize: pageSize,
