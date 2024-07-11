@@ -3,12 +3,15 @@ type Permission = {
 };
 
 type UserPermission = {
-  permissionId: number;
-  recordStatus: boolean;
-  dateCreated: Date;
-  permissionName: string;
-  description: string;
-};
+  userPermissionId: number,
+  userId: string,
+  name: string,
+  description: string,
+  createdAt: string,
+  permissions: [
+    string
+  ]
+}
 
 
 

@@ -8,9 +8,10 @@ import { notification } from "antd";
 
 interface SelectReportFormatProps {
   itemId?: number;
+  onCancel?:()=>void
 }
 
-const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
+const SelectReportFormat = ({ itemId, onCancel }: SelectReportFormatProps) => {
   const data = [
     {
       id: 1,
@@ -55,7 +56,7 @@ const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
               });
               const url = window.URL.createObjectURL(blob);
               window.open(url);
-        
+              onCancel!();
             } else {
               throw new Error("itemId is not defined");
             }

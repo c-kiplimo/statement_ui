@@ -6,14 +6,13 @@ import HorizontalInfoDescription from "@/src/components/atoms/text/horizontal-in
 import BranchTransactionsHistory, {
   TransactionHistoryData,
 } from "../transactions-history-table/transaction.history.table";
-import { Modal, Spin, notification } from "antd";
+import { Modal, Spin } from "antd";
 import SelectReportFormat from "../select-report-format/select.report.format";
 import {
   DateSearchAction,
   SingleDataEntriesAction,
   SingleStatementAction,
 } from "@/src/lib/single.statement.action";
-import { DownloadDefaultTemplate } from "@/src/services/account/account";
 
 export interface AccountDetails {
   accountName: string;
@@ -182,7 +181,7 @@ function AccountDetailTable({ itemId }: AccountDetailTableProps) {
           onCancel={closeModal}
           footer={null}
         >
-          <SelectReportFormat itemId={selectedItemId} />
+          <SelectReportFormat itemId={selectedItemId} onCancel={closeModal}/>
         </Modal>
       </div>
     </div>

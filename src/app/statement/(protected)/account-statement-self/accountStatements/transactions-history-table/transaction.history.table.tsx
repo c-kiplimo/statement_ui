@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import styles from "./transaction.history.table.module.css";
@@ -51,11 +51,8 @@ type TableProps = {
   data: TransactionHistoryData[];
 };
 
-const BranchTransactionsHistory = (props: TableProps) => {
-  const { data } = props;
-
-  const pageSize = 10;
-  const totalItems = data.length;
+const BranchTransactionsHistory = ({data}: TableProps) => {
+  const [pageSize, setPageSize] = useState<number>(5);
 
   return (
     <Table
@@ -64,8 +61,9 @@ const BranchTransactionsHistory = (props: TableProps) => {
       className={styles.redHeaderTable}
       pagination={{
         pageSize: pageSize,
-        total: totalItems,
         showSizeChanger: true,
+        pageSizeOptions: ["5", "10", "20", "35", "50"],
+        onShowSizeChange: (_, size) => setPageSize(size),
       }}
     />
   );

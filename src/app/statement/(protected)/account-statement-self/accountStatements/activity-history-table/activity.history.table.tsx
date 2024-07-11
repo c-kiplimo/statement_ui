@@ -90,11 +90,7 @@ const StatementTable = (props: StatementProps) => {
           ))}
         </tbody>
       </table>
-      <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+      
     </div>
   );
 };
