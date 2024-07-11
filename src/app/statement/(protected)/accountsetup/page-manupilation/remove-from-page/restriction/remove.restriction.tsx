@@ -8,12 +8,14 @@ interface RemoveRestrictionProps {
   visible: boolean;
   onCancel: () => void;
   restrictionId: number;
+  onRefreshData: () => void;
 }
 
 const RemoveRestriction: FC<RemoveRestrictionProps> = ({
   visible,
   onCancel,
   restrictionId,
+  onRefreshData,
 }) => {
   const [error, setError] = useState<string | null>(null);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -28,6 +30,7 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
     try {
       await deleteRestriction(restrictionId);
       onCancel();
+      onRefreshData();
     } catch (error) {
       console.error("Error deleting restriction:", error);
       setError("Failed to delete the restriction. Please try again.");

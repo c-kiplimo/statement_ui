@@ -15,18 +15,13 @@ export const fetchAccountStatus = async (accountNumber: number): Promise<Account
       },
     });
 
-  console.log("Fetching account data...");
-
     const apiResponse = response.data;
-    console.log("Fetching account data...",apiResponse );
     if (apiResponse) {
-      console.log("API response:", apiResponse);
 
       const accountInformation: AccountById = {
         ...apiResponse,
       };
 
-      console.log(apiResponse)
       
       return accountInformation;
     } else {

@@ -7,9 +7,9 @@ import Sort from "@/src/components/atoms/sort/sort";
 import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import { AccountAction } from "@/src/lib/actions/accounts.action";
-import {useAccountProfileContext } from '../context/account.contex'; 
-
-
+import { useAccountProfileContext } from '../context/account.contex';
+import { Modal } from "antd";
+import AccountConfifModal from "../widgets/configuration-form/accounts.configuration";
 
 type UserIdProps = {
   userId?: number;
@@ -19,12 +19,13 @@ const AccountsPage = (props: UserIdProps) => {
   const [settingsClicked, setSettingsClicked] = useState<number | null>(null);
   const [viewClicked, setViewClicked] = useState<number | null>(null);
   const [incomingData, setIncomingData] = useState<DataFetcher[]>([]);
-  const {accountId,updateAccount}=useAccountProfileContext();  
-  
-  
+  const { accountId, updateAccount } = useAccountProfileContext();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
-sessionStorage.setItem("passedaccountId", accountId.toString())
-
+  useEffect(() => {
+    sessionStorage.setItem("passedaccountId", accountId.toString());
+  }, [accountId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +35,6 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
           setIncomingData(data);
         } catch (error) {
           console.error("Error fetching data:", error);
-
         }
       }
     };
@@ -42,48 +42,59 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
     fetchData();
   }, [props.userId]);
 
-
-
   const handleSettingsClick = useCallback((id: number) => {
-    setIncomingData(prevData =>
-      prevData.map(item =>
-        item.id === id ? { ...item, settingsClicked: !item.settingsClicked  } : item
+    setIncomingData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, settingsClicked: !item.settingsClicked } : item
       )
     );
     setSettingsClicked(id);
   }, []);
 
-
-
   const handleViewClick = useCallback((id: number) => {
-    setIncomingData(prevData =>
-      prevData.map(item =>
-        item.id === id ? { ...item, viewClicked: !item.viewClicked} : item
+    setIncomingData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, viewClicked: !item.viewClicked } : item
       )
     );
     setViewClicked(id);
   }, []);
 
-  
   useEffect(() => {
     if (settingsClicked !== null) {
       updateAccount(settingsClicked);
     }
   }, [settingsClicked, updateAccount]);
 
-
-
   useEffect(() => {
     if (viewClicked !== null) {
       updateAccount(viewClicked);
     }
   }, [viewClicked, updateAccount]);
-  
-  
+
+  const openModal = (userId: number) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalSuccess = () => {
+    if (selectedUserId !== null) {
+      setIncomingData((prevData) =>
+        prevData.map((item) =>
+          item.id === selectedUserId ? { ...item, status: "DONE" } : item
+        )
+      );
+    }
+    setIsModalOpen(false); 
+  };
 
   const columns = [
     {
-      Key:"accountNumber",
+      key: "accountNumber",
       title: "Account Number",
       dataIndex: "createdOn",
       render: (text: any, record: any) => (
@@ -94,24 +105,22 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       ),
     },
     {
-      Key:"accountName",
+      key: "accountName",
       title: "Account Name",
       dataIndex: "userName",
       render: (text: any) => <span className={`${styles.ActivityName} bodyr`}>{text}</span>,
     },
-
-
     {
-      Key:"status",
+      key: "status",
       title: "Status",
       dataIndex: "status",
       render: (text: any, record: any) => {
         let color = "";
         switch (record.status) {
-          case "Done":
+          case "DONE":
             color = "#17D05B";
             break;
-          case "Pending":
+          case "PENDING":
             color = "orange";
             break;
           default:
@@ -125,24 +134,23 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
       },
     },
     {
-      Key:"settings",
+      key: "settings",
       title: "Settings",
       dataIndex: "settings",
-      render: (text: any, record: any, index: number) => (
-        <Link href="/statement/accountsetup/widgets/configuration-form" key={`settings-${record.id}`}>
-          <button
-            className={`${`${styles.settingsButton} captionr`} ${
-              settingsClicked === record.id
-                ? styles.settingsButtonClicked
-                : styles.test
-            }`}
-            onClick={() => handleSettingsClick(record.id)}
-          >
-            {text}
-            <SettingOutlined />
-            setup
-          </button>
-        </Link>
+      render: (text: any, record: any) => (
+        <button
+          className={`${styles.settingsButton} captionr ${
+            settingsClicked === record.id ? styles.settingsButtonClicked : styles.test
+          }`}
+          onClick={() => {
+            handleSettingsClick(record.id);
+            openModal(record.id);
+          }}
+        >
+          {text}
+          <SettingOutlined />
+          setup
+        </button>
       ),
     },
     {
@@ -173,25 +181,31 @@ sessionStorage.setItem("passedaccountId", accountId.toString())
         <div className={styles.headerdiv}>
           <div className={styles.textdiv}>Accounts</div>
           <div className={styles.atomsdiv}>
-            <Search
-              title="Search"
-              icon={<img src="/searchicon.svg" alt="searchicon" />}
-            />
-            <Filter
-              title="Filter"
-              icon={<img src="/funnel.svg" alt="funnel" />}
-            />
+            <Search title="Search" icon={<img src="/searchicon.svg" alt="searchicon" />} />
+            <Filter title="Filter" icon={<img src="/funnel.svg" alt="funnel" />} />
             <Sort title="Sort" icon={<img src="/sort.svg" alt="sort" />} />
           </div>
         </div>
-       
-        <CustomTable
-          data={incomingData}
-          pageSize={5}
-          total={10}
-          columns={columns}
-        />
-        
+
+        <CustomTable data={incomingData} pageSize={5} total={10} columns={columns} />
+
+        <Modal footer={false} width={"55%"} visible={isModalOpen} onCancel={handleCancel}>
+          {selectedUserId !== null && (
+            <AccountConfifModal
+              fileformartHeader={"Statement Frequency"}
+              optiona={"Monthly"}
+              optionb={"Bi Weekly"}
+              optionc={"Weekly"}
+              optiond={"Daily"}
+              date={"Start date"}
+              time={"Time"}
+              dateIcon={<img src="/calendar.svg" alt="calendar" />}
+              timeIcon={<img src="/time.svg" alt="time" />}
+              onSuccess={handleModalSuccess}
+              accountId={selectedUserId}
+            />
+          )}
+        </Modal>
       </div>
     </div>
   );

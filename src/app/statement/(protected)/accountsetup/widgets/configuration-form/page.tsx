@@ -19,7 +19,8 @@ const Dev = () => {
         date={"Start date"}
         time={"Time"}
         dateIcon={<img src="/calendar.svg" alt="calendar" />}
-        timeIcon={<img src="/time.svg" alt="time"/>}  />
+        timeIcon={<img src="/time.svg" alt="time" />}
+         accountId={0}  />
 
 
 
