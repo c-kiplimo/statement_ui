@@ -5,12 +5,14 @@ import CustomSearchInput from "@/src/components/atoms/input/custom-search-input"
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import { DownloadDefaultTemplate } from "@/src/services/account/account";
 import { notification } from "antd";
+import { AxiosError } from "axios";
 
 interface SelectReportFormatProps {
   itemId?: number;
+  onCancel:()=>void
 }
 
-const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
+const SelectReportFormat = ({ itemId, onCancel }: SelectReportFormatProps) => {
   const data = [
     {
       id: 1,
@@ -55,19 +57,36 @@ const SelectReportFormat = ({ itemId }: SelectReportFormatProps) => {
               });
               const url = window.URL.createObjectURL(blob);
               window.open(url);
-
-              console.log("Downloaded data:", downloadData);
+              onCancel();
             } else {
               throw new Error("itemId is not defined");
             }
           } catch (error) {
-
-            notification.error({
-              message: 'Error',
-              description: `An error occurred: ${error}`,
-            });
-            // throw error;
-          }
+            if (error instanceof AxiosError) {
+              if (error.response && error.response.status === 500) {
+                notification.error({
+                  message: 'Internal Server Error!',
+                  description: 'Please Consult the Support Team',
+                });
+              } else if (error.message === 'Network Error') {
+                notification.error({
+                  message: 'Network Error!',
+                  description: 'Please Check Your Internet Connection',
+                });
+              } else {
+                notification.error({
+                  message: 'Error',
+                  description: `An error occurred: ${error.message}`,
+                });
+              }
+            } else {
+              notification.error({
+                message: 'Unknown Error',
+                description: 'An unknown error occurred',
+              });
+            }
+            
+            }
         }
         Downloaddata();
         console.log("Default option clicked");

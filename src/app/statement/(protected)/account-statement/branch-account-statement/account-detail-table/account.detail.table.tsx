@@ -170,7 +170,7 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
           footer={null}
           
         >
-          <SelectReportFormat itemId={selectedItemId}/>
+          <SelectReportFormat itemId={selectedItemId} onCancel={closeModal}/>
         </Modal>
       </div>
     </div>
