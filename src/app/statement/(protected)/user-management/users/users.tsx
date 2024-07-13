@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useEffect, useState, useMemo } from "react";
-=======
-import React, { useEffect, useState } from "react";
->>>>>>> f626722 (Adding users table)
 import styles from "./users.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
@@ -30,7 +26,6 @@ const Users = ({ customerId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<RegisteredUser[]>([]);
-  //const [filteredUsers, setFilteredUsers] = useState<RegisteredUser[]>([]);
 
   const fetchUsers = async () => {
     if (customerId !== null && customerId !== undefined) {
@@ -38,7 +33,6 @@ const Users = ({ customerId }: userProps) => {
       try {
         const response = await RegisteredUserAction(customerId);
         setUsers(response);
-        //setFilteredUsers(response);
       } catch (error) {
         console.error("Error fetching data:", error);
         notification.error({
