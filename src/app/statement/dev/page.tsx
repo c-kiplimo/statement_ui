@@ -1,18 +1,15 @@
 "use client";
-import React, { Fragment} from "react";
+import React, { Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import UserInfo from "@/src/components/widgets/user-info/user-info";
-import { InfoCircleFilled } from "@ant-design/icons";
+import CompanyInfo from "../(protected)/user-management/company-info/company-info";
+import useProfileId from "@/src/hooks/profileId";
+
 
 const Dev = () => {
+  const profId = useProfileId();
   return (
     <Fragment>
-      <UserInfo>
-      <UserInfo.Title title="Country">
-      <InfoCircleFilled />
-      </UserInfo.Title>
-      <UserInfo.Description title="KENYA" description="Nairobi"/>
-    </UserInfo>
+     <CompanyInfo customerId={profId!}/>
     </Fragment>
   );
 };

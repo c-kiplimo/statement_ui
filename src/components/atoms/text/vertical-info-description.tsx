@@ -16,12 +16,11 @@ const VerticalInfoDescription = (props: VerticalInfoDescriptionType) => {
       <div className={styles.header}>
         <span className={`${styles.title} bodyr`} style={props.titleStyle}>
           {props.title}
-          <span className={`bodyr`} style={props.titleStyle}>
-            {props.titleInfo}
-          </span>
         </span>
       </div>
-
+      <span className={`bodyr`} style={props.titleInfoStyle}>
+        {props.titleInfo}
+      </span>
       <span
         className={`${styles.description} captionr`}
         style={props.descriptionStyle}
