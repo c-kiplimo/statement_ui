@@ -1,13 +1,12 @@
-import { Profile } from "@/src/app/statement/(protected)/usermanagement/branch/customer-profile/[id]/customer-profile";
 import { ProfileAccountHandler } from "@/src/services/userprofile/custProfile.service";
 
-export const profileDetails = async (value: string): Promise<Profile> => {
+export const profileDetails = async (value: string): Promise<CompanyProfile> => {
   let handler = ProfileAccountHandler();
 
-  let profileDetails: ProfileType = await handler.fetchCustomerProfiles(value);
+  let profileDetails: CustomerProfileType = await handler.fetchCustomerProfiles(value);
   console.log(profileDetails);
 
-  let customerDetails: Profile = {
+  let customerDetails: CompanyProfile = {
     userName: profileDetails.payload.customerName!,
     userId: profileDetails.payload.customerId!,
     userType: profileDetails.payload.customerType!,

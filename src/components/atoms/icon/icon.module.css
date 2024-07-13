@@ -1,0 +1,11 @@
+.icon {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 8px;
+    width: 48px;
+    height: 48px;
+    background: #003a49;
+    border-radius: 25px;
+  }
+  
