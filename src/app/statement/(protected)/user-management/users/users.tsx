@@ -26,7 +26,6 @@ const Users = ({ customerId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<RegisteredUser[]>([]);
-  //const [filteredUsers, setFilteredUsers] = useState<RegisteredUser[]>([]);
 
   const fetchUsers = async () => {
     if (customerId !== null && customerId !== undefined) {
@@ -34,7 +33,6 @@ const Users = ({ customerId }: userProps) => {
       try {
         const response = await RegisteredUserAction(customerId);
         setUsers(response);
-        //setFilteredUsers(response);
       } catch (error) {
         console.error("Error fetching data:", error);
         notification.error({
