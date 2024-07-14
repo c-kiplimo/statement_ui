@@ -3,10 +3,10 @@ import React from "react";
 import styles from "./page.module.css";
 import useProfileId from "@/src/hooks/profileId";
 import CompanyInfo from "./company-info/company-info";
-import TabNavigations from "@/src/components/widgets/tab-navigations-items/tab.navigations";
 import UsersHome from "./users/users";
 import PermissionPage from "./permissions/page";
 import UserGroupsHomePage from "./user-groups/groups";
+import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
 
 type TabItem = {
   buttonName: string;
@@ -35,7 +35,7 @@ const page = () => {
     <div className="flex flex-col p-4 bg-[var(--Background-Background-Primary)] w-full h-auto overflow-hidden">
       <CompanyInfo customerId={profId!} />
       <div className={styles.tabs}>
-        <TabNavigations tabItems={tabItems} />
+        <TabNav tabItems={tabItems} />
       </div>
     </div>
   );
