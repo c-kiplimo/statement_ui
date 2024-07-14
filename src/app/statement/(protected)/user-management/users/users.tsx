@@ -22,7 +22,7 @@ type userProps = {
   customerId: number;
 };
 
-const Users = ({ customerId }: userProps) => {
+const UsersHome = ({ customerId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<RegisteredUser[]>([]);
@@ -131,4 +131,4 @@ const Users = ({ customerId }: userProps) => {
   );
 };
 
-export default Users;
+export default UsersHome;

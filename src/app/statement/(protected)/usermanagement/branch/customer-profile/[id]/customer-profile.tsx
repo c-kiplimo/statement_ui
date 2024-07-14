@@ -29,7 +29,7 @@ export type Profile = {
 };
 
 const CustomerProfile = ({ customerId }: UserProfileProps) => {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<CompanyProfile| null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [activeUserGroup, setActiveUserGroup] = useState(false);
