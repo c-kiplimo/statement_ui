@@ -32,7 +32,7 @@ const page = () => {
   ];
 
   return (
-    <div className="flex flex-col p-4 bg-[var(--Background-Background-Primary)] w-full h-auto overflow-hidden">
+    <div className="flex flex-col p-4 bg-[var(--Background-Background-Primary)] w-full h-auto">
       <CompanyInfo customerId={profId!} />
       <div className={styles.tabs}>
         <TabNav tabItems={tabItems} />
