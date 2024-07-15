@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: 32px;
-  gap: 54px;
+  gap: 48px;
   width: 100%;
   height: auto;
   background: #ffffff;
@@ -17,7 +17,7 @@
   align-items: center;
   padding: 0px;
   gap: 8px;
-  margin: auto;
+  margin: 0 auto;
   width: 282px;
   height: 56px;
   border-right: 1px solid var(--border-border-secondary);
