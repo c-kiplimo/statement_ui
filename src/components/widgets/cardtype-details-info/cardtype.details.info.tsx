@@ -68,7 +68,7 @@ const CardtypeDetailsInfo = (props: CardtypeDetailsInfoProps) => {
       </div>
 
       <div className={styles.button}>
-        <Link href={"/statement/dashboard/accounts/viewmore"}>
+        <Link href={""}>
         <Button
           buttonName={"View More"}
           buttonStyle={{
