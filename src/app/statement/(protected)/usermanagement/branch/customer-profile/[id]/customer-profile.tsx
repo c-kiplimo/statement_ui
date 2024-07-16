@@ -45,7 +45,7 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
 
       try {
         const profileData = await profileDetails(customerId.toString());
-        setProfile(profileData);
+        setProfile(null);
       } catch (err) {
         setError("Failed to fetch profile details");
       } finally {

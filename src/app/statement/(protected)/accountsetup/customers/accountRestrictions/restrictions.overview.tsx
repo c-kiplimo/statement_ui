@@ -146,8 +146,7 @@ const RestrictionsOverview = (props: DataType) => {
       <RemoveRestrictionModal
         visible={modalVisible2}
         onCancel={handleModalCancel2}
-        restrictionId={dataId!}
-      />
+        restrictionId={dataId!}      />
     </div>
   );
 };

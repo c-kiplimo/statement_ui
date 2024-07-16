@@ -8,7 +8,7 @@ interface RemoveRestrictionProps {
   visible: boolean;
   onCancel: () => void;
   restrictionId: number;
-  onRefreshData: () => void;
+  onRefreshData?: () => void;
 }
 
 const RemoveRestriction: FC<RemoveRestrictionProps> = ({
@@ -30,7 +30,7 @@ const RemoveRestriction: FC<RemoveRestrictionProps> = ({
     try {
       await deleteRestriction(restrictionId);
       onCancel();
-      onRefreshData();
+      onRefreshData!();
     } catch (error) {
       console.error("Error deleting restriction:", error);
       setError("Failed to delete the restriction. Please try again.");

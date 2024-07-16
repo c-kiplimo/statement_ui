@@ -8,9 +8,9 @@ import styles from "./user-management-header-tabs.module.css";
 
 import UsersTab from "../../user-management-tab-bar/current-user-tab";
 import RoleTable from "../permissions-tab/role-table";
-import RolePermission from "@/src/app/statement/(protected)/user-management/create-new-roles/page";
 import { usePathname } from "next/navigation";
 import UserGroup from "../user-groups-tab-bar/user-groups-tab";
+import RolePermission from "@/src/app/statement/(protected)/user-managements/create-new-roles/page";
 
 const UserManagementHeaderTabs = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
