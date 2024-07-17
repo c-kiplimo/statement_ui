@@ -94,9 +94,7 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
             country={profile?.country!}
             town={profile?.branch!}
             email={profile?.email!}
-            mobileNumber={profile?.phoneNumber!}
-            customerStatus={profile?.status!}
-          />
+            mobileNumber={profile?.phoneNumber!} customerStatus={""}          />
         </div>
       </div>
       <div className={styles.tabs}>
