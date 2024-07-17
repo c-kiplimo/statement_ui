@@ -11,12 +11,14 @@ import PermissionButton from "@/src/components/widgets/permission-button/permiss
 import { fetchUserPermissions } from "@/src/lib/actions/permissions.action";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { Spin } from "antd";
+import { useRouter } from "next/navigation";
 
 const PermissionPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [permissionData, setPermissionData] = useState<PermissionTypes[]>([]);
   const [permissions, setPermissions] = useState<PermissionTypes[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const profile = useProfileCreated();
 
   useEffect(() => {
@@ -51,7 +53,9 @@ const PermissionPage = () => {
     setPermissions(filtered);
   };
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    router.push('/statement/user-management/permissions/create-permission');
+  };
 
   if (loading) {
     return (
