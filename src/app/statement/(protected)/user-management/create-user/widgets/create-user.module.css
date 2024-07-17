@@ -1,0 +1,176 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 24px;
+  gap: 32px;
+  position: absolute;
+  width: 694px;
+  height: auto;
+  left: 36vw;
+  top: 16vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  width: 100%;
+  height: auto;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.horizontal {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.flexOne {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  gap: 8px;
+  width: 45%;
+  height: auto;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.horizontalInput {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0px 8px;
+  gap: 32px;
+  width: 100%;
+  height: 40px;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  gap: 4px;
+  width: 100%;
+  height: auto;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.emailInput {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.selectorRow {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  height: 40px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.selectionStandard {
+  display: flex;
+  align-items: center;
+  padding: 0px 8px;
+  gap: 8px;
+  width: 72px;
+  height: 40px;
+  border: 0.5px solid #c9c9cc;
+  border-radius: 4px;
+  color: var(--Text-Text-Description-01);
+  opacity: 0.8;
+}
+
+.divider {
+  width: 4px;
+  height: 40px;
+  color: var(--Text-Text-Description-01);
+  margin: 0 4px;
+}
+
+.selectorInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  width: 340px;
+  height: 40px;
+  opacity: 0.8;
+  border: 0.5px solid var(--neutral-colors-200);
+  border-radius: 4px;
+  color: var(--Text-Text-Description-01);
+}
+
+.dropDown {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  width: 100%;
+  height: 40px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  padding: 8px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
