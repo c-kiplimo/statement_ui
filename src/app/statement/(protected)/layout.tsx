@@ -16,20 +16,31 @@ import Topbar from "./topbar/top.bar";
 import styles from './statement.module.css'
 
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+
+  const handleClick = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const handleSidebarItemClick = () => {
+    setSidebarVisible(false);
+  };
+  
   return (
     <SessionProvider>
-      <ProfileProvider>
-      <div style={{ "display": "flex", flexDirection: "row", "height": "100vh"}}>
-        <nav className={styles.sidebar}>
-          <MulaPaySideBar items={MenuData} />
+    <ProfileProvider>
+      <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+        <div className={`${styles.overlay} ${sidebarVisible ? styles.visible : ''}`} onClick={handleClick}></div>
+        <nav className={`${styles.sidebar} ${sidebarVisible ? styles.visible : ''}`}>
+          <MulaPaySideBar items={MenuData} onItemClick={handleSidebarItemClick}/>
         </nav>
-        <main style={{width:"100%", overflowY:'auto'}}>
-          <Topbar/>
+        <main style={{ width: '100%', overflowY: 'auto' }}>
+          <Topbar onClick={handleClick} />
           {children}
         </main>
       </div>
-      </ProfileProvider>
-    </SessionProvider>
+    </ProfileProvider>
+  </SessionProvider>
   );
 };
 

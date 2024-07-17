@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation'
 
 type SideBarProp = {
     items: SideNavMenu[]
+    onItemClick: () => void
 }
 export const MulaPaySideBar = (props: SideBarProp) => {
     const [opened, setOpened] = useState(true)
@@ -39,7 +40,7 @@ export const MulaPaySideBar = (props: SideBarProp) => {
                                 }
                                 {
                                     sect.menu?.map(menus => {
-                                        return <MulaPaySideBar.Item key={menus.path} {...menus} />
+                                        return <MulaPaySideBar.Item key={menus.path} {...menus} onItemClick={props.onItemClick} />
                                     })
                                 }
                             </div>
@@ -57,7 +58,7 @@ export const MulaPaySideBar = (props: SideBarProp) => {
 
 
 
-MulaPaySideBar.Item = (item: SideNavItem) => {
+MulaPaySideBar.Item = (item: SideNavItem & { onItemClick: () => void }) => {
     const [opened, setOpened] = useState(false)
     const cx = classNames.bind(styles);
     const currentPath = usePathname()
@@ -65,6 +66,7 @@ MulaPaySideBar.Item = (item: SideNavItem) => {
     const className = cx('sublink', { 'sublinkOpen': opened, 'closed': !opened });
     function clicked(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         setOpened(!opened)
+        item.onItemClick() 
     }
     return (
         <>
@@ -73,7 +75,7 @@ MulaPaySideBar.Item = (item: SideNavItem) => {
                     {item.icon}
                 </div>
                 <div className={`${styles.menuText} ${styles.withSublink}  bodyr`} onClick={clicked}>
-                    <div className={styles.mainMenuText}>
+                    <div className={styles.mainMenuText} >
                         {item.hasSubMenu ? <p> {item.title}</p> : <Link className={`${isActive ? styles.linkActive : styles.tag}`} href={item.path}>{item.title}</Link>}
 
                         {
