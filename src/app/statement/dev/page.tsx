@@ -5,11 +5,12 @@ import CompanyInfo from "../(protected)/user-management/company-info/company-inf
 import useProfileId from "@/src/hooks/profileId";
 import Permissions from "@/src/components/widgets/permissions-list-widget/permissions.list";
 import CreateUserroups from "../(protected)/usermanagement/user-groups-home-page/create-user-groups-form/create.user.groups";
+import GroupCreationConfirm from "../(protected)/usermanagement/user-groups-home-page/user-group-confirm/group.creation.confirm";
 
 const Dev = () => {
   return (
     <Fragment>
-      <CreateUserroups/>
+      <GroupCreationConfirm/>
     </Fragment>
   );
 };

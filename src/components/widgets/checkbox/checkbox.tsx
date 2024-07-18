@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import styles from "./checkbox.module.css";
 
 type CheckboxProps = {
-    text: string;
+  text: string;
+  defaultChecked?: boolean;
 };
 
-const CheckboxComponent = (props: CheckboxProps) => {
-  const [checked, setChecked] = useState(false);
+const CheckboxComponent = ({ text, defaultChecked = false }: CheckboxProps) => {
+  const [checked, setChecked] = useState(defaultChecked);
 
   const toggleCheckbox = () => {
     setChecked(!checked);
@@ -17,7 +18,7 @@ const CheckboxComponent = (props: CheckboxProps) => {
       <div className={`${styles.checkbox} ${checked ? styles.checked : ''}`}>
         {checked && <div className={styles.checkmark}><img src="/tick.svg" alt="tick" /></div>}
       </div>
-      <div className={`${styles.text} bodyr`}>{props.text}</div>
+      <div className={`${styles.text} bodyr`}>{text}</div>
     </div>
   );
 };
