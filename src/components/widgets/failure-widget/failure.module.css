@@ -1,0 +1,88 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    gap: 16px;
+    width: 500px;
+    height: 330px;
+    left: 5517px;
+    top: 1097px;
+    background: #FFFFFF;
+    box-shadow: 1px 5px 14px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    
+    }
+
+    .buttonsDiv{
+display: flex;
+flex-direction: row;
+justify-content: center;
+margin-top: 24px;
+align-items: center;
+padding: 0px;
+gap: 40px;
+width: 283px;
+height: 42px;
+    }
+    
+    .canceButton{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 113px;
+height: 42px;
+color: #6F7269;
+border: 1px solid #E6E6E6;
+border-radius: 4px;
+    }
+
+
+    .tryAgainButton{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 130px;
+height: 42px;
+color: #FFFFFF;
+background: #84BD00;
+border-radius: 4px;
+        }
+    
+
+    .icon{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 12px 14px;
+gap: 10px;
+width: 56px;
+height: 56px;
+background: #FEDEE5;
+border-radius: 24px;
+color: #F30039;
+    }
+    
+    .description{
+        color: #6F7269;
+        text-align: center;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 341px;
+height: 48px;
+    }
+    
+    .title{
+        color: #1A2600;
+    }
