@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation'
 
 type SideBarProp = {
     items: SideNavMenu[]
-    onItemClick: () => void
+    onItemClick?: () => void
 }
 export const MulaPaySideBar = (props: SideBarProp) => {
     const [opened, setOpened] = useState(true)
@@ -40,7 +40,7 @@ export const MulaPaySideBar = (props: SideBarProp) => {
                                 }
                                 {
                                     sect.menu?.map(menus => {
-                                        return <MulaPaySideBar.Item key={menus.path} {...menus} onItemClick={props.onItemClick} />
+                                        return <MulaPaySideBar.Item key={menus.path} {...menus} onItemClick={props.onItemClick!} />
                                     })
                                 }
                             </div>

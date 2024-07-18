@@ -1,0 +1,87 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px 0px 0px 0px;
+gap: 24px;
+width:auto;
+height: auto;
+background: #FFFFFF;
+}
+.header{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 5px;
+}
+.body{
+display: flex;
+flex-direction: column;
+padding: 11px 0px;
+gap: 16px;
+width: 100%;
+height: auto;
+}
+.bodyTitle{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 0px 8px 8px;
+gap: 10px;
+width: 100%;
+height: auto;
+border-bottom: 1px solid #E6E6E6;
+}
+.bodyContent{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 16px 24px;
+gap: 16px;
+width: 100%;
+height: auto;
+}
+.permission{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+width: 100%;
+height: auto;
+}
+.buttons{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+}
+.cancelButton{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: auto;
+height: 40px;
+color: #84BD00;
+border: 1px solid #84BD00;
+border-radius: 4px;
+
+}
+.confirmButton{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+color: #FFFFFF;
+width: auto;
+height: 40px;
+background: #84BD00;
+border-radius: 4px;
+}
