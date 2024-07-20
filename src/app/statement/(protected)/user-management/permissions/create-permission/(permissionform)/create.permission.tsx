@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './create.permission.module.css';
 import VerticalInfoDescription from '@/src/components/atoms/text/vertical-info-description';
-import { Form, FormProps, Input } from 'antd';
+import { Form, FormProps, Input, Modal } from 'antd';
+import ConfirmCreationModal from '../(succesfulPermissionCreation)/confirm.creation.modal';
 
 type PermissionFieldTypes = {
   permission?: string;
@@ -9,9 +10,18 @@ type PermissionFieldTypes = {
 };
 
 const CreatePermissionForm = () => {
+  const [open, setOpen] = useState(false);
+  const [permission, setPermission] = useState('');
+  const [description, setDescription] = useState('');
+
   const handleOnFinish: FormProps<PermissionFieldTypes>['onFinish'] = (values) => {
-    console.log(values);
+    setPermission(values.permission || '');
+    setDescription(values.description || '');
+    setOpen(true);
   };
+  const handleCancel =()=>{
+    setOpen(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -51,6 +61,16 @@ const CreatePermissionForm = () => {
             Complete
           </button>
         </Form>
+      </div>
+      <div>
+      <Modal
+        open={open}
+        onCancel={handleCancel}
+        footer={false}
+        width={600}
+      >
+        <ConfirmCreationModal onCancel={handleCancel} permission={permission} description={description}/>
+      </Modal>
       </div>
     </div>
   );
