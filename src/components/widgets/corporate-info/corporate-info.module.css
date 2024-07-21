@@ -34,7 +34,7 @@
   align-items: center;
   padding: 4px 8px;
   gap: 8px;
-  width: 61px;
+  width: 64px;
   height: 32px;
   opacity: 0.8;
   border-radius: 4px;
@@ -63,4 +63,31 @@
   gap: 40px;
   width: 100%;
   height: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 24px;
+  }
+
+  .header {
+    gap: 16px;
+  }
+
+  .description {
+    padding: 0px 16px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .description {
+    padding: 0px 8px;
+    gap: 4px;
+  }
+
+  .state {
+    width: auto;
+    padding: 4px 12px;
+  }
 }

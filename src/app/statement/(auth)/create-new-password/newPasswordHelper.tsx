@@ -5,6 +5,7 @@ import { resetPasswordHandler } from "@/src/services/auth/reset-password";
 import { Form, Input, notification, Checkbox } from "antd";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const NewPasswordHelper = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,15 +30,24 @@ const NewPasswordHelper = () => {
         const response = await setNewPasswordService(newPass, userId);
         console.log("response", response);
         notification.success({
-          message: "Success",
-          description: "Password updated successfully.",
+          message: "Your password was updated successfully.",
+          description: "",
+          icon: <CheckCircleOutlined style={{ color: "white" }} />,
+          className: "bodyr success-notification",
+          placement: "topRight",
+          duration: 1,
         });
         router.push("/statement/sign-in");
       } catch (error) {
         console.error("Error setting new password:", error);
+
         notification.error({
-          message: "Error",
-          description: "Failed to update the password.",
+          message: "Failed to update the password successfuly.",
+          description: "",
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: "topRight",
+          duration: 1,
         });
       }
     } else {
@@ -59,7 +69,7 @@ const NewPasswordHelper = () => {
             <Form.Item
               name="newPass"
               label="Create New Password"
-              rules={[{message: "Please input your new password!" }]}
+              rules={[{ message: "Please input your new password!" }]}
               className={styles.formInput}
             >
               <Input
@@ -74,7 +84,7 @@ const NewPasswordHelper = () => {
               label="Confirm Password"
               className={styles.formInput}
               rules={[
-                {message: "Please confirm your password!" },
+                { message: "Please confirm your password!" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (!value || getFieldValue("newPass") === value) {
@@ -94,13 +104,16 @@ const NewPasswordHelper = () => {
               />
             </Form.Item>
           </div>
-          <Checkbox onChange={togglePasswordVisibility} className={`${styles.checkBox} bodyr`}>
-           Show Password
-          </Checkbox>        
+          <Checkbox
+            onChange={togglePasswordVisibility}
+            className={`${styles.checkBox} bodyr`}
+          >
+            Show Password
+          </Checkbox>
         </div>
         <button type="submit" className={`${styles.button} bodyr`}>
-            Create new password
-          </button>
+          Create new password
+        </button>
       </Form>
       <div className={styles.footer}>
         <span className="captionr">

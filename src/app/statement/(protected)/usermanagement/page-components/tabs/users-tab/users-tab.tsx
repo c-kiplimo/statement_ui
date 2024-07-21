@@ -26,10 +26,7 @@ const Users = () => {
   const token = useTokens();
   const {
     fetchAllUsers,
-    fetchPendingUser,
     deleteUser,
-    authorizeUser,
-    unauthorizeUser,
   } = UserHandler();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<number>(0);

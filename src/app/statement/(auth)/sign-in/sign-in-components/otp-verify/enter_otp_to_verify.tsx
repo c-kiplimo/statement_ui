@@ -11,6 +11,7 @@ import { User } from "@/src/types/user.type";
 import { notification } from "antd";
 import { useRouter } from "next/navigation";
 import { storeProfile } from "@/src/hooks/useProfileCreated";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 let profileStatus: boolean;
 const EnterOtpToVerify = () => {
@@ -39,8 +40,12 @@ const EnterOtpToVerify = () => {
           storeToken(response);
           console.log("Otp verified", response);
           notification.success({
-            message: "OTP Verified",
-            description: "Your OTP has been successfully verified.",
+            message: 'Your OTP has been successfully verified.',
+            description: '',
+            icon: <CheckCircleOutlined style={{ color: "white" }} />,
+            className: 'bodyr success-notification', 
+            placement: 'topRight',
+            duration: 1,
           });
           {
             profileStatus
@@ -51,21 +56,32 @@ const EnterOtpToVerify = () => {
         .catch((error) => {
           if (error.response.status === 400) {
             notification.error({
-              message: error.response.data.error,
-              description: error.response.data.error_description,
+              message: error.response.data.error_description,
+              description: '',
+              icon: <CloseCircleOutlined style={{ color: "red" }} />,
+              className: 'success-notification', 
+              placement: 'topRight',
+              duration: 1,
             });
           } else {
             notification.error({
-              message: "Error",
-              description:
-                "An error occurred during OTP verification. Please try again.",
+              message: "An error occurred during OTP verification. Please try again.",
+              description: '',
+              icon: <CloseCircleOutlined style={{ color: "white" }} />,
+              className: 'bodyr failure-notification', 
+              placement: 'topRight',
+              duration: 1,
             });
           }
         });
     } else {
       notification.error({
-        message: "Invalid Session",
-        description: "The provided Session is Invalid. Please login again.",
+        message: "The provided Session is Invalid. Please login again.",
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr failure-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
       router.push("/statement/sign-in");
     }

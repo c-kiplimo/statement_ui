@@ -1,5 +1,4 @@
 import { CustomerUserHandler } from "@/src/services/customer/customer.users.service";
-import { UserDetails } from "@/src/types/user.type";
 
 export const RegisteredUserAction = async (
   value: number

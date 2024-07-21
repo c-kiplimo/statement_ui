@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./search-details.module.css";
 import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
   ContactsOutlined,
   IdcardOutlined,
   UserAddOutlined,
@@ -53,7 +55,7 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
   const [selectedCardTitle, setSelectedCardTitle] = useState<string>(" ");
   const token = useTokens();
   const [searchType, setSearchType] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState(""); // Initialize with empty string
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   const handler = SearchCustomerHandler();
   const { profile, updateProfile } = useOnboardingContext();
@@ -93,7 +95,13 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
         console.log(response);
         notification.success({
           message: "Account found",
+          description: '',
+          icon: <CheckCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr success-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
+
         let newProfile: OnBoarding = {
           email: response.email,
           mobileNumber: response.mobileNumber,
@@ -109,8 +117,12 @@ const SearchDetails: React.FC<SearchDetailsProps> = ({ onSuccess }) => {
     } catch (error) {
       console.error("Account search failed:", error);
       notification.error({
-        message: "Account not found",
-        description: "Please try again.",
+        message: "Account not found.Please try again.",
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr failure-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
     }
   };

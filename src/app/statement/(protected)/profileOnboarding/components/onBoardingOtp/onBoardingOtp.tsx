@@ -13,6 +13,7 @@ import { useOnboardingContext } from "../../context/onBoardingContext";
 import { CreateProfileHandler } from "@/src/services/auth/createProfile.service";
 import { storeProfile } from "@/src/hooks/useProfileCreated";
 import useUserSession from "@/src/hooks/useUserSession";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 let profileStatus: boolean;
 
@@ -34,8 +35,12 @@ const OnboardingOtp = () => {
     const tokenData = getToken();
     if (!tokenData) {
       notification.error({
-        message: "Error",
-        description: "Token data is missing. Please try again.",
+        message: "Token data is missing. Please try again.",
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr failure-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
       return;
     }
@@ -47,8 +52,12 @@ const OnboardingOtp = () => {
 
       if (response) {
         notification.success({
-          message: "OTP Verified",
-          description: "Your OTP has been successfully verified.",
+          message: 'Your OTP has been successfully verified.',
+          description: '',
+          icon: <CheckCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr success-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
 
         const createdProfile = {
@@ -65,24 +74,35 @@ const OnboardingOtp = () => {
         console.log("Profile creation response:", profileInfo);
 
         storeProfile(profileInfo);
+        
         notification.success({
-          message: "Profile created",
-          description: "Your profile was successfully created.",
+          message: 'Your profile was successfully created.',
+          description: '',
+          icon: <CheckCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr success-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
-
         router.replace("/statement/dashboard");
       } else {
         notification.error({
-          message: "OTP Verification Failed",
-          description: "The OTP entered is incorrect. Please try again.",
+          message: 'The OTP entered is incorrect. Please try again.',
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       }
     } catch (error) {
       console.error("Profile creation failed:", error);
       notification.error({
-        message: "Profile Creation failed",
-        description:
-          "Your profile was not successfully created. Please try again.",
+        message: "An error occurred during profile creation. Please try again.",
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr failure-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
       router.replace("/statement/sign-in");
     }
@@ -108,7 +128,7 @@ const OnboardingOtp = () => {
   useEffect(() => {
     interValRef.current = window.setInterval(() => {
       timerChanged((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
-    }, 1000);
+    }, 300);
 
     return () => {
       stopTimer();
@@ -125,20 +145,32 @@ const OnboardingOtp = () => {
       );
       if (response) {
         notification.success({
-          message: "OTP Resent",
-          description: "A new OTP has been sent to your email.",
+          message: 'A new OTP has been sent to your email.',
+          description: '',
+          icon: <CheckCircleOutlined style={{ color: "green" }} />,
+          className: 'success-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
         timerChanged(300);
       } else {
         notification.error({
-          message: "Error",
-          description: "Failed to resend OTP. Please try again.",
+          message:"Failed to resend OTP. Please try again.",
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "red" }} />,
+          className: 'failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       }
     } catch (error) {
       notification.error({
-        message: "Error",
-        description: "Failed to resend OTP. Please try again.",
+        message:"Failed to resend OTP. Please try again.",
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "red" }} />,
+        className: 'failure-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
     }
   };
