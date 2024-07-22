@@ -24,6 +24,7 @@ const PermissionPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,6 +56,7 @@ const PermissionPage = () => {
 
   
 
+  //Function to implement search functionality
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     filterPermissions(value, selectedTags);
