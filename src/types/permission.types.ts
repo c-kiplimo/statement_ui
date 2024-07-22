@@ -3,14 +3,13 @@ type Permission = {
 };
 
 type UserPermission = {
-  userPermissionId: number,
-  userId: string,
-  name: string,
-  description: string,
-  createdAt: string,
-  permissions: [
-    string
-  ]
+  type: string,
+  permissions: Array<{
+      name: string,
+      description: string,
+      type: string,
+      createdAt: string
+    }>
 }
 
 

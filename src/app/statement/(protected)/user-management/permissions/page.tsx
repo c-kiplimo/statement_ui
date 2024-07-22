@@ -2,23 +2,20 @@
 import React, { useEffect, useState } from "react";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import styles from "./permissions.module.css";
-import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import { CloudDownloadOutlined, SearchOutlined } from "@ant-design/icons";
 import PermissionsTable, { PermissionTypes } from "./(permissionsTable)/permissions.table";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import PermissionButton from "@/src/components/widgets/permission-button/permission.button";
 import { fetchUserPermissions } from "@/src/lib/actions/permissions.action";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { Spin } from "antd";
-import { useRouter } from "next/navigation";
+import TagsButton from "@/src/components/widgets/tags-buttton/tags.button";
 
 const PermissionPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [permissionData, setPermissionData] = useState<PermissionTypes[]>([]);
   const [permissions, setPermissions] = useState<PermissionTypes[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const profile = useProfileCreated();
 
   useEffect(() => {
@@ -26,7 +23,7 @@ const PermissionPage = () => {
       try {
         const userId = profile?.userId;
         if (userId) {
-          const fetchedPermissions = await fetchUserPermissions(userId);
+          const fetchedPermissions = await fetchUserPermissions();
           setPermissionData(fetchedPermissions);
           setPermissions(fetchedPermissions);
         } else {
@@ -52,9 +49,8 @@ const PermissionPage = () => {
     );
     setPermissions(filtered);
   };
-
+  
   const handleClick = () => {
-    router.push('/statement/user-management/permissions/create-permission');
   };
 
   if (loading) {
@@ -81,14 +77,13 @@ const PermissionPage = () => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearchChange} />
           </SearchButton>
-          <FilterButton onClick={handleClick} />
+          <TagsButton onClick={handleClick}/>
           <DownloadWidget>
             <DownloadWidget.Icon>
               <CloudDownloadOutlined />
             </DownloadWidget.Icon>
             <DownloadWidget.text text="Download" />
           </DownloadWidget>
-          <PermissionButton onClick={handleClick} buttonStyles={{ background: '#003A49', color: '#FFFFFF' }} />
         </div>
       </div>
       <PermissionsTable permissions={permissions} />
