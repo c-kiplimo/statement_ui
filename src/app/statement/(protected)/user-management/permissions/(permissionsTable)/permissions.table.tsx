@@ -5,10 +5,11 @@ import { MoreOutlined } from "@ant-design/icons";
 import styles from "./permissions.table.module.css";
 
 export interface PermissionTypes {
-  key: React.Key;
+  key?: React.Key;
   permissionName: string;
   permissionDescription: string;
   createdOn: string;
+  tags:string;
 }
 
 type PermissionsTableProps = {
@@ -39,19 +40,8 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({
       dataIndex: "createdOn",
     },
     {
-      title: "",
-      dataIndex: "action",
-      render: (_, record) => (
-        <div className={styles.icon}>
-          <span className={styles.moreicon}>
-            <Button
-              type="text"
-              icon={<MoreOutlined />}
-              onClick={() => handleEyeClick(record.key)}
-            />
-          </span>
-        </div>
-      ),
+      title: "Tags",
+      dataIndex: "tags",
     },
   ];
 

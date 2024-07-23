@@ -2,23 +2,23 @@ import { PermissionTypes } from "@/src/app/statement/(protected)/user-management
 import PermissionsHandler from "@/src/services/usermanagement/permissions.service";
 
 
-export const fetchUserPermissions = async (userId:string):Promise<PermissionTypes[]> =>{
-     const handler = PermissionsHandler();
-     const response:UserPermission[] =await handler.fetchPermissions(userId);
-        
-     const permissions:PermissionTypes[] = response.map(data =>({
-        key: data.userPermissionId.toString(),
-        permissionName: data.name,
-        permissionDescription: data.description,
-        createdOn: data.createdAt
-     }))
-    return permissions
-}
+export const fetchUserPermissions = async (): Promise<PermissionTypes[]> => {
+    const handler = PermissionsHandler();
+    const response: UserPermission[] = await handler.fetchPermissions();
+  
+    const permissions: PermissionTypes[] = response.flatMap(data => 
+      data.permissions.map(permission => ({
+        permissionName: permission.name,
+        permissionDescription: permission.description,
+        createdOn: permission.createdAt.split('T')[0],
+        tags: data.type
+      }))
+    );
 
-const formatDate = (dateString: string) => {
-    const [date] = dateString.split('T');
-    return { date};
-};
+    return permissions;
+  }
+
+  
 
 
 

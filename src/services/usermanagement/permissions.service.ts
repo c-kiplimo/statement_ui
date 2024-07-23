@@ -1,17 +1,16 @@
 import { USER_PERMISSION_URL } from "@/src/constants/environment"
 import axios from "axios";
 
-
 const PermissionsHandler = () => {
-    const fetchPermissions = async (userId: string): Promise<UserPermission[]> => {
-        const apiUrl = `${USER_PERMISSION_URL}/${userId}`;
+    const fetchPermissions = async (): Promise<UserPermission[]> => {
+        const apiUrl = `${USER_PERMISSION_URL}`;
         try {
             const response = await axios.get(apiUrl, {
                 headers: {
                     'X-RequestId': '23456789',
                 },
             });
-            const apiResponse: UserPermission[] = response.data;            
+            const apiResponse: UserPermission[] = response.data;                        
             if (apiResponse) {
                 return apiResponse;
             } else {

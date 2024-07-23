@@ -73,7 +73,7 @@ export const AUTHORIZE_USER=`${API_URL}/api/v1/user/authorize`;
 
 export const UNAUTHORIZE_USER=`${API_URL}/api/v1/user/unauthorize`;
 
-export const USER_PERMISSION_URL = `${API_URL}/api/v1/user-permission`;
+export const USER_PERMISSION_URL = `${API_URL}/api/v1/permission`;
 
 export const USER_GROUP_URL = `${API_URL}/api/platform/group/v1`;
 
