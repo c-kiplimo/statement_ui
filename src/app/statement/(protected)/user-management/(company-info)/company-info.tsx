@@ -8,7 +8,8 @@ import Image from "next/image";
 import { Spin, Alert } from "antd";
 
 type CompanyInfoProps = {
-  customerId: number;};
+  customerId: number;
+};
 
 const CompanyInfo = ({ customerId }: CompanyInfoProps) => {
   const [profile, setProfile] = useState<CompanyProfile | null>(null);

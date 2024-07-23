@@ -3,20 +3,21 @@ import styles from "./users.module.css";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import {
+  CloseCircleOutlined,
   CloudDownloadOutlined,
   MoreOutlined,
-  PlusOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import AddItems from "@/src/components/widgets/add-item-widget/add.item";
 import UsersTable from "@/src/components/widgets/users-table/users-table";
 import { RegisteredUserAction } from "@/src/lib/actions/registered.user.action";
 import { notification } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import TableButton from "@/src/components/widgets/table-button/table-button";
 import moment from "moment";
+import AddUserButton from "@/src/components/widgets/add.user.button/add.user.button";
+import { useRouter } from "next/navigation";
 
 type userProps = {
   customerId: number;
@@ -24,6 +25,7 @@ type userProps = {
 
 const UsersHome = ({ customerId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<RegisteredUser[]>([]);
 
@@ -36,9 +38,12 @@ const UsersHome = ({ customerId }: userProps) => {
       } catch (error) {
         console.error("Error fetching data:", error);
         notification.error({
-          message: "Error fetching data",
-          description:
-            "There was an error while fetching users. Please try again later.",
+          message: "There was an error while fetching users. Please try again later.",
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       } finally {
         setLoading(false);
@@ -95,7 +100,9 @@ const UsersHome = ({ customerId }: userProps) => {
     setSearchTerm(terms);
   };
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    router.push('/statement/user-management/users/create-user');
+  };
   
   return (
     <div className={styles.container}>
@@ -118,12 +125,7 @@ const UsersHome = ({ customerId }: userProps) => {
             </DownloadWidget.Icon>
             <DownloadWidget.text text="Download" />
           </DownloadWidget>
-          <AddItems onClick={() => {}} buttonStyles={{ backgroundColor: "#003A49", color: "white" }}>
-              <AddItems.Icon>
-                <PlusOutlined />
-              </AddItems.Icon>
-              <AddItems.Text text="Add Group " />
-            </AddItems>
+          <AddUserButton onClick={handleClick} buttonStyles={{ background: '#003A49', color: '#FFFFFF' }} />
         </div>
       </div>
       <UsersTable columns={userColumns} data={filteredUsers}/>

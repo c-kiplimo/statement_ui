@@ -1,29 +1,49 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { useEffect, useState,Fragment } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import SuccessModal from "@/src/components/widgets/success-widget/success";
-import { CheckOutlined, WarningOutlined } from "@ant-design/icons";
-import FailureModal from "@/src/components/widgets/failure-widget/failure";
+import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
 
 const Dev = () => {
+  const [groups, setGroups] = useState<PlatformGroup[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    // Create an instance of createUserHandler
+    const { fetchPlatformGroupService } = createUserHandler();
+
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                // Call fetchPlatformGroupService with a specific platform ID
+                const platformId = 1; // Replace with the actual platform ID you want to use
+                const data = await fetchPlatformGroupService(platformId);
+                setGroups(data);
+            } catch (error) {
+                setError('Failed to fetch platform groups');
+            }
+        };
+
+        fetchGroups();
+    }, [fetchPlatformGroupService]); // Dependency array ensures this effect runs once
+
   return (
     <Fragment>
-      {/* <SuccessModal>
-        <SuccessModal.Icon><CheckOutlined /></SuccessModal.Icon>
-        <SuccessModal.title title="Group Created Successfully"/>
-        <SuccessModal.description description="The group Financial Managers has been successfully created"/>
-        
-      </SuccessModal> */}
-
-<FailureModal>
-          <FailureModal.Icon>
-            <img src={'/warning.svg'} width={56} height={56} alt='warning'/>
-          </FailureModal.Icon>
-          <FailureModal.title title="Group Creation Failed"/>
-          <FailureModal.description description="An error occurred while creating the group. Please try again later"/>
-        </FailureModal>
+       <div>
+            <h1>Platform Groups</h1>
+            {error && <p>{error}</p>}
+            <ul>
+                {groups.map((group) => (
+                    <li key={group.groupId}>
+                        <h2>{group.groupName}</h2>
+                        <p>{group.description}</p>
+                        <p>Created At: {new Date(group.createdAt).toLocaleString()}</p>
+                        <p>Permissions: {group.permission.join(', ')}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
     </Fragment>
   );
 };
 
 export default withContainer(Dev);
+

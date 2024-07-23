@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./verify-identity.module.css";
-import { UserAddOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CloseCircleOutlined, UserAddOutlined, UsergroupAddOutlined } from "@ant-design/icons";
 import Texter from "../../../../../../components/atoms/text/texter";
 import SelectionItem from "../../../../../../components/widgets/selectionItem/selectionItem";
 import { Modal, notification } from "antd";
@@ -61,20 +61,32 @@ const VerifyIdentity = () => {
         const response = await onBoardingOtpService(option, accessToken,user?.id, contactValue);
         if (response) {
           notification.success({
-            message: "OTP Sent",
-            description: "An OTP has been sent to your selected contact method.",
+            message: 'An OTP has been sent to your selected contact method.',
+            description: '',
+            icon: <CheckCircleOutlined style={{ color: "white" }} />,
+            className: 'bodyr success-notification', 
+            placement: 'topRight',
+            duration: 1,
           });
           openModalHandler();
         } else {
           notification.error({
-            message: "Error",
-            description: "Failed to send OTP. Please try again.",
+            message: "Failed to send OTP. Please try again.",
+            description: '',
+            icon: <CloseCircleOutlined style={{ color: "white" }} />,
+            className: 'bodyr failure-notification', 
+            placement: 'topRight',
+            duration: 1,
           });
         }
       } catch (error) {
         notification.error({
-          message: "Error",
-          description: "Failed to send OTP. Please try again.",
+          message: "An error may have occured.Please try again.",
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       }
     }

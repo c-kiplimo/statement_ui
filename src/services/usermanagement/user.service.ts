@@ -1,9 +1,6 @@
 import {
   USER_URL,
-  REGISTER_PENDING_USER,
-  PENDING_USER,
-  AUTHORIZE_USER,
-  UNAUTHORIZE_USER,
+  AUTH_URL_REGISTER,
   USER_BY_USERID_URL,
 } from "@/src/constants/environment";
 import { PendingUser, UserDetails, profileDetails } from "@/src/types/user.type";
@@ -95,103 +92,97 @@ const UserHandler = () => {
     }
   };
 
-  const registerUser = async (
-    URL: string,
-    PAYLOAD: PendingUser
-  ): Promise<PendingUser[]> => {
-    const { password, firstName, lastName, mobileNumber, email } = PAYLOAD;
+  // : Promise<UserFormData[]> 
+  // const registerUserService = async (
+  //   URL: string,
+  //   PAYLOAD: UserFormData
+  // )=> {
+  //   const { firstName, lastName, mobileNumber, email,groupId} = PAYLOAD;
 
-    const payload = {
-      password,
-      firstName,
-      lastName,
-      mobileNumber,
-      email,
-    };
+  //   const payload = {
+  //     firstName,
+  //     lastName,
+  //     mobileNumber,
+  //     email,
+  //     groupId,
+  //   };
 
-    try {
-      const response = await axios.post<PendingUser[]>(URL, payload, {
-        headers: {
-          "X-RequestId": "35342323",
-          "Content-Type": "application/json",
-        },
-      });
-      console.log("Pending user>>", response.data);
-      return response.data;
-    } catch (error) {
-      console.error("User registration failed:", error);
-      throw error;
-    }
-  };
+  //   try {
+  //     //const response = await axios.post<UserFormData[]>(URL, payload, {
+  //       const response = await axios.post(URL, payload, {
+  //       headers: {
+  //         "X-RequestId": "35342323",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     console.log("Registered user>>", response.data);
+  //     // return response.data;
+  //     return response;
+  //   } catch (error) {
+  //     console.error("User registration failed:", error);
+  //     throw error;
+  //   }
+  // };
 
-  const fetchPendingUser = async (): Promise<UserDetails[]> => {
-    try {
-      const config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: PENDING_USER,
-        headers: {
-          "X-RequestId": "35342323",
-        },
-      };
+  // const registerUser=async(data:UserFormData):Promise<UserFormData[]>=>{
+  //   const payload = {
+  //     firstName: data.firstName,                                                                                                               
+  //     lastName: data.lastName,
+  //     mobileNumber: data.mobileNumber,
+  //     email: data.email,
+  //     groupId:data.groupId,
+  //   };
 
-      const response = await axios.request(config);
-      return response.data.content as UserDetails[];
-    } catch (error) {
-      console.error("Error fetching pending users:", error);
-      throw error;
-    }
-  };
-
-  const authorizeUser = async (userId: string): Promise<UserDetails> => {
-    const config: AxiosRequestConfig = {
-      method: "delete",
-      maxBodyLength: Infinity,
-      url: `${AUTHORIZE_USER}/${userId}`,
-      headers: {
-        "X-RequestId": "35342323",
-      },
-      data: "",
-    };
-
-    try {
-      const response = await axios.request<UserDetails>(config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
-
-  const unauthorizeUser = async (userId: string): Promise<UserDetails> => {
-    const config: AxiosRequestConfig = {
-      method: "delete",
-      maxBodyLength: Infinity,
-      url: `${UNAUTHORIZE_USER}/${userId}`,
-      headers: {
-        "X-RequestId": "35342323",
-      },
-      data: "",
-    };
-
-    try {
-      const response = await axios.request<UserDetails>(config);
-      console.log("Unauthorized user>>", response);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
-
+  //   try{
+  //     const response = await axios.post<UserFormData[]>(AUTH_URL_REGISTER,payload,{
+  //       headers: {
+  //         'X-RequestId': '35342323',
+  //         'Content-Type': 'application/json'
+  //       }, 
+  //     })
+  //       console.log("Registered user>>", response.data);
+  //       return response.data;
+  //   }catch(error){
+  //     console.error("User registration failed:", error);
+  //     throw error;
+  //   }
+  // }
+   
+  // const RegisterUser = async (data: UserFormData): Promise<UserFormData[]>=> {
+  //   const jsonData = JSON.stringify({
+  //     firstName: data.firstName,                                                                                                               ,
+  //     lastName: data.lastName,
+  //     mobileNumber: data.mobileNumber,
+  //     email: data.email,
+  //     groupId:data.userGroup
+  //   });
+  
+  //   const config: AxiosRequestConfig = {
+  //     method: 'post',
+  //     maxBodyLength: Infinity,
+  //     url: AUTH_URL_REGISTER,
+  //     headers: {
+  //       'X-RequestId': '35342323',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     data: jsonData
+  //   };
+  
+  //   try {
+  //     const response = await axios.request(config);
+  //     return response.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
+  
+ 
   return {
     fetchAllUsers,
     fetchUserByUserId,
     deleteUser,
-    registerUser,
-    fetchPendingUser,
-    authorizeUser,
-    unauthorizeUser,
+    // registerUserService,
+    // registerUser
   };
 };
 

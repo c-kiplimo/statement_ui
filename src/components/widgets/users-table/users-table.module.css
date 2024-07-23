@@ -4,8 +4,62 @@
   align-items: flex-start;
   width: 100%;
   height: auto;
+  overflow-x: auto;
 }
 
 .table thead > tr > th {
   background-color: transparent !important;
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .table thead > tr > th, 
+  .table tbody > tr > td {
+    padding: 8px !important;
+    font-size: 14px;
+  }
+
+  .table tbody > tr > td {
+    white-space: nowrap;
+  }
+
+  .table thead > tr > th:first-child,
+  .table tbody > tr > td:first-child {
+    padding-left: 8px !important;
+  }
+
+  .table thead > tr > th:last-child,
+  .table tbody > tr > td:last-child {
+    padding-right: 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 8px;
+  }
+
+  .table thead > tr > th, 
+  .table tbody > tr > td {
+    padding: 4px !important;
+    font-size: 12px;
+  }
+
+  .table tbody > tr > td {
+    white-space: nowrap;
+  }
+
+  .table thead > tr > th:first-child,
+  .table tbody > tr > td:first-child {
+    padding-left: 4px !important;
+  }
+
+  .table thead > tr > th:last-child,
+  .table tbody > tr > td:last-child {
+    padding-right: 4px !important;
+  }
+}
+

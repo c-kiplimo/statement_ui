@@ -9,8 +9,7 @@ import { useRouter } from "next/navigation";
 import { authServiceHandler } from "@/src/services/auth/auth.service";
 import Link from "next/link";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-
-const { Option } = Select;
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 type RegisterProps = {
   password: string;
@@ -18,6 +17,7 @@ type RegisterProps = {
   lastName: string;
   mobileNumber: string;
   email: string;
+  countryCode: string;
 };
 
 const countryOptions = [
@@ -34,6 +34,7 @@ const SignUpWidget = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     countryCode: countryOptions[0].value,
+    mobileNumber: ""
   });
 
   const handleChange = (field: string, value: string) => {
@@ -46,30 +47,39 @@ const SignUpWidget = () => {
   };
 
   const onFinish = async (values: RegisterProps) => {
-    console.log("Register>>", values);
+    const fullMobileNumber = `${user.countryCode}${values.mobileNumber}`;
+    const userValues = { ...values, mobileNumber: fullMobileNumber };
+    
+    console.log("Register>>", userValues);
     try {
       const response = await registerUserService(AUTH_URL_REGISTER, {
-        register: values,
+        register: userValues,
       });
       console.log("register-res>", response);
 
       if (response.status === 200) {
         notification.success({
-          message: "Signup Successful",
-          description: "Your account has been created successfully!",
+          message: 'Your account has been created successfully!',
+          description: '',
+          icon: <CheckCircleOutlined style={{ color: "green" }} />,
+          className: 'bodyr success-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
-
         router.push("/statement/sign-in");
       } else {
         console.error("Register User failed:", response);
         notification.error({
-          message: "Signup Failed",
-          description:
-            "There was an error while creating your account. Please try again later.",
+          message: 'There was an error while creating your account. Please try again later.',
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       }
     } catch (error) {
-      console.error("Register User failed:", error);
+      throw error;
     }
   };
 
@@ -183,6 +193,7 @@ const SignUpWidget = () => {
                       className={`${styles.selectorInput} bodyr`}
                       type="text"
                       placeholder="780000000"
+                      onChange={(e) => handleChange("mobileNumber", e.target.value)}
                     />
                   </div>
                 </Form.Item>

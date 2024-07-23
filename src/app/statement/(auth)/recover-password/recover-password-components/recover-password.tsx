@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Form, Input, Modal, Radio, notification } from "antd";
 import OtpInput from "@/src/components/atoms/input/otp/otpInputContainer";
 import { useTokens } from "@/src/app/(context)/ColorContext";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 const RecoverPassword = () => {
   const tokenColor = useTokens();
@@ -46,13 +47,21 @@ const RecoverPassword = () => {
       openModalHandler();
 
       notification.success({
-        message: 'Email Sent',
-        description: `An OTP will be sent to ${email}. Please check your inbox.`,
+        message: 'An OTP will be sent to ${email}. Please check your inbox.',
+        description: '',
+        icon: <CheckCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr success-notification', 
+        placement: 'topRight',
+        duration: 1,
       });
     } catch (error) {
       notification.error({
-        message: 'Email address not found',
-        description: `It appears ${email} is not signed up to the portal. Please create an account.`,
+        message: `It appears ${email} is not signed up to the portal. Please create an account.`,
+        description: '',
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: 'bodyr failure-notification',  
+        placement: 'topRight',
+        duration: 1,
       });
       console.error("Email not found:", error);
     }

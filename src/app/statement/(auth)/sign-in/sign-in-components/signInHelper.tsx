@@ -14,6 +14,7 @@ import {
 } from "@/src/components/molecules/shared-features/form_builder_component";
 import EnterOtpToVerify from "./otp-verify/enter_otp_to_verify";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { CloseCircleOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 const SignInHelper = () => {
   const router = useRouter();
@@ -65,16 +66,24 @@ const SignInHelper = () => {
       })
       .then((data) => {
         notification.info({
-          message: "OTP Generated",
-          description: "A new OTP has been generated. Please check your email.",
+          message: 'A new OTP has been generated. Please check your email.',
+          description: '',
+          icon: <InfoCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr info-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
         openModalHandler();
       })
       .catch((error) => {
         console.error("Login failed:", error);
         notification.error({
-          message: "Login Failed",
-          description: "Invalid email or password. Please try again.",
+          message: "Login Failed.Invalid email or password. Please try again.",
+          description: '',
+          icon: <CloseCircleOutlined style={{ color: "white" }} />,
+          className: 'bodyr failure-notification', 
+          placement: 'topRight',
+          duration: 1,
         });
       });
   };
