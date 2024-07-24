@@ -24,3 +24,7 @@
   width: auto;
   height: auto;
 }
+.checkgroup{
+  display: flex;
+  flex-direction: column;
+}
