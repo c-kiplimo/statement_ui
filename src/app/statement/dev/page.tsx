@@ -1,43 +1,35 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment} from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import DeactivateUser from "../(protected)/user-management/users/(selectedOption)/(deactivateUser)/deactivate.user";
-import { Modal } from "antd";
-import { TeamOutlined } from "@ant-design/icons";
+import UserTable from "../(protected)/user-management/test";
 
 const Dev = () => {
-  const [openModal, setOpenModal] = useState(true);
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
-
+  const data = [
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+  ];
+  
   return (
     <Fragment>
-      <Modal
-        open={openModal}
-        onCancel={handleModalClose}
-        footer={false}
-        width={600}
-      >
-        <DeactivateUser
-          onCancel={() => {}}
-          firstName={"Abia"}
-          lastName={"Mbambazi"}
-          email={"abiambambazi@gmail.com"}
-          mobileNumber={"0701020304"}
-          userGroups={[
-            {
-              id: "1",
-              name: "Account manager",
-              icon: <TeamOutlined />,
-              description: "Realated to accounts",
-            },
-          ]}
-          handleOk={function (e: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
-      </Modal>
+      <div style={{ padding: '20px' }}>
+    <UserTable data={data} />
+  </div>
     </Fragment>
   );
 };
