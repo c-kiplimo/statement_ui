@@ -6,29 +6,31 @@ import { CloudDownloadOutlined, SearchOutlined } from "@ant-design/icons";
 import PermissionsTable, { PermissionTypes } from "./(permissionsTable)/permissions.table";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import { fetchUserPermissions } from "@/src/lib/actions/permissions.action";
-import useProfileCreated from "@/src/hooks/useProfileCreated";
-import { Spin } from "antd";
+import { fetchUserPermissions, fetchUserTags } from "@/src/lib/actions/permissions.action";
+import { Spin, Checkbox, Popover } from "antd";
 import TagsButton from "@/src/components/widgets/tags-buttton/tags.button";
+
+export type TagsTypes ={
+  label:string;
+  value:string;
+}
 
 const PermissionPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [permissionData, setPermissionData] = useState<PermissionTypes[]>([]);
   const [permissions, setPermissions] = useState<PermissionTypes[]>([]);
   const [loading, setLoading] = useState(true);
-  const profile = useProfileCreated();
+  const [tags, setTags] = useState<TagsTypes[]>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userId = profile?.userId;
-        if (userId) {
           const fetchedPermissions = await fetchUserPermissions();
           setPermissionData(fetchedPermissions);
           setPermissions(fetchedPermissions);
-        } else {
-          console.error("User ID is not available");
-        }
+        
       } catch (error) {
         console.error("Error fetching permissions:", error);
       } finally {
@@ -36,21 +38,49 @@ const PermissionPage = () => {
       }
     };
 
-    if (profile) {
-      fetchData();
+    const fetchTags = async()=>{
+      try {
+        const tagdata = await fetchUserTags();
+        setTags(tagdata);
+      } catch (error) {
+        console.log('Error fetching tag data', error);
+        
+      }
     }
-  }, [profile]);
+
+      fetchData();
+      fetchTags();
+    
+  }, []);
+
+  
 
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
-    const filtered = permissionData.filter(item =>
-      item.permissionName.toLowerCase().includes(value.toLowerCase()) || 
-      item.permissionDescription.toLowerCase().includes(value.toLowerCase())
-    );
-    setPermissions(filtered);
+    filterPermissions(value, selectedTags);
   };
-  
-  const handleClick = () => {
+
+  const handleTagChange = (checkedValues: string[]) => {
+    setSelectedTags(checkedValues);
+    filterPermissions(searchValue, checkedValues);
+  };
+
+  const filterPermissions = (search: string, tags: string[]) => {
+    let filtered = permissionData;
+
+    if (search) {
+      filtered = filtered.filter(item =>
+        item.permissionName.toLowerCase().includes(search.toLowerCase()) ||
+        item.permissionDescription.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (tags.length > 0) {
+      filtered = filtered.filter(item =>
+        tags.includes(item.tags.toLocaleLowerCase())
+      );
+    }
+    setPermissions(filtered);
   };
 
   if (loading) {
@@ -60,6 +90,15 @@ const PermissionPage = () => {
       </div>
     );
   }
+
+  const tagsContent = (
+    <Checkbox.Group
+      options={tags}
+      value={selectedTags}
+      onChange={handleTagChange}
+      className={styles.checkgroup}
+    />
+  );
 
   return (
     <div className={styles.container}>
@@ -77,7 +116,9 @@ const PermissionPage = () => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearchChange} />
           </SearchButton>
-          <TagsButton onClick={handleClick}/>
+          <Popover content={tagsContent} trigger="click" title='Tags'>
+            <TagsButton/>
+          </Popover>
           <DownloadWidget>
             <DownloadWidget.Icon>
               <CloudDownloadOutlined />
