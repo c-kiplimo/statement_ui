@@ -21,3 +21,14 @@ type allUserGroupsTypes = {
         description: string;
         permission: [];   
 };
+
+
+type GroupUsers ={
+    groupId: number,
+    platformId: number,
+    groupName: string,
+    description: string,
+    customerId: number,
+    permission: [],
+    createdAt: Date
+  }
