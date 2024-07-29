@@ -38,7 +38,8 @@ const UserGroupsHomePage: React.FC = () => {
 
   const profile = useProfileCreated();
   const userId = profile?.userId;
-  const platformId = usePlatformId();  
+  const platformId = usePlatformId();
+  
 
   useEffect(() => {
     if (userId && platformId) {
@@ -166,7 +167,7 @@ const UserGroupsHomePage: React.FC = () => {
               <DownloadWidget.Icon>
                 <CloudDownloadOutlined />
               </DownloadWidget.Icon>
-              <DownloadWidget.text text="Download" />
+              <DownloadWidget.Text text="Download" />
             </DownloadWidget>
             <AddItems
               onClick={() => {}}

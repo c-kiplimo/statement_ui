@@ -1,34 +1,36 @@
-import React, {ReactNode } from 'react'
-import styles from "./download.module.css"
+import React, { CSSProperties, ReactNode } from 'react';
+import styles from "./download.module.css";
 
 type DownloadProps = {
-children:ReactNode;
-onClick?: () => void;
-}
+  children: ReactNode;
+  onClick?: () => void;
+  textStyle?: CSSProperties;
+  iconStyles?: CSSProperties;
+};
 
-const DownloadWidget = ({children,onClick}:DownloadProps) => {
+const DownloadWidget = ({ children, onClick, textStyle, iconStyles }: DownloadProps) => {
   return (
     <div className={`${styles.container} bodyr`} onClick={onClick}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default DownloadWidget
+export default DownloadWidget;
 
+type IconProps = {
+  children: ReactNode;
+  iconStyles?: CSSProperties;
+};
 
-type IconProps={
-    children:ReactNode
-  }
+DownloadWidget.Icon = ({ children, iconStyles }: IconProps) => (
+  <div style={iconStyles}>{children}</div>
+);
 
-  DownloadWidget.Icon=({children}:IconProps)=>(
-    <div>{children}</div>
-  )
+type TextProps = {
+  text: string;
+};
 
-  type textProps={
-    text:string
-  }
-
-  DownloadWidget.text=({text}:textProps)=>(
-    <div>{text}</div>
-  )
+DownloadWidget.Text = ({ text }: TextProps) => (
+  <div>{text}</div>
+);
