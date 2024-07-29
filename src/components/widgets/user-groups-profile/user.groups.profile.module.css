@@ -1,0 +1,116 @@
+.container{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 32px;
+width: 981px;
+height: 124px;
+background-color: rgb(244, 241, 241);
+}
+
+.icondiv{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 16px;
+gap: 10px;
+width: 55px;
+height: 55px;
+background: #003A49;
+border-radius: 51px;
+font-size: 25px;
+color: #FFFFFF;
+}
+.profileDetails{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 40px;
+width: 894px;
+height: 124px;
+}
+
+.details{
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+padding: 0px;
+gap: 8px;
+width: 517px;
+height: 124px;
+}
+
+
+.head{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+width: 517px;
+height: 48px;
+}
+
+.title{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 32px;
+width: 517px;
+height: 32px;
+color: #1A2600;
+}
+
+.numberOfUsers{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 32px;
+width: 517px;
+height: 16px;
+color: #6F7269;
+}
+
+.address{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+color: #1A2600;
+width: 517px;
+height: 24px;
+}
+
+.prifileButtons{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+align-self: flex-start;
+padding: 12px 0px 0px;
+gap: 8px;
+width: 198px;
+height: 36px;
+color: #003A49;
+}
+
+.status{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 4px 8px;
+gap: 8px;
+width: 61px;
+height: 32px;
+background: #D1F6DE;
+opacity: 0.8;
+border-radius: 4px;
+color: #17D05B;
+}
+
