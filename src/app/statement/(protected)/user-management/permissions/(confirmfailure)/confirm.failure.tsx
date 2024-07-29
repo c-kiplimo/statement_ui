@@ -6,6 +6,7 @@ type CreationSuccessProps ={
   title:string;
   description:string;
   onClick:()=>void;
+  onCancel:()=>void;
 }
 
 const ConfirmFail = ({title, description, onClick}: CreationSuccessProps) => {

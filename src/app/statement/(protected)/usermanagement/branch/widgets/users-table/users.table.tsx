@@ -134,17 +134,6 @@ const BranchUsersTable = ({ customerId }: userProps) => {
     setIsModalVisible(false);
   };
 
-  // const handleDelete = async () => {
-  //   if (selectedUser && selectedUser.username) {
-  //     try {
-  //       await deleteUser(selectedUser.username);
-  //       setModalVisible(false);
-  //       fetchUsers();
-  //     } catch (error) {
-  //       console.error("Error deleting user:", error);
-  //     }
-  //   }
-  // };
   const handleDelete=(e:any)=>{
     console.log("Button clicked!",e)
   }
