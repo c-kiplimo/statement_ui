@@ -1,0 +1,155 @@
+.container{
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 9px 16px 24px;
+width: 1013px;
+height: auto;
+background: #FFFFFF;
+border: 1px solid #E6E6E6;
+border-radius: 8px;
+}
+
+.head{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 32px 0px 16px 16px;
+gap: 285px;
+width: 981px;
+height: 80px;
+border-bottom: 1px solid #E6E6E6;
+}
+
+
+.body{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 16px;
+gap: 32px;
+
+width: 100%;
+height: auto;
+}
+
+.title{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 5px;
+gap: 10px;
+width: fit-content;
+height: auto;
+}
+
+.download{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 0px;
+gap: 16px;
+width: fit-content;
+height: 32px;
+}
+
+.checkboxdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: 100%;
+    height: auto;
+  }
+
+  .topdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 8px;
+    gap: 54px;
+    width: 100%;
+    height: auto;
+  }
+  .lowerdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px 8px;
+    gap: 54px;
+    width: 100%;
+    height: auto;
+  }
+  .acctpermissions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: fit-content;
+    height: auto;
+  }
+  .loanpermissions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: 199px;
+    height: auto;
+  }
+  .cardName {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: fit-content;
+    height: auto;
+    color: #1a2600;
+  }
+
+
+  .buttondiv{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 16px 18px 0px;
+gap: 40px;
+width: 100%;
+height: 58px;
+  }
+
+  .cance{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 113px;
+height: 42px;
+border: 1px solid #E6E6E6;
+border-radius: 4px;
+color: #6F7269;
+  }
+
+  .tryAgain{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 165px;
+height: 42px;
+background: #84BD00;
+border-radius: 4px;
+color: #FFFFFF;
+  }
