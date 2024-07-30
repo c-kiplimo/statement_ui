@@ -67,17 +67,17 @@ const PermissionPage = () => {
 
   const filterPermissions = (search: string, tags: string[]) => {
     let filtered = permissionData;
-
+  
     if (search) {
       filtered = filtered.filter(item =>
-        item.permissionName.toLowerCase().includes(search.toLowerCase()) ||
-        item.permissionDescription.toLowerCase().includes(search.toLowerCase())
+        (item.permissionName && item.permissionName.toLowerCase().includes(search.toLowerCase())) ||
+        (item.permissionDescription && item.permissionDescription.toLowerCase().includes(search.toLowerCase()))
       );
     }
-
+  
     if (tags.length > 0) {
       filtered = filtered.filter(item =>
-        tags.includes(item.tags.toLocaleLowerCase())
+        item.tags && tags.includes(item.tags.toLocaleLowerCase())
       );
     }
     setPermissions(filtered);

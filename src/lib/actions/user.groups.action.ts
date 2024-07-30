@@ -2,9 +2,9 @@ import { GroupsInformation } from "@/src/app/statement/(protected)/user-manageme
 import { GroupData } from "@/src/app/statement/(protected)/user-management/user-groups/groups";
 import GroupsHandler from "@/src/services/usermanagement/usergroups.services"
 
-export const fetchGroupsData = async (userId: string,platformId: string,page: number,size: number,): Promise<GroupData[]> => {
+export const fetchGroupsData = async (customerId: string,platformId: string,page: number,size: number,): Promise<GroupData[]> => {
     const handler = GroupsHandler();
-    const response:UsersGroup[] = await handler.fetchGroups(userId, platformId, page, size);
+    const response:UsersGroup[] = await handler.fetchGroups(customerId, platformId, page, size);
   
     const groups: GroupData[] = response.map((data) => ({
       key: data.groupId.toString(),
@@ -16,19 +16,20 @@ export const fetchGroupsData = async (userId: string,platformId: string,page: nu
     return groups;
   };
 
-  export const fetchSingleUserGroup = async (groupId: number, platformId:number): Promise<GroupsInformation> => {
+  export const fetchSingleUserGroup = async (groupId: number): Promise<GroupsInformation> => {
     const handler = GroupsHandler(); 
     try {
-        const response: UsersGroup = await handler.fetchSingleGroupDetailsByGroupId(groupId, platformId);
-
-        console.log(response);
-        
+        const response: SingleGroupInformation = await handler.fetchSingleGroupDetailsByGroupId(groupId);         
         const groupData: GroupsInformation = {
             groupname: response.groupName,
             groupdesc: response.description,
+            permissions: Object.keys(response.groupedPermissions).map(title => ({
+                title,
+                permissions: response.groupedPermissions[title].map(permission => ({
+                    name: permission.name
+                }))
+            }))
         };
-
-        console.log(groupData);
 
         return groupData;
     } catch (error) {
