@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Button, Dropdown, Menu,Table } from "antd";
+import { Button, Dropdown, Menu,Modal,Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import {
   CloudDownloadOutlined,
@@ -18,6 +18,7 @@ import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import { fetchGroupsData } from "@/src/lib/actions/user.groups.action";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { usePlatformId } from "@/src/hooks/platformId";
+import DeleteGroup from "./delete-group/delete.group";
 
 export interface GroupData {
   key: string;
@@ -27,49 +28,17 @@ export interface GroupData {
   onClick?: () => void;
 }
 
-const dummyData: GroupData[] = [
-  {
-    key: "1",
-    userName: "Group A",
-    description: "Description for Group A",
-    createdOn: "2022-03-10",
-  },
-  {
-    key: "2",
-    userName: "Group B",
-    description: "Description for Group B",
-    createdOn: "2022-03-10",
-  },
-  {
-    key: "3",
-    userName: "Group C",
-    description: "Description for Group C",
-    createdOn: "2022-03-10",
-  },
-  {
-    key: "4",
-    userName: "Group D",
-    description: "Description for Group D",
-    createdOn: "2022-03-10",
-  },
-  {
-    key: "5",
-    userName: "Group E",
-    description: "Description for Group E",
-    createdOn: "2022-03-10",
-  },
-];
-
 const UserGroupsHomePage: React.FC = () => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchTerm, setSearchTerm] = useState("");
   const [groupsData, setGroupsData] = useState<GroupData[]>([]);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
+
+
   const profile = useProfileCreated();
   const userId = profile?.userId;
-  const platformId = usePlatformId();
-
-  console.log(userId, platformId);
-  
+  const platformId = usePlatformId();  
 
   useEffect(() => {
     if (userId && platformId) {
@@ -86,8 +55,6 @@ const UserGroupsHomePage: React.FC = () => {
   }, [userId, platformId]);
   
   
-  console.log(groupsData);
-
   const columns: ColumnsType<GroupData> = [
     {
       title: "Groups",
@@ -113,10 +80,38 @@ const UserGroupsHomePage: React.FC = () => {
     {
       title: "",
       dataIndex: "icon",
-      render: () => (
+      render: (text: string, record: GroupData) => (
         <div className={styles.icons}>
           <Dropdown
-            overlay={menu}
+            overlay={
+              <Menu onClick={(e) => handleMenuClick(e, record.key)}>
+                <Menu.Item key="1">
+                  <h1 className={`bodyb`}>Choose Action</h1>
+                </Menu.Item>
+                <hr />
+                <Menu.Item key="2">
+                  <Button type="text">
+                    <span className={`${styles.menu}`}>
+                      <EyeOutlined /> <span className={`bodyr`}>View</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item key="3">
+                  <Button type="text" style={{ background: 'none' }}>
+                    <span className={`${styles.menu}`}>
+                      <DeleteFilled /> <span className={`bodyr`}>Delete</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item key="4">
+                  <Button type="text">
+                    <span className={`${styles.menu}`}>
+                      <EditFilled /> <span className={`bodyr`}>Update</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
             trigger={["click"]}
             placement="bottom"
           >
@@ -127,39 +122,20 @@ const UserGroupsHomePage: React.FC = () => {
     },
   ];
 
-  const handleMenuClick = (e: any) => {
-    console.log("click", e);
-  };
+  const handleDeleteModalCancel = ()=>{
+    setDeleteModalVisible(false)
+  }
 
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">
-        <h1 className={`bodyb`}>Choose Action</h1>
-      </Menu.Item>
-      <hr />
-      <Menu.Item key="2">
-        <Button type="text">
-          <span className={`${styles.menu}`}>
-            <EyeOutlined /> <span className={`bodyr`}>View</span>
-          </span>
-        </Button>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Button type="text">
-          <span className={`${styles.menu}`}>
-            <DeleteFilled /> <span className={`bodyr`}>Delete</span>
-          </span>
-        </Button>
-      </Menu.Item>
-      <Menu.Item key="4">
-        <Button type="text">
-          <span className={`${styles.menu}`}>
-            <EditFilled /> <span className={`bodyr`}>Update</span>
-          </span>
-        </Button>
-      </Menu.Item>
-    </Menu>
-  );
+  const handleDeleteModalOpen =()=>{
+    setDeleteModalVisible(true)
+  }
+
+  const handleMenuClick = (e: any, groupId: string) => {
+    if (e.key === "3"){
+      setSelectedGroupId(groupId);
+      setDeleteModalVisible(true);
+    }
+  };
 
   const handleSearch = (terms: string) => {
     setSearchTerm(terms);
@@ -216,8 +192,14 @@ const UserGroupsHomePage: React.FC = () => {
           />
         </div>
       </div>
-
-      
+          <Modal
+          open={deleteModalVisible}
+          onCancel={handleDeleteModalCancel}
+          width={700}
+          footer={false}
+          >
+            <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel}/>
+          </Modal>
     </div>
   );
 };

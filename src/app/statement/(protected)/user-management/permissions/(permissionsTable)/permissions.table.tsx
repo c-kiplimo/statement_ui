@@ -50,7 +50,6 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({
       <Table
         columns={columns}
         dataSource={permissions}
-        size={"middle"}
         pagination={{
           pageSize: pageSize,
           showSizeChanger: true,

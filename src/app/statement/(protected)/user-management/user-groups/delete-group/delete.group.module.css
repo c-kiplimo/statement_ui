@@ -1,0 +1,159 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px 32px 24px;
+  gap: 16px;
+  width: auto;
+  height: auto;
+  background: #ffffff;
+  border-radius: 12px;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: auto;
+  height: auto;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: auto;
+  height: auto;
+}
+.bodyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+}
+.bodyheader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px 0px 8px 8px;
+  width: 100%;
+  gap: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.bodytext {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 16px 24px 12px;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+}
+.bodyItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  width: 100%;
+  height: auto;
+}
+.description {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+}
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+}
+.bheader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px 0px 12px;
+  gap: 26px;
+  width: 100%;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.permissionCategory {
+  margin-bottom: 20px;
+}
+
+.permissionTitle {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.permissionItem {
+  display: flex;
+  align-items: center;
+  color: #6f7269;
+  gap: 16px;
+}
+
+.permissionLabel {
+  margin-left: 8px;
+}
+
+.bottomcontent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.permissionCategory:nth-child(odd) {
+  justify-self: start;
+}
+
+.permissionCategory:nth-child(even) {
+  justify-self: end;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+}
+.cancelbtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  border: 1px solid #f30039;
+  border-radius: 4px;
+}
+.confirmbtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  background: #f30039;
+  border-radius: 4px;
+  color: #ffffff;
+}
+.bodyItems{
+  width: 100%;
+  display: flex;
+}
+.descriptions{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0px;
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+}

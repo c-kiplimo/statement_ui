@@ -23,7 +23,7 @@ type allUserGroupsTypes = {
 };
 
 
-type GroupUsers ={
+type UsersGroup ={
     groupId: number,
     platformId: number,
     groupName: string,
