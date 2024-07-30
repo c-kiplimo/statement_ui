@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import UsersTable from "@/src/components/widgets/users-table/users-table";
+import TableWidget from "@/src/components/widgets/table-widget/table-widget";
 import { RegisteredUserAction } from "@/src/lib/actions/registered.user.action";
 import { Modal, Dropdown, Button, Menu, notification } from "antd";
 import { ColumnsType } from "antd/lib/table";
@@ -93,8 +93,10 @@ const UsersHome = ({ customerId }: userProps) => {
     console.log("Action clicked:", key, "for record:", record);
     switch (key) {
       case "view":
-        router.push(`/statement/users/view/${record.userId}`);
-        break;
+        router.push(
+          `/statement/user-management/users/user-profile?userId=${record.userId}`
+        );
+      break;
       case "update":
         router.push(`/statement/users/update/${record.userId}`);
         break;
@@ -106,6 +108,7 @@ const UsersHome = ({ customerId }: userProps) => {
         break;
     }
   };
+  
 
   const handleDeactivate = async () => {
     if (selectedUser) {
@@ -240,7 +243,7 @@ const UsersHome = ({ customerId }: userProps) => {
           />
         </div>
       </div>
-      <UsersTable columns={userColumns} data={filteredUsers} />
+      <TableWidget columns={userColumns} data={filteredUsers} />
       <Modal
         open={openModal}
         onCancel={handleModalClose}

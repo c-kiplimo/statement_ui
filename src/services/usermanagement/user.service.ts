@@ -43,7 +43,7 @@ const UserHandler = () => {
     const config: AxiosRequestConfig = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `${USER_BY_USERID_URL}/${userId}`,
+      url: `${USER_URL}/${userId}`,
       headers: {
         "X-RequestId": "2345678",
       },
@@ -92,97 +92,10 @@ const UserHandler = () => {
     }
   };
 
-  // : Promise<UserFormData[]> 
-  // const registerUserService = async (
-  //   URL: string,
-  //   PAYLOAD: UserFormData
-  // )=> {
-  //   const { firstName, lastName, mobileNumber, email,groupId} = PAYLOAD;
-
-  //   const payload = {
-  //     firstName,
-  //     lastName,
-  //     mobileNumber,
-  //     email,
-  //     groupId,
-  //   };
-
-  //   try {
-  //     //const response = await axios.post<UserFormData[]>(URL, payload, {
-  //       const response = await axios.post(URL, payload, {
-  //       headers: {
-  //         "X-RequestId": "35342323",
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     console.log("Registered user>>", response.data);
-  //     // return response.data;
-  //     return response;
-  //   } catch (error) {
-  //     console.error("User registration failed:", error);
-  //     throw error;
-  //   }
-  // };
-
-  // const registerUser=async(data:UserFormData):Promise<UserFormData[]>=>{
-  //   const payload = {
-  //     firstName: data.firstName,                                                                                                               
-  //     lastName: data.lastName,
-  //     mobileNumber: data.mobileNumber,
-  //     email: data.email,
-  //     groupId:data.groupId,
-  //   };
-
-  //   try{
-  //     const response = await axios.post<UserFormData[]>(AUTH_URL_REGISTER,payload,{
-  //       headers: {
-  //         'X-RequestId': '35342323',
-  //         'Content-Type': 'application/json'
-  //       }, 
-  //     })
-  //       console.log("Registered user>>", response.data);
-  //       return response.data;
-  //   }catch(error){
-  //     console.error("User registration failed:", error);
-  //     throw error;
-  //   }
-  // }
-   
-  // const RegisterUser = async (data: UserFormData): Promise<UserFormData[]>=> {
-  //   const jsonData = JSON.stringify({
-  //     firstName: data.firstName,                                                                                                               ,
-  //     lastName: data.lastName,
-  //     mobileNumber: data.mobileNumber,
-  //     email: data.email,
-  //     groupId:data.userGroup
-  //   });
-  
-  //   const config: AxiosRequestConfig = {
-  //     method: 'post',
-  //     maxBodyLength: Infinity,
-  //     url: AUTH_URL_REGISTER,
-  //     headers: {
-  //       'X-RequestId': '35342323',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     data: jsonData
-  //   };
-  
-  //   try {
-  //     const response = await axios.request(config);
-  //     return response.data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // };
-  
- 
   return {
     fetchAllUsers,
     fetchUserByUserId,
     deleteUser,
-    // registerUserService,
-    // registerUser
   };
 };
 

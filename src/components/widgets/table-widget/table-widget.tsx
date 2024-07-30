@@ -1,14 +1,14 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import React, { useState } from "react";
-import styles from "./users-table.module.css";
+import styles from "./table-widget.module.css";
 
 type TableProps = {
   columns: ColumnsType<RegisteredUser>;
   data: RegisteredUser[];
 };
 
-const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
+const TableWidget: React.FC<TableProps> = ({ columns, data }) => {
   const [pageSize, setPageSize] = useState<number>(5);
 
   return (
@@ -30,4 +30,4 @@ const UsersTable: React.FC<TableProps> = ({ columns, data }) => {
   );
 };
 
-export default UsersTable;
+export default TableWidget;
