@@ -5,7 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import styles from "./add-user-group.module.css";
 import Image from "next/image";
 import moment from "moment";
-import { UserGroupData } from "../user-groups/user-groups";
+import { UserGroupData } from "../user-group-data/user-groups-data";
 import Texter from "@/src/components/atoms/text/texter";
 import SearchBar from "@/src/components/widgets/search-bar/search-bar";
 

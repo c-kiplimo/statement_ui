@@ -5,7 +5,7 @@ import styles from "./widgets/page.module.css";
 import { useSearchParams } from "next/navigation";
 import { usePlatformId } from "@/src/hooks/platformId";
 import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
-import UserGroups from "./widgets/user-groups/user-groups";
+import UserGroups from "./widgets/user-group-data/user-groups-data";
 import UserDetails from "./widgets/(user-details)/user-detail";
 import UserActivity from "./widgets/user-activity/user-activity";
 
