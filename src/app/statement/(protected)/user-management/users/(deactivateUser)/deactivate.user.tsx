@@ -16,7 +16,6 @@ type DeactivateUserProps = {
 };
 
 const DeactivateUser = ({
-  selectedId,
   onCancel,
   firstName,
   lastName,

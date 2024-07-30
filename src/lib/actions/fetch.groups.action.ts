@@ -16,27 +16,3 @@ export const fetchUserGroups = async (userId: string,platformId: string,page: nu
     return groups;
   };
   
-export const fetchUserGroupByUserId = async (userId:number):Promise<userGroup[]>=>{
-  const handler = GroupsHandler();
-  
-  try{
-    const data = await handler.fetchUserGroupsByUserId(userId);
-
-    if(!data || data.length === 0){
-      return [];
-    }
-
-    const result: userGroup[] = data.map(account=>({
-      key:account.platformGroup.groupId,
-      groupName:account.platformGroup.groupName,
-      description:account.platformGroup.description,
-      createdAt:account.platformGroup.createdAt,
-      joinedOn:account.platformGroup.createdAt,
-    }));
-
-    return result;
-  }catch(error){
-    console.error("Error fetching user accounts:", error);
-    return [];
-  }
-}

@@ -95,6 +95,7 @@ type IdProps = {
 const ActivityPopup: React.FC<IdProps> = ({ userId }) => {
   const [activityData, setActivityData] = useState<DataFetcher[]>([]);
 
+  console.log("userId>>",userId)
   useEffect(() => {
     const fetchData = async () => {
       try {

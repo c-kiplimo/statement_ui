@@ -1,5 +1,5 @@
 type userGroup = {
-    key: number;
+    key: string;
     groupName: string;
     description: string;
     createdAt: string;

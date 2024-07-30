@@ -94,7 +94,7 @@ const UsersHome = ({ customerId }: userProps) => {
     switch (key) {
       case "view":
         router.push(
-          `/statement/user-management/users/user-profile?userId=${record.userId}`
+          `/statement/user-management/users/user-profile?userId=${record.username}`
         );
       break;
       case "update":
