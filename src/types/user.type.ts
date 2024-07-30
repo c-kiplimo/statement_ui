@@ -39,12 +39,15 @@ export type UserDetails = {
 }
 
 export type profileDetails={
-  userId:string;
+  username:string;
   firstName: string;
   lastName: string;
   email: string;
-  language:string;
   mobileNumber:string;
+  language?:string;
+  userType:string;
+  status?:boolean;
+  createdAt:string;
 }
 
 export type PendingUser = {

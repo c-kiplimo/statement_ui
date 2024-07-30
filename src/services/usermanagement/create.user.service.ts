@@ -1,6 +1,7 @@
 import {
   DEACTIVATE_USER,
   GET_PLATFORM_GROUPS,
+  UPDATE_USER_URL,
 } from "@/src/constants/environment";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
@@ -78,7 +79,7 @@ const createUserHandler = () => {
     const config: AxiosRequestConfig = {
       method: "put",
       maxBodyLength: Infinity,
-      url: `http://41.80.34.214:9001/api/v1/user/deactivate/${userId}`,
+      url: `${DEACTIVATE_USER}/${userId}`,
       headers: {
         "X-RequestId": "23456789",
       },
@@ -101,10 +102,32 @@ const createUserHandler = () => {
     }
   };
 
+const updateUserService = async (userId: string, data: UpdateUserData): Promise<any> => {
+  const config: AxiosRequestConfig = {
+    method: 'put',
+    maxBodyLength: Infinity,
+    url: `${UPDATE_USER_URL}/${userId}`,
+    headers: { 
+      'X-RequestId': '34567890-', 
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(data)
+  };
+
+  try {
+    const response = await axios.request(config);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
   return {
     fetchPlatformGroupService,
     createUserService,
     deactivateUserService,
+    updateUserService
   };
 };
 

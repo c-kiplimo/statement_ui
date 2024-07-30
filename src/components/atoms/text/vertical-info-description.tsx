@@ -4,10 +4,12 @@ import styles from "./vertical-info-description.module.css";
 type VerticalInfoDescriptionType = {
   title: String;
   titleInfo?: String;
+  subTitle?: String;
   description?: String;
   bodyStyle?: CSSProperties;
   titleStyle?: CSSProperties;
   titleInfoStyle?: CSSProperties;
+  subtitleStyle?: CSSProperties;
   descriptionStyle?: CSSProperties;
 };
 const VerticalInfoDescription = (props: VerticalInfoDescriptionType) => {
@@ -19,7 +21,7 @@ const VerticalInfoDescription = (props: VerticalInfoDescriptionType) => {
         </span>
       </div>
       <span className={`bodyr`} style={props.titleInfoStyle}>
-        {props.titleInfo}
+        {props.titleInfo}<span className={`bodyr`} style={props.subtitleStyle}>{props.subTitle}</span>
       </span>
       <span
         className={`${styles.description} captionr`}

@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 40px;
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.separator {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px 8px 0px 0px;
+  gap: 26px;
+  width: fit-content;
+  height: auto;
+  border-right: 1.5px solid #6f7269;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 229px;
+  height: 26px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 8px;
+  width: 64px;
+  height: 32px;
+  opacity: 0.8;
+  border-radius: 4px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.active {
+  text-align: center;
+  background-color: var(--functional-light-colors-success-100);
+  color: var(--functional-colors-success);
+}
+
+.deactivated {
+  text-align: center;
+  background-color: var(--functional-light-colors-danger-100);
+  color: var(--functional-colors-danger);
+}
+
+.userActions {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+}
