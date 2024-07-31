@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
-import { Button, Table, Select, Checkbox } from "antd";
+import React, { useCallback, useState, useMemo } from "react";
+import { Button, Table, Select, Checkbox, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import styles from "./group.users.module.css";
 import { PlusOutlined, SearchOutlined, SwapOutlined } from "@ant-design/icons";
@@ -8,6 +8,7 @@ import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import AddItems from "@/src/components/widgets/add-item-widget/add.item";
 import Sort from "@/src/components/atoms/sort/sort";
 import Delete from "@/src/components/widgets/delete-widget/delete";
+import DeleteGroupUser from "../delete-user-groups/delete.group.user";
 
 const { Option } = Select;
 
@@ -44,6 +45,8 @@ const GroupUsers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<MembersData[]>(initialData);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<MembersData | null>(null); // Track selected user for deletion
 
   const filteredData = useMemo(() => {
     return data.filter((item) =>
@@ -76,10 +79,23 @@ const GroupUsers = () => {
     [data]
   );
 
-  const handleDelete = useCallback((key: string) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  }, [data]);
+  const handleDeleteClick = useCallback((user: MembersData) => {
+    setSelectedUser(user);
+    setIsModalVisible(true); // Show the modal
+  }, []);
+
+  const handleDelete = useCallback(() => {
+    if (selectedUser) {
+      const newData = data.filter((item) => item.key !== selectedUser.key);
+      setData(newData);
+      setIsModalVisible(false); // Hide the modal after deletion
+    }
+  }, [data, selectedUser]);
+
+  const handleModalCancel = useCallback(() => {
+    setIsModalVisible(false); // Hide the modal without deleting
+    setSelectedUser(null); // Clear selected user
+  }, []);
 
   const columns: ColumnsType<MembersData> = [
     {
@@ -158,9 +174,9 @@ const GroupUsers = () => {
           type="button"
           className={styles.deleteButton}
           aria-label="Delete user"
-          onClick={() => handleDelete(record.key)}
+          onClick={() => handleDeleteClick(record)} // Show modal on click
         >
-          <img src="/bin.svg" alt="Delete" />
+          <img src="/bin.svg" alt="bin" />
         </button>
       ),
     },
@@ -210,6 +226,16 @@ const GroupUsers = () => {
           }}
         />
       </div>
+
+      <Modal
+        visible={isModalVisible}
+        onCancel={handleModalCancel}
+        onOk={handleDelete}
+        footer={null}
+        width={"38%"}
+      >
+        <DeleteGroupUser onCancel={handleModalCancel} /> 
+      </Modal>
     </div>
   );
 };

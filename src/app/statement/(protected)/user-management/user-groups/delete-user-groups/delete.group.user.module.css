@@ -1,0 +1,162 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px;
+gap: 24px;
+width: 100%;
+height: auto;
+left: 249px;
+top: 348px;
+background: #FFFFFF;
+border-radius: 12px;
+}
+
+.cance{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 100%;
+height: 16px;
+}
+.head{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 5px;
+width: 100%;
+height: 96px;
+}
+
+.body{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 11px 0px;
+gap: 41px;
+width: 100%;
+height: 206px;
+}
+
+.buttons{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+width: 274px;
+height: 40px;
+}
+
+.title{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 100%;
+height: 40px;
+color: #1A2600;
+}
+
+.titledescription{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+align-content: center;
+padding: 0px;
+gap: 10px;
+width: 100%;
+height: 48px;
+text-align: center;
+color: #6F7269;
+}
+
+.userDetailsHead{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px 8px;
+gap: 10px;
+width: 626px;
+height: 32px;
+border-bottom: 1px solid #E6E6E6;
+}
+
+.userDetails{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 16px 24px;
+gap: 16px;
+width: 626px;
+height: 128px;
+}
+
+.Details{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 179px;
+width: 594px;
+height: 24px;
+}
+
+.credentialtitle{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+width: fit-content;
+height: 24px;
+color: #6F7269;
+}
+
+.credential{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: fit-content;
+height: 24px;
+color: #1A2600;
+}
+
+.canceButton{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 113px;
+height: 40px;
+border: 1px solid #F30039;
+border-radius: 4px;
+color: #F30039;
+}
+
+.ConfirmButton{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+width: 121px;
+height: 40px;
+background: #F30039;
+color: #FFFFFF;
+border-radius: 4px;
+}
