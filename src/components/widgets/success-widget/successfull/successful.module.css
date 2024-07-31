@@ -1,0 +1,29 @@
+.container{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 16px;
+gap: 18px;
+width: fit-content;
+height: auto;
+background-color: #17D05B;
+border-radius: 8px;
+}
+
+.icon{
+
+width: 24px;
+height: 24px;
+border-radius: 8px;
+align-content: center;
+justify-content: center;
+background-color: #FFFFFF;
+padding-left: 4px;
+}
+
+.text{
+width: fit-content;
+height: 24px;
+color: #FFFFFF;    
+}
