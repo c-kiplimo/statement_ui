@@ -1,0 +1,97 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 24px;
+  gap: 32px;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 100%;
+  height: 348px;
+}
+.noBorder .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.antdtable {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 32px 0px 16px 16px;
+  gap: 285px;
+  width: 100%;
+  height: auto;
+}
+
+.components {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 32px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px 5px;
+  gap: 10px;
+  width: 155px;
+  height: 32px;
+}
+
+.deleteButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 10px;
+  width: 28px;
+  height: 28px;
+  border: 0.5px solid #fbb3c4;
+  border-radius: 4px;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  gap: 16px;
+  width: 81px;
+  height: 44px;
+}
+
+
+
+.groupStyles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 24px;
+  color: #1A2600;
+}
