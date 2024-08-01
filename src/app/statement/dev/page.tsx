@@ -5,11 +5,12 @@ import UserGroupsprofile from "@/src/components/widgets/user-groups-profile/user
 import GroupsUserprofile from "@/src/components/widgets/user-groups-profile/user.groups.profile";
 import { FontColorsOutlined } from "@ant-design/icons";
 import PermissionAssign from "../(protected)/user-management/user-groups/assign-permission-to-group/permission.assign";
+import UpdateUserGroup from "../(protected)/user-management/user-groups/update-user-group/update.user.group";
 
 const Dev = () => {
   return (
     <Fragment>
-      <PermissionAssign/>
+      <UpdateUserGroup/>
     </Fragment>
   );
 };
