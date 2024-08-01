@@ -141,7 +141,7 @@ const GroupsPermissions = () => {
         <DownloadWidget.Icon iconStyles={{color:"#4272DD"}}>
           <CloudDownloadOutlined/>
         </DownloadWidget.Icon>
-        <DownloadWidget.Text text="Download"/>
+        <DownloadWidget.text text="Download"/>
       </DownloadWidget>
         </div>
       </div>
