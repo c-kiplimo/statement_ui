@@ -6,8 +6,9 @@ import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import SuccessModal from "@/src/components/widgets/success-widget/success";
 import { CheckOutlined } from "@ant-design/icons";
 import { useGroup } from "../context/permissionsContext";
-import Router from 'next/router'; 
 import { useRouter } from "next/navigation";
+
+
 
 type GroupCreationConfirmProps = {
     onConfirm: () => void;
@@ -77,7 +78,7 @@ const GroupCreationConfirm: React.FC<GroupCreationConfirmProps> = ({ onConfirm, 
 
     const handleOkClick = () => {
         setIsSuccessVisible(false);
-        Router.push('/statement/user-management'); 
+        router.push('/statement/user-management'); 
     };
 
     return (

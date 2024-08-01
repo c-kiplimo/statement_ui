@@ -34,7 +34,7 @@ const UserGroupsHomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [groupsData, setGroupsData] = useState<GroupData[]>([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false); 
+  const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
 
   const profile = useProfileCreated();
