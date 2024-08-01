@@ -1,5 +1,5 @@
-import { SINGLE_GROUPS_URL, USERS_GROUPS_URL } from "@/src/constants/environment";
-import axios from "axios";
+import { DELETE_GROUPS_URL, SINGLE_GROUPS_URL, USERS_GROUPS_URL } from "@/src/constants/environment";
+import axios, { AxiosResponse } from "axios";
 
 export type GroupParams = {
   userId: string;
@@ -10,14 +10,14 @@ export type GroupParams = {
 };
 
 const GroupsHandler = () => {
-  const fetchGroups = async (userId: string,platformId: string,page: number,size: number): Promise<UsersGroup[]> => {
+  const fetchGroups = async (customerId: string,platformId: string,page: number,size: number): Promise<UsersGroup[]> => {
     const apiUrl = `${USERS_GROUPS_URL}`;
     try {
       const response = await axios.get(apiUrl, {
         headers: {
           "X-RequestId": "3456778909",
         },
-        params: {userId,platformId,page,size},
+        params: {customerId,platformId,page,size},
       });
       const apiResponse: UsersGroup[] = response.data;
 
@@ -31,17 +31,15 @@ const GroupsHandler = () => {
     }
   };
 
-  const fetchSingleGroupDetailsByGroupId = async (groupId: number, platformId:number): Promise<UsersGroup> => {
-    const apiUrl = `${SINGLE_GROUPS_URL}/${groupId}/${platformId}`;
+  const fetchSingleGroupDetailsByGroupId = async (groupId: number):Promise<SingleGroupInformation> => {
+    const apiUrl = `${SINGLE_GROUPS_URL}/${groupId}`;
     try {
         const response = await axios.get(apiUrl, {
           headers: {
               'X-RequestId': '3456778909',
           }});
-        const apiResponse: UsersGroup = response.data;
-        console.log(apiResponse);
-        
-
+        const apiResponse:SingleGroupInformation = response.data;        
+          
         if (apiResponse) {
             return apiResponse;
         } else {
@@ -54,9 +52,32 @@ const GroupsHandler = () => {
 };
 
 
+const deleteUsersGroup = async (groupId: string, customerId: string, platformId: string) => {
+  const apiUrl = `${DELETE_GROUPS_URL}/${groupId}/${customerId}/${platformId}`;
+
+  try {
+    const response = await axios.delete(apiUrl, {
+      headers: {
+        'X-RequestId': '3456778909',
+      },
+    });
+
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage = error.response?.data?.message || 'Failed to delete Group';
+      throw new Error(errorMessage);
+    } else {
+      throw new Error('Failed to delete Group');
+    }
+  }
+};
+
+
   return {
     fetchGroups,
-    fetchSingleGroupDetailsByGroupId
+    fetchSingleGroupDetailsByGroupId,
+    deleteUsersGroup
   };
 };
 

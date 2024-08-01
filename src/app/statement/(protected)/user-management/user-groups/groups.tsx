@@ -20,6 +20,7 @@ import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { usePlatformId } from "@/src/hooks/platformId";
 import DeleteGroup from "./delete-group/delete.group";
 import CreateUserroups from "../../usermanagement/user-groups-home-page/create-user-groups-form/create.user.groups";
+import useProfileId from "@/src/hooks/profileId";
 
 export interface GroupData {
   key: string;
@@ -36,16 +37,14 @@ const UserGroupsHomePage: React.FC = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
-
-  const profile = useProfileCreated();
-  const userId = profile?.userId;
-  const platformId = usePlatformId();
+  const custId = useProfileId();
+  const platformId = usePlatformId();  
 
   useEffect(() => {
-    if (userId && platformId) {
+    if (custId && platformId) {
       const fetchData = async () => {
         try {
-          const data = await fetchGroupsData(userId, platformId.toString(), 0, 10);
+          const data = await fetchGroupsData(custId.toString(), platformId.toString(), 0, 10);
           setGroupsData(data);
         } catch (error) {
           console.error("Error fetching groups data:", error);
@@ -53,7 +52,15 @@ const UserGroupsHomePage: React.FC = () => {
       };
       fetchData();
     }
-  }, [userId, platformId]);
+  }, [custId, platformId]);
+
+  const handleMenuClick = (e: any, groupId: string) => {
+    if (e.key === "3") {
+      setSelectedGroupId(groupId);
+      setDeleteModalVisible(true);
+    }
+  };
+
   const columns: ColumnsType<GroupData> = [
     {
       title: "Groups",
@@ -125,9 +132,6 @@ const UserGroupsHomePage: React.FC = () => {
     setDeleteModalVisible(false);
   };
 
-  const handleDeleteModalOpen = () => {
-    setDeleteModalVisible(true);
-  };
 
   const handleCreateGroupModalOpen = () => {
     setCreateGroupModalVisible(true);
@@ -135,15 +139,13 @@ const UserGroupsHomePage: React.FC = () => {
 
   const handleCreateGroupModalCancel = () => {
     setCreateGroupModalVisible(false);
+  }
+  const handleSuccessfulDeletion = () => {
+    setDeleteModalVisible(false);
+    setGroupsData(prevData => prevData.filter(group => group.key !== selectedGroupId));
   };
 
-  const handleMenuClick = (e: any, groupId: string) => {
-    if (e.key === "3") {
-      setSelectedGroupId(groupId);
-      setDeleteModalVisible(true);
-    }
-  };
-
+  
   const handleSearch = (terms: string) => {
     setSearchTerm(terms);
   };
@@ -199,16 +201,7 @@ const UserGroupsHomePage: React.FC = () => {
           />
         </div>
       </div>
-      <Modal
-        open={deleteModalVisible}
-        onCancel={handleDeleteModalCancel}
-        width={700}
-        footer={false}
-      >
-        <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel} />
-      </Modal>
-
-      <Modal
+            <Modal
         open={createGroupModalVisible} 
         footer={null}
         width={"38%"}
@@ -216,6 +209,15 @@ const UserGroupsHomePage: React.FC = () => {
       >
         <CreateUserroups />
       </Modal>
+          <Modal
+          open={deleteModalVisible}
+          onCancel={handleDeleteModalCancel}
+          width={700}
+          footer={false}
+          >
+            <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel} onSuccessfulDeletion={handleSuccessfulDeletion}
+            />
+          </Modal>
     </div>
   );
 };

@@ -75,9 +75,11 @@ export const UNAUTHORIZE_USER=`${API_URL}/api/v1/user/unauthorize`;
 
 export const USER_PERMISSION_URL = `${API_URL}/api/v1/permission`;
 
-export const USERS_GROUPS_URL = `${API_URL}/api/platform/group/v1/customer`;
+export const USERS_GROUPS_URL = `${API_URL}/api/platform/customer-group/v1`;
 
-export const SINGLE_GROUPS_URL = `${API_URL}/api/platform/group/v1`;
+export const SINGLE_GROUPS_URL = `${API_URL}/api/platform/customer-group/v1`;
+
+export const DELETE_GROUPS_URL = `${API_URL}/api/platform/group/v1/customer`;
 
 export const USER_GROUP_URL = `${API_URL}/api/platform/group/v1`;
 

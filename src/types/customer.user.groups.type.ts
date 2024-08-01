@@ -32,3 +32,19 @@ type UsersGroup ={
     permission: [],
     createdAt: Date
   }
+
+  type SingleGroupInformation = {
+    groupId: number,
+    platformId: number,
+    groupName: string,
+    permission: null,
+    description: string,
+    customerId: number,
+    createdAt: Date,
+    groupedPermissions: {
+        [key: string]: Array<{
+            name: string,
+            type: string
+        }>
+    }
+};
