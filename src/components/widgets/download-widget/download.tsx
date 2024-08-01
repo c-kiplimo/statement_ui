@@ -31,6 +31,6 @@ type TextProps = {
   text: string;
 };
 
-DownloadWidget.Text = ({ text }: TextProps) => (
+DownloadWidget.text = ({ text }: TextProps) => (
   <div>{text}</div>
 );

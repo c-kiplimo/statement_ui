@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Button, Dropdown, Menu,Modal,Table } from "antd";
+import { Button, Dropdown, Menu, Modal, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import {
   CloudDownloadOutlined,
@@ -19,6 +19,7 @@ import { fetchGroupsData } from "@/src/lib/actions/user.groups.action";
 import useProfileCreated from "@/src/hooks/useProfileCreated";
 import { usePlatformId } from "@/src/hooks/platformId";
 import DeleteGroup from "./delete-group/delete.group";
+import CreateUserroups from "../../usermanagement/user-groups-home-page/create-user-groups-form/create.user.groups";
 
 export interface GroupData {
   key: string;
@@ -33,13 +34,12 @@ const UserGroupsHomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [groupsData, setGroupsData] = useState<GroupData[]>([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false); 
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
-
 
   const profile = useProfileCreated();
   const userId = profile?.userId;
   const platformId = usePlatformId();
-  
 
   useEffect(() => {
     if (userId && platformId) {
@@ -54,8 +54,6 @@ const UserGroupsHomePage: React.FC = () => {
       fetchData();
     }
   }, [userId, platformId]);
-  
-  
   const columns: ColumnsType<GroupData> = [
     {
       title: "Groups",
@@ -123,16 +121,24 @@ const UserGroupsHomePage: React.FC = () => {
     },
   ];
 
-  const handleDeleteModalCancel = ()=>{
-    setDeleteModalVisible(false)
-  }
+  const handleDeleteModalCancel = () => {
+    setDeleteModalVisible(false);
+  };
 
-  const handleDeleteModalOpen =()=>{
-    setDeleteModalVisible(true)
-  }
+  const handleDeleteModalOpen = () => {
+    setDeleteModalVisible(true);
+  };
+
+  const handleCreateGroupModalOpen = () => {
+    setCreateGroupModalVisible(true);
+  };
+
+  const handleCreateGroupModalCancel = () => {
+    setCreateGroupModalVisible(false);
+  };
 
   const handleMenuClick = (e: any, groupId: string) => {
-    if (e.key === "3"){
+    if (e.key === "3") {
       setSelectedGroupId(groupId);
       setDeleteModalVisible(true);
     }
@@ -167,10 +173,10 @@ const UserGroupsHomePage: React.FC = () => {
               <DownloadWidget.Icon>
                 <CloudDownloadOutlined />
               </DownloadWidget.Icon>
-              <DownloadWidget.Text text="Download" />
+              <DownloadWidget.text text="Download" />
             </DownloadWidget>
             <AddItems
-              onClick={() => {}}
+              onClick={handleCreateGroupModalOpen} 
               buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
             >
               <AddItems.Icon>
@@ -193,14 +199,23 @@ const UserGroupsHomePage: React.FC = () => {
           />
         </div>
       </div>
-          <Modal
-          open={deleteModalVisible}
-          onCancel={handleDeleteModalCancel}
-          width={700}
-          footer={false}
-          >
-            <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel}/>
-          </Modal>
+      <Modal
+        open={deleteModalVisible}
+        onCancel={handleDeleteModalCancel}
+        width={700}
+        footer={false}
+      >
+        <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel} />
+      </Modal>
+
+      <Modal
+        open={createGroupModalVisible} 
+        footer={null}
+        width={"38%"}
+        onCancel={handleCreateGroupModalCancel} 
+      >
+        <CreateUserroups />
+      </Modal>
     </div>
   );
 };

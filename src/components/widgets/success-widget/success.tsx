@@ -6,16 +6,16 @@ type SuccessModalProps = {
     children: ReactNode;
     onOkClick?: () => void; 
     ionStyles?: CSSProperties; 
-    textStyles?:CSSProperties; 
+    textStyles?: CSSProperties; 
 };
 
 const SuccessModal = ({ onClick, children, onOkClick }: SuccessModalProps) => {
-  return (
-    <div className={styles.container} onClick={onClick}>
-      {children}
-      <button className={styles.okButton} onClick={onOkClick}>OK</button>
-    </div>
-  );
+    return (
+        <div className={styles.container} onClick={onClick}>
+            {children}
+            <button className={styles.okButton} onClick={onOkClick}>OK</button>
+        </div>
+    );
 };
 
 export default SuccessModal;
@@ -28,18 +28,18 @@ SuccessModal.Icon = ({ children }: IconsProps) => (
     <div className={styles.icon}>{children}</div>
 );
 
-type titleProps = {
-  title: string
+type TitleProps = {
+    title: string
 };
 
-SuccessModal.title = ({ title }: titleProps) => (
+SuccessModal.title = ({ title }: TitleProps) => (
     <div className={`${styles.title} h6m`}>{title}</div>
 );
 
-type descriptionProps = {
-  description: string
+type DescriptionProps = {
+    description: string
 };
 
-SuccessModal.description = ({ description }: descriptionProps) => (
-  <div className={`${styles.description} bodyr`}>{description}</div>
+SuccessModal.description = ({ description }: DescriptionProps) => (
+    <div className={`${styles.description} bodyr`}>{description}</div>
 );

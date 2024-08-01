@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./createGroupFor.module.css";
 
 const CreateGroupFor = () => {
-  const [groupName, setGroupName] = useState('');
-  const [description, setDescription] = useState('');
+  const [groupName, setGroupName] = useState("");
+  const [description, setDescription] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    const encodedGroupName = encodeURIComponent(groupName);
+    const encodedDescription = encodeURIComponent(description);
+    router.push(
+      `/statement/user-management/user-groups/permissionsListPage?groupName=${encodedGroupName}&description=${encodedDescription}`
+    );
   };
 
   return (
@@ -15,9 +22,9 @@ const CreateGroupFor = () => {
 
       <div className={styles.inputbinding}>
         <label className={`${styles.titleStyle} bodyr`}>
-            <span>Group Name</span>
-            <span className={styles.asteric}>*</span>
-            </label>
+          <span>Group Name</span>
+          <span className={styles.asteric}>*</span>
+        </label>
         <input
           id="groupName"
           required
@@ -40,7 +47,9 @@ const CreateGroupFor = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <button className={styles.button} type="submit">NEXT</button>
+      <button className={styles.button} type="submit">
+        NEXT
+      </button>
     </form>
   );
 };
