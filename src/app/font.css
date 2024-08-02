@@ -157,6 +157,14 @@
   line-height: 40px;
 }
 
+.h5r{
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+}
+
 /* statement/H4 */
 .h4l {
   font-family: Roboto;

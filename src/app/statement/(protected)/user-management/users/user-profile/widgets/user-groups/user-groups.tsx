@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./user-groups.module.css";
-import { Table } from "antd";
+import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import Image from "next/image";
@@ -15,45 +15,51 @@ import { useRouter } from "next/navigation";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Button from "@/src/components/atoms/buttons/button";
-import { fetchUserGroupByUserId } from "@/src/lib/actions/fetch.groups.action";
+import { fetchUserGroups } from "@/src/lib/actions/fetch.groups.action";
+import AddUserToGroup from "../add-user-group/add-user-group";
 
 export interface UserGroupData {
   key: string;
   groupName: string;
   description: string;
   createdOn: string;
-  joinedOn: string;
+  joinedOn?: string;
 }
 
 type userGroupProps = {
   userId: string;
+  platformId: number;
 };
 
-const UserGroups = ({ userId }: userGroupProps) => {
+const UserGroups = ({ userId, platformId }: userGroupProps) => {
   const router = useRouter();
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchTerm, setSearchTerm] = useState("");
-  const [groups, setGroups] = useState<userGroup[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [groups, setGroups] = useState<UserGroupData[]>([]);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log(userId)
-      if (userId !== undefined) {
+    if (userId && platformId) {
+      const fetchData = async () => {
         try {
-          const data = await fetchUserGroupByUserId(parseInt(userId));
+          const data = await fetchUserGroups(
+            userId,
+            platformId.toString(),
+            0,
+            10
+          );
           setGroups(data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("Error fetching groups data:", error);
         }
-      }
-    };
-    fetchData();
-  }, [userId]);
+      };
+      fetchData();
+    }
+  }, [userId, platformId]);
 
   console.log(groups);
 
-  const groupsColumns: ColumnsType<userGroup> = [
+  const groupsColumns: ColumnsType<UserGroupData> = [
     {
       title: "Group Name",
       dataIndex: "groupName",
@@ -93,17 +99,20 @@ const UserGroups = ({ userId }: userGroupProps) => {
   };
 
   const filteredGroup = useMemo(() => {
-    if (!searchTerm) return groups;
-
-    return groups.filter((group) => {
-      [group.groupName, group.description].some((field) =>
-        field?.toLowerCase().includes(searchTerm.toLowerCase())
+    return groups.filter((item) => {
+      return Object.values(item).some((value) =>
+        value.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   }, [searchTerm, groups]);
 
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
+
+
   const handleClick = () => {
-    router.push("/statement/user-management/users/create-user");
+    setOpenModal(true);
   };
 
   return (
@@ -154,6 +163,18 @@ const UserGroups = ({ userId }: userGroupProps) => {
           }}
         />
       </div>
+      <Modal
+        open={openModal}
+        onCancel={handleModalClose}
+        footer={false}
+        className={styles.modal}
+        width={600}
+      >
+        <AddUserToGroup
+          onCancel={handleModalClose}
+          handleOk={()=>{}}
+        />
+      </Modal>
     </div>
   );
 };
