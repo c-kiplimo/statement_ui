@@ -7,6 +7,8 @@ import SearchButton from "@/src/components/widgets/search-button/search-button";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Tags from "@/src/components/widgets/tags-widget/tags";
+import CheckboxComponent from "@/src/components/widgets/checkbox/checkbox";
+import AddItems from "@/src/components/widgets/add-item-widget/add.item";
 
 const { Option } = Select;
 
@@ -17,6 +19,10 @@ interface MembersData {
   description: string;
   tags: string;
 }
+
+type PermissionsType = {
+  groupId: string;
+};
 
 const initialData: MembersData[] = [
   {
@@ -35,11 +41,11 @@ const initialData: MembersData[] = [
   },
 ];
 
-const GroupsPermissions = () => {
-  const [pageSize, setPageSize] = useState<number>(10);
+const GroupsPermissions = ({ groupId }: PermissionsType) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<MembersData[]>(initialData);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
+  const [localPermissions, setLocalPermissions] = useState<string[]>([]);
 
   const filteredData = useMemo(() => {
     return data.filter((item) =>
@@ -50,10 +56,6 @@ const GroupsPermissions = () => {
       )
     );
   }, [searchTerm, data]);
-
-  const handleRoleChange = useCallback((value: string, key: string) => {
-    console.log(`Role for user ${key} changed to ${value}`);
-  }, []);
 
   const handleSearch = useCallback((terms: string) => {
     setSearchTerm(terms);
@@ -67,97 +69,114 @@ const GroupsPermissions = () => {
     [data]
   );
 
-  const columns: ColumnsType<MembersData> = [
+  const handlePermissionChange = (permission: string) => {
+    setLocalPermissions((prevPermissions) =>
+      prevPermissions.includes(permission)
+        ? prevPermissions.filter((p) => p !== permission)
+        : [...prevPermissions, permission]
+    );
+  };
+
+  const permissionsData = [
     {
-      title: "Permission",
-      dataIndex: "permissions",
-      render: (text: string) => (
-        <span className={`${styles.groupStyles} bodyr`}>{text}</span>
-      ),
+      title: "Account Permissions",
+      permissions: [
+        "View Account Details",
+        "View Transactions",
+        "Manage Accounts",
+        "Generate Account Reports",
+      ],
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      render: (text: string) => (
-        <div className={`${styles.selectdiv} bodyr`}>
-          {text}
-        </div>
-      ),
+      title: "Loan Permissions",
+      permissions: [
+        "View Loan Details",
+        "View Loan Repayments",
+        "Manage Loans",
+        "Generate Loan Reports",
+      ],
     },
     {
-      title: "Date",
-      dataIndex: "createdOn",
-      render: (text: string) => {
-        const dateTime = new Date(text);
-        const date = dateTime.toLocaleDateString();
-        return (
-          <div className={styles.date}>
-            <div className={`${styles.dateStyles} bodyr`}>{date}</div>
-          </div>
-        );
-      },
+      title: "MT 940 Permissions",
+      permissions: [
+        "View MT940 Statements",
+        "Statement Download",
+        "Upload MT940 Statements",
+        "Configure Account",
+      ],
     },
     {
-      title: "Tags",
-      dataIndex: "tags",
-      render: (text: string) => (
-        <div className={`${styles.tags} bodyr`}>{text}</div>
-      ),
-    },
-    {
-      title: "",
-      dataIndex: "icon",
-      render: (_, record) => (
-        <button
-          type="button"
-          className={styles.deleteButton}
-          aria-label="Delete user"
-          onClick={() => handleDelete(record.key)}
-        >
-          <img src="/bin.svg" alt="Delete" />
-        </button>
-      ),
+      title: "Card Permissions",
+      permissions: [
+        "View Card Details",
+        "Manage Cards",
+        "View Card Transactions",
+        "Loan Schedule",
+      ],
     },
   ];
+
+  const handleCreateGroupModalOpen = () => {
+    setCreateGroupModalVisible(true);
+  };
 
   return (
     <div className={styles.groupUsersContainer}>
       <div className={styles.header}>
-        <div className={`${styles.title} h6b`}>Group Members</div>
+        <div className={`${styles.title} h6b`}>Group Permissions</div>
         <div className={styles.components}>
-          <SearchButton>
-            <SearchButton.Icon>
-              <SearchOutlined />
-            </SearchButton.Icon>
-            <SearchButton.Input text="Search" onSearch={handleSearch} />
-          </SearchButton>
-          <Tags  buttonStyle={{color:"#6F7269"}}>
-      <Tags.Icon >
-        <FilterOutlined />
-      </Tags.Icon>
-      <Tags.Text title="Tags" />
-    </Tags>
-          <DownloadWidget >
-        <DownloadWidget.Icon iconStyles={{color:"#4272DD"}}>
-          <CloudDownloadOutlined/>
-        </DownloadWidget.Icon>
-        <DownloadWidget.text text="Download"/>
-      </DownloadWidget>
+          
+          <DownloadWidget>
+            <DownloadWidget.Icon iconStyles={{ color: "#4272DD" }}>
+              <CloudDownloadOutlined />
+            </DownloadWidget.Icon>
+            <DownloadWidget.text text="Download" />
+          </DownloadWidget>
+
+          <AddItems
+              onClick={handleCreateGroupModalOpen} 
+              buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
+            >
+              <AddItems.Icon>
+                <PlusOutlined />
+              </AddItems.Icon>
+              <AddItems.Text text="Edit permission" />
+            </AddItems>
         </div>
       </div>
-      <div className={styles.table}>
-        <Table
-          className={styles.antdtable}
-          columns={columns}
-          dataSource={filteredData}
-          size="middle"
-          pagination={{
-            pageSize: pageSize,
-            showSizeChanger: true,
-            onShowSizeChange: (_, size) => setPageSize(size),
-            onChange: (page) => setCurrentPage(page),
-          }}
-        />
+      <div className={styles.checkboxdiv}>
+        <div className={styles.topdiv}>
+          {permissionsData.slice(0, 2).map((section) => (
+            <div key={section.title} className={styles.acctpermissions}>
+              <div className={`${styles.cardName} h6r`}>{section.title}</div>
+              {section.permissions.map((permission) => (
+                <CheckboxComponent
+                  key={permission}
+                  text={permission}
+                  checked={true}
+                  onChange={() => handlePermissionChange(permission)}
+                  disabled
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className={styles.lowerdiv}>
+          {permissionsData.slice(2).map((section) => (
+            <div key={section.title} className={styles.acctpermissions}>
+              <div className={`${styles.cardName} h6r`}>{section.title}</div>
+              {section.permissions.map((permission) => (
+                <CheckboxComponent
+                  key={permission}
+                  text={permission}
+                  checked={true}
+                  disabled
+                  onChange={() => handlePermissionChange(permission)}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

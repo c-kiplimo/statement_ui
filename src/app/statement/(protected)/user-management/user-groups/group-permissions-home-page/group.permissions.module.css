@@ -29,6 +29,7 @@
 
 .header {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   align-items: center;
   padding: 32px 0px 16px 16px;
@@ -54,7 +55,7 @@
   align-items: flex-start;
   padding: 0px 5px;
   gap: 10px;
-  width: 155px;
+  width: fit-content;
   height: 32px;
 }
 
@@ -95,3 +96,58 @@
   height: 24px;
   color: #1A2600;
 }
+
+.checkboxdiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: 100%;
+  height: auto;
+}
+
+.topdiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px 8px;
+  gap: 54px;
+  width: 100%;
+  height: auto;
+}
+
+.lowerdiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px 8px;
+  gap: 54px;
+  width: 100%;
+  height: auto;
+}
+
+.acctpermissions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 334px;
+  height: auto;
+}
+
+
+.cardName {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: fit-content;
+  height: auto;
+  color: #1a2600;
+}
+

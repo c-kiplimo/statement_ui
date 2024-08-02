@@ -1,0 +1,286 @@
+.container {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px 40px 32px 48px;
+gap: 24px;
+width: 100%;
+height: auto;
+background: #FFFFFF;
+border-radius: 12px;
+
+  }
+  .cancelButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 100%;
+    height: 16px;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .buttonsdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    padding: 0px;
+    gap: 40px;
+    width: 274px;
+    height: 40px;
+  }
+  
+  .cancelBtton {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 32px;
+    gap: 8px;
+    width: 113px;
+    height: 40px;
+    border: 1px solid #84bd00;
+    border-radius: 4px;
+    color: #84bd00;
+  }
+  
+  .confirmButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 32px;
+    gap: 8px;
+    width: 121px;
+    height: 40px;
+    background: #84bd00;
+    color: #ffffff;
+    border-radius: 4px;
+  }
+  
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 100%;
+    height: 40px;
+    color: #1a2600;
+  }
+  
+  .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0px;
+    gap: 10px;
+    width: 632px;
+    height: 48px;
+    color: #6f7269;
+  }
+  
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: 632px;
+    height: auto;
+  }
+  
+  .profilehead {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 16px 12px 12px;
+    gap: 10px;
+    width: 632px;
+    height: 36px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 16px 24px 12px;
+    gap: 16px;
+    width: 632px;
+    height: auto;
+  }
+  
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0px;
+    gap: 179px;
+    width: 100%;
+    height: 24px;
+  }
+  
+  .namedescription {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 179px;
+    width: 100%;
+    height: 48px;
+  }
+  
+  .groupname {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    align-items: center;
+    gap: 8px;
+    width: 94px;
+    height: 24px;
+    color: #6f7269;
+  }
+  
+  .descriptionname {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    align-self: flex-start;
+    gap: 8px;
+    width: 94px;
+    height: 24px;
+    color: #6f7269;
+  }
+  
+  .group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: flex-start;
+    text-align: center;
+    gap: 10px;
+    width: fit-content;
+    height: auto;
+    color: #1a2600;
+  }
+  
+  .selectedPermissions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .permissionstitle {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 0px 12px;
+    gap: 26px;
+    width: 632px;
+    height: auto;
+    color: #1a2600;
+    border-bottom: 1px solid #e6e6e6;
+  }
+  
+  .permissions {
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .checkboxdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 32px;
+    width: auto;
+    height: auto;
+  }
+  .topdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px 8px;
+    gap: 54px;
+    width: 656px;
+    height: auto;
+  }
+  .lowerdiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0px 8px;
+    gap: 54px;
+    width: 656px;
+    height: auto;
+  }
+  .acctpermissions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: fit-content;
+    height: auto;
+  }
+  
+  .cardName {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 24px;
+    width: fit-content;
+    height: auto;
+    color: #1a2600;
+  }
+  

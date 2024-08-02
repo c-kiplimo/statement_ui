@@ -10,6 +10,7 @@ type InviteProps = {
   title: string;
   titleDescription: string;
   typeOfInvite: string;
+  handleModalCancel: () => void;
 };
 
 type MembersData = {
@@ -25,6 +26,7 @@ const AddUserToGroup = ({
   title,
   titleDescription,
   typeOfInvite,
+  handleModalCancel,
 }: InviteProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -63,9 +65,7 @@ const AddUserToGroup = ({
     },
   ];
 
-  const handleDelete = (key: string) => {
-  
-  };
+  const handleDelete = (key: string) => {};
 
   const columns: ColumnsType<MembersData> = [
     {
@@ -119,23 +119,24 @@ const AddUserToGroup = ({
   ];
 
   const handleInviteUser = () => {
-
     const inviteUser = async () => {
       try {
-        const success = true; 
+        const success = true;
         if (success) {
           notification.open({
-            message: '',
+            message: "",
             description: (
               <Successful>
-                <Successful.Icon style={{ color: "#17D05B" }}><CheckOutlined /></Successful.Icon>
+                <Successful.Icon style={{ color: "#17D05B" }}>
+                  <CheckOutlined />
+                </Successful.Icon>
                 <Successful.Text text="User Mbabazi Abia has been invited successfully" />
               </Successful>
             ),
-            className:styles.customNotification,
-            icon: null, 
-            style: { width: '460px', height: '99px' },
-            closeIcon:null
+            className: styles.customNotification,
+            icon: null,
+            style: { width: "460px", height: "99px" },
+            closeIcon: null,
           });
         } else {
           setIsModalVisible(true);
@@ -146,10 +147,6 @@ const AddUserToGroup = ({
     };
 
     inviteUser();
-  };
-
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
   };
 
   return (
@@ -185,7 +182,12 @@ const AddUserToGroup = ({
           />
         </div>
         <div className={styles.buttons}>
-          <button className={`${styles.canceButton} bodym`}>Cancel</button>
+          <button
+            className={`${styles.canceButton} bodym`}
+            onClick={handleModalCancel}
+          >
+            Cancel
+          </button>
           <button
             className={`${styles.inviteButton} bodyr`}
             onClick={handleInviteUser}

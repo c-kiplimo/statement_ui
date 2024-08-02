@@ -22,7 +22,7 @@ type IconProps = {
 };
 
 AddItems.Icon = ({ children }: IconProps) => (
-  <div>
+  <div className={styles.icon}>
     {children}
   </div>
 );
