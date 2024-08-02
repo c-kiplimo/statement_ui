@@ -1,0 +1,44 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 40px 32px 64px 13px;
+gap: 24px;
+width:100%;
+height: 428px;
+left: 444px;
+top: 139px;
+border-radius: 8px;
+
+}
+
+.formDiv{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 24px;
+width: 100%;
+height: auto;
+}
+
+.stepper{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 8px 16px 0px;
+gap: 8px;
+width: fit-content;
+height: 100%;
+border-radius: 4px;
+}
+
+.step1{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 18px;
+width: fit-content;
+height: auto;
+}

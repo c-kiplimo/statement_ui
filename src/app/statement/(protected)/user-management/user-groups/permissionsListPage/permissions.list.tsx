@@ -25,7 +25,6 @@ const PermissionsLists = () => {
   }, [searchParams, setGroupName, setDescription]);
 
   useEffect(() => {
-    console.log('Local Permissions:', localPermissions);
   }, [localPermissions]);
 
   const handlePermissionChange = (permission: string) => {
@@ -120,7 +119,7 @@ const PermissionsLists = () => {
         </div>
         <div className={styles.bodyDiv}>
           <form className={styles.formdiv} onSubmit={handleSubmit}>
-            <div className={styles.checkboxdiv}>
+           <div className={styles.checkboxdiv}> 
               <div className={styles.topdiv}>
                 {permissionsData.slice(0, 2).map((section) => (
                   <div key={section.title} className={styles.acctpermissions}>

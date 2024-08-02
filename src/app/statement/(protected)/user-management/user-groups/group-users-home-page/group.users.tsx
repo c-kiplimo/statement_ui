@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
-import { Button, Table, Select, Checkbox } from "antd";
+import React, { useCallback, useState, useMemo } from "react";
+import { Button, Table, Select, Checkbox, Modal } from "antd";
 import { ColumnsType } from "antd/es/table";
 import styles from "./group.users.module.css";
 import { PlusOutlined, SearchOutlined, SwapOutlined } from "@ant-design/icons";
@@ -8,6 +8,8 @@ import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import AddItems from "@/src/components/widgets/add-item-widget/add.item";
 import Sort from "@/src/components/atoms/sort/sort";
 import Delete from "@/src/components/widgets/delete-widget/delete";
+import AddUserToGroup from "../add-user-to-group/addUserToGroup";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
 
@@ -19,6 +21,10 @@ interface MembersData {
   status: string;
   checked: boolean;
 }
+
+type PermissionsType = {
+  groupId: string;
+};
 
 const initialData: MembersData[] = [
   {
@@ -39,11 +45,14 @@ const initialData: MembersData[] = [
   },
 ];
 
-const GroupUsers = () => {
+const GroupUsers = ({groupId}:PermissionsType) => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<MembersData[]>(initialData);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const router = useRouter();
+
 
   const filteredData = useMemo(() => {
     return data.filter((item) =>
@@ -56,7 +65,7 @@ const GroupUsers = () => {
   }, [searchTerm, data]);
 
   const handleRoleChange = useCallback((value: string, key: string) => {
-    console.log(`Role for user ${key} changed to ${value}`);
+    
   }, []);
 
   const handleSearch = useCallback((terms: string) => {
@@ -76,10 +85,21 @@ const GroupUsers = () => {
     [data]
   );
 
-  const handleDelete = useCallback((key: string) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  }, [data]);
+  const handleDelete = useCallback(
+    (key: string) => {
+      const newData = data.filter((item) => item.key !== key);
+      setData(newData);
+    },
+    [data]
+  );
+
+  const handleAddItemsClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const columns: ColumnsType<MembersData> = [
     {
@@ -186,7 +206,7 @@ const GroupUsers = () => {
             <Delete.text text="Delete" style={{ color: "gray" }} />
           </Delete>
           <AddItems
-            onClick={() => {}}
+            onClick={handleAddItemsClick} 
             buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
           >
             <AddItems.Icon>
@@ -210,6 +230,19 @@ const GroupUsers = () => {
           }}
         />
       </div>
+
+     
+      <Modal
+        width={"45%"}
+        visible={isModalVisible} 
+        onCancel={handleModalCancel} 
+        footer={null} 
+      >
+        <AddUserToGroup
+          title={"Platform Members Management"}
+          titleDescription={"Are you sure you want to add this user to the group? Please review the details before proceeding."}
+          typeOfInvite={"Invite by email"} handleModalCancel={handleModalCancel}        />
+      </Modal>
     </div>
   );
 };

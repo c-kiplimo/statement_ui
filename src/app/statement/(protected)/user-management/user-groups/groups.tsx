@@ -21,6 +21,7 @@ import { usePlatformId } from "@/src/hooks/platformId";
 import DeleteGroup from "./delete-group/delete.group";
 import CreateUserroups from "../../usermanagement/user-groups-home-page/create-user-groups-form/create.user.groups";
 import useProfileId from "@/src/hooks/profileId";
+import { useRouter } from "next/navigation";
 
 export interface GroupData {
   key: string;
@@ -39,6 +40,7 @@ const UserGroupsHomePage: React.FC = () => {
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const custId = useProfileId();
   const platformId = usePlatformId();  
+  const router = useRouter();
 
   useEffect(() => {
     if (custId && platformId) {
@@ -59,6 +61,19 @@ const UserGroupsHomePage: React.FC = () => {
       setSelectedGroupId(groupId);
       setDeleteModalVisible(true);
     }
+
+    else if (e.key==="2"){
+      setSelectedGroupId(groupId)
+      router.push ("/statement/user-management/user-groups/tabs")
+    }
+     else if (e.key==="4"){
+      setSelectedGroupId(groupId)
+      router.push("/statement/user-management/user-groups/update-user-group")
+     }
+
+     else{
+      return
+     }
   };
 
   const columns: ColumnsType<GroupData> = [
@@ -134,7 +149,7 @@ const UserGroupsHomePage: React.FC = () => {
 
 
   const handleCreateGroupModalOpen = () => {
-    setCreateGroupModalVisible(true);
+    router.push("/statement/user-management/user-groups/create-user-groups-form")
   };
 
   const handleCreateGroupModalCancel = () => {
