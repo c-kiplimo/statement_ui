@@ -1,0 +1,85 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px;
+gap: 24px;
+height: auto;
+}
+
+.header{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 5px;
+height: auto;
+}
+
+.body{
+display: flex;
+flex-direction: column;
+padding: 11px 0px;
+gap: 41px;
+height: auto;
+width: 100%;
+}
+
+.bodyTitle{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px 8px;
+gap: 10px;
+border-bottom: 1px solid #E6E6E6;
+}
+.bodyContent{
+display: flex;
+flex-direction: column;
+padding: 0px 16px 24px;
+gap: 16px;
+}
+.content{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+}
+.bodytext{
+    color: #6F7269;
+}
+.button{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+}
+.cancelbtn{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+border: 1px solid #F30039;
+border-radius: 4px;
+color: #F30039;
+}
+.confirmbtn{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+background: #F30039;
+border-radius: 4px;
+color: #FFFFFF;
+}
+
+
+
+
+

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import styles from "./userGroupsTabs.module.css";
-import useProfileId from "@/src/hooks/profileId";
 import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
 import GroupsPermissions from "../group-permissions-home-page/group.permissions";
 import GroupsUserprofile from "@/src/components/widgets/user-groups-profile/user.groups.profile";
 import GroupUsers from "../group-users-home-page/group.users";
+import { useSearchParams } from "next/navigation";
 
 type TabItem = {
   buttonName: string;
@@ -13,16 +13,17 @@ type TabItem = {
 };
 
 const GroupsTabs = () => {
-  const profId = useProfileId();
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get('groupId');
 
   const tabItems: TabItem[] = [
     {
       buttonName: "Permissions",
-      bodyContent: <GroupsPermissions groupId={"groupId!"} key="permissions" />,
+      bodyContent: <GroupsPermissions groupId={groupId!.toString()} key="permissions" />,
     },
     {
       buttonName: "Members",
-      bodyContent: <GroupUsers groupId={"groupId!"} key={"members"}/>,
+      bodyContent: <GroupUsers groupId={groupId!.toString()} key={"members"}/>,
     },
   ];
 
