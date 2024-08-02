@@ -27,14 +27,16 @@ const UserProfilePage = () => {
     },
     {
       buttonName: "User Activity",
-      bodyContent: [],
+      bodyContent: <UserActivity userId={userId!.toString()}/>,
     },
   ];
 
   return (
     <Suspense>
       <div className="flex flex-col p-4 bg-[var(--Background-Background-Primary)] w-full h-auto overflow-hidden">
+        <div className={styles.header}>
         <UserDetails userId={userId!} />
+        </div>
         <div className={styles.tabs}>
           <TabNav tabItems={tabItems} />
         </div>
