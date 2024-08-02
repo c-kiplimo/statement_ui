@@ -1,4 +1,4 @@
-import { DELETE_GROUPS_URL, SINGLE_GROUPS_URL, USERS_GROUPS_URL } from "@/src/constants/environment";
+import { GET_CUSTOMER_USER_GROUPS_URL, USERS_GROUPS_URL } from "@/src/constants/environment";
 import axios, { AxiosResponse } from "axios";
 
 export type GroupParams = {
@@ -31,53 +31,30 @@ const GroupsHandler = () => {
     }
   };
 
-  const fetchSingleGroupDetailsByGroupId = async (groupId: number):Promise<SingleGroupInformation> => {
-    const apiUrl = `${SINGLE_GROUPS_URL}/${groupId}`;
+  const fetchUserGroupsByUserId = async (userId: number): Promise<UserGroupType[]> => {
+    const customerAccountUrl = `${GET_CUSTOMER_USER_GROUPS_URL}/${userId}`;
+
     try {
-        const response = await axios.get(apiUrl, {
-          headers: {
-              'X-RequestId': '3456778909',
-          }});
-        const apiResponse:SingleGroupInformation = response.data;        
-          
-        if (apiResponse) {
-            return apiResponse;
+        const response: AxiosResponse<UserGroupType[]> = await axios.get(customerAccountUrl, {
+            headers: {
+                'X-RequestId': '34567',
+            },
+        });
+
+        if (response.data) {
+            return response.data;
         } else {
-            throw new Error("No data received from the API");
+            throw new Error("No data received from API");
         }
     } catch (error) {
-        const errorMessage = error || error || 'Unknown error';
-        throw new Error(`Failed to fetch group details: ${errorMessage}`);
+        console.error("Error fetching groups by user ID:", error);
+        throw error;
     }
 };
-
-
-const deleteUsersGroup = async (groupId: string, customerId: string, platformId: string) => {
-  const apiUrl = `${DELETE_GROUPS_URL}/${groupId}/${customerId}/${platformId}`;
-
-  try {
-    const response = await axios.delete(apiUrl, {
-      headers: {
-        'X-RequestId': '3456778909',
-      },
-    });
-
-    return response;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const errorMessage = error.response?.data?.message || 'Failed to delete Group';
-      throw new Error(errorMessage);
-    } else {
-      throw new Error('Failed to delete Group');
-    }
-  }
-};
-
 
   return {
     fetchGroups,
-    fetchSingleGroupDetailsByGroupId,
-    deleteUsersGroup
+    fetchUserGroupsByUserId
   };
 };
 

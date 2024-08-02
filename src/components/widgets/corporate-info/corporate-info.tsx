@@ -21,7 +21,7 @@ CorporateInfo.UserIcon = ({ children }: { children: ReactNode }) => {
 type userProps = {
   userName: string;
   userId: string;
-  userType: string;
+  userType?: string;
 };
 
 CorporateInfo.UserDetails = ({ userName, userId, userType }: userProps) => {
