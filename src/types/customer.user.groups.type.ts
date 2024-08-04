@@ -48,3 +48,40 @@ type UsersGroup ={
         }>
     }
 };
+
+
+type GroupMembersType =
+    {
+      firstName: string,
+      lastName: string,
+      mobileNumber: string,
+      email: string,
+      username: string,
+      userType: string,
+      status: string,
+      createdAt: string
+    }
+
+
+    type GroupPermissions = {
+        groupedPermissions: {
+          [key: string]: {
+            name: string;
+          }[];
+        };
+      };
+
+      type UserInfoType ={userResponseDTO: {
+    firstName: string,
+    lastName: string,
+    mobileNumber: string,
+    email: string,
+    username: string,
+    userType: string,
+    status: string,
+    createdAt: string
+  }}
+  
+
+
+

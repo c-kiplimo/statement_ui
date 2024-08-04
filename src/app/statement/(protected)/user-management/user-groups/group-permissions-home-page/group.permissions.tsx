@@ -1,120 +1,41 @@
-import React, { useCallback, useState, useMemo } from "react";
-import { Button, Table, Select } from "antd";
-import { ColumnsType } from "antd/es/table";
+import React, { useState, useEffect } from "react";
 import styles from "./group.permissions.module.css";
-import { CloudDownloadOutlined, FilterOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import SearchButton from "@/src/components/widgets/search-button/search-button";
-import FilterButton from "@/src/components/widgets/filter-button/filter.button";
+import { CloudDownloadOutlined, PlusOutlined } from "@ant-design/icons";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import Tags from "@/src/components/widgets/tags-widget/tags";
 import CheckboxComponent from "@/src/components/widgets/checkbox/checkbox";
 import AddItems from "@/src/components/widgets/add-item-widget/add.item";
+import { fetchGroupsPermissions } from "@/src/lib/actions/user.groups.action";
+import { usePlatformId } from "@/src/hooks/platformId";
 
-const { Option } = Select;
-
-interface MembersData {
-  key: string;
-  createdOn: string;
-  permissions: string;
-  description: string;
-  tags: string;
+type permission ={
+  name:string;
 }
 
+export type GroupPermissionsType = {
+  title:string;
+  permissions:permission[];
+}
 type PermissionsType = {
   groupId: string;
 };
 
-const initialData: MembersData[] = [
-  {
-    key: "1",
-    createdOn: "2023-01-01",
-    permissions: "VIEW_ACCOUNT",
-    description: "Allows view transaction",
-    tags: "Account",
-  },
-  {
-    key: "2",
-    createdOn: "2023-02-01",
-    permissions: "VIEW_TRANSACTION",
-    description: "Allows view account",
-    tags: "Loan",
-  },
-];
-
 const GroupsPermissions = ({ groupId }: PermissionsType) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [data, setData] = useState<MembersData[]>(initialData);
   const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
-  const [localPermissions, setLocalPermissions] = useState<string[]>([]);
+  const [permissionsData, setPermissionsData] = useState<GroupPermissionsType[]>([]);
+  const platformId = usePlatformId();
 
-  const filteredData = useMemo(() => {
-    return data.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, data]);
+  useEffect(() => {
+    const getPermissionsData = async () => {
+      try {
+        const data = await fetchGroupsPermissions(Number(groupId), platformId);
+        setPermissionsData(data);
+      } catch (error) {
+        console.error("Failed to fetch permissions data:", error);
+      }
+    };
 
-  const handleSearch = useCallback((terms: string) => {
-    setSearchTerm(terms);
-  }, []);
-
-  const handleDelete = useCallback(
-    (key: string) => {
-      const newData = data.filter((item) => item.key !== key);
-      setData(newData);
-    },
-    [data]
-  );
-
-  const handlePermissionChange = (permission: string) => {
-    setLocalPermissions((prevPermissions) =>
-      prevPermissions.includes(permission)
-        ? prevPermissions.filter((p) => p !== permission)
-        : [...prevPermissions, permission]
-    );
-  };
-
-  const permissionsData = [
-    {
-      title: "Account Permissions",
-      permissions: [
-        "View Account Details",
-        "View Transactions",
-        "Manage Accounts",
-        "Generate Account Reports",
-      ],
-    },
-    {
-      title: "Loan Permissions",
-      permissions: [
-        "View Loan Details",
-        "View Loan Repayments",
-        "Manage Loans",
-        "Generate Loan Reports",
-      ],
-    },
-    {
-      title: "MT 940 Permissions",
-      permissions: [
-        "View MT940 Statements",
-        "Statement Download",
-        "Upload MT940 Statements",
-        "Configure Account",
-      ],
-    },
-    {
-      title: "Card Permissions",
-      permissions: [
-        "View Card Details",
-        "Manage Cards",
-        "View Card Transactions",
-        "Loan Schedule",
-      ],
-    },
-  ];
+    getPermissionsData();
+  }, [groupId, platformId]);
 
   const handleCreateGroupModalOpen = () => {
     setCreateGroupModalVisible(true);
@@ -125,23 +46,21 @@ const GroupsPermissions = ({ groupId }: PermissionsType) => {
       <div className={styles.header}>
         <div className={`${styles.title} h6b`}>Group Permissions</div>
         <div className={styles.components}>
-          
           <DownloadWidget>
             <DownloadWidget.Icon iconStyles={{ color: "#4272DD" }}>
               <CloudDownloadOutlined />
             </DownloadWidget.Icon>
             <DownloadWidget.text text="Download" />
           </DownloadWidget>
-
           <AddItems
-              onClick={handleCreateGroupModalOpen} 
-              buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
-            >
-              <AddItems.Icon>
-                <PlusOutlined />
-              </AddItems.Icon>
-              <AddItems.Text text="Edit permission" />
-            </AddItems>
+            onClick={handleCreateGroupModalOpen}
+            buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
+          >
+            <AddItems.Icon>
+              <PlusOutlined />
+            </AddItems.Icon>
+            <AddItems.Text text="Edit permission" />
+          </AddItems>
         </div>
       </div>
       <div className={styles.checkboxdiv}>
@@ -151,10 +70,9 @@ const GroupsPermissions = ({ groupId }: PermissionsType) => {
               <div className={`${styles.cardName} h6r`}>{section.title}</div>
               {section.permissions.map((permission) => (
                 <CheckboxComponent
-                  key={permission}
-                  text={permission}
+                  key={permission.name}
+                  text={permission.name}
                   checked={true}
-                  onChange={() => handlePermissionChange(permission)}
                   disabled
                 />
               ))}
@@ -167,11 +85,10 @@ const GroupsPermissions = ({ groupId }: PermissionsType) => {
               <div className={`${styles.cardName} h6r`}>{section.title}</div>
               {section.permissions.map((permission) => (
                 <CheckboxComponent
-                  key={permission}
-                  text={permission}
+                  key={permission.name}
+                  text={permission.name}
                   checked={true}
                   disabled
-                  onChange={() => handlePermissionChange(permission)}
                 />
               ))}
             </div>

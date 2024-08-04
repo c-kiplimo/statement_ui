@@ -77,9 +77,17 @@ export const USER_PERMISSION_URL = `${API_URL}/api/v1/permission`;
 
 export const USERS_GROUPS_URL = `${API_URL}/api/platform/customer-group/v1`;
 
+export const GROUPS_MEMBERS_URL = `${API_URL}/api/v1/user/group-users`
+
+export const GROUPS_PERMISSIONS_URL = `${API_URL}/api/platform/customer-group/v1/permissions`
+
 export const SINGLE_GROUPS_URL = `${API_URL}/api/platform/customer-group/v1`;
 
 export const DELETE_GROUPS_URL = `${API_URL}/api/platform/group/v1/customer`;
+
+export const DELETE_GROUPS_MEMBER = `${API_URL}/api/v1/user`;
+
+export const GET_USER_INFO = `${API_URL}/api/v1/user/user-details`
 
 export const USER_GROUP_URL = `${API_URL}/api/platform/group/v1`;
 
