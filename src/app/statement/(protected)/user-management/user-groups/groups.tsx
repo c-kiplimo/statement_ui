@@ -68,7 +68,7 @@ const UserGroupsHomePage: React.FC = () => {
     }
      else if (e.key==="4"){
       setSelectedGroupId(groupId)
-      router.push("/statement/user-management/user-groups/update-user-group")
+      router.push(`/statement/user-management/user-groups/update-user-group?groupId=${groupId}`)
      }
 
      else{

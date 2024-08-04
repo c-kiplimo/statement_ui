@@ -1,13 +1,13 @@
 "use client";
 import React, { Fragment, useState} from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import AddUserToGroup from "../(protected)/user-management/users/user-profile/widgets/add-user-group/add-user-group";
-import GroupsTabs from "../(protected)/user-management/user-groups/tabs/userGroupsTabs";
+import PermissionAssign from "../(protected)/user-management/user-groups/update-user-group-permissions/permission.assign";
+
 
 const Dev = () => {
   return (
     <Fragment>
-      <GroupsTabs/>
+      <PermissionAssign/>
     </Fragment>
   );
 };

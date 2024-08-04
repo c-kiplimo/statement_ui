@@ -31,6 +31,8 @@ const PermissionHandler = () => {
            throw error;
         }       
     };
+
+    
 const addUserPermission = async (
     userPermission: UserPermissions
 ): Promise<UserPermissions> => {
@@ -61,6 +63,9 @@ const addUserPermission = async (
         throw error;
     }
 }
+
+
+
 const fetchAllPermissions = async(
 ) : Promise<Permission[]> =>{
     const permissionUrl = `${PERMISSION_URL}`;

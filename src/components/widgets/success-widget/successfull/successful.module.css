@@ -9,6 +9,7 @@ width: fit-content;
 height: auto;
 background-color: #17D05B;
 border-radius: 8px;
+align-self: center;
 }
 
 .icon{

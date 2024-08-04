@@ -7,21 +7,20 @@ import AddItems from "@/src/components/widgets/add-item-widget/add.item";
 import { fetchGroupsPermissions } from "@/src/lib/actions/user.groups.action";
 import { usePlatformId } from "@/src/hooks/platformId";
 
-type permission = {
-  name: string;
-};
+type permission ={
+  name:string;
+}
 
 export type GroupPermissionsType = {
-  title: string;
-  permissions: permission[];
-};
-
+  title:string;
+  permissions:permission[];
+}
 type PermissionsType = {
   groupId: string;
-  onEditPermissions: () => void;
 };
 
-const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
+const GroupsPermissions = ({ groupId }: PermissionsType) => {
+  const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
   const [permissionsData, setPermissionsData] = useState<GroupPermissionsType[]>([]);
   const platformId = usePlatformId();
 
@@ -38,6 +37,10 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
     getPermissionsData();
   }, [groupId, platformId]);
 
+  const handleCreateGroupModalOpen = () => {
+    setCreateGroupModalVisible(true);
+  };
+
   return (
     <div className={styles.groupUsersContainer}>
       <div className={styles.header}>
@@ -50,7 +53,7 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
             <DownloadWidget.text text="Download" />
           </DownloadWidget>
           <AddItems
-            onClick={onEditPermissions}
+            onClick={handleCreateGroupModalOpen}
             buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
           >
             <AddItems.Icon>
