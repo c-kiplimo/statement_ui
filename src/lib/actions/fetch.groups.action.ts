@@ -1,4 +1,4 @@
-import { UserGroupData } from "@/src/app/statement/(protected)/user-management/users/user-profile/widgets/user-groups/user-groups";
+import { UserGroupData } from "@/src/app/statement/(protected)/user-management/users/user-profile/widgets/user-group-data/user-groups-data";
 import GroupsHandler from "@/src/services/usermanagement/usergroups.services"
 
 export const fetchUserGroups = async (userId: string,platformId: string,page: number,size: number,): Promise<UserGroupData[]> => {
