@@ -8,7 +8,7 @@ import {
   EyeOutlined,
   MoreOutlined,
   PlusOutlined,
-  SearchOutlined
+  SearchOutlined,
 } from "@ant-design/icons";
 import styles from "./groups.module.css";
 import AddItems from "@/src/components/widgets/add-item-widget/add.item";
@@ -39,14 +39,19 @@ const UserGroupsHomePage: React.FC = () => {
   const [createGroupModalVisible, setCreateGroupModalVisible] = useState(false);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const custId = useProfileId();
-  const platformId = usePlatformId();  
+  const platformId = usePlatformId();
   const router = useRouter();
 
   useEffect(() => {
     if (custId && platformId) {
       const fetchData = async () => {
         try {
-          const data = await fetchGroupsData(custId.toString(), platformId.toString(), 0, 10);
+          const data = await fetchGroupsData(
+            custId.toString(),
+            platformId.toString(),
+            0,
+            10
+          );
           setGroupsData(data);
         } catch (error) {
           console.error("Error fetching groups data:", error);
@@ -60,20 +65,19 @@ const UserGroupsHomePage: React.FC = () => {
     if (e.key === "3") {
       setSelectedGroupId(groupId);
       setDeleteModalVisible(true);
+    } else if (e.key === "2") {
+      setSelectedGroupId(groupId);
+      router.push(
+        `/statement/user-management/user-groups/tabs?groupId=${groupId}`
+      );
+    } else if (e.key === "4") {
+      setSelectedGroupId(groupId);
+      router.push(
+        `/statement/user-management/user-groups/update-user-group?groupId=${groupId}`
+      );
+    } else {
+      return;
     }
-
-    else if (e.key==="2"){
-      setSelectedGroupId(groupId)
-      router.push (`/statement/user-management/user-groups/tabs?groupId=${groupId}`)
-    }
-     else if (e.key==="4"){
-      setSelectedGroupId(groupId)
-      router.push(`/statement/user-management/user-groups/update-user-group?groupId=${groupId}`)
-     }
-
-     else{
-      return
-     }
   };
 
   const columns: ColumnsType<GroupData> = [
@@ -118,7 +122,7 @@ const UserGroupsHomePage: React.FC = () => {
                   </Button>
                 </Menu.Item>
                 <Menu.Item key="3">
-                  <Button type="text" style={{ background: 'none' }}>
+                  <Button type="text" style={{ background: "none" }}>
                     <span className={`${styles.menu}`}>
                       <DeleteFilled /> <span className={`bodyr`}>Delete</span>
                     </span>
@@ -147,20 +151,22 @@ const UserGroupsHomePage: React.FC = () => {
     setDeleteModalVisible(false);
   };
 
-
   const handleCreateGroupModalOpen = () => {
-    router.push("/statement/user-management/user-groups/create-user-groups-form")
+    router.push(
+      "/statement/user-management/user-groups/create-user-groups-form"
+    );
   };
 
   const handleCreateGroupModalCancel = () => {
     setCreateGroupModalVisible(false);
-  }
+  };
   const handleSuccessfulDeletion = () => {
     setDeleteModalVisible(false);
-    setGroupsData(prevData => prevData.filter(group => group.key !== selectedGroupId));
+    setGroupsData((prevData) =>
+      prevData.filter((group) => group.key !== selectedGroupId)
+    );
   };
 
-  
   const handleSearch = (terms: string) => {
     setSearchTerm(terms);
   };
@@ -193,7 +199,7 @@ const UserGroupsHomePage: React.FC = () => {
               <DownloadWidget.text text="Download" />
             </DownloadWidget>
             <AddItems
-              onClick={handleCreateGroupModalOpen} 
+              onClick={handleCreateGroupModalOpen}
               buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
             >
               <AddItems.Icon>
@@ -216,23 +222,26 @@ const UserGroupsHomePage: React.FC = () => {
           />
         </div>
       </div>
-            <Modal
-        open={createGroupModalVisible} 
+      <Modal
+        open={createGroupModalVisible}
         footer={null}
-        width={"38%"}
-        onCancel={handleCreateGroupModalCancel} 
+        width={"max-content"}
+        onCancel={handleCreateGroupModalCancel}
       >
         <CreateUserroups />
       </Modal>
-          <Modal
-          open={deleteModalVisible}
+      <Modal
+        open={deleteModalVisible}
+        onCancel={handleDeleteModalCancel}
+        width={"max-content"}
+        footer={false}
+      >
+        <DeleteGroup
+          groupId={selectedGroupId!}
           onCancel={handleDeleteModalCancel}
-          width={700}
-          footer={false}
-          >
-            <DeleteGroup groupId={selectedGroupId!} onCancel={handleDeleteModalCancel} onSuccessfulDeletion={handleSuccessfulDeletion}
-            />
-          </Modal>
+          onSuccessfulDeletion={handleSuccessfulDeletion}
+        />
+      </Modal>
     </div>
   );
 };

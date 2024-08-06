@@ -118,7 +118,7 @@ const UpdateUserGroup = () => {
       </button>
 
       <Modal
-        width={"45%"}
+        width={"min-content"}
         visible={isModalVisible}
         footer={null}
         onCancel={handleCancel}

@@ -45,8 +45,8 @@ const data = [
 ];
 
 type GroupPermissions = {
-  title: string,
-  permissions: Array<{ name: string }>
+  title: string;
+  permissions: Array<{ name: string }>;
 };
 
 export type GroupsInformation = {
@@ -59,12 +59,13 @@ type GroupProps = {
   groupId: string;
   onCancel: () => void;
   onSuccessfulDeletion: () => void;
-
 };
 
-
-
-const DeleteGroup = ({ groupId, onCancel, onSuccessfulDeletion }: GroupProps) => {
+const DeleteGroup = ({
+  groupId,
+  onCancel,
+  onSuccessfulDeletion,
+}: GroupProps) => {
   const [groupData, setGroupData] = useState<GroupsInformation | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,7 +112,11 @@ const DeleteGroup = ({ groupId, onCancel, onSuccessfulDeletion }: GroupProps) =>
 
   const confirmDelete = async () => {
     try {
-      await handler.deleteUsersGroup(groupId, customerId!.toString(), platformId.toString());
+      await handler.deleteUsersGroup(
+        groupId,
+        customerId!.toString(),
+        platformId.toString()
+      );
       handleSuccessModalOpen();
       setRetrying(false);
       handleFailureModalCancel();
@@ -120,7 +125,6 @@ const DeleteGroup = ({ groupId, onCancel, onSuccessfulDeletion }: GroupProps) =>
     }
   };
 
- 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -213,7 +217,10 @@ const DeleteGroup = ({ groupId, onCancel, onSuccessfulDeletion }: GroupProps) =>
         <button className={`${styles.cancelbtn} bodyr`} onClick={onCancel}>
           Cancel
         </button>
-        <button className={`${styles.confirmbtn} bodyr`} onClick={confirmDelete}>
+        <button
+          className={`${styles.confirmbtn} bodyr`}
+          onClick={confirmDelete}
+        >
           Confirm
         </button>
       </div>

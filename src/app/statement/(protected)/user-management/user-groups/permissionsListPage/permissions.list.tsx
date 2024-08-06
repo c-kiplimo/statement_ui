@@ -149,7 +149,7 @@ const PermissionsLists = () => {
         visible={isConfirmModalVisible}
         footer={null}
         onCancel={handleCancel}
-        width={"39%"}
+        width={"min-content"}
       >
         <GroupCreationConfirm 
           onConfirm={handleConfirm}

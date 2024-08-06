@@ -2,12 +2,13 @@ import { MemberData } from "@/src/app/statement/(protected)/user-management/user
 import { fetchUserDetails, UserDetails } from "@/src/services/usermanagement/edit.permission.service";
 
 export const fetchUseremailDetails = async (
-    search: string = "",
+  search: string,
+  customerId:number,
     page: number,
     size: number,
 ): Promise<MemberData[]> => {
   try {
-    const response: { [key: number]: UserDetails } = await fetchUserDetails(search, page, size);
+    const response: { [key: number]: UserDetails } = await fetchUserDetails(search,customerId,page, size);
 
     
     const responseArray = Object.values(response);

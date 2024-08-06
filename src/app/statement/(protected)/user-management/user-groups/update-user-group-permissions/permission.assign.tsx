@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./permission.assign.module.css";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import { CloudDownloadOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import { fetchUserPermissions } from "@/src/lib/actions/all.permissions.action";
 import { AllPermission } from "../permissionsListPage/permissions.list";
 import { usePlatformId } from "@/src/hooks/platformId";
@@ -9,8 +9,9 @@ import { GroupPermissionsType } from "../group-permissions-home-page/group.permi
 import { fetchGroupsPermissions } from "@/src/lib/actions/user.groups.action";
 import { EDITUSERGROUP } from "@/src/services/usermanagement/update.permissions.service";
 import CheckboxComponent from "@/src/components/widgets/checkbox/updateCheckbox/checkbox";
-import { Alert } from "antd";
+import { Alert, notification } from "antd";
 import { useRouter } from "next/navigation";
+import Successful from "@/src/components/widgets/success-widget/successfull/successful";
 
 type permissionsProp = {
   onCancel?: () => void;
@@ -36,6 +37,22 @@ const PermissionAssign = ({ onCancel, groupId }: permissionsProp) => {
   );
   const [alertVisible, setAlertVisible] = useState(false);
   const platformId = usePlatformId();
+
+  const showNotification = (message: string, description: ReactNode) => {
+    notification.open({
+      message,
+      description,
+      className: styles.customNotification,
+      icon: null,
+      style: {
+        width: "max-content",
+        height: "min-content",
+        background: "#17D05B",
+        color: "white",
+      },
+      closeIcon: null,
+    });
+  };
 
   const handleCheckboxChange = (permission: string, isChecked: boolean) => {
     if (isChecked) {
@@ -66,7 +83,25 @@ const PermissionAssign = ({ onCancel, groupId }: permissionsProp) => {
       setPermissionsToAdd(new Set());
       setPermissionsToRemove(new Set());
 
-      setAlertVisible(true);
+      
+      showNotification(
+        "",
+        <Successful>
+          <Successful.Icon style={{ color: "#17D05B" }}>
+            <CheckOutlined />
+          </Successful.Icon>
+          <Successful.Text text={`Permissions have been successfully Updated`} />
+          <Successful.Icon
+            style={{
+              color: "white",
+              background: "none",
+              justifyContent: "flex-end",
+            }}
+          >
+            <CloseOutlined onClick={onCancel} />
+          </Successful.Icon>
+        </Successful>
+      );
 
       setTimeout(() => {
         setAlertVisible(false);
@@ -105,27 +140,7 @@ const PermissionAssign = ({ onCancel, groupId }: permissionsProp) => {
 
   return (
     <div className={styles.container}>
-      {alertVisible && (
-        <Alert
-          message="Permissions have been successfully Updated"
-          type="success"
-          showIcon
-          className={styles.customAlert}
-          style={{
-            backgroundColor: "green",
-            color: "red",
-            textAlign: "center",
-            height: "60px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "fixed",
-            top: "20px",
-            right: "20px",
-            zIndex: 9999,
-          }}
-        />
-      )}
+      
       <div className={styles.head}>
         <div className={`${styles.title} h6b`}>Update Permission</div>
         <div className={styles.download}>
