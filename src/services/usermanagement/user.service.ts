@@ -1,11 +1,9 @@
 import {
   USER_URL,
-  AUTH_URL_REGISTER,
-  USER_BY_USERID_URL,
 } from "@/src/constants/environment";
-import { PendingUser, UserDetails, profileDetails } from "@/src/types/user.type";
+import { UserDetails, profileDetails } from "@/src/types/user.type";
 import { notification } from "antd";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig} from "axios";
 
 const UserHandler = () => {
   const fetchAllUsers = async (search?: string): Promise<UserDetails[]> => {

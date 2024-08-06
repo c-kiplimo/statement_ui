@@ -22,6 +22,8 @@ export const VERIFY_OTP_URL = `${API_URL}/oauth2/token`;
 
 export const CREATE_USER_URL=`${API_URL}/api/user/profile/v1`;
 
+export const UPDATE_USER_URL=`${API_URL}/api/v1/user/profile`
+
 export const USER_PROFILE_URL = `${PROFILE_URL}/api/v1/profile/`;
 
 export const AGGREGATE_PROFILE_URL = `${PROFILE_URL}/api/v1/aggregateprofiles/`;

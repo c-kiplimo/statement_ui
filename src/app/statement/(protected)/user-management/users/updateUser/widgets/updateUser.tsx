@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styles from "./create-user.module.css";
+import styles from "./updateUser.module.css";
+import UserDetails from "@/src/components/widgets/users.details/user.details";
+import Image from "next/image";
 import { Form, Input, Modal, notification, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
-import { TeamOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { usePlatformId } from "@/src/hooks/platformId";
+import { CheckCircleOutlined, TeamOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { AUTH_URL_REGISTER } from "@/src/constants/environment";
+import ConfirmRegistrationModal from "../../create-user/widgets/(confirmUser)/confirmUser";
 import ConfirmFail from "../../../permissions/(confirmfailure)/confirm.failure";
-import ConfirmRegistrationModal from "./(confirmUser)/confirmUser";
+import { updateUserAction } from "@/src/lib/actions/update.User.action";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { UserHandler } from "@/src/services/usermanagement/user.service";
+import { profileDetails } from "@/src/types/user.type";
+import { userDetailsAction } from "@/src/lib/actions/user.profile.details.actions";
+import CreationSuccess from "../../../permissions/(confirmsuccess)/creation.success";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -18,41 +24,33 @@ const countryOptions = [
   { value: "+250", label: "+250" },
 ];
 
-type UserGroupOption = {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  description: string;
+type UpdateUserProps = {
+  userId: string;
 };
 
-type CreateUserProps = {
-  password: string;
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  email: string;
-  groupId: string;
-};
-
-const CreateUser = () => {
+const UpdateUser = ({ userId }: UpdateUserProps) => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const { createUserService, fetchPlatformGroupService } = createUserHandler();
-  const [open, setOpen] = useState(false);
+  const platformId = usePlatformId();
+  const [userDetails, setUserDetails] = useState<profileDetails | null>(null);
+  const [formData, setFormData] = useState<any | null>(null);
   const [openModal, setOpenModal] = useState(false);
-  const [formData, setFormData] = useState<CreateUserProps | null>(null);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [failureModalVisible, setFailureModalVisible] = useState(false);
+  const [retryUpdate, setRetryUpdate] = useState(false);
   const [countryCode, setCountryCode] = useState(countryOptions[0].value);
-  const [userGroups, setUserGroups] = useState<User_Group[]>([]);
-  const [selectedGroup, setSelectedGroup] = useState<User_Group | null>(null);
+  const { fetchPlatformGroupService } = createUserHandler();
+  const { fetchUserByUserId } = UserHandler();
+  const [userGroups, setUserGroups] = useState<any[]>([]);
+  const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
+  const [selectedGroupDetails, setSelectedGroupDetails] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [retry, setRetry] = useState(false);
 
   const fetchGroups = async () => {
     try {
       setLoading(true);
-      const platformGroups = await fetchPlatformGroupService(1);
+      const platformGroups = await fetchPlatformGroupService(platformId);
       const user_groups = platformGroups.map((platformGroup) => ({
         id: platformGroup.groupId.toString(),
         name: platformGroup.groupName,
@@ -72,78 +70,101 @@ const CreateUser = () => {
     fetchGroups();
   }, []);
 
-  const handleGroupChange = (value: string) => {
-    const group = userGroups.find((group) => group.id === value) || null;
-    setSelectedGroup(group);
+  useEffect(() => {
+    if (userId) {
+      const fetchUserDetails = async () => {
+        try {
+          setLoading(true)
+          const response = await userDetailsAction(userId);
+          setUserDetails(response);
+          setLoading(false)
+          console.log(response);
+        } catch (error) {
+          console.error("Failed to fetch user details:", error);
+        }
+      };
+
+      fetchUserDetails();
+    }
+  }, [userId, form]);
+
+  const handleGroupChange = (values: string[]) => {
+    setSelectedGroups(values);
+    const selectedGroupDetails = userGroups.filter(group => values.includes(group.id));
+    setSelectedGroupDetails(selectedGroupDetails);
   };
 
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const onFinish = (values: CreateUserProps) => {
+  const onFinish = (values: any) => {
     const fullMobileNumber = `${countryCode}${values.mobileNumber}`;
     const updatedFormData = {
       ...values,
       mobileNumber: fullMobileNumber,
-      groupId: selectedGroup?.id || "",
+      groupId: selectedGroups.join(","),
+      userId,
     };
     setFormData(updatedFormData);
-    console.log("Registered user data>>", updatedFormData);
-    setOpen(true);
+    console.log("Updated user details>>", updatedFormData);
+    setOpenModal(true);
   };
 
   const handleOk = async () => {
-    setOpen(false);
+    setOpenModal(false);
     if (formData) {
-      console.log(formData);
       try {
-        const response = await createUserService(AUTH_URL_REGISTER, {
-          register: formData,
-        });
-        console.log("User registered successfully", response);
-        notification.success({
-          message: `User has been created successfully`,
-          description: '',
-          icon: <CheckCircleOutlined style={{ color: "white" }} />,
-          className: 'bodyr success-notification', 
-          placement: 'topRight',
-          duration: 1,
-        });
+        await updateUserAction(formData);
+        setSuccessModalVisible(true);
         form.resetFields();
         router.push("/statement/user-management");
       } catch (error) {
-        console.error("Registration failed:", error);
-        setOpenModal(true);
+        console.error("Update failed:", error);
+        setFailureModalVisible(true);
       }
     }
   };
 
   useEffect(() => {
-    if (retry && formData) {
+    if (retryUpdate && formData) {
       handleOk();
     }
-  }, [retry]);
+  }, [retryUpdate]);
 
   const handleCancel = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
 
   return (
     <div className={styles.container}>
-      <Form
-        form={form}
-        style={{ width: "100%" }}
-        layout="vertical"
-        onFinish={onFinish}
-      >
+      <UserDetails>
+        <UserDetails.Header>
+          <UserDetails.ProfileImage>
+            <Image
+              src="/ProfileImage.svg"
+              alt="user-icon"
+              width={64}
+              height={64}
+            />
+          </UserDetails.ProfileImage>
+
+          <UserDetails.Content>
+            <UserDetails.Profile
+              userTitle={`${userDetails?.firstName} ${userDetails?.lastName}`}
+              moreInfo="(Teller)"
+            />
+            <UserDetails.ActionBtn>
+              <UserDetails.Actions
+                onClick={() => {}}
+                text="Edit Profile Picture"
+                className={`${styles.action} bodyr`}
+              />
+            </UserDetails.ActionBtn>
+          </UserDetails.Content>
+          <UserDetails.Status status={userDetails?.status!} />
+        </UserDetails.Header>
+      </UserDetails>
+      <Form style={{ width: "100%" }} layout="vertical" onFinish={onFinish}>
         <div className={styles.form}>
           <div className={styles.header}>
-            <Texter text="Register User" className="h5b" />
+            <Texter text="Update User" className="h5b" />
           </div>
           <div className={styles.formContent}>
             <div className={styles.horizontal}>
@@ -152,10 +173,13 @@ const CreateUser = () => {
                   First Name
                 </label>
                 <Form.Item
-                  name="firstName"
                   rules={[
-                    { required: true, message: "Please enter your First Name" },
+                    {
+                      required: true,
+                      message: "Please enter your First Name",
+                    },
                   ]}
+                  name="firstName"
                 >
                   <Input
                     type="text"
@@ -169,10 +193,13 @@ const CreateUser = () => {
                   Last Name
                 </label>
                 <Form.Item
-                  name="lastName"
                   rules={[
-                    { required: true, message: "Please enter your Last Name" },
+                    {
+                      required: true,
+                      message: "Please enter your Last Name",
+                    },
                   ]}
+                  name="lastName"
                 >
                   <Input
                     type="text"
@@ -182,7 +209,6 @@ const CreateUser = () => {
                 </Form.Item>
               </div>
             </div>
-
             <div className={styles.vertical}>
               <label htmlFor="email" className="bodyr">
                 Email Address
@@ -207,6 +233,7 @@ const CreateUser = () => {
                 />
               </Form.Item>
             </div>
+
             <div className={styles.vertical}>
               <Form.Item
                 name="mobileNumber"
@@ -214,18 +241,17 @@ const CreateUser = () => {
                 className="bodyr"
               >
                 <div className={`${styles.selectorRow} bodyr`}>
-                  <select
-                    className={`${styles.selectionStandard} bodyr`}
+                  <Select
                     value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    name="countryCode"
+                    onChange={setCountryCode}
+                    style={{ width: 90, height: 40 }}
                   >
                     {countryOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
+                      <Select.Option key={option.value} value={option.value}>
                         {option.label}
-                      </option>
+                      </Select.Option>
                     ))}
-                  </select>
+                  </Select>
                   <span className={`${styles.divider} h4r`}>/</span>
                   <Input
                     name="mobileNumber"
@@ -238,38 +264,12 @@ const CreateUser = () => {
             </div>
 
             <div className={styles.vertical}>
-              <label htmlFor="password" className="bodyr">
-                Password
-              </label>
-              <Form.Item name="password">
-                <Input
-                  className={`${styles.input} bodyr`}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter Password"
-                  suffix={
-                    <span
-                      onClick={togglePasswordVisibility}
-                      className={styles.passwordToggleIcon}
-                    >
-                      {showPassword ? (
-                        <AiOutlineEyeInvisible
-                          style={{ color: "#c9c9cc" }}
-                          size={16}
-                        />
-                      ) : (
-                        <AiOutlineEye style={{ color: "#c9c9cc" }} size={16} />
-                      )}
-                    </span>
-                  }
-                />
-              </Form.Item>
-            </div>
-            <div className={styles.vertical}>
               <Form.Item
                 name="groupId"
                 label="Which group does the user belong to?"
               >
                 <Select
+                  mode="multiple"
                   allowClear
                   style={{ width: "100%" }}
                   className={styles.dropDown}
@@ -290,12 +290,12 @@ const CreateUser = () => {
             bgColor="var(--brand-brand-primary)"
             type="submit"
             className={styles.button}
-            text="Create User"
+            text="Update User"
           />
         </Form.Item>
       </Form>
       <Modal
-        open={open}
+        open={openModal}
         onCancel={handleCancel}
         footer={false}
         className={styles.modal}
@@ -308,27 +308,40 @@ const CreateUser = () => {
             lastName={formData.lastName}
             email={formData.email}
             mobileNumber={formData.mobileNumber}
-            userGroups={selectedGroup ? [selectedGroup] : []}
+            userGroups={selectedGroupDetails}
             handleOk={handleOk}
           />
         )}
       </Modal>
       <Modal
-        open={openModal}
-        onCancel={handleModalClose}
-        footer={false}
+        open={successModalVisible}
+        onCancel={() => setSuccessModalVisible(false)}
+        footer={null}
+        className={styles.modal}
+        width={350}
+      >
+        <CreationSuccess
+          title="User Deactivation Successful"
+          description="The user has been successfully deactivated. Their account will be permanently deleted after 30 days. During this period, the account can be reactivated if needed."
+          onClick={() => setSuccessModalVisible(false)}
+        />
+        </Modal>
+      <Modal
+        open={failureModalVisible}
+        onCancel={() => setFailureModalVisible(false)}
+        footer={null}
         className={styles.modal}
         width={350}
       >
         <ConfirmFail
-          title={"Error Creating New User"}
-          description={`Unable to create user ${formData?.firstName} ${formData?.lastName}. The username already exists! Please try again.`}
-          onClick={() =>setRetry(true)}
-          onCancel={handleModalClose}
+          title="User Update Failed"
+          description={`There was an error while trying to update the user's information. Please try again`}
+          onClick={() => setRetryUpdate(true)}
+          onCancel={handleCancel}
         />
       </Modal>
     </div>
   );
 };
 
-export default CreateUser;
+export default UpdateUser;

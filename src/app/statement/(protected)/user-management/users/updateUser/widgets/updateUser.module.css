@@ -1,0 +1,163 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+}
+
+.action {
+  color: #0a58c7;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  width: 100%;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+}
+
+.horizontal {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  height: 72px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.flexOne {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  gap: 8px;
+  width: 207px;
+  height: 72px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.horizontalInput {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0px 8px;
+  gap: 16px;
+  width: 100%;
+  height: 40px;
+  opacity: 0.8;
+  border: 0.5px solid var(--neutral-colors-200);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 64px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.emailInput {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0px 8px;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  background: #e6e6e6;
+  opacity: 0.8;
+  border: 0.5px solid var(--neutral-colors-200);
+  border-radius: 4px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.selectorRow {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  gap: 16px;
+  width: 100%;
+  height: 40px;
+}
+
+.divider {
+  width: 4px;
+  height: 40px;
+  color: var(--Text-Text-Description-01);
+  margin: 0 4px;
+}
+
+.selectorInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  width: 340px;
+  height: 40px;
+  opacity: 0.8;
+  border: 0.5px solid var(--neutral-colors-200);
+  border-radius: 4px;
+  color: var(--Text-Text-Description-01);
+}
+
+.dropDown {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+}
+
+.button {
+  margin-top: 24px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  width: 100%;
+  left: 10vw;
+  max-width: 800px;
+  margin: 0 auto;
+}

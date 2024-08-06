@@ -73,7 +73,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
             </CorporateInfo.UserIcon>
             <CorporateInfo.UserDetails
               userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
-              userId={userDetails?.userId!}
+              userId={userDetails?.username!}
               userType={"(Date Created)"}
             />
             {/* <CorporateInfo.Status customerStatus={profile.status} /> */}
@@ -85,7 +85,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
                   <InfoCircleFilled />
                 </UserInfo.Title>
                 <UserInfo.Description
-                  title={userDetails.language}
+                  title={userDetails.language!}
                   // description={profile.branch}
                 />
               </UserInfo>
