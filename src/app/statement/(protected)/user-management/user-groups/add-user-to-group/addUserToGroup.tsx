@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Modal, Table, notification } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import styles from "./addUserToGroup.module.css";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import Successful from "@/src/components/widgets/success-widget/successfull/successful";
@@ -49,13 +49,17 @@ const AddUserToGroup = ({
       icon: null,
       style: {
         width: "460px",
-        height: "79px",
+        height: "80px",
         background: "#17D05B",
         color: "white",
       },
       closeIcon: null,
     });
   };
+
+  const onCancel=()=>{
+    
+  }
 
   const handleSearch = async () => {
     try {
@@ -87,6 +91,9 @@ const AddUserToGroup = ({
           <CheckOutlined />
         </Successful.Icon>
         <Successful.Text text={`User has been removed successfully`} />
+        <Successful.Icon style={{ color: "white",background:"none",justifyContent:"flex-end" }} >
+          <CloseOutlined onClick={onCancel}/>
+        </Successful.Icon>
       </Successful>
     );
   };

@@ -1,8 +1,8 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
-import { Table, Select, Checkbox, Modal, Alert } from "antd";
+import React, { useCallback, useState, useEffect, useMemo, ReactNode } from "react";
+import { Table, Select, Checkbox, Modal, Alert, notification } from "antd";
 import { ColumnsType } from "antd/es/table";
 import styles from "./group.users.module.css";
-import { PlusOutlined, SearchOutlined, SwapOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, PlusOutlined, SearchOutlined, SwapOutlined } from "@ant-design/icons";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import AddItems from "@/src/components/widgets/add-item-widget/add.item";
@@ -18,6 +18,7 @@ import {
 import { usePlatformId } from "@/src/hooks/platformId";
 import GroupUserDeletion from "./(user-deletion-modal)/user.deletion.modal";
 import DeleteGroupUsersFail from "./(user-deletion-error)/confirm.failure";
+import Successful from "@/src/components/widgets/success-widget/successfull/successful";
 
 const { Option } = Select;
 
@@ -57,6 +58,22 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
   const router = useRouter();
   const platformId = usePlatformId();
   const handler = GroupsHandler();
+
+  const showNotification = (message: string, description: ReactNode) => {
+    notification.open({
+      message,
+      description,
+      className: styles.customNotification,
+      icon: null,
+      style: {
+        width: "460px",
+        height: "80px",
+        background: "#17D05B",
+        color: "white",
+      },
+      closeIcon: null,
+    });
+  };
 
   useEffect(() => {
     if (alertMessage) {
@@ -135,17 +152,26 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
           prevData.filter((item) => item.key !== userToRemove)
         );
         setRemoveUserModal(false);
-        setAlertMessage(
-          `User ${userInfo?.name} has been removed successfully.`
+        
+        showNotification(
+          "",
+          <Successful>
+            <Successful.Icon style={{ color: "#17D05B" }}>
+              <CheckOutlined />
+            </Successful.Icon>
+            <Successful.Text text={`User ${userInfo?.name} has been removed successfully.`} />
+            <Successful.Icon style={{ color: "white",background:"none",justifyContent:"flex-end" }} >
+              <CloseOutlined />
+            </Successful.Icon>
+          </Successful>
         );
-        setAlertVisible(true);
+        
         setUserToRemove(null);
         setUserInfo(null);
       }
     } catch (error) {
       console.error("Error deleting user:", error);
       setGroupFailOpen(true);
-      
     }
   }, [userToRemove, userInfo]);
 
