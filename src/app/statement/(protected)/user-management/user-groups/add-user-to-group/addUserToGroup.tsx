@@ -5,21 +5,26 @@ import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 import styles from "./addUserToGroup.module.css";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import Successful from "@/src/components/widgets/success-widget/successfull/successful";
+import { fetchUseremailDetails } from "@/src/lib/actions/assign.userTo.group.action";
+import { CREATEGROUPMEMBER } from "@/src/services/usermanagement/crea.group.member.service";
+import { usePlatformId } from "@/src/hooks/platformId";
+import { useSearchParams } from "next/navigation";
 
 type InviteProps = {
   title: string;
   titleDescription: string;
   typeOfInvite: string;
   handleModalCancel: () => void;
+  onSuccess?: () => void;
 };
 
-type MembersData = {
+export type MemberData = {
   key: string;
   username: string;
   Phone: string;
   createdOn: string;
   email: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 };
 
 const AddUserToGroup = ({
@@ -27,47 +32,108 @@ const AddUserToGroup = ({
   titleDescription,
   typeOfInvite,
   handleModalCancel,
+  onSuccess,
 }: InviteProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userData, setUserData] = useState<MemberData[]>([]);
+  const [searchEmail, setSearchEmail] = useState("");
+  const platformId = usePlatformId();
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get("groupId");
 
-  const filteredData: MembersData[] = [
-    {
-      key: "1",
-      username: "JohnDoe",
-      Phone: "+1234567890",
-      createdOn: "2024-07-30T10:00:00Z",
-      email: "john.doe@example.com",
-      icon: <img src="/bin.svg" alt="Delete" />,
-    },
-    {
-      key: "2",
-      username: "JaneSmith",
-      Phone: "+0987654321",
-      createdOn: "2024-07-29T14:30:00Z",
-      email: "jane.smith@example.com",
-      icon: <img src="/bin.svg" alt="Delete" />,
-    },
-    {
-      key: "3",
-      username: "AliceJohnson",
-      Phone: "+1122334455",
-      createdOn: "2024-07-28T09:15:00Z",
-      email: "alice.johnson@example.com",
-      icon: <img src="/bin.svg" alt="Delete" />,
-    },
-    {
-      key: "4",
-      username: "BobBrown",
-      Phone: "+5566778899",
-      createdOn: "2024-07-27T16:45:00Z",
-      email: "bob.brown@example.com",
-      icon: <img src="/bin.svg" alt="Delete" />,
-    },
-  ];
+  const showNotification = (message: string, description: ReactNode) => {
+    notification.open({
+      message,
+      description,
+      className: styles.customNotification,
+      icon: null,
+      style: {
+        width: "460px",
+        height: "79px",
+        background: "#17D05B",
+        color: "white",
+      },
+      closeIcon: null,
+    });
+  };
 
-  const handleDelete = (key: string) => {};
+  const handleSearch = async () => {
+    try {
+      if (!searchEmail) return;
 
-  const columns: ColumnsType<MembersData> = [
+      const data = await fetchUseremailDetails(searchEmail, 0, 1);
+
+      if (data.length > 0) {
+        setUserData((prevData) => [...prevData, ...data]);
+      } else {
+        showNotification(
+          "Email Not Found!!",
+          <img src="/warning.svg" width={35} height={15} alt="warning" />
+        );
+      }
+      setSearchEmail("");
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+      setIsModalVisible(true);
+    }
+  };
+
+  const handleDelete = (key: string) => {
+    setUserData((prevData) => prevData.filter((user) => user.key !== key));
+    showNotification(
+      "",
+      <Successful>
+        <Successful.Icon style={{ color: "#17D05B" }}>
+          <CheckOutlined />
+        </Successful.Icon>
+        <Successful.Text text={`User has been removed successfully`} />
+      </Successful>
+    );
+  };
+
+  const handleInviteUser = async () => {
+    try {
+      if (!groupId) return;
+
+      const userPayload = {
+        groupId: parseInt(groupId),
+        platformId,
+      };
+
+      for (const user of userData) {
+        await CREATEGROUPMEMBER(user.key, userPayload);
+        showNotification(
+          "",
+          <Successful>
+            <Successful.Icon style={{ color: "#17D05B" }}>
+              <CheckOutlined />
+            </Successful.Icon>
+            <Successful.Text
+              text={`User ${user.username} has been invited successfully`}
+            />
+          </Successful>
+        );
+      }
+
+      setUserData([]);
+      handleModalCancel();
+      if (onSuccess) onSuccess();
+    } catch (error) {
+      console.error("Failed to invite user:", error);
+      setIsModalVisible(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleTryAgain = () => {
+    setIsModalVisible(false);
+    handleInviteUser();
+  };
+
+  const columns: ColumnsType<MemberData> = [
     {
       title: "User Name",
       dataIndex: "username",
@@ -118,37 +184,6 @@ const AddUserToGroup = ({
     },
   ];
 
-  const handleInviteUser = () => {
-    const inviteUser = async () => {
-      try {
-        const success = true;
-        if (success) {
-          notification.open({
-            message: "",
-            description: (
-              <Successful>
-                <Successful.Icon style={{ color: "#17D05B" }}>
-                  <CheckOutlined />
-                </Successful.Icon>
-                <Successful.Text text="User Mbabazi Abia has been invited successfully" />
-              </Successful>
-            ),
-            className: styles.customNotification,
-            icon: null,
-            style: { width: "460px", height: "99px" },
-            closeIcon: null,
-          });
-        } else {
-          setIsModalVisible(true);
-        }
-      } catch (error) {
-        setIsModalVisible(true);
-      }
-    };
-
-    inviteUser();
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.cancel}></div>
@@ -163,11 +198,14 @@ const AddUserToGroup = ({
           <div className={styles.inviteBy}>{typeOfInvite}</div>
           <div className={styles.inputStyle}>
             <input
-              type="text"
-              placeholder="Enter users email"
+              type="email"
+              required
+              placeholder="Enter user's email"
               className={styles.inputdiv}
+              value={searchEmail}
+              onChange={(e) => setSearchEmail(e.target.value)}
             />
-            <button className={styles.adduserButton}>
+            <button className={styles.adduserButton} onClick={handleSearch}>
               Add user <PlusOutlined />
             </button>
           </div>
@@ -176,7 +214,7 @@ const AddUserToGroup = ({
           <Table
             className={styles.antdtable}
             columns={columns}
-            dataSource={filteredData}
+            dataSource={userData}
             size="middle"
             pagination={false}
           />
@@ -199,11 +237,14 @@ const AddUserToGroup = ({
 
       <Modal
         visible={isModalVisible}
-        width={"57%"}
-        onCancel={handleModalCancel}
+        width={"30%"}
+        onCancel={handleCancel}
         footer={null}
       >
-        <FailureModal>
+        <FailureModal
+          onCancelClick={handleCancel}
+          onTryAgainClick={handleTryAgain}
+        >
           <FailureModal.Icon>
             <img src={"/warning.svg"} width={56} height={56} alt="warning" />
           </FailureModal.Icon>

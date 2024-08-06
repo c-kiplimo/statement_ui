@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
-import { Button, Table, Select, Checkbox, Modal, Alert } from "antd";
+import { Table, Select, Checkbox, Modal, Alert } from "antd";
 import { ColumnsType } from "antd/es/table";
 import styles from "./group.users.module.css";
 import { PlusOutlined, SearchOutlined, SwapOutlined } from "@ant-design/icons";
@@ -11,7 +11,10 @@ import Delete from "@/src/components/widgets/delete-widget/delete";
 import AddUserToGroup from "../add-user-to-group/addUserToGroup";
 import { useRouter } from "next/navigation";
 import GroupsHandler from "@/src/services/usermanagement/usergroups.services";
-import { fetchGroupUsers, fetchUserInfo } from "@/src/lib/actions/user.groups.action"; // Assuming this is the correct path
+import {
+  fetchGroupUsers,
+  fetchUserInfo,
+} from "@/src/lib/actions/user.groups.action";
 import { usePlatformId } from "@/src/hooks/platformId";
 import GroupUserDeletion from "./(user-deletion-modal)/user.deletion.modal";
 import DeleteGroupUsersFail from "./(user-deletion-error)/confirm.failure";
@@ -31,13 +34,14 @@ export type GroupUserInformation = {
   name: string;
   phoneno: string;
   email: string;
-}
+};
 
 type PermissionsType = {
   groupId: string;
+  setTotalUsers: (count: number) => void;
 };
 
-const GroupUsers = ({ groupId }: PermissionsType) => {
+const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState<MembersData[]>([]);
@@ -52,16 +56,29 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
 
   const router = useRouter();
   const platformId = usePlatformId();
-  const handler = GroupsHandler()
+  const handler = GroupsHandler();
+
+  useEffect(() => {
+    if (alertMessage) {
+      const timer = setTimeout(() => {
+        setAlertVisible(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [alertMessage]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const membersData = await fetchGroupUsers(Number(groupId), platformId);
-        setData(membersData);
-      } catch (error) {
-        console.error("Error fetching group members:", error);
-      }
+        if (groupId) {
+          const membersData = await fetchGroupUsers(
+            Number(groupId),
+            platformId
+          );
+          setData(membersData);
+          setTotalUsers(membersData.length);
+        }
+      } catch (error) {}
     };
 
     fetchData();
@@ -89,43 +106,46 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
     setSearchTerm(terms);
   }, []);
 
-  const handleCheckboxChange = useCallback(
-    (key: string) => {
-      setData((prevData) =>
-        prevData.map((item) =>
-          item.key === key ? { ...item, checked: !item.checked } : item
-        )
-      );
-    },
-    []
-  );
+  const handleCheckboxChange = useCallback((key: string) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.key === key ? { ...item, checked: !item.checked } : item
+      )
+    );
+  }, []);
 
-  const handleDeleteIconClick = useCallback(
-    async (key: string) => {
-      setUserToRemove(key);
-      setRemoveUserModal(true);
-      try {
-        const userInfo = await fetchUserInfo(key); // Fetch user info when delete icon is clicked
-        setUserInfo(userInfo);
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-      }
-    },
-    []
-  );
+  const handleDeleteIconClick = useCallback(async (key: string) => {
+    setUserToRemove(key);
+    setRemoveUserModal(true);
+    try {
+      const userInfo = await fetchUserInfo(key);
+      setUserInfo(userInfo);
+    } catch (error) {}
+  }, []);
 
   const handleConfirmDelete = useCallback(async () => {
     try {
-      await handler.deleteGroupMembers(platformId.toString(), groupId, userToRemove!);
-      setData((prevData) => prevData.filter((item) => item.key !== userToRemove));
-      setRemoveUserModal(false);
-      setAlertMessage(`User ${userInfo?.name} has been removed successfully.`);
-      setAlertVisible(true);
-      setUserToRemove(null);
-      setUserInfo(null);
+      if (userToRemove) {
+        await handler.deleteGroupMembers(
+          platformId.toString(),
+          groupId,
+          userToRemove
+        );
+        setData((prevData) =>
+          prevData.filter((item) => item.key !== userToRemove)
+        );
+        setRemoveUserModal(false);
+        setAlertMessage(
+          `User ${userInfo?.name} has been removed successfully.`
+        );
+        setAlertVisible(true);
+        setUserToRemove(null);
+        setUserInfo(null);
+      }
     } catch (error) {
       console.error("Error deleting user:", error);
       setGroupFailOpen(true);
+      
     }
   }, [userToRemove, userInfo]);
 
@@ -148,8 +168,17 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
   };
 
   const ConfirmUserDeletion = () => {
-    alert('Clicked');
-  }
+    alert("Clicked");
+  };
+  const handleAddUserSuccess = async () => {
+    try {
+      if (groupId && platformId) {
+        const membersData = await fetchGroupUsers(Number(groupId), platformId);
+        setData(membersData);
+        setTotalUsers(membersData.length);
+      }
+    } catch (error) {}
+  };
 
   const columns: ColumnsType<MembersData> = [
     {
@@ -274,6 +303,7 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
             closable
             onClose={() => setAlertVisible(false)}
             className={styles.alert}
+            showIcon
           />
         )}
         <Table
@@ -303,6 +333,7 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
           }
           typeOfInvite={"Invite by email"}
           handleModalCancel={handleModalCancel}
+          onSuccess={handleAddUserSuccess}
         />
       </Modal>
 
@@ -320,13 +351,12 @@ const GroupUsers = ({ groupId }: PermissionsType) => {
         />
       </Modal>
 
-      <Modal
-        open={groupFailOpen}
-        onCancel={handleGroupFailClose}
-      >
+      <Modal open={groupFailOpen} onCancel={handleGroupFailClose}>
         <DeleteGroupUsersFail
           title={"Error Removing User"}
-          description={"There was an error removing the user from the group. Please try again later"}
+          description={
+            "There was an error removing the user from the group. Please try again later"
+          }
           onTryAgain={ConfirmUserDeletion}
           onCancel={handleGroupFailClose}
         />

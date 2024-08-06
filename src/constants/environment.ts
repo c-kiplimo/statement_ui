@@ -178,6 +178,16 @@ export const DELETE_ACCOUNT_USER =`${PROFILE_URL}/api/v1/accounts`;
 
 export const ADD_CUSTOMER_USER_ACCOUNT=`${PROFILE_URL}/api/v1/accounts/assign`;
 
+export const ADD_CUSTOMER_USER_GROUP=`${API_URL}/api/platform/customer-group/v1`;
+
+export const UPDATE_CUSTOMER_USER_GROUP=`${API_URL}/api/platform/customer-group/v1`;
+
+export const EDIT_PERMISSION=`${API_URL}/api/platform/customer-group/v1/permissions`
+
+export const FETCH_USER_DETAILS=`${API_URL}/api/v1/user`
+
+export const CREATE_GROUP_MEMBER=`${API_URL}/api/v1/user/group`
+
 export const CUSTOMER_USER_PROFILE=`${PROFILE_URL}/api/v1/customers/user`;
 
 export const DELETE_CUSTOMER_USER_URL= `${PROFILE_URL}/api/v1/customers/users`;

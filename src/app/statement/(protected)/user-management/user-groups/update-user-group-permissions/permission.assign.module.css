@@ -4,7 +4,7 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 9px 16px 24px;
-width: 1013px;
+width: 100%;
 height: auto;
 background: #FFFFFF;
 border: 1px solid #E6E6E6;
@@ -19,7 +19,7 @@ justify-content: space-between;
 align-items: center;
 padding: 32px 0px 16px 16px;
 gap: 285px;
-width: 981px;
+width: 100%;
 height: 80px;
 border-bottom: 1px solid #E6E6E6;
 }
@@ -153,3 +153,22 @@ background: #84BD00;
 border-radius: 4px;
 color: #FFFFFF;
   }
+
+
+  /* permission.assign.module.css */
+
+.customAlert .ant-alert-icon {
+  background-color: white; /* Set the background color for the alert icon */
+  border-radius: 50%; /* Optional: make the icon background circular */
+  padding: 4px; /* Optional: adjust padding to fit the icon */
+}
+
+.customAlert .ant-alert-message {
+  color: white; /* Set text color for the alert message */
+}
+
+.customAlert .ant-alert-description {
+  color: white; /* Set text color for the alert description */
+}
+
+  

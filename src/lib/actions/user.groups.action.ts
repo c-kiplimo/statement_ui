@@ -2,6 +2,7 @@ import { GroupsInformation } from "@/src/app/statement/(protected)/user-manageme
 import { GroupPermissionsType } from "@/src/app/statement/(protected)/user-management/user-groups/group-permissions-home-page/group.permissions";
 import { GroupUserInformation, MembersData } from "@/src/app/statement/(protected)/user-management/user-groups/group-users-home-page/group.users";
 import { GroupData } from "@/src/app/statement/(protected)/user-management/user-groups/groups";
+import PermissionsHandler from "@/src/services/usermanagement/permissions.service";
 import GroupsHandler from "@/src/services/usermanagement/usergroups.services"
 
 
@@ -80,7 +81,7 @@ export const fetchGroupsPermissions = async (groupId: number,platformId: number)
       throw new Error("Failed to fetch permissions");
     }
   };
-  
+
 
   export const fetchUserInfo = async (userId:string):Promise<GroupUserInformation>=>{
     const handler = GroupsHandler();
@@ -99,3 +100,5 @@ export const fetchGroupsPermissions = async (groupId: number,platformId: number)
       throw new Error("Failed to fetch permissions");
     }  }
 
+
+    

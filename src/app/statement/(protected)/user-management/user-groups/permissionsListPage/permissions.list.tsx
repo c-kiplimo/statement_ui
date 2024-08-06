@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation'; 
+import { useSearchParams } from 'next/navigation';
 import styles from "./permissions.list.module.css";
 import { Modal, Steps } from 'antd';
 import CheckboxComponent from '@/src/components/widgets/checkbox/checkbox';
 import { useGroup } from '../context/permissionsContext';
 import GroupCreationConfirm from '../modals/groupConfirm';
+import { fetchUserPermissions } from '@/src/lib/actions/all.permissions.action';
+
+export interface AllPermission {
+  key?: React.Key;
+  title: string;
+  permissions: { permission: string }[];
+}
 
 const PermissionsLists = () => {
   const searchParams = useSearchParams();
   const { groupName, description, permissions, setGroupName, setDescription, setPermissions } = useGroup();
   const [localPermissions, setLocalPermissions] = useState<string[]>(permissions);
+  const [permissionsData, setPermissionsData] = useState<AllPermission[]>([]);
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+
+  useEffect(() => {
+    const getPermissions = async () => {
+      try {
+        const data = await fetchUserPermissions();
+        setPermissionsData(data);
+      } catch (error) {
+        console.error('Error fetching permissions:', error);
+        alert('Failed to load permissions. Please try again later.');
+      }
+    };
+
+    getPermissions();
+  }, []);
 
   useEffect(() => {
     const groupNameParam = searchParams.get('groupName');
@@ -24,19 +46,20 @@ const PermissionsLists = () => {
     }
   }, [searchParams, setGroupName, setDescription]);
 
-  useEffect(() => {
-  }, [localPermissions]);
-
   const handlePermissionChange = (permission: string) => {
-    if (localPermissions.includes(permission)) {
-      setLocalPermissions(localPermissions.filter(p => p !== permission));
-    } else {
-      setLocalPermissions([...localPermissions, permission]);
-    }
+    setLocalPermissions(prevPermissions =>
+      prevPermissions.includes(permission)
+        ? prevPermissions.filter(p => p !== permission)
+        : [...prevPermissions, permission]
+    );
   };
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (localPermissions.length === 0) {
+      alert('Please select at least one permission.');
+      return;
+    }
     console.log('Submitting Permissions:', localPermissions);
     setPermissions(localPermissions);
     setIsConfirmModalVisible(true);
@@ -45,51 +68,13 @@ const PermissionsLists = () => {
   const handleConfirm = () => {
     console.log('Group creation confirmed');
     setIsConfirmModalVisible(false);
+    // Additional actions such as redirecting or resetting states can be added here
   };
 
   const handleCancel = () => {
     console.log('Group creation cancelled');
     setIsConfirmModalVisible(false);
   };
-
-  const permissionsData = [
-    {
-      title: "Account Permissions",
-      permissions: [
-        "View Account Details",
-        "View Transactions",
-        "Manage Accounts",
-        "Generate Account Reports",
-      ],
-    },
-    {
-      title: "Loan Permissions",
-      permissions: [
-        "View Loan Details",
-        "View Loan Repayments",
-        "Manage Loans",
-        "Generate Loan Reports",
-      ],
-    },
-    {
-      title: "MT 940 Permissions",
-      permissions: [
-        "View MT940 Statements",
-        "Statement Download",
-        "Upload MT940 Statements",
-        "Configure Account",
-      ],
-    },
-    {
-      title: "Card Permissions",
-      permissions: [
-        "View Card Details",
-        "Manage Cards",
-        "View Card Transactions",
-        "Loan Schedule",
-      ],
-    },
-  ];
 
   return (
     <div className={styles.container}>
@@ -119,32 +104,34 @@ const PermissionsLists = () => {
         </div>
         <div className={styles.bodyDiv}>
           <form className={styles.formdiv} onSubmit={handleSubmit}>
-           <div className={styles.checkboxdiv}> 
+            <div className={styles.checkboxdiv}>
               <div className={styles.topdiv}>
-                {permissionsData.slice(0, 2).map((section) => (
+                {permissionsData.slice(0, 2).map(section => (
                   <div key={section.title} className={styles.acctpermissions}>
                     <div className={`${styles.cardName} h6r`}>{section.title}</div>
-                    {section.permissions.map((permission) => (
+                    {section.permissions.map(permission => (
                       <CheckboxComponent
-                        key={permission}
-                        text={permission}
-                        checked={localPermissions.includes(permission)}
-                        onChange={() => handlePermissionChange(permission)}
+                        key={permission.permission}
+                        text={permission.permission}
+                        checked={localPermissions.includes(permission.permission)}
+                        onChange={() => handlePermissionChange(permission.permission)}
+                        aria-label={`Select ${permission.permission} permission`}
                       />
                     ))}
                   </div>
                 ))}
               </div>
               <div className={styles.lowerdiv}>
-                {permissionsData.slice(2).map((section) => (
+                {permissionsData.slice(2).map(section => (
                   <div key={section.title} className={styles.acctpermissions}>
                     <div className={`${styles.cardName} h6r`}>{section.title}</div>
-                    {section.permissions.map((permission) => (
+                    {section.permissions.map(permission => (
                       <CheckboxComponent
-                        key={permission}
-                        text={permission}
-                        checked={localPermissions.includes(permission)}
-                        onChange={() => handlePermissionChange(permission)}
+                        key={permission.permission}
+                        text={permission.permission}
+                        checked={localPermissions.includes(permission.permission)}
+                        onChange={() => handlePermissionChange(permission.permission)}
+                        aria-label={`Select ${permission.permission} permission`}
                       />
                     ))}
                   </div>
