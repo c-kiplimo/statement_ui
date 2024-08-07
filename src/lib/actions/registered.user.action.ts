@@ -1,30 +1,38 @@
 import { CustomerUserHandler } from "@/src/services/customer/customer.users.service";
 
 export const RegisteredUserAction = async (
-  value: number
+  customerId: number,platformId: string,page: number,size: number
 ): Promise<RegisteredUser[]> => {
   const handler = CustomerUserHandler();
-  const data = await handler.fetchCustomerUsers(value);
+  const data = await handler.fetchRegisteredUsers(customerId, platformId, page, size);
 
   if (data == undefined) {
     return [];
   }
 
-  let users: RegisteredUser[] = data.map(
-    (users: {
-      userId:number
-      username: string;      
-      mobileNumber: string;
-      email: string;
-      createdAt: string;
-    }) => ({
-        userId:users.userId,
-        userName:users.username,
-        phone:users.mobileNumber,
-        email:users.email,
-        joinedOn:users.createdAt,
-      })
-    );
+  const users:RegisteredUser[] = data.map((user: {
+    firstName: string;
+    lastName: string;   
+    mobileNumber: string;
+    userId: string;
+    username: string;
+    email: string;
+    userType: string;
+    status: string;
+    createdAt: string;
+  }) => ({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    phone: user.mobileNumber,
+    userId: user.username,
+    userName: `${user.firstName} ${user.lastName}`,  // Combining firstName and lastName
+    email: user.email,
+    userType: user.userType,
+    status: user.status,
+    joinedOn: user.createdAt,
+  }));
+
+  console.log("Registered user>>",users)
   return users;
 };
 

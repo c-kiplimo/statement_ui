@@ -18,7 +18,7 @@ type TabItem = {
 const UserProfilePage = () => {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
-  const platformId = usePlatformId();
+  const platformId:number = usePlatformId();
 
   const tabItems: TabItem[] = [
     {
