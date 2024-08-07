@@ -196,7 +196,8 @@ export const CUSTOMER_USER_PROFILE=`${PROFILE_URL}/api/v1/customers/user`;
 
 export const DELETE_CUSTOMER_USER_URL= `${PROFILE_URL}/api/v1/customers/users`;
 
-export const GET_CUSTOMER_USER_ACTIVITIES_URL = `${PROFILE_URL}/api/account/user/activities/v1`;
+export const GET_CUSTOMER_USER_ACTIVITIES_URL = `${API_URL}/api/v1/user/activities`;
+
 
 export const GET_CUSTOMER_USER_ACCOUNT_URL = `${PROFILE_URL}/api/v1/accounts/user`;
 

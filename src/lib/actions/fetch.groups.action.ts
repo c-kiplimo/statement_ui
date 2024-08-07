@@ -1,5 +1,5 @@
 import { UserGroupData } from "@/src/app/statement/(protected)/user-management/users/user-profile/widgets/user-group-data/user-groups-data";
-import GroupsHandler from "@/src/services/usermanagement/usergroups.services"
+import GroupsHandler, { UserGroupParams } from "@/src/services/usermanagement/usergroups.services"
 
 export const fetchUserGroups = async (userId: string,platformId: string,page: number,size: number,): Promise<UserGroupData[]> => {
     const handler = GroupsHandler();
@@ -24,11 +24,11 @@ export const fetchUserGroups = async (userId: string,platformId: string,page: nu
       const userGroups = await handler.fetchGroupsByUserId(userId);
 
       const userGroupData: UserGroupData[] = userGroups.map(group => ({
-        key: group.platformGroup.groupId.toString(), 
-        groupName: group.platformGroup.groupName ?? 'No Group Name', 
+        key: group.platformGroup.groupId.toString(), // Assuming userId can be used as the key
+        groupName: group.platformGroup.groupName ?? 'No Group Name', // Provide default values if necessary
         description: group.platformGroup.description ?? 'No Description',
         createdOn: group.platformGroup.createdAt ?? 'Unknown Date',
-        joinedOn: group.joinedOn,
+        joinedOn: group.joinedOn, // Optional
       }));
   
       return userGroupData;
