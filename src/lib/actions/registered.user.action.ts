@@ -1,10 +1,10 @@
 import { CustomerUserHandler } from "@/src/services/customer/customer.users.service";
 
 export const RegisteredUserAction = async (
-  value: number
+  customerId: number,platformId: string,page: number,size: number
 ): Promise<RegisteredUser[]> => {
   const handler = CustomerUserHandler();
-  const data = await handler.fetchRegisteredUsers(value);
+  const data = await handler.fetchRegisteredUsers(customerId, platformId, page, size);
 
   if (data == undefined) {
     return [];

@@ -27,9 +27,10 @@ import ConfirmFail from "../permissions/(confirmfailure)/confirm.failure";
 
 type userProps = {
   customerId: number;
+  platformId:number;
 };
 
-const UsersHome = ({ customerId }: userProps) => {
+const UsersHome = ({ customerId,platformId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<RegisteredUser | null>(null);
   const [openModal, setOpenModal] = useState(false);
@@ -50,7 +51,9 @@ const UsersHome = ({ customerId }: userProps) => {
     if (customerId !== null && customerId !== undefined) {
       setLoading(true);
       try {
-        const response = await RegisteredUserAction(customerId);
+        const response = await RegisteredUserAction(customerId,platformId.toString(),
+        0,
+        10);
         const usersWithKey = response.map((user: RegisteredUser) => ({
           ...user,
           key: user.userId || user.email,

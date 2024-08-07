@@ -7,6 +7,7 @@ import UsersHome from "./users/users";
 import PermissionPage from "./permissions/page";
 import UserGroupsHomePage from "./user-groups/groups";
 import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
+import { usePlatformId } from "@/src/hooks/platformId";
 
 type TabItem = {
   buttonName: string;
@@ -15,11 +16,12 @@ type TabItem = {
 
 const page = () => {
   const profId = useProfileId();
+  const platformId:number = usePlatformId();
 
   const tabItems: TabItem[] = [
     {
       buttonName: "Users",
-      bodyContent: <UsersHome customerId={profId!} key="users" />,
+      bodyContent: <UsersHome customerId={profId!} platformId={platformId} key="users" />,
     },
     {
       buttonName: "User Groups",
