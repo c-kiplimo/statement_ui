@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Spin, Alert } from "antd";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { profileDetails } from "@/src/types/user.type";
+import { format } from 'date-fns';
 
 type UserDetailsProps = {
   userId: string;
@@ -74,7 +75,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
             <CorporateInfo.UserDetails
               userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
               userId={userDetails?.username!}
-              userType={"(Date Created)"}
+              userType={`(${format(new Date(userDetails?.createdAt), 'dd-MM-yy')})`}
             />
             {/* <CorporateInfo.Status customerStatus={profile.status} /> */}
           </CorporateInfo.Header>

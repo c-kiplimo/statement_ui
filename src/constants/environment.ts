@@ -196,7 +196,8 @@ export const CUSTOMER_USER_PROFILE=`${PROFILE_URL}/api/v1/customers/user`;
 
 export const DELETE_CUSTOMER_USER_URL= `${PROFILE_URL}/api/v1/customers/users`;
 
-export const GET_CUSTOMER_USER_ACTIVITIES_URL = `${PROFILE_URL}/api/account/user/activities/v1`;
+export const GET_CUSTOMER_USER_ACTIVITIES_URL = `${API_URL}/api/v1/user/activities`;
+
 
 export const GET_CUSTOMER_USER_ACCOUNT_URL = `${PROFILE_URL}/api/v1/accounts/user`;
 
@@ -204,4 +205,6 @@ export const  GET_CUSTOMER_USER_GROUPS_URL = `${API_URL}/api/platform/group/v1`;
 
 export const ADD_CUST_USER_URL =`${PROFILE_URL}/api/v1/customers/assign`;
 
-export const ADD_USER_TO_GROUP_URL = `${PROFILE_URL}/api/v1/user/group`
+export const ADD_USER_TO_GROUP_URL = `${PROFILE_URL}/api/v1/user/group`;
+
+export const GET_GROUPS_BY_USERID_URL=`${API_URL}/api/v1/user/group`

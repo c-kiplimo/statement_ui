@@ -23,6 +23,7 @@
     "autoprefixer": "^10.4.15",
     "axios": "^1.6.2",
     "classnames": "^2.5.1",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
