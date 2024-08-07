@@ -1,10 +1,13 @@
+"use client"
 import React from "react";
 import UpdateUser from "./widgets/updateUser";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const UpdateUserPage = () => {
   const router = useRouter();
-  const { userId } = router.query; 
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("userId");
+  
   return (
     <div className="flex flex-col p-4 w-full h-auto overflow-hidden">
        <UpdateUser userId={userId as string}/>
