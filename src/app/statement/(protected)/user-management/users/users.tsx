@@ -98,7 +98,7 @@ const UsersHome = ({ customerId }: userProps) => {
         );
       break;
       case "update":
-        router.push(`/statement/user-management/users/updateUser/${record.userId}`);
+        router.push(`/statement/users/update?userId${record.userId}`);
         break;
       case "deactivate":
         setSelectedUser(record);
