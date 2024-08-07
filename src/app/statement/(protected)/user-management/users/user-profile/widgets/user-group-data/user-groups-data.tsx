@@ -14,9 +14,7 @@ import {
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Button from "@/src/components/atoms/buttons/button";
-import { fetchUserGroups
-  }
-    from "@/src/lib/actions/fetch.groups.action";
+import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import AddUserToGroup from "../add-user-group/add-user-group";
 import RemoveUser from "../../../(removeUser)/removeUser";
 import ConfirmFail from "../../../../permissions/(confirmfailure)/confirm.failure";
