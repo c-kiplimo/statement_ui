@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import styles from './user-groups-data.module.css'
-import { notification, Modal, Table } from "antd";
+import styles from "./user-groups-data.module.css";
+import { Modal, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import Image from "next/image";
@@ -14,10 +14,7 @@ import {
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Button from "@/src/components/atoms/buttons/button";
-import { fetchUserGroups,
-  //  removeUserFromGroup 
-  }
-    from "@/src/lib/actions/fetch.groups.action";
+import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import AddUserToGroup from "../add-user-group/add-user-group";
 import RemoveUser from "../../../(removeUser)/removeUser";
 import ConfirmFail from "../../../../permissions/(confirmfailure)/confirm.failure";
@@ -48,15 +45,10 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
   }>({ groupName: "", description: "" });
 
   useEffect(() => {
-    if (userId && platformId) {
+    if (userId) {
       const fetchData = async () => {
         try {
-          const data = await fetchUserGroups(
-            userId,
-            platformId.toString(),
-            0,
-            10
-          );
+          const data = await fetchUserGroupsAction(userId);
           setGroups(data);
         } catch (error) {
           console.error("Error fetching groups data:", error);
@@ -64,7 +56,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
       };
       fetchData();
     }
-  }, [userId, platformId]);
+  }, [userId]);
 
   console.log(groups);
 
@@ -137,7 +129,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
 
   const handleConfirmDelete = async () => {
     try {
-      // await removeUserFromGroup(userId, selectedGroup.groupName); 
+      // await removeUserFromGroup(userId, selectedGroup.groupName);
       // Assuming you have this API call defined
       // notification.success({
       //   message: "The group has been successfully removed",
