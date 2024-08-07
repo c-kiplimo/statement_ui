@@ -69,6 +69,37 @@
   height: auto;
 }
 
+.inputStyle{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px 0px 12px;
+  gap: 62px;
+  width: 635px;
+  height: 40px;
+  border: 0.8px solid #979992;
+  border-radius: 4px;
+  }
+  
+.inputdiv {
+  width: 176px;
+  height: 20px;
+  outline: none;
+}
+
+.adduserButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 0px 0px 24px;
+  gap: 6px;
+  width: fit-content;
+  height: 40px;
+  border-left: 0.8px solid #979992;
+}
+
 .table {
   display: flex;
   flex-direction: column;

@@ -77,7 +77,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
               userId={userDetails?.username!}
               userType={`(${format(new Date(userDetails?.createdAt), 'dd-MM-yy')})`}
             />
-            {/* <CorporateInfo.Status customerStatus={profile.status} /> */}
+            <CorporateInfo.Status customerStatus={userDetails?.status!} />
           </CorporateInfo.Header>
           <CorporateInfo.Description>
             <div className={styles.separator}>

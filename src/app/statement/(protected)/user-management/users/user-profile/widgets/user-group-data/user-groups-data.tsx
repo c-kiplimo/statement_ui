@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./user-groups-data.module.css";
-import { Modal, Table } from "antd";
+import { Modal, notification, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import Image from "next/image";
@@ -18,9 +18,11 @@ import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import AddUserToGroup from "../add-user-group/add-user-group";
 import RemoveUser from "../../../(removeUser)/removeUser";
 import ConfirmFail from "../../../../permissions/(confirmfailure)/confirm.failure";
+import GroupsHandler from "@/src/services/usermanagement/usergroups.services";
 
 export interface UserGroupData {
   key: string;
+  groupId:string;
   groupName: string;
   description: string;
   createdOn: string;
@@ -33,17 +35,21 @@ type userGroupProps = {
 };
 
 const UserGroups = ({ userId, platformId }: userGroupProps) => {
+  const handler = GroupsHandler();
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchTerm, setSearchTerm] = useState("");
   const [groups, setGroups] = useState<UserGroupData[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState<{
-    groupName: string;
-    description: string;
-  }>({ groupName: "", description: "" });
-
+  const [selectedGroup, setSelectedGroup] = useState<UserGroupData>({
+    groupId: "",
+    key: "",
+    groupName: "",
+    description: "",
+    createdOn: "",
+    joinedOn: "",
+  });
   useEffect(() => {
     if (userId) {
       const fetchData = async () => {
@@ -85,7 +91,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
       render: (_, record) => (
         <div
           className={styles.actionBtn}
-          onClick={() => handleDelete(record.groupName, record.description)}
+          onClick={() => handleDelete(record)}
         >
           <Image
             src="/DeleteOutlined.svg"
@@ -110,33 +116,34 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
     });
   }, [searchTerm, groups]);
 
+  const handleAddUser = () => {
+    setOpenModal(true);
+  };
+
   const handleModalClose = () => {
     setOpenModal(false);
   };
 
   const handleModalVisible = () => {
-    setModalOpen(false);
-  };
-
-  const handleDelete = (groupName: string, description: string) => {
-    setSelectedGroup({ groupName, description });
     setModalOpen(true);
   };
 
+  const handleDelete = (group: UserGroupData) => {
+    setSelectedGroup(group);
+    setModalOpen(true);
+  };
   const handleClick = () => {
-    setOpenModal(true);
+    console.log("Filtere items");
   };
 
   const handleConfirmDelete = async () => {
     try {
-      // await removeUserFromGroup(userId, selectedGroup.groupName);
-      // Assuming you have this API call defined
-      // notification.success({
-      //   message: "The group has been successfully removed",
-      // });
+      await handler.deleteGroupMembers(platformId.toString(), selectedGroup.groupId, userId);
+      notification.success({
+        message: "The group has been successfully removed",
+      });
       setModalOpen(false);
-      setErrorModalVisible(true);
-      // Optionally, refresh the group list here
+      setGroups(groups.filter(group => group.groupName !== selectedGroup.groupName));
     } catch (error) {
       setModalOpen(false);
       setErrorModalVisible(true);
@@ -170,7 +177,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
             <DownloadWidget.text text="Download" />
           </DownloadWidget>
           <Button
-            onClick={handleClick}
+            onClick={handleAddUser}
             buttonStyle={{
               background: "#003A49",
               color: "#FFFFFF",
@@ -201,9 +208,18 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
         onCancel={handleModalClose}
         footer={false}
         className={styles.modal}
-        width={600}
+        width={"45%"}
       >
-        <AddUserToGroup onCancel={handleModalClose} handleOk={() => {}} />
+        <AddUserToGroup
+          userId={userId}
+          title={"Platform Members Management"}
+          titleDescription={
+            "Are you sure you want to assign user to a group. Please review the details before proceeding."
+          }
+          typeOfInvite={"Search by group name"}
+          onCancel={handleModalClose}
+          handleOk={()=>{}}
+        />
       </Modal>
       <Modal
         open={modalOpen}
