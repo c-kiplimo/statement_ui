@@ -81,7 +81,7 @@ const UsersHome = ({ customerId }: userProps) => {
     if (!searchTerm) return users;
 
     return users.filter((user) =>
-      [user.userName, user.phone, user.email].some((field) =>
+      [user.username, user.mobileNumber, user.email].some((field) =>
         field?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
@@ -94,11 +94,13 @@ const UsersHome = ({ customerId }: userProps) => {
     switch (key) {
       case "view":
         router.push(
-          `/statement/user-management/users/user-profile?userId=${record.username}`
+          `/statement/user-management/users/user-profile?userId=${record.userId}`
         );
-      break;
+        break;
       case "update":
-        router.push(`/statement/users/update?userId${record.userId}`);
+        router.push(
+          `/statement/user-management/users/updateUser/${record.userId}`
+        );
         break;
       case "deactivate":
         setSelectedUser(record);
@@ -108,10 +110,10 @@ const UsersHome = ({ customerId }: userProps) => {
         break;
     }
   };
-  
 
   const handleDeactivate = async () => {
     if (selectedUser) {
+      console.log(selectedUser);
       try {
         const response = await deactivateUserService(selectedUser.userId!);
         if (response.message === "User Deactivated Successfully") {
@@ -255,10 +257,10 @@ const UsersHome = ({ customerId }: userProps) => {
           <DeactivateUser
             selectedId={selectedUser.userId}
             onCancel={handleModalClose}
-            firstName={selectedUser.userName.split(" ")[0]}
-            lastName={selectedUser.userName.split(" ").slice(1).join(" ")}
+            firstName={selectedUser.firstName}
+            lastName={selectedUser.lastName}
             email={selectedUser.email}
-            mobileNumber={selectedUser.phone}
+            mobileNumber={selectedUser.mobileNumber}
             userGroups={[]}
             handleOk={handleDeactivate}
           />
@@ -286,8 +288,8 @@ const UsersHome = ({ customerId }: userProps) => {
       >
         <ConfirmFail
           title="User Deactivation Failed"
-          description={`There was an error while trying to deactivate the user, ${selectedUser?.userName}. Please try again`}
-          onClick={() => setRetryDeactivate(true)} // Updated to setRetryDeactivate to true
+          description={`There was an error while trying to deactivate the user, ${selectedUser?.username}. Please try again`}
+          onClick={() => setRetryDeactivate(true)}
           onCancel={handleCancel}
         />
       </Modal>

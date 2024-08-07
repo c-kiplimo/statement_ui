@@ -1,8 +1,12 @@
 type RegisteredUser ={
     key:React.Key;
     userId:string;
-    userName: string; 
-    phone: string;
-    email: string;
+    firstName:string;
+    lastName:string;
+    mobileNumber:string;
+    email:string;
+    username:string;
+    userType:string;
+    status:string;
     createdAt:string;
 }
