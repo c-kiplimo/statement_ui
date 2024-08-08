@@ -26,7 +26,7 @@ const GroupCreationConfirm: React.FC<GroupCreationConfirmProps> = ({
   const router = useRouter();
   const profile = useProfileCreated();
   const userId = profile?.userId;
-  const platformId=usePlatformId()
+  const platformId = usePlatformId();
 
   const permissionsData = [
     {
@@ -55,11 +55,11 @@ const GroupCreationConfirm: React.FC<GroupCreationConfirmProps> = ({
   const handleConfirm = async () => {
     try {
       const userPayload = {
-        platformId: platformId.toString(), 
+        platformId: platformId.toString(),
         groupName,
         description,
-        userId: userId!, 
-        permission: permissions, 
+        userId: userId!,
+        permission: permissions,
       };
 
       await CREATEUSERGROUP(userPayload);
@@ -79,7 +79,7 @@ const GroupCreationConfirm: React.FC<GroupCreationConfirmProps> = ({
 
   const handleTryAgainClick = () => {
     setIsFailureVisible(false);
-    handleConfirm(); 
+    handleConfirm();
   };
 
   return (

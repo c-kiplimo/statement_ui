@@ -15,7 +15,8 @@ export type UserDetails = {
 };
 
 export const fetchUserDetails = async (
-  search: string = "",
+  search: string,
+  customerId:number,
     page: number,
     size: number,
 ): Promise<UserDetails[]> => {
@@ -27,6 +28,7 @@ export const fetchUserDetails = async (
       },
       params: {
         search,
+        customerId,
         page,
         size
       },

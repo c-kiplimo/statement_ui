@@ -188,7 +188,7 @@ export const UPDATE_CUSTOMER_USER_GROUP=`${API_URL}/api/platform/customer-group/
 
 export const EDIT_PERMISSION=`${API_URL}/api/platform/customer-group/v1/permissions`
 
-export const FETCH_USER_DETAILS=`${API_URL}/api/v1/user`
+export const FETCH_USER_DETAILS=`${API_URL}/api/v1/user/customer-users`
 
 export const CREATE_GROUP_MEMBER=`${API_URL}/api/v1/user/group`
 

@@ -9,6 +9,7 @@ import { fetchUseremailDetails } from "@/src/lib/actions/assign.userTo.group.act
 import { CREATEGROUPMEMBER } from "@/src/services/usermanagement/crea.group.member.service";
 import { usePlatformId } from "@/src/hooks/platformId";
 import { useSearchParams } from "next/navigation";
+import useProfileId from "@/src/hooks/profileId";
 
 type InviteProps = {
   title: string;
@@ -40,6 +41,7 @@ const AddUserToGroup = ({
   const platformId = usePlatformId();
   const searchParams = useSearchParams();
   const groupId = searchParams.get("groupId");
+  const customerId = useProfileId();
 
   const showNotification = (message: string, description: ReactNode) => {
     notification.open({
@@ -48,8 +50,8 @@ const AddUserToGroup = ({
       className: styles.customNotification,
       icon: null,
       style: {
-        width: "460px",
-        height: "80px",
+        width: "max-content",
+        height: "min-content",
         background: "#17D05B",
         color: "white",
       },
@@ -57,23 +59,29 @@ const AddUserToGroup = ({
     });
   };
 
-  const onCancel=()=>{
-    
-  }
+  const onCancel = () => {};
 
   const handleSearch = async () => {
     try {
       if (!searchEmail) return;
 
-      const data = await fetchUseremailDetails(searchEmail, 0, 1);
+      
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchEmail);
+      if (!isValidEmail) {
+        notification.error({
+          message:"Invalid Email Format"
+        })
+        return;
+      }
+
+      const data = await fetchUseremailDetails(searchEmail, customerId!, 0, 10);
 
       if (data.length > 0) {
         setUserData((prevData) => [...prevData, ...data]);
       } else {
-        showNotification(
-          "Email Not Found!!",
-          <img src="/warning.svg" width={35} height={15} alt="warning" />
-        );
+        notification.error({
+          message:"Email Not Found!"
+        })
       }
       setSearchEmail("");
     } catch (error) {
@@ -91,8 +99,14 @@ const AddUserToGroup = ({
           <CheckOutlined />
         </Successful.Icon>
         <Successful.Text text={`User has been removed successfully`} />
-        <Successful.Icon style={{ color: "white",background:"none",justifyContent:"flex-end" }} >
-          <CloseOutlined onClick={onCancel}/>
+        <Successful.Icon
+          style={{
+            color: "white",
+            background: "none",
+            justifyContent: "flex-end",
+          }}
+        >
+          <CloseOutlined onClick={onCancel} />
         </Successful.Icon>
       </Successful>
     );
@@ -118,6 +132,15 @@ const AddUserToGroup = ({
             <Successful.Text
               text={`User ${user.username} has been invited successfully`}
             />
+            <Successful.Icon
+              style={{
+                color: "white",
+                background: "none",
+                justifyContent: "flex-end",
+              }}
+            >
+              <CloseOutlined onClick={onCancel} />
+            </Successful.Icon>
           </Successful>
         );
       }
@@ -244,7 +267,7 @@ const AddUserToGroup = ({
 
       <Modal
         visible={isModalVisible}
-        width={"30%"}
+        width={"fit-content"}
         onCancel={handleCancel}
         footer={null}
       >
