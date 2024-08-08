@@ -148,7 +148,7 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
           <UserDetails.Content>
             <UserDetails.Profile
               userTitle={`${userDetails?.firstName} ${userDetails?.lastName}`}
-              moreInfo="(Teller)"
+              moreInfo={`(${userDetails?.userType})`}
             />
             <UserDetails.ActionBtn>
               <UserDetails.Actions

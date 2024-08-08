@@ -121,7 +121,9 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         router.push(`/statement/user-management/users/user-profile?userId=${record.userId}`);
         break;
       case "update":
-        router.push(`/statement/user-management/users/updateUser/${record.userId}`);
+        router.push(
+          `/statement/user-management/users/updateUser?userId=${record.userId}`
+        );
         break;
       case "deactivate":
         console.log("Selected user for deactivation:", record);
