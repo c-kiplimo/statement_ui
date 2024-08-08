@@ -50,6 +50,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
     createdOn: "",
     joinedOn: "",
   });
+  
   useEffect(() => {
     if (userId) {
       const fetchData = async () => {
@@ -122,6 +123,19 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
 
   const handleModalClose = () => {
     setOpenModal(false);
+  };
+  
+  const handleGroupAssignmentSuccess = () => {
+    setOpenModal(false);
+    const fetchData = async () => {
+      try {
+        const data = await fetchUserGroupsAction(userId);
+        setGroups(data);
+      } catch (error) {
+        console.error("Error fetching groups data:", error);
+      }
+    };
+    fetchData();
   };
 
   const handleModalVisible = () => {
@@ -218,7 +232,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
           }
           typeOfInvite={"Search by group name"}
           onCancel={handleModalClose}
-          handleOk={()=>{}}
+          onSuccess={handleGroupAssignmentSuccess}
         />
       </Modal>
       <Modal

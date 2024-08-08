@@ -1,4 +1,4 @@
-import { UserHandler } from "@/src/services/usermanagement/user.service";
+import { UserDetailResponse, UserHandler } from "@/src/services/usermanagement/user.service";
 import { profileDetails } from "@/src/types/user.type";
 
 export const userDetailsAction = async (value: string): Promise<profileDetails> => {
@@ -19,4 +19,23 @@ export const userDetailsAction = async (value: string): Promise<profileDetails> 
   };
   console.log(customerDetails);
   return customerDetails;
+};
+
+
+export const fetchUserDetailsAction = async (userId: string): Promise<UserDetailResponse> => {
+  let handler = UserHandler();
+
+  try {
+    let userDetailsResponse: UserDetailResponse = await handler.fetchUserDetailsByUserId(userId);
+    const { userResponseDTO, userGroups } = userDetailsResponse;
+    console.log("User Details:", userResponseDTO);
+    console.log("User Groups:", userGroups);
+    return {
+      userResponseDTO: userResponseDTO, 
+      userGroups,
+    };
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    throw new Error(`Failed to fetch user details for userId: ${userId}`);
+  }
 };

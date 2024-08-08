@@ -51,6 +51,33 @@ const GroupsHandler = () => {
     }
   };
 
+  const searchGroups = async (
+    customerId: string,
+    platformId: string,
+    page: number,
+    size: number,
+    search:string,
+  ): Promise<UsersGroup[]> => {
+    const apiUrl = `${USERS_GROUPS_URL}`;
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          "X-RequestId": "3456778909",
+        },
+        params: { customerId, platformId, page, size,search },
+      });
+      const apiResponse: UsersGroup[] = response.data;
+
+      if (apiResponse) {
+        return apiResponse;
+      } else {
+        throw new Error("No data received from the API");
+      }
+    } catch (error) {
+      throw new Error(`Failed to fetch groups: ${error}`);
+    }
+  };
+
   const fetchGroupsByUserId = async (
     userId: string
   ): Promise<UserGroupParams[]> => {
@@ -231,6 +258,7 @@ const GroupsHandler = () => {
 
   return {
     fetchGroups,
+    searchGroups,
     fetchGroupsByUserId,
     fetchSingleGroupDetailsByGroupId,
     deleteUsersGroup,
