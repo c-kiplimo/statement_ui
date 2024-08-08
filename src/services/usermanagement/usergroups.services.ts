@@ -1,4 +1,3 @@
-import { UserGroupData } from "@/src/app/statement/(protected)/user-management/users/user-profile/widgets/user-group-data/user-groups-data";
 import {
   DELETE_GROUPS_MEMBER,
   DELETE_GROUPS_URL,
