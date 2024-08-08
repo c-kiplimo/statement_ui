@@ -16,6 +16,7 @@ const createUserHandler = () => {
       mobileNumber: string;
       email: string;
       groupId: string;
+      customerId:string;
     };
   };
 
@@ -47,7 +48,7 @@ const createUserHandler = () => {
   };
 
   const createUserService = async (URL: string, PAYLOAD: CreateUserProps) => {
-    const { password, firstName, lastName, mobileNumber, email, groupId } =
+    const { password, firstName, lastName, mobileNumber, email, groupId,customerId } =
       PAYLOAD.register;
 
     const payload = {
@@ -57,6 +58,7 @@ const createUserHandler = () => {
       mobileNumber,
       email,
       groupId,
+      customerId,
     };
 
     try {
