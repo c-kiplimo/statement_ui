@@ -14,7 +14,9 @@ import { updateUserAction } from "@/src/lib/actions/update.User.action";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
 import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { profileDetails } from "@/src/types/user.type";
-import { userDetailsAction } from "@/src/lib/actions/user.profile.details.actions";
+import {
+  fetchUserDetailsAction,
+} from "@/src/lib/actions/user.profile.details.actions";
 import CreationSuccess from "../../../permissions/(confirmsuccess)/creation.success";
 
 const countryOptions = [
@@ -40,7 +42,6 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
   const [retryUpdate, setRetryUpdate] = useState(false);
   const [countryCode, setCountryCode] = useState(countryOptions[0].value);
   const { fetchPlatformGroupService } = createUserHandler();
-  const { fetchUserByUserId } = UserHandler();
   const [userGroups, setUserGroups] = useState<any[]>([]);
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
   const [selectedGroupDetails, setSelectedGroupDetails] = useState<any[]>([]);
@@ -57,7 +58,6 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
         icon: <TeamOutlined />,
         description: platformGroup.description,
       }));
-      console.log("User group list>>", user_groups);
       setUserGroups(user_groups);
       setLoading(false);
     } catch (error) {
@@ -74,23 +74,44 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
     if (userId) {
       const fetchUserDetails = async () => {
         try {
-          setLoading(true)
-          const response = await userDetailsAction(userId);
-          setUserDetails(response);
-          setLoading(false)
-          console.log(response);
+          setLoading(true);
+          const response = await fetchUserDetailsAction(userId);
+
+          const userResponse = response.userResponseDTO;
+          setUserDetails(userResponse);
+
+          const countryCode = userResponse.mobileNumber.substring(0, 4);
+          const mobileNumber = userResponse.mobileNumber.replace(countryCode, "");
+
+          const groupIds = response.userGroups.map((group) =>
+            group.platformGroup.groupId.toString()
+          );
+
+          form.setFieldsValue({
+            firstName: userResponse.firstName,
+            lastName: userResponse.lastName,
+            email: userResponse.email,
+            countryCode: countryCode,
+            mobileNumber: mobileNumber,
+            groupId: groupIds,
+          });
+
+          setSelectedGroups(groupIds);
+          setCountryCode(countryCode);
+          setLoading(false);
         } catch (error) {
           console.error("Failed to fetch user details:", error);
         }
       };
-
       fetchUserDetails();
     }
   }, [userId, form]);
 
   const handleGroupChange = (values: string[]) => {
     setSelectedGroups(values);
-    const selectedGroupDetails = userGroups.filter(group => values.includes(group.id));
+    const selectedGroupDetails = userGroups.filter((group) =>
+      values.includes(group.id)
+    );
     setSelectedGroupDetails(selectedGroupDetails);
   };
 
@@ -103,7 +124,6 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
       userId,
     };
     setFormData(updatedFormData);
-    console.log("Updated user details>>", updatedFormData);
     setOpenModal(true);
   };
 
@@ -161,7 +181,12 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
           <UserDetails.Status status={userDetails?.status!} />
         </UserDetails.Header>
       </UserDetails>
-      <Form style={{ width: "100%" }} layout="vertical" onFinish={onFinish}>
+      <Form
+        form={form}
+        style={{ width: "100%" }}
+        layout="vertical"
+        onFinish={onFinish}
+      >
         <div className={styles.form}>
           <div className={styles.header}>
             <Texter text="Update User" className="h5b" />
@@ -243,7 +268,7 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
                 <div className={`${styles.selectorRow} bodyr`}>
                   <Select
                     value={countryCode}
-                    onChange={setCountryCode}
+                    onChange={(value) => setCountryCode(value)}
                     style={{ width: 90, height: 40 }}
                   >
                     {countryOptions.map((option) => (
@@ -255,32 +280,32 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
                   <span className={`${styles.divider} h4r`}>/</span>
                   <Input
                     name="mobileNumber"
-                    className={`${styles.selectorInput} bodyr`}
                     type="text"
-                    placeholder="780000000"
+                    className={`${styles.mobileInput} bodyr`}
+                    placeholder="712345678"
+                    value={form.getFieldValue('mobileNumber') || ""}
                   />
                 </div>
               </Form.Item>
             </div>
 
             <div className={styles.vertical}>
-              <Form.Item
-                name="groupId"
-                label="Which group does the user belong to?"
-              >
+              <label htmlFor="groups" className="bodyr">
+                Assign Groups
+              </label>
+              <Form.Item name="groupId">
                 <Select
                   mode="multiple"
-                  allowClear
-                  style={{ width: "100%" }}
-                  className={styles.dropDown}
-                  placeholder="Select User Group"
+                  className={`${styles.groupSelector} bodyr`}
+                  placeholder="Assign Group(s)"
                   onChange={handleGroupChange}
-                  options={userGroups.map((group) => ({
-                    value: group.id,
-                    label: group.name,
-                  }))}
-                />
-                {error && <p className="captionr">{error}</p>}
+                >
+                  {userGroups.map((group) => (
+                    <Select.Option key={group.id} value={group.id}>
+                      {group.name}
+                    </Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
             </div>
           </div>
@@ -295,23 +320,21 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
         </Form.Item>
       </Form>
       <Modal
-        open={openModal}
-        onCancel={handleCancel}
+        visible={openModal}
         footer={false}
+        onOk={handleOk}
         className={styles.modal}
-        width={690}
+        onCancel={handleCancel}
       >
-        {formData && (
-          <ConfirmRegistrationModal
-            onCancel={handleCancel}
-            firstName={formData.firstName}
-            lastName={formData.lastName}
-            email={formData.email}
-            mobileNumber={formData.mobileNumber}
-            userGroups={selectedGroupDetails}
-            handleOk={handleOk}
-          />
-        )}
+        <ConfirmRegistrationModal
+          onCancel={handleCancel}
+          firstName={form.getFieldValue('firstName')}
+          lastName={form.getFieldValue('lastName')}
+          email={form.getFieldValue('email')}
+          mobileNumber={`${countryCode}${form.getFieldValue('mobileNumber')}`}
+          userGroups={selectedGroupDetails}
+          handleOk={handleOk}
+        />
       </Modal>
       <Modal
         open={successModalVisible}
@@ -325,7 +348,7 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
           description="The user has been successfully deactivated. Their account will be permanently deleted after 30 days. During this period, the account can be reactivated if needed."
           onClick={() => setSuccessModalVisible(false)}
         />
-        </Modal>
+      </Modal>
       <Modal
         open={failureModalVisible}
         onCancel={() => setFailureModalVisible(false)}

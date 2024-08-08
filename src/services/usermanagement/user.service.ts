@@ -1,9 +1,15 @@
 import {
+  GET_USER_INFO,
   USER_URL,
 } from "@/src/constants/environment";
 import { UserDetails, profileDetails } from "@/src/types/user.type";
 import { notification } from "antd";
 import axios, { AxiosRequestConfig} from "axios";
+
+export type UserDetailResponse={
+  userResponseDTO:profileDetails;
+  userGroups:UsersGroups[];
+}
 
 const UserHandler = () => {
   const fetchAllUsers = async (search?: string): Promise<UserDetails[]> => {
@@ -90,10 +96,31 @@ const UserHandler = () => {
     }
   };
 
+  const fetchUserDetailsByUserId =async (userId:string): Promise<UserDetailResponse>=>{
+    const url =`${GET_USER_INFO}/${userId}`
+    try {
+      const response= await axios.get(url,{
+        headers: {
+          "X-RequestId": "3456778909",
+        },
+      });
+      const apiResponse: UserDetailResponse = response.data;
+      console.log(apiResponse)
+      if (apiResponse) {
+        return apiResponse;
+      } else {
+        throw new Error("No data received from the API");
+      }
+    } catch (error) {
+      throw new Error(`Error fetching user details: ${error}`);
+    }
+  }
+
   return {
     fetchAllUsers,
     fetchUserByUserId,
     deleteUser,
+    fetchUserDetailsByUserId
   };
 };
 

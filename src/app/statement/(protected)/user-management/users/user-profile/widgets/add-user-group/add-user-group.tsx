@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode,  useState } from "react";
 import { Modal, notification, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { CheckOutlined, CloseOutlined, PlusOutlined } from "@ant-design/icons";
@@ -7,13 +7,13 @@ import Image from "next/image";
 import moment from "moment";
 import { UserGroupData } from "../user-group-data/user-groups-data";
 import Texter from "@/src/components/atoms/text/texter";
-import SearchBar from "@/src/components/widgets/search-bar/search-bar";
 import { useSearchParams } from "next/navigation";
 import { usePlatformId } from "@/src/hooks/platformId";
-import { fetchUserGroups, fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import Successful from "@/src/components/widgets/success-widget/successfull/successful";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import { CREATEGROUPMEMBER } from "@/src/services/usermanagement/crea.group.member.service";
+import useProfileId from "@/src/hooks/profileId";
+import { searchGroupsData } from "@/src/lib/actions/user.groups.action";
 
 type AddUserProps = {
   userId: string;
@@ -21,7 +21,7 @@ type AddUserProps = {
   titleDescription: string;
   typeOfInvite: string;
   onCancel: () => void;
-  handleOk?: () => void;
+  onSuccess: () => void;
 };
 
 const AddUserToGroup = ({
@@ -30,17 +30,14 @@ const AddUserToGroup = ({
   titleDescription,
   typeOfInvite,
   onCancel,
-  handleOk,
+  onSuccess
 }: AddUserProps) => {
+  const profId =useProfileId();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [groupData, setGroupData] = useState<UserGroupData[]>([]);
   const [searchGroup, setSearchGroup] = useState("");
   const platformId = usePlatformId();
-  const searchParams = useSearchParams();
-  const groupId = searchParams.get("groupId");
 
-  console.log(userId)
-  
   const showNotification = (message: string, description: ReactNode) => {
     notification.open({
       message,
@@ -56,28 +53,20 @@ const AddUserToGroup = ({
     });
   };
 
-  useEffect(() => {
-    if (userId) {
-      const fetchData = async () => {
-        try {
-          const data = await fetchUserGroupsAction(userId);
-          setGroupData(data);
-        } catch (error) {
-          console.error("Error fetching groups data:", error);
-        }
-      };
-      fetchData();
-    }
-  }, [userId]);
-
   const handleSearch = async () => {
+    let customerId ="";
+
+    if(profId !== null && profId !== undefined) {
+      customerId=profId.toString();
+    }
+    console.log(customerId)
     try {
       if (!searchGroup) return;
-
-      const data = await fetchUserGroups(userId, platformId.toString(), 0, 1);
+      const data = await searchGroupsData(customerId, platformId.toString(), 0, 1,searchGroup);
       console.log(data)
       if (data.length > 0) {
         setGroupData((prevData) => [...prevData, ...data]);
+        console.log(groupData)
       } else {
         showNotification(
           "Group Not Found!!",
@@ -85,45 +74,42 @@ const AddUserToGroup = ({
         );
       }
       setSearchGroup("");
+      console.log(searchGroup)
     } catch (error) {
       console.error("Failed to fetch group details:", error);
       setIsModalVisible(true);
     }
   };
 
- 
+  const handleSuccess = () => {
+    onSuccess();
+    onCancel();
+  };
 
   const handleAddUser = async () => {
     try {
-      if (!groupId) return;
-
-      const groupPayload = {
-        groupId: parseInt(groupId),
-        platformId,
-      };
-
-      for (const group of groupData) {
-        await CREATEGROUPMEMBER(group.key, groupPayload);
-        showNotification(
-          "",
-          <Successful>
-            <Successful.Icon style={{ color: "#17D05B" }}>
-              <CheckOutlined />
-            </Successful.Icon>
-            <Successful.Text
-              text={"You have successfully assigned user to a group."}
-            />
-          </Successful>
-        );
+      const userPayloads = groupData.map((group) => ({
+        groupId: Number(group.groupId),
+        platformId: platformId,
+      }));
+  
+      for (const payload of userPayloads) {
+        await CREATEGROUPMEMBER(userId, payload);
       }
-      setGroupData([])
-      onCancel();
-      if (handleOk) handleOk();
-    } catch (error) {}
-    console.log("Button clicked with search term:", searchGroup);
-    setIsModalVisible(true);
+  
+      notification.success({
+        message: "User successfully added to the selected groups",
+      });
+      handleSuccess()
+      setGroupData([]);
+    } catch (error) {
+      console.error("Error adding user to group:", error);
+      setIsModalVisible(true);
+    }
   };
 
+
+  
   const handleDelete = (key: string) => {
     setGroupData((prevData) => prevData.filter((group) => group.key !== key));
     showNotification(
@@ -219,7 +205,7 @@ const AddUserToGroup = ({
             onChange={(e) => setSearchGroup(e.target.value)}
           />
           <button className={styles.adduserButton} onClick={handleSearch}>
-            Add user <PlusOutlined />
+            Add group <PlusOutlined />
           </button>
         </div>
       </div>

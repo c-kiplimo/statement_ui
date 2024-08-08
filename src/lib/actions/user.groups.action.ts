@@ -2,6 +2,7 @@ import { GroupsInformation } from "@/src/app/statement/(protected)/user-manageme
 import { GroupPermissionsType } from "@/src/app/statement/(protected)/user-management/user-groups/group-permissions-home-page/group.permissions";
 import { GroupUserInformation, MembersData } from "@/src/app/statement/(protected)/user-management/user-groups/group-users-home-page/group.users";
 import { GroupData } from "@/src/app/statement/(protected)/user-management/user-groups/groups";
+import { UserGroupData } from "@/src/app/statement/(protected)/user-management/users/user-profile/widgets/user-group-data/user-groups-data";
 import PermissionsHandler from "@/src/services/usermanagement/permissions.service";
 import GroupsHandler from "@/src/services/usermanagement/usergroups.services"
 
@@ -19,6 +20,23 @@ export const fetchGroupsData = async (customerId: string,platformId: string,page
   
     return groups;
   };
+
+  export const searchGroupsData = async (customerId: string,platformId: string,page: number,size: number,search:string): Promise<UserGroupData[]> => {
+    const handler = GroupsHandler();
+    const response:UsersGroup[] = await handler.searchGroups(customerId, platformId, page, size,search);
+    const groups: UserGroupData [] = response.map((data) => ({
+      key: data.groupId.toString(),
+      groupId:data.groupId.toString(),
+      groupName: data.groupName,
+      description: data.description,
+      createdOn: data.createdAt.toString().split('T')[0],
+    }));
+
+    console.log(groups)
+  
+    return groups;
+  };
+
 
   export const fetchSingleUserGroup = async (groupId: number): Promise<GroupsInformation> => {
     const handler = GroupsHandler(); 
