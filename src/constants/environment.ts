@@ -109,7 +109,7 @@ export const GROUP_URL = `${API_URL}/api/v1/group`;
 
 export const GET_PLATFORM_GROUPS =`${API_URL}/api/platform/group/v1`
 
-export const DEACTIVATE_USER = `${API_URL} /api/v1/user/deactivate`
+export const DEACTIVATE_USER = `${API_URL}/api/v1/user/deactivate`
 
 export const GET_PROFILE_DETAILS = `${API_URL}/api/user/profile/v1`;
 

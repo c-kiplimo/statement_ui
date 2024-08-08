@@ -23,9 +23,9 @@ export const RegisteredUserAction = async (
   }) => ({
     firstName: user.firstName,
     lastName: user.lastName,
-    phone: user.mobileNumber,
+    mobileNumber: user.mobileNumber,
     userId: user.username,
-    userName: `${user.firstName} ${user.lastName}`,  // Combining firstName and lastName
+    userName: `${user.firstName} ${user.lastName}`,
     email: user.email,
     userType: user.userType,
     status: user.status,

@@ -10,6 +10,7 @@ import {
   UserOutlined,
   EditOutlined,
   EllipsisOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
@@ -24,19 +25,21 @@ import { createUserHandler } from "@/src/services/usermanagement/create.user.ser
 import DeactivateUser from "./(deactivateUser)/deactivate.user";
 import CreationSuccess from "../permissions/(confirmsuccess)/creation.success";
 import ConfirmFail from "../permissions/(confirmfailure)/confirm.failure";
+import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 
 type userProps = {
   customerId: number;
-  platformId:number;
+  platformId: number;
 };
 
-const UsersHome = ({ customerId,platformId }: userProps) => {
+const UsersHome = ({ customerId, platformId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<RegisteredUser | null>(null);
   const [openModal, setOpenModal] = useState(false);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [failureModalVisible, setFailureModalVisible] = useState(false);
   const [retryDeactivate, setRetryDeactivate] = useState(false);
+  const [userGroups, setUserGroups] = useState<User_Group[]>([]);
   const router = useRouter();
   const { deactivateUserService } = createUserHandler();
   const [loading, setLoading] = useState(true);
@@ -45,15 +48,14 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
   const handleModalClose = () => {
     setOpenModal(false);
     setSelectedUser(null);
+    setUserGroups([]); // Clear user groups when modal is closed
   };
 
   const fetchUsers = async () => {
     if (customerId !== null && customerId !== undefined) {
       setLoading(true);
       try {
-        const response = await RegisteredUserAction(customerId,platformId.toString(),
-        0,
-        10);
+        const response = await RegisteredUserAction(customerId, platformId.toString(), 0, 10);
         const usersWithKey = response.map((user: RegisteredUser) => ({
           ...user,
           key: user.userId || user.email,
@@ -62,8 +64,7 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
       } catch (error) {
         console.error("Error fetching data:", error);
         notification.error({
-          message:
-            "There was an error while fetching users. Please try again later.",
+          message: "There was an error while fetching users. Please try again later.",
           description: "",
           icon: <CloseCircleOutlined style={{ color: "white" }} />,
           className: "bodyr failure-notification",
@@ -80,6 +81,27 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
     fetchUsers();
   }, [customerId]);
 
+  const fetchGroups = async (userId: string) => {
+    try {
+      const data = await fetchUserGroupsAction(userId);
+      const transformedGroups = data.map((group: any) => ({
+        id: group.groupId,
+        name: group.groupName,
+        icon: <TeamOutlined />, // Use a default icon or map accordingly
+        description: group.description,
+      }));
+      setUserGroups(transformedGroups); // Set transformed groups data
+    } catch (error) {
+      console.error("Error fetching groups data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (openModal && selectedUser) {
+      fetchGroups(selectedUser?.userId);
+    }
+  }, [openModal, selectedUser]);
+
   const filteredUsers = useMemo(() => {
     if (!searchTerm) return users;
 
@@ -92,20 +114,17 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
 
   const handleMenuClick = (e: any) => {
     const { key } = e;
-    const record = e.item.props["data-record"];
-    console.log("Action clicked:", key, "for record:", record);
+    const record: RegisteredUser = e.item.props["data-record"];
+    console.log("Action clicked:", key, "for record:", record); // Add console log to check record data
     switch (key) {
       case "view":
-        router.push(
-          `/statement/user-management/users/user-profile?userId=${record.userId}`
-        );
+        router.push(`/statement/user-management/users/user-profile?userId=${record.userId}`);
         break;
       case "update":
-        router.push(
-          `/statement/user-management/users/updateUser/${record.userId}`
-        );
+        router.push(`/statement/user-management/users/updateUser/${record.userId}`);
         break;
       case "deactivate":
+        console.log("Selected user for deactivation:", record);
         setSelectedUser(record);
         setOpenModal(true);
         break;
@@ -114,18 +133,13 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
     }
   };
 
-  const handleDeactivate = async () => {
+  const handleDeactivate = async (userId:string) => {
     if (selectedUser) {
-      console.log(selectedUser);
+      console.log("Deactivating user:", selectedUser.userId);
       try {
         const response = await deactivateUserService(selectedUser.userId!);
-        if (response.message === "User Deactivated Successfully") {
+        console.log(response)        
           setSuccessModalVisible(true);
-          fetchUsers();
-          handleModalClose();
-        } else {
-          setFailureModalVisible(true);
-        }
       } catch (error) {
         console.error("Error deactivating user:", error);
         setFailureModalVisible(true);
@@ -135,9 +149,21 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
     }
   };
 
+  const handleSuccessModalClose = () => {
+    setSuccessModalVisible(false);
+    handleModalClose();
+    fetchUsers();
+  };
+
+  const handleCancel = () => {
+    setFailureModalVisible(false);
+    setSelectedUser(null);
+    setOpenModal(false);
+  };
+
   useEffect(() => {
     if (retryDeactivate && selectedUser) {
-      handleDeactivate();
+      handleDeactivate(selectedUser?.userId);
     }
   }, [retryDeactivate]);
 
@@ -174,7 +200,7 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
     },
     {
       title: "Phone",
-      dataIndex: "phone",
+      dataIndex: "mobileNumber",
     },
     {
       title: "Email",
@@ -213,12 +239,6 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
 
   const handleClick = () => {
     router.push("/statement/user-management/users/create-user");
-  };
-
-  const handleCancel = () => {
-    setFailureModalVisible(false);
-    setSelectedUser(null);
-    setOpenModal(false);
   };
 
   return (
@@ -264,14 +284,14 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
             lastName={selectedUser.lastName}
             email={selectedUser.email}
             mobileNumber={selectedUser.mobileNumber}
-            userGroups={[]}
+            userGroups={userGroups}
             handleOk={handleDeactivate}
           />
         )}
       </Modal>
       <Modal
         open={successModalVisible}
-        onCancel={() => setSuccessModalVisible(false)}
+        onCancel={handleSuccessModalClose}
         footer={null}
         className={styles.modal}
         width={350}
@@ -279,22 +299,24 @@ const UsersHome = ({ customerId,platformId }: userProps) => {
         <CreationSuccess
           title="User Deactivation Successful"
           description="The user has been successfully deactivated. Their account will be permanently deleted after 30 days. During this period, the account can be reactivated if needed."
-          onClick={() => setSuccessModalVisible(false)}
+          onClick={handleSuccessModalClose} 
         />
       </Modal>
       <Modal
         open={failureModalVisible}
-        onCancel={() => setFailureModalVisible(false)}
+        onCancel={handleCancel}
         footer={null}
         className={styles.modal}
         width={350}
       >
+        {selectedUser &&(
         <ConfirmFail
           title="User Deactivation Failed"
-          description={`There was an error while trying to deactivate the user, ${selectedUser?.username}. Please try again`}
+          description={`There was an error while trying to deactivate the user, ${selectedUser?.username!}. Please try again`}
           onClick={() => setRetryDeactivate(true)}
           onCancel={handleCancel}
         />
+      )}
       </Modal>
     </div>
   );
