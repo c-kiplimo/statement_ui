@@ -10,6 +10,7 @@ import ConfirmFail from "../../../permissions/(confirmfailure)/confirm.failure";
 import ConfirmRegistrationModal from "./(confirmUser)/confirmUser";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import useProfileId from "@/src/hooks/profileId";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -32,9 +33,11 @@ type CreateUserProps = {
   mobileNumber: string;
   email: string;
   groupId: string;
+  customerId:string;
 };
 
 const CreateUser = () => {
+  const profId = useProfileId();
   const [form] = Form.useForm();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -86,11 +89,18 @@ const CreateUser = () => {
   };
 
   const onFinish = (values: CreateUserProps) => {
+    let customerId = "";
+
+  if (profId !== null && profId !== undefined) {
+    customerId = profId.toString();
+  }
+    console.log(customerId)
     const fullMobileNumber = `${countryCode}${values.mobileNumber}`;
     const updatedFormData = {
       ...values,
       mobileNumber: fullMobileNumber,
       groupId: selectedGroup?.id || "",
+      customerId,
     };
     setFormData(updatedFormData);
     console.log("Registered user data>>", updatedFormData);
@@ -110,7 +120,8 @@ const CreateUser = () => {
           message: `User has been created successfully`,
           description: '',
           icon: <CheckCircleOutlined style={{ color: "white" }} />,
-          className: 'bodyr success-notification', 
+          className: 'bodyr success-notification',
+          style:{color: "white"},
           placement: 'topRight',
           duration: 1,
         });
