@@ -1,10 +1,10 @@
 import PermissionsHandler from "@/src/services/usermanagement/permissions.service";
-export const fetchUserPermissions = async (): Promise<PermissionsSection[]> => {
+export const fetchUserPermissions = async () => {
   try {
     const handler = PermissionsHandler();
     const response: UserPermission[] = await handler.fetchPermissions();
 
-    const permissions: PermissionsSection[] = response.map(data => ({
+    const permissions = response.map(data => ({
       title: data.type,
       permissions: data.permissions.map(permission => ({
         permissionName: permission.name,

@@ -17,12 +17,12 @@ import { searchGroupsData } from "@/src/lib/actions/user.groups.action";
 const { Option } = Select;
 
 type AddUserProps = {
-  userId: string;
-  title: string;
-  titleDescription: string;
-  typeOfInvite: string;
-  onCancel: () => void;
-  onSuccess: () => void;
+  userId?: string;
+  title?: string;
+  titleDescription?: string;
+  typeOfInvite?: string;
+  onCancel?: () => void;
+  onSuccess?: () => void;
 };
 
 const AddUserToGroup = ({
@@ -96,7 +96,7 @@ const AddUserToGroup = ({
       }));
 
       for (const payload of userPayloads) {
-        await CREATEGROUPMEMBER(userId, payload);
+        await CREATEGROUPMEMBER(userId!, payload);
       }
 
       notification.success({
@@ -187,14 +187,14 @@ const AddUserToGroup = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Texter text={title} className={`${styles.title} bm1`} />
+        <Texter text={title!} className={`${styles.title} bm1`} />
         <Texter
-          text={titleDescription}
+          text={titleDescription!}
           className={`${styles.description} br1`}
         />
       </div>
       <div className={styles.input}>
-        <Texter text={typeOfInvite} className={`${styles.inputTitle} bodyr`} />
+        <Texter text={typeOfInvite!} className={`${styles.inputTitle} bodyr`} />
         <div className={styles.inputStyle}>
           <Select
             placeholder="Select a group"

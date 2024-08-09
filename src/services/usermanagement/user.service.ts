@@ -1,8 +1,9 @@
 import {
   GET_USER_INFO,
+  PENDING_USER,
   USER_URL,
 } from "@/src/constants/environment";
-import { UserDetails, profileDetails } from "@/src/types/user.type";
+import { PendingUser, UserDetails, profileDetails } from "@/src/types/user.type";
 import { notification } from "antd";
 import axios, { AxiosRequestConfig} from "axios";
 
@@ -39,6 +40,34 @@ const UserHandler = () => {
 
       return response;
     } catch (error) {
+      throw error;
+    }
+  };
+  const registerUser = async (
+    URL: string,
+    PAYLOAD: PendingUser
+  ): Promise<PendingUser[]> => {
+    const { password, firstName, lastName, mobileNumber, email } = PAYLOAD;
+
+    const payload = {
+      password,
+      firstName,
+      lastName,
+      mobileNumber,
+      email,
+    };
+
+    try {
+      const response = await axios.post<PendingUser[]>(URL, payload, {
+        headers: {
+          "X-RequestId": "35342323",
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("Pending user>>", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("User registration failed:", error);
       throw error;
     }
   };
@@ -115,12 +144,33 @@ const UserHandler = () => {
       throw new Error(`Error fetching user details: ${error}`);
     }
   }
+  const fetchPendingUser = async (): Promise<UserDetails[]> => {
+    try {
+      const config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: PENDING_USER,
+        headers: {
+          "X-RequestId": "35342323",
+        },
+      };
+
+      const response = await axios.request(config);
+      return response.data.content as UserDetails[];
+    } catch (error) {
+      console.error("Error fetching pending users:", error);
+      throw error;
+    }
+  };
 
   return {
     fetchAllUsers,
     fetchUserByUserId,
     deleteUser,
-    fetchUserDetailsByUserId
+    fetchUserDetailsByUserId,
+    registerUser,
+    fetchPendingUser
+
   };
 };
 

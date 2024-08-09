@@ -24,14 +24,14 @@ const PendingModal = ({
 }: PendingAuthorizationProps) => {
   const token = useTokens();
   const font = useFont();
-  const {
-    authorizeUser,
-    unauthorizeUser,
-  } = UserHandler();
+  // const {
+  //   authorizeUser,
+  //   unauthorizeUser,
+  // } = UserHandler();
 
   const handleAuthorize = async () => {
     try {
-      await authorizeUser(dynamicData.username);
+      // await authorizeUser(dynamicData.username);
       setIsModalOpen(false);
       handleEdit(dynamicData);
     } catch (error) {
@@ -41,7 +41,7 @@ const PendingModal = ({
 
   const handleUnauthorize = async () => {
     try {
-      await unauthorizeUser(dynamicData.username);
+      // await unauthorizeUser(dynamicData.username);
       setIsModalOpen(false);
       handleDelete(dynamicData);
       notification.success({

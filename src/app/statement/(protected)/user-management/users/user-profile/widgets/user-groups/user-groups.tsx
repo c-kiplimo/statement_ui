@@ -172,7 +172,6 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
       >
         <AddUserToGroup
           onCancel={handleModalClose}
-          handleOk={()=>{}}
         />
       </Modal>
     </div>

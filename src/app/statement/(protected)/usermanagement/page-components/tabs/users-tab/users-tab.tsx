@@ -66,23 +66,23 @@ const Users = () => {
     }
   };
 
-  const displayPendingUsers = async () => {
-    try {
-      const response = await fetchPendingUser();
-      const usersWithKeys = response.map((user, index) => ({
-        ...user,
-        key: index.toString(),
-      }));
-      setPendingUsers(usersWithKeys);
-      console.log("Pending users", response);
-    } catch (error) {
-      console.error("Error fetching pending users:", error);
-    }
-  };
+  // const displayPendingUsers = async () => {
+  //   try {
+  //     const response = await fetchPendingUser();
+  //     const usersWithKeys = response.map((user, index) => ({
+  //       ...user,
+  //       key: index.toString(),
+  //     }));
+  //     setPendingUsers(usersWithKeys);
+  //     console.log("Pending users", response);
+  //   } catch (error) {
+  //     console.error("Error fetching pending users:", error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchUsers();
-    displayPendingUsers();
+    // displayPendingUsers();
   }, []);
 
   const openModal = (type: string, record: UserDetails) => {

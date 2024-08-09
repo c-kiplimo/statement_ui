@@ -73,7 +73,7 @@ const ConfirmCreationModal = ({onCancel, permission, description}:ConfirmCreatio
         footer={false}
         width={350}
       >
-        <ConfirmFail title={'Permission Creation Failed'} description={'There was an error submitting the new permission. Please try again'} onClick={handleModalClose}/>
+        <ConfirmFail title={'Permission Creation Failed'} description={'There was an error submitting the new permission. Please try again'} onClick={handleModalClose} onCancel={handleModalClose}/>
       </Modal>
     </div>
   )

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styles from "./updateUser.module.css";
 import UserDetails from "@/src/components/widgets/users.details/user.details";
 import Image from "next/image";
-import {useSearchParams } from "next/navigation";
 import { Form, Input, Modal, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
 import { usePlatformId } from "@/src/hooks/platformId";
-import {TeamOutlined } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { CheckCircleOutlined, TeamOutlined } from "@ant-design/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 import ConfirmRegistrationModal from "../../create-user/widgets/(confirmUser)/confirmUser";
 import ConfirmFail from "../../../permissions/(confirmfailure)/confirm.failure";
 import { updateUserAction } from "@/src/lib/actions/update.User.action";
@@ -151,6 +150,7 @@ const UpdateUser = () => {
   };
 
   return (
+    <Suspense>
     <div className={styles.container}>
       <UserDetails>
         <UserDetails.Header>
@@ -361,6 +361,7 @@ const UpdateUser = () => {
         />
       </Modal>
     </div>
+    </Suspense>
   );
 };
 
