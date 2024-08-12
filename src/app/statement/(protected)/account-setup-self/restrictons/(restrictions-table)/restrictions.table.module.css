@@ -1,5 +1,6 @@
 .customTable thead > tr > th {
   background-color: transparent !important;
+  font-weight: 700;
 }
 
 .customTable td {
@@ -31,4 +32,7 @@
 }
 .time {
   font-size: 12px;
+}
+.container {
+  width: 100%;
 }
