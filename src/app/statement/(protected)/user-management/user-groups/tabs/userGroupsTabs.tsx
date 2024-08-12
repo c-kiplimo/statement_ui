@@ -85,7 +85,7 @@ const GroupsTabs = () => {
     <div className="flex flex-col p-4 bg-[] w-full h-auto">
       <GroupsUserprofile
         groupIdId={groupId!}
-        icon={"F"}
+        icon={groupData.groupname.charAt(0).toUpperCase()}
         title={groupData.groupname}
         totalusers={`(${totalUsers} Members)`}
         address={groupData.groupdesc}
@@ -95,7 +95,6 @@ const GroupsTabs = () => {
         <TabNav tabItems={tabItems} />
       </div>
     </div>
-  );
-};
+  );}  
 
 export default GroupsTabs;

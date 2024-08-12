@@ -129,12 +129,6 @@
   height: auto;
 }
 
-.acctpermissions {
-  
-}
-
-
-
 
 .cardName {
   display: flex;
@@ -152,18 +146,19 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  align-self: flex-end;
   padding: 0px;
-  gap: 24px;
-  width: 334px;
+  gap: 16px;
+  width: fit-content;
   height: auto;
 }
 
 .loan {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   padding: 0px;
-  gap: 24px;
+  gap: 16px;
   width: 334px;
   height: auto;
 }
@@ -173,7 +168,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 24px;
+  gap: 16px;
   width: 334px;
   height: auto;
 }

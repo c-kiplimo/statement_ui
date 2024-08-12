@@ -68,7 +68,6 @@ const PermissionsLists = () => {
   const handleConfirm = () => {
     console.log('Group creation confirmed');
     setIsConfirmModalVisible(false);
-    // Additional actions such as redirecting or resetting states can be added here
   };
 
   const handleCancel = () => {
