@@ -79,7 +79,7 @@ const getAccountByCustomerId =async(
             }).then((res) => {
             let apiResponse = res.data
 
-            console.log("Fetched customer restrictions data:", apiResponse);
+            
 
             if (apiResponse) {
                 let apiRes = apiResponse;
