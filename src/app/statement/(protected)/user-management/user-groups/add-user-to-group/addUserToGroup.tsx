@@ -65,12 +65,11 @@ const AddUserToGroup = ({
     try {
       if (!searchEmail) return;
 
-      
       const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchEmail);
       if (!isValidEmail) {
         notification.error({
-          message:"Invalid Email Format"
-        })
+          message: "Invalid Email Format",
+        });
         return;
       }
 
@@ -80,8 +79,8 @@ const AddUserToGroup = ({
         setUserData((prevData) => [...prevData, ...data]);
       } else {
         notification.error({
-          message:"Email Not Found!"
-        })
+          message: "Email Not Found!",
+        });
       }
       setSearchEmail("");
     } catch (error) {
@@ -115,6 +114,15 @@ const AddUserToGroup = ({
   const handleInviteUser = async () => {
     try {
       if (!groupId) return;
+
+      if (userData.length === 0) {
+        notification.info({
+          message: "No Users to Invite",
+          description:
+            "Please select a user to invite.",
+        });
+        return;
+      }
 
       const userPayload = {
         groupId: parseInt(groupId),

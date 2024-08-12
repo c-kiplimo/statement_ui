@@ -72,6 +72,7 @@
   width: 100%;
   height: 40px;
   color: #1a2600;
+  font-size: 20px;
 }
 
 .titleDescription {
@@ -79,10 +80,11 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  gap: 10px;
+  gap: 6px;
   width: 100%;
   height: 80px;
   color: #6f7269;
+  font-size: 20px;
 }
 
 .inviteBy {
@@ -132,6 +134,7 @@
 
 .antdtable {
   width: 100%;
+  font-size: 16px;
 }
 
 .buttons {

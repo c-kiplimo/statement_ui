@@ -38,6 +38,28 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
     getPermissionsData();
   }, [groupId, platformId]);
 
+  const renderPermissionsSection = (title: string) => {
+    const section = permissionsData.find((sec) => sec.title === title);
+    if (!section) return null;
+
+    // Add a specific class based on the title
+    const sectionClass = title.toLowerCase(); // e.g., 'account', 'loan', 'card'
+
+    return (
+      <div key={section.title} className={`${styles.acctpermissions} ${styles[sectionClass]}`}>
+        <div className={`${styles.cardName} h6r`}>{section.title}</div>
+        {section.permissions.map((permission) => (
+          <CheckboxComponent
+            key={permission.name}
+            text={permission.name}
+            checked={true}
+            disabled
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className={styles.groupUsersContainer}>
       <div className={styles.header}>
@@ -53,7 +75,7 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
             onClick={onEditPermissions}
             buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
           >
-            <AddItems.Icon>
+            <AddItems.Icon iconStyles={{ color: "white" }}>
               <PlusOutlined />
             </AddItems.Icon>
             <AddItems.Text text="Edit permission" />
@@ -62,34 +84,11 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
       </div>
       <div className={styles.checkboxdiv}>
         <div className={styles.topdiv}>
-          {permissionsData.slice(0, 2).map((section) => (
-            <div key={section.title} className={styles.acctpermissions}>
-              <div className={`${styles.cardName} h6r`}>{section.title}</div>
-              {section.permissions.map((permission) => (
-                <CheckboxComponent
-                  key={permission.name}
-                  text={permission.name}
-                  checked={true}
-                  disabled
-                />
-              ))}
-            </div>
-          ))}
+          {renderPermissionsSection("ACCOUNT")}
+          {renderPermissionsSection("LOAN")}
         </div>
         <div className={styles.lowerdiv}>
-          {permissionsData.slice(2).map((section) => (
-            <div key={section.title} className={styles.acctpermissions}>
-              <div className={`${styles.cardName} h6r`}>{section.title}</div>
-              {section.permissions.map((permission) => (
-                <CheckboxComponent
-                  key={permission.name}
-                  text={permission.name}
-                  checked={true}
-                  disabled
-                />
-              ))}
-            </div>
-          ))}
+          {renderPermissionsSection("CARD")}
         </div>
       </div>
     </div>

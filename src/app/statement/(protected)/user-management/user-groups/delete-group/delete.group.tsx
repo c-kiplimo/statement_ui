@@ -50,6 +50,7 @@ type GroupPermissions = {
 };
 
 export type GroupsInformation = {
+  totalUsers: number;
   groupname: string;
   groupdesc: string;
   permissions: GroupPermissions[];

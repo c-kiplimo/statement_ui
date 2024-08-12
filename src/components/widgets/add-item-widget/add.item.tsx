@@ -5,6 +5,7 @@ type AddItemProps = {
   children: ReactNode;
   onClick?: () => void;
   buttonStyles?: CSSProperties; 
+  
 };
 
 const AddItems = ({ children, onClick, buttonStyles }: AddItemProps) => {
@@ -19,10 +20,11 @@ export default AddItems;
 
 type IconProps = {
   children: ReactNode;
+  iconStyles?:CSSProperties;
 };
 
-AddItems.Icon = ({ children }: IconProps) => (
-  <div className={styles.icon}>
+AddItems.Icon = ({ children,iconStyles }: IconProps) => (
+  <div className={styles.icon} style={iconStyles}>
     {children}
   </div>
 );

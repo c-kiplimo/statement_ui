@@ -202,7 +202,7 @@ const UserGroupsHomePage: React.FC = () => {
               onClick={handleCreateGroupModalOpen}
               buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
             >
-              <AddItems.Icon>
+              <AddItems.Icon iconStyles={{color:"white"}}>
                 <PlusOutlined />
               </AddItems.Icon>
               <AddItems.Text text="Add Group " />
