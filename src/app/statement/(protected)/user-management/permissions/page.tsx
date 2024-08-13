@@ -119,12 +119,6 @@ const PermissionPage = () => {
           <Popover content={tagsContent} trigger="click" title='Tags'>
             <TagsButton/>
           </Popover>
-          <DownloadWidget>
-            <DownloadWidget.Icon>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
         </div>
       </div>
       <PermissionsTable permissions={permissions} />
