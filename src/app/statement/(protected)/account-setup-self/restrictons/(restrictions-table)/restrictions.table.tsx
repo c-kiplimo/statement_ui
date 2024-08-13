@@ -83,7 +83,7 @@ const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
   ];
 
   return (
-    <div>
+    <div className={styles.container}>
       <Table
         columns={columns}
         dataSource={restrictions}
