@@ -268,7 +268,7 @@ const DisplayTable = () => {
                 background: token.default.white,
                 color: token.default.grey,
               }}
-              onClick={}
+              // onClick={}
             ></PrimaryButton>
             <PrimaryButton
               buttonType="default"

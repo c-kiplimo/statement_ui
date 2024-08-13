@@ -107,8 +107,6 @@ const AddUserToGroup = ({
       setIsModalVisible(true);
     }
   };
-
-
   
   const handleDelete = (key: string) => {
     setGroupData((prevData) => prevData.filter((group) => group.key !== key));
@@ -187,10 +185,10 @@ const AddUserToGroup = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Texter text={title} className={`${styles.title} h4b`} />
+        <Texter text={title} className={`${styles.title} bm1`} />
         <Texter
           text={titleDescription}
-          className={`${styles.description} h5r`}
+          className={`${styles.description} br1`}
         />
       </div>
       <div className={styles.input}>
@@ -211,7 +209,7 @@ const AddUserToGroup = ({
       </div>
       <div className={styles.table}>
         <Table
-          className={styles.antdtable}
+          className={`${styles.antdtable} bodyr`}
           columns={columns}
           dataSource={groupData}
           size="middle"

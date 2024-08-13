@@ -8,18 +8,8 @@ import {
 } from "@/src/constants/environment";
 
 const onBoardingHandler = () => {
-<<<<<<< HEAD
   const searchCustomerService = async (accountNumber: string) => {
     const searchURL = `${SEARCH_CUSTOMER_URL}/${accountNumber}`;
-=======
-
-
-
-  const { getToken } = AuthServiceProvider();
-  let tokenDetails = getToken();
-  
-  const searchCustomerService = async (URL: string) => {
->>>>>>> 3f29464 (account popup)
     try {
       const response = await axios.get(searchURL, {
         headers: {

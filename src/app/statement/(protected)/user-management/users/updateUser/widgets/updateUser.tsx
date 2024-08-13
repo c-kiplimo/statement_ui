@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import styles from "./updateUser.module.css";
 import UserDetails from "@/src/components/widgets/users.details/user.details";
 import Image from "next/image";
-import { Form, Input, Modal, notification, Select } from "antd";
+import {useSearchParams } from "next/navigation";
+import { Form, Input, Modal, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
 import { usePlatformId } from "@/src/hooks/platformId";
-import { CheckCircleOutlined, TeamOutlined } from "@ant-design/icons";
+import {TeamOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import ConfirmRegistrationModal from "../../create-user/widgets/(confirmUser)/confirmUser";
 import ConfirmFail from "../../../permissions/(confirmfailure)/confirm.failure";
 import { updateUserAction } from "@/src/lib/actions/update.User.action";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
-import { UserHandler } from "@/src/services/usermanagement/user.service";
 import { profileDetails } from "@/src/types/user.type";
 import {
   fetchUserDetailsAction,
@@ -26,11 +26,9 @@ const countryOptions = [
   { value: "+250", label: "+250" },
 ];
 
-type UpdateUserProps = {
-  userId: string;
-};
-
-const UpdateUser = ({ userId }: UpdateUserProps) => {
+const UpdateUser = () => {
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("userId");
   const [form] = Form.useForm();
   const router = useRouter();
   const platformId = usePlatformId();
@@ -277,11 +275,10 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
                       </Select.Option>
                     ))}
                   </Select>
-                  <span className={`${styles.divider} h4r`}>/</span>
                   <Input
                     name="mobileNumber"
                     type="text"
-                    className={`${styles.mobileInput} bodyr`}
+                    className={`${styles.selectorInput} bodyr`}
                     placeholder="712345678"
                     value={form.getFieldValue('mobileNumber') || ""}
                   />
@@ -296,7 +293,7 @@ const UpdateUser = ({ userId }: UpdateUserProps) => {
               <Form.Item name="groupId">
                 <Select
                   mode="multiple"
-                  className={`${styles.groupSelector} bodyr`}
+                  className={`${styles.dropDown} bodyr`}
                   placeholder="Assign Group(s)"
                   onChange={handleGroupChange}
                 >
