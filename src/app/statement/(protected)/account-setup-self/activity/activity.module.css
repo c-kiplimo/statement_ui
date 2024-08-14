@@ -1,0 +1,28 @@
+.container{
+display: flex;
+flex-direction: column;
+padding: 0px 32px;
+gap: 24px;
+width: 100%;
+height: auto;
+}
+.header{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+padding: 32px 0px 16px 7px;
+width: 100%;
+height: auto;
+}
+.headericons{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 0px;
+gap: 16px;
+width: auto;
+height: auto;
+
+}
