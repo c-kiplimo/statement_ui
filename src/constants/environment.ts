@@ -208,3 +208,10 @@ export const ADD_CUST_USER_URL =`${PROFILE_URL}/api/v1/customers/assign`;
 export const ADD_USER_TO_GROUP_URL = `${PROFILE_URL}/api/v1/user/group`;
 
 export const GET_GROUPS_BY_USERID_URL=`${API_URL}/api/v1/user/group`
+
+export const CUSTOMER_ACTIVITIES=`${PROFILE_URL}/api/v1/activities`
+
+export const CUSTOMER_RESTRICTIONS = `${PROFILE_URL}/api/v1/restrictions`
+
+
+

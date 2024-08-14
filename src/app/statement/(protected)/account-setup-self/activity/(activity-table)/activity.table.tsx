@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Table } from "antd";
 import type { TableColumnsType } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 import styles from "./activity.table.module.css";
 
-export interface RestrictionTypes {
+export interface ActivitiesTypes {
   key: React.Key;
   date: string;
   activityName: string;
@@ -12,13 +11,13 @@ export interface RestrictionTypes {
   status: string;
 }
 
-type RestrictionsTableProps = {
-  restrictions: RestrictionTypes[];
+type ActivitiesTableProps = {
+  restrictions: ActivitiesTypes[];
 };
 
-const ActivitiesTable: React.FC<RestrictionsTableProps> = ({
+const ActivitiesTable: React.FC<ActivitiesTableProps> = ({
   restrictions,
-}: RestrictionsTableProps) => {
+}: ActivitiesTableProps) => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [selectedKey, setSelectedKey] = useState<React.Key | null>(null);
 
@@ -38,7 +37,7 @@ const ActivitiesTable: React.FC<RestrictionsTableProps> = ({
     return { date: datePart, time: timePart };
   };
 
-  const columns: TableColumnsType<RestrictionTypes> = [
+  const columns: TableColumnsType<ActivitiesTypes> = [
     {
       title: "Date",
       dataIndex: "date",
@@ -61,20 +60,23 @@ const ActivitiesTable: React.FC<RestrictionsTableProps> = ({
       dataIndex: "activityDescription",
     },
     {
-        title: "Status",
-        dataIndex: "status",
-        render: (status: string) => {
-          const normalizedStatus = status.toLowerCase();
-          const dotClass = normalizedStatus === 'success' ? styles.statusSuccess : styles.statusFail;
-          
-          return (
-            <div>
-              <span className={`${styles.statusDot} ${dotClass}`} />
-              {status}
-            </div>
-          );
-        },
+      title: "Status",
+      dataIndex: "status",
+      render: (status: string) => {
+        const normalizedStatus = status.toLowerCase();
+        const dotClass =
+          normalizedStatus === "complete"
+            ? styles.statusSuccess
+            : styles.statusFail;
+
+        return (
+          <div>
+            <span className={`${styles.statusDot} ${dotClass}`} />
+            {status}
+          </div>
+        );
       },
+    },
   ];
 
   return (
