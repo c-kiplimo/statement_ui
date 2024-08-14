@@ -10,11 +10,15 @@ import AddRestrictionButton from "@/src/components/widgets/add-restriction/add.r
 import { Modal, notification } from "antd";
 import SelectRestriction, { RestrictionType } from "./(select-restriction-modal)/select.restriction";
 import ConfirmFailure from "./(confirm-failure-modal)/confirm.failure";
-import useProfileId from "@/src/hooks/profileId";
+// import useProfileId from "@/src/hooks/profileId";
 import { getAllRestrictions, getCustomerRestrictions } from "@/src/lib/actions/account-setup/customer.restrictions.actions";
 import RestrictionHandler from "@/src/services/accountsetup/customer.restrictions";
 
-const RestrictionsPage = () => {
+type RestrictionProps = {
+  customerId:number
+}
+
+const RestrictionsPage = ({customerId}:RestrictionProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [openCreateErrorModal, setOpenCreateErrorModal] = useState(false);
@@ -23,10 +27,10 @@ const RestrictionsPage = () => {
   const [selectedOption, setSelectedOption] = useState<number[]>([]);
   const handler = RestrictionHandler()
   const [loading, setLoading] = useState(true)
-  const customerId = useProfileId();
+  // const customerId = useProfileId();
 
   const fetchRestrictions = async () => {
-    if (customerId) {
+    if (customerId ) {
       try {
         const response = await getCustomerRestrictions(customerId);
         setcustomerRestrictions(response);

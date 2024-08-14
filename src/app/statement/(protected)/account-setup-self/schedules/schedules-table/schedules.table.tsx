@@ -7,8 +7,6 @@ import {
 } from "@ant-design/icons";
 import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
-import Filter from "@/src/components/atoms/filter/filter";
-import Search from "@/src/components/atoms/search/search";
 import Link from "next/link";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import SettingsModal from "../settings-modal/settings.modal";
@@ -18,14 +16,6 @@ import Texter from "@/src/components/atoms/text/texter";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import { ColumnsType } from "antd/lib/table";
-
-// export interface SchedulesDataTypes {
-//   id?: React.Key;
-//   accountNumber: string;
-//   accountName: string;
-//   status: string;
-//   currency: string;
-// }
 
 type scheduleProps = {
   customerId: number;

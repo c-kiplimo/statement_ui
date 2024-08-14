@@ -4,6 +4,8 @@ import styles from "./customer-profile.module.css";
 import CompanyInfo from "../../../user-management/(company-info)/company-info";
 import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
 import SchedulesTable from "../../../account-setup-self/schedules/schedules-table/schedules.table";
+import RestrictionsPage from "../../../account-setup-self/restrictons/restriction";
+import ActivitiesPage from "../../../account-setup-self/activity/activity";
 
 const CustomerProfile = () => {
   const searchParams = useSearchParams();
@@ -21,11 +23,11 @@ const CustomerProfile = () => {
     },
     {
       buttonName: "Activity",
-      bodyContent: "",
+      bodyContent: <ActivitiesPage customerId={parseInt(custId!)}/>,
     },
     {
       buttonName: "Restrictions",
-      bodyContent: "",
+      bodyContent: <RestrictionsPage customerId={parseInt(custId!)}/>,
     },
   ];
   return (

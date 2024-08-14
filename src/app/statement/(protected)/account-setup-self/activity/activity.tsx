@@ -6,14 +6,18 @@ import SearchButton from '@/src/components/widgets/search-button/search-button'
 import FilterButton from '@/src/components/widgets/filter-button/filter.button'
 import { SearchOutlined } from '@ant-design/icons'
 import SortButton from '@/src/components/widgets/sort-button/sort.button'
-import useProfileId from '@/src/hooks/profileId'
+// import useProfileId from '@/src/hooks/profileId'
 import { getCustomerActivities } from '@/src/lib/actions/account-setup/customer.activities.actions'
 
-const ActivitiesPage = () => {
+type ActivityProps = {
+  customerId:number
+}
+
+const ActivitiesPage = ({customerId}:ActivityProps) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [activities, setActivities] = useState<ActivitiesTypes[]>([])
   const [loading, setLoading] = useState(true)
-  const customerId = useProfileId();
+  // const customerId = useProfileId();
 
   useEffect(() => {
     const fetchActivities = async () => {
