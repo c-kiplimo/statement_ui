@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 32px;
+    gap: 32px;
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    box-shadow: 0px 0px 4px rgba(149, 154, 136, 0.15);
+    border-radius: 8px;
+  }
+  
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .label {
+    font-weight: bold;
+    color: #8c8c8c;
+  }
+  
+  .value {
+    color: #333;
+  }
+  
+  .ant-tag {
+    margin-right: 10px;
+  }
+  

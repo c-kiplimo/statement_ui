@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  left: 343px;
+  top: 102px;
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 0px 16px 32px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.searchCriteria {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 32px;
+  gap: 56px;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.inputFrame {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 32px;
+  width: 100%;
+  height: auto;
+}
+
+.radioContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.querry {
+  width: 100%;
+  height: auto;
+  color: #1a2600;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.radioBtn {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 56px;
+  width: 100%;
+  height: auto;
+}
+
+.searchInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.searchTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+}
+
+.input {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 304px;
+  height: 40px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0px 0px 4px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+  background: #979992;
+  color: white;
+  border-radius: 24px;
+}

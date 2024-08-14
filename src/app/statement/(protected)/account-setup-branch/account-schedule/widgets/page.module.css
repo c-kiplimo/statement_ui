@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--Background-Background-Primary);
+  left: 342px;
+  top: 100px;
+}
+.spinContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.column{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+width: fit-content;
+height: fit-content;
+}
