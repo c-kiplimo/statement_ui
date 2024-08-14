@@ -1,6 +1,6 @@
-import  {DataFetcher} from "@/src/app/statement/(protected)/accountsetup/widgets/table/table";
 import { AccountHandler } from "@/src/services/account/account.service";
-export const AccountAction =  async ( value:number ): Promise<DataFetcher[]> => {
+
+export const AccountAction =  async ( value:number ): Promise<SchedulesData[]> => {
 const handler = AccountHandler() 
 const data = await handler.getAccountByCustomerId( value)    
 
@@ -9,12 +9,14 @@ const data = await handler.getAccountByCustomerId( value)
     }
 
     
-    let accounts:DataFetcher[] = data.map(account=>({
+    let accounts:SchedulesData[] = data.map(account=>({
         id:account.accountId,
-        createdOn:account.accountId,
-        userName:account.accountTitle,
-        status:account.status,
-        currency:account.currency,
+        accountNumber: account.accountId,
+        accountName:account.accountTitle,
+        status: account.status,
+        currency: account.currency,
     }))
+
+    console.log("Fetched Accounts>>",accounts)
     return accounts
 }
