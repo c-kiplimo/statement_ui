@@ -1,0 +1,111 @@
+.container{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px;
+gap: 24px;
+width: auto;
+height: auto;
+}
+.header{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 8px;
+width: auto;
+height: auto;
+}
+.description{
+    color: #6F7269;
+    text-align: center;
+}
+
+.body{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 11px 0px 0px;
+gap: 24px;
+width: 100%;
+height: auto;
+}
+
+.bodyTitle{
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px 8px;
+gap: 10px;
+width: 100%;
+height: auto;
+border-bottom: 1px solid #E6E6E6;
+}
+
+.bodyData{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 16px 24px;
+gap: 16px;
+width: 100%;
+height: auto;
+}
+.nameData{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+padding: 0px;
+width: 100%;
+height: auto;
+}
+.name{
+    color: #6F7269;
+    width: 40%;
+}
+.desc{
+    font-weight: 500;
+    color: #1A2600;
+    width: 60%;
+    text-align: end;
+}
+.buttons{
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 40px;
+width: auto;
+height: auto;
+
+}
+.confirmbtn{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+background: #84BD00;
+border-radius: 4px;
+color: #FFFFFF;
+}
+.cancelbtn{
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 32px;
+gap: 8px;
+border: 1px solid #E6E6E6;
+border-radius: 4px;
+color: #6F7269;
+}
+
+
+
+
+
+
+
+

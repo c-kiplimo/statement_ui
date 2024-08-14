@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Modal } from "antd";
 import type { TableColumnsType } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import styles from "./restrictions.table.module.css";
+import DeleteRestriction from "../(delete-restriction)/delete.restriction";
 
 export interface RestrictionTypes {
   key: React.Key;
@@ -21,9 +22,16 @@ const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
 }: RestrictionsTableProps) => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [selectedKey, setSelectedKey] = useState<React.Key | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const handleEyeClick = (key: React.Key) => {
+  const handleDeleteClick = (key: React.Key) => {
     setSelectedKey(key);
+    setIsModalVisible(true);
+  };
+  
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedKey(null);
   };
 
   const splitDateTime = (dateTimeString: string) => {
@@ -73,7 +81,7 @@ const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
         <div className={styles.icon}>
           <span
             className={styles.moreicon}
-            onClick={() => handleEyeClick(record.key)}
+            onClick={() => handleDeleteClick(record.key)}
           >
             {<DeleteOutlined style={{ color: "#979992" }} />}
           </span>
@@ -95,7 +103,18 @@ const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
         }}
         className={styles.customTable}
       />
+      <>
+      <Modal
+        open={isModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        width={700}
+      >
+        {selectedKey && <DeleteRestriction restrictionId={selectedKey.toString()} onCancel={handleCancel}/>}
+      </Modal>
+      </>
     </div>
+    
   );
 };
 
