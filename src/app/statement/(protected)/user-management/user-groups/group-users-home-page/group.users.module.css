@@ -8,7 +8,6 @@
   height: auto;
   background: #ffffff;
   border-radius: 8px;
-  background-color: #6F7269;
 }
 
 .table {
@@ -24,7 +23,6 @@
   border: none !important;
   box-shadow: none !important;
 }
-
 
 .antdtable {
   width: 100%;
@@ -63,93 +61,90 @@
 }
 
 .deleteButton {
-box-sizing: border-box;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 10px 8px;
-gap: 10px;
-width: 28px;
-height: 28px;
-border: 0.5px solid #FBB3C4;
-border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 10px;
+  width: 28px;
+  height: 28px;
+  border: 0.5px solid #fbb3c4;
+  border-radius: 4px;
 }
 
 .date {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 16px;
-width: 81px;
-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 81px;
+  height: 44px;
 }
 
-.dateStyles{
-width: fit-content;
-height: 24px;
-color: #6F7269;
-   }
-
-.timestyles{
+.dateStyles {
   width: fit-content;
   height: 24px;
-  color: #6F7269;
-   }
+  color: #6f7269;
+}
 
-   .activediv{
-box-sizing: border-box;
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 4px 16px;
-gap: 15px;
-width: 102px;
-height: 32px;
-border: 1px solid #E6E6E6;
-color: #6F7269;
-border-radius: 4px;
-   }
+.timestyles {
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
 
-   .selectdiv{
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 0px;
-gap: 16px;
-width: fit-content;
-height: 24px;
-color: #6F7269;
-   }
+.activediv {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 16px;
+  gap: 15px;
+  width: 102px;
+  height: 32px;
+  border: 1px solid #e6e6e6;
+  color: #6f7269;
+  border-radius: 4px;
+}
 
-   .groupStyles{
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 16px;
-width: fit-content;
-height: 24px;
-color: #6F7269;
-   }
+.selectdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
 
+.groupStyles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
 
+.alert {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: #4caf50;
+  border: 1px solid #4caf50;
+}
 
-  .alert {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background-color: #4caf50; /* White background */
-    border: 1px solid #4caf50; /* Green border */
-  }
-  
-  .alert .ant-alert-icon {
-    color: #4caf50; /* Green icon color */
-    background-color: white; /* White icon background */
-  }
-  
-  .alert .ant-alert-message {
-    color: red; /* Text color */
-  }
-  
+.alert .ant-alert-icon {
+  color: #4caf50;
+  background-color: white;
+}
+
+.alert .ant-alert-message {
+  color: red;
+}
