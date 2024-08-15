@@ -1,0 +1,297 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  width: 761px;
+  height: 56px;
+}
+
+.titleicon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  width: fit-content;
+  height: 56px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px 0px 8px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px 0px 8px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.restrictions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 16px 0px 0px;
+  gap: 14px;
+  width: 100%;
+  height: 64px;
+}
+
+.desHeader {
+  width: 252px;
+  height: 24px;
+}
+
+.interval {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: 697px;
+  height: 24px;
+  margin: 16px;
+}
+
+.fretimedate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0px;
+  gap: 46px;
+  width: 100%;
+  height: fit-content;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
+.freqradio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 36px;
+  padding: 0px;
+  gap: 20px;
+  width: fit-content;
+  height: 24px;
+  color: #6f7269;
+}
+
+.dateTime {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 0px 0px;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+}
+
+.date {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 316px;
+  height: 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.calendar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 316px;
+  height: 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.time {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 16px;
+  width: 94px;
+  height: 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.files {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0px;
+  gap: 32px;
+  width: 100%;
+  height: 72px;
+}
+
+.PDF {
+  box-sizing: border-box;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  color: #6f7269;
+  width: 100%;
+  height: 40px;
+  border: 0.5px solid #bec0ba;
+  border-radius: 4px;
+}
+
+.templateOptions {
+  box-sizing: border-box;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #6f7269;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  height: 40px;
+  border: 0.5px solid #bec0ba;
+  border-radius: 4px;
+}
+
+.submitbutton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 16px;
+  width: 101px;
+  height: 40px;
+  background: #84bd00;
+  opacity: 0.8;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+.cancelbutton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  width: 125px;
+  height: 40px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  color: #1a2600;
+}
+
+.buttondiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+  width: 100%;
+  height: 88px;
+}
+
+.fileFormart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 420.5px;
+  height: 72px;
+}
+
+.radioLabel {
+  font-size: 14px;
+  color: #6f7269;
+}
+
+.radioLabel:hover {
+  color: #000000;
+  cursor: pointer;
+}
+
+.radioG {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 230px;
+  width: 100%;
+  height: 24px;
+}
+
+.bodydiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 24px;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
+.infordiv {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 11px 0px 26px;
+  gap: 32px;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+}

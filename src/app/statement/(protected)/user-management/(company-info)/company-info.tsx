@@ -17,6 +17,7 @@ const CompanyInfo = ({ customerId }: CompanyInfoProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+<<<<<<< HEAD
     if (customerId !== null && customerId !== undefined) {
       const fetchProfileDetails = async () => {
         console.log(customerId);
@@ -25,6 +26,14 @@ const CompanyInfo = ({ customerId }: CompanyInfoProps) => {
           setLoading(false);
           return;
         }
+=======
+    const fetchProfileDetails = async () => {
+      if (!customerId) {
+        setError("Customer Id is not provided");
+        setLoading(false);
+        return;
+      }
+>>>>>>> 3664b37 (schedules table)
 
         try {
           const profileData = await profileDetails(customerId.toString());

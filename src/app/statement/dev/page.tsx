@@ -1,7 +1,9 @@
 "use client";
-import React, { Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import withContainer from "../../../components/molecules/shared/statement-core/statement.container.hoc";
-import CustomerStatus from "@/src/components/widgets/customer-status/customer-status";
+import UpdateUser from "../(protected)/user-management/users/updateUser/widgets/updateUser";
+import SchedulesTable from "../(protected)/account-setup-self/schedules/schedules-table/schedules.table";
+import { AccountInfoProvider } from "../(protected)/account-setup-self/schedules/schedules-context/accountInforContext";
 
 const Dev = () => {
   const [status, setStatus] = useState(true);
@@ -11,13 +13,9 @@ const Dev = () => {
   };
   return (
     <Fragment>
-      <CustomerStatus
-        customerName="Meraki Systems Tech"
-        industry="Banking Industry"
-        customerType="Corporate"
-        status={status}
-        onStatusChange={handleStatusChange}
-      />
+      <AccountInfoProvider>
+        <SchedulesTable />
+      </AccountInfoProvider>
     </Fragment>
   );
 };

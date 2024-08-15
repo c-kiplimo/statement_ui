@@ -32,6 +32,10 @@ const AccountsPage = (props: UserIdProps) => {
       if (props.userId !== undefined) {
         try {
           const data = await AccountAction(props.userId);
+          
+          
+          
+
           setIncomingData(data);
         } catch (error) {
           console.error("Error fetching data:", error);

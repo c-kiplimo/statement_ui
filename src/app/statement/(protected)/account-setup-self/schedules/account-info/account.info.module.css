@@ -1,0 +1,104 @@
+.container {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 24px;
+width: 100%;
+height: auto;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 40px;
+  width: 800px;
+  height: 96px;
+}
+
+.firstLatter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+  width: 49px;
+  height: 48px;
+  background: #003a49;
+  border-radius: 30px;
+}
+
+
+.icon{
+width: 17px;
+height: 15px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 16px;
+color: #FFFFFF;
+}
+.statusDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 8px;
+  width: 61px;
+  height: 32px;
+  background: #d1f6de;
+  opacity: 0.8;
+  border-radius: 4px;
+}
+
+.accountInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 517px;
+  height: 96px;
+}
+
+.accountName {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: fit-content;
+  height: auto;
+  color: #1a2600;
+}
+
+.accountNumber {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: fit-content;
+  height: auto;
+  color: #6f7269;
+}
+
+
+
+.accountCurrency {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: fit-content;
+  height: auto;
+  color: #1a2600;
+}
+

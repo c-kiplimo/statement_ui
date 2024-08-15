@@ -16,11 +16,11 @@ type TabItem = {
 
 const GroupsTabs = () => {
   const searchParams = useSearchParams();
-  const groupId = searchParams.get('groupId');
-  
+  const groupId = searchParams.get("groupId");
+
   const [isEditingPermissions, setIsEditingPermissions] = useState(false);
   const [groupData, setGroupData] = useState<any>(null);
-  const [totalUsers, setTotalUsers] = useState(0); 
+  const [totalUsers, setTotalUsers] = useState(0);
 
   const profile = useProfileCreated();
   const userId = profile?.userId;
@@ -52,9 +52,9 @@ const GroupsTabs = () => {
     {
       buttonName: "Members",
       bodyContent: (
-        <GroupUsers 
-          groupId={groupId!.toString()} 
-          setTotalUsers={setTotalUsers} 
+        <GroupUsers
+          groupId={groupId!.toString()}
+          setTotalUsers={setTotalUsers}
           key="members"
         />
       ),
@@ -62,19 +62,23 @@ const GroupsTabs = () => {
     {
       buttonName: "Permissions",
       bodyContent: isEditingPermissions ? (
-        <PermissionAssign onCancel={handleCancelEdit} key="permissions-assign" groupId={groupId!.toString()}   />
+        <PermissionAssign
+          onCancel={handleCancelEdit}
+          key="permissions-assign"
+          groupId={groupId!.toString()}
+        />
       ) : (
-        <GroupsPermissions 
-          groupId={groupId!.toString()} 
-          onEditPermissions={handleEditPermissions} 
-          key="permissions" 
+        <GroupsPermissions
+          groupId={groupId!.toString()}
+          onEditPermissions={handleEditPermissions}
+          key="permissions"
         />
       ),
-    }
+    },
   ];
 
   if (!groupData) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
