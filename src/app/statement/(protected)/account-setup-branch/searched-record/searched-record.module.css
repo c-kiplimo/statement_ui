@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+.column {
+  width: 300px;
+  padding-bottom: 16px;
+  text-align: left;
+  align-items: center;
+  height: fit-content;
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 16px;
+  margin-top: 8px;
+  gap: 16px;
+  width:fit-content;
+  height: 32px;
+  border-radius: 4px;
+}
+
+.active {
+  background-color: #E0FFEB;
+  color: var( --functional-colors-success);
+}
+
+.deactivated {
+  background-color: var(--functional-light-colors-danger-200); 
+  color: var( --functional-colors-danger);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 0px 0px;
+  gap: 8px;
+  margin: 0 auto;
+  width: 24px;
+  height: 54px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 24px;
+  height: 24px;
+  background: #979992;
+  border-radius: 12px;
+  cursor: pointer;
+}

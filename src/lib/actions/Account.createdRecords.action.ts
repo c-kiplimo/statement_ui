@@ -1,4 +1,3 @@
-import { DataSearch } from "@/src/components/widgets/searched-record/searched-record";
 import { AccountSetupHandler } from "@/src/services/account/account.setup.service";
 
 export const customerCardDetailsAction = async (onboardingtype: string, value: string): Promise<DataSearch[]> => {

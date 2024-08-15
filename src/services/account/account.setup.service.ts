@@ -26,6 +26,7 @@ const AccountSetupHandler = () => {
         },
       });
       
+      console.log(response)
       const apiResponse = response.data;
       if (apiResponse) {
         return apiResponse;
