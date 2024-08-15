@@ -2,7 +2,7 @@ type CustomerRestrictions = {
   id:number,
     customerId: number,
     restrictions: {
-      restrictionId: 8,
+      restrictionId: number,
        name: string,
       rules: string,
       description:string;
@@ -11,3 +11,13 @@ type CustomerRestrictions = {
       updatedAt: string,
       auditInfo: string
 }}
+
+type AllRestrictions ={ 
+  content: Array<{
+     restrictionId: number, 
+     name: string, 
+     description: string 
+    }>}
+
+
+

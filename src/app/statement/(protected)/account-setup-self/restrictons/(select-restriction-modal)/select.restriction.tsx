@@ -3,7 +3,7 @@ import styles from "./select.restriction.module.css";
 import SelectionCard from "@/src/components/widgets/card-info/card-info-radio";
 import Link from "next/link";
 
-type Restriction = {
+export type RestrictionType = {
   id: number;
   icon?: ReactNode;
   restrictionname: string;
@@ -11,7 +11,7 @@ type Restriction = {
 };
 
 type RestrictionsProps = {
-  restrictions: Restriction[];
+  restrictions: RestrictionType[];
   onCancel: () => void;
   onCreate: () => void;
 };
