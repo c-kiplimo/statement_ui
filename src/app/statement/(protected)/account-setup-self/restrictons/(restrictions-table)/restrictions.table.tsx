@@ -15,10 +15,11 @@ export interface RestrictionTypes {
 
 type RestrictionsTableProps = {
   restrictions: RestrictionTypes[];
+  onDeletionSuccess:()=>void;
 };
 
 const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
-  restrictions,
+  restrictions,onDeletionSuccess
 }: RestrictionsTableProps) => {
   const [pageSize, setPageSize] = useState<number>(5);
   const [selectedKey, setSelectedKey] = useState<React.Key | null>(null);
@@ -110,7 +111,7 @@ const RestrictionsTable: React.FC<RestrictionsTableProps> = ({
         footer={null}
         width={700}
       >
-        {selectedKey && <DeleteRestriction restrictionId={selectedKey.toString()} onCancel={handleCancel}/>}
+        {selectedKey && <DeleteRestriction restrictionId={selectedKey.toString()} onCancel={handleCancel} onDeletionSuccess={onDeletionSuccess}/>}
       </Modal>
       </>
     </div>
