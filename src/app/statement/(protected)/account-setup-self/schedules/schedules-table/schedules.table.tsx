@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   CloudDownloadOutlined,
   EyeOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { Table, Modal, Button, notification } from "antd";
+import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
 import Filter from "@/src/components/atoms/filter/filter";
 import Search from "@/src/components/atoms/search/search";
@@ -12,6 +12,7 @@ import Link from "next/link";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import SettingsModal from "../settings-modal/settings.modal";
 import { SchedulesAccountAction } from "@/src/lib/actions/schedules.accounts.action";
+import { AccountInfoContext } from "../schedules-context/accountInforContext";
 
 export interface SchedulesDataTypes {
   id?: React.Key;
@@ -28,10 +29,12 @@ const SchedulesTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [incomingData, setIncomingData] = useState<SchedulesDataTypes[]>([]);
 
+  const context = useContext(AccountInfoContext);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await SchedulesAccountAction(1);
+        const data = await SchedulesAccountAction(9);
         setIncomingData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -47,8 +50,22 @@ const SchedulesTable = () => {
 
   const handleSettingsClick = useCallback((id: number) => {
     setSelectedUserId(id);
+    if (context) {
+      const selectedData = incomingData.find(item => item.id === id);
+
+      if (selectedData) {
+        context.setAccountInfo({
+          accountName: selectedData.accountName,
+          accountNumber: selectedData.accountNumber,
+          currency: selectedData.currency,
+        });
+      }
+    } else {
+      console.error("AccountInfoContext is not available");
+    }
+
     setIsModalOpen(true);
-  }, []);
+  }, [incomingData, context]);
 
   const handleViewClick = useCallback((id: number) => {
     console.log("View clicked for ID:", id);
@@ -59,7 +76,6 @@ const SchedulesTable = () => {
   };
 
   const handleModalSuccess = () => {
-    console.log("Modal success for ID:", selectedUserId);
     setIsModalOpen(false);
   };
 
@@ -93,7 +109,7 @@ const SchedulesTable = () => {
         <span className={`${styles.statusDiv} bodyr`}>
           <span
             className={`${styles.statusDot} ${
-              status === "DONE" ? styles.statusDone : styles.statusPending
+              status === "COMPLETE" ? styles.statusDone : styles.statusPending
             }`}
           ></span>
           {status}
@@ -181,10 +197,6 @@ const SchedulesTable = () => {
         >
           {selectedUserId !== null && (
             <SettingsModal
-              optiona={"Monthly"}
-              optionb={"Bi Weekly"}
-              optionc={"Weekly"}
-              optiond={"Daily"}
               date={"Start date"}
               time={"Time"}
               onClick={handleCancel}

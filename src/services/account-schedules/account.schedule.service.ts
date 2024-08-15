@@ -2,42 +2,14 @@ import { ACCOUNT_SCHEDULES_URL } from "@/src/constants/environment";
 import axios, { AxiosResponse } from "axios";
 
 const AcctScheduleHandler = () => {
-  const fetchAcctSchedule: (
-    accountId: string
-  ) => Promise<AccountSchedule> = async (accountId: string) => {
-    const accountSchedulesUrl = `${ACCOUNT_SCHEDULES_URL}/${accountId}`;
 
-    try {
-      const response = await axios
-        .get(accountSchedulesUrl, {
-          headers: {
-            "X-RequestId": "3456778909",
-          },
-        })
-        .then((res) => {
-          let apiResponse = res.data;
-
-          if (apiResponse) {
-            let apiRes = apiResponse;
-            let accountSchedules: AccountSchedule = {
-              ...apiRes,
-            };
-            return accountSchedules;
-          } else {
-            throw new Error("Empty response");
-          }
-        });
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
   const postAccountSchedules: (
     accountSchedules: AccountSchedule
   ) => Promise<AccountSchedule> = async (
     inputAccountSchedules: AccountSchedule
   ) => {
     const accountSchedulesUrl = `${ACCOUNT_SCHEDULES_URL}`;
+
 
     try {
       const response = await axios.post(
@@ -69,6 +41,42 @@ const AcctScheduleHandler = () => {
       throw error;
     }
   };
+
+  
+  const fetchAcctSchedule: (
+    accountId: string
+  ) => Promise<AccountSchedule> = async (accountId: string) => {
+    const accountSchedulesUrl = `${ACCOUNT_SCHEDULES_URL}/${accountId}`;
+
+    try {
+      const response = await axios
+        .get(accountSchedulesUrl, {
+          headers: {
+            "X-RequestId": "3456778909",
+          },
+        })
+        .then((res) => {
+          let apiResponse = res.data;
+
+          if (apiResponse) {
+            let apiRes = apiResponse;
+            let accountSchedules: AccountSchedule = {
+              ...apiRes,
+            };
+            return accountSchedules;
+          } else {
+            throw new Error("Empty response");
+          }
+        });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
+  
+
 
   const updateAcctSchedules: (
     accountId: string,
