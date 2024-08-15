@@ -17,26 +17,28 @@ const CompanyInfo = ({ customerId }: CompanyInfoProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProfileDetails = async () => {
-      console.log(customerId);
-      if (!customerId) {
-        setError("Customer Id is not provided");
-        setLoading(false);
-        return;
-      }
+    if (customerId !== null && customerId !== undefined) {
+      const fetchProfileDetails = async () => {
+        console.log(customerId);
+        if (!customerId) {
+          setError("Customer Id is not provided");
+          setLoading(false);
+          return;
+        }
 
-      try {
-        const profileData = await profileDetails(customerId.toString());
-        setProfile(profileData);
-        setError(null);
-      } catch (err) {
-        setError("Failed to fetch profile details");
-      } finally {
-        setLoading(false);
-      }
-    };
+        try {
+          const profileData = await profileDetails(customerId.toString());
+          setProfile(profileData);
+          setError(null);
+        } catch (err) {
+          setError("Failed to fetch profile details");
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchProfileDetails();
+      fetchProfileDetails();
+    }
   }, [customerId]);
 
   if (loading) {

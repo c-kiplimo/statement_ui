@@ -9,8 +9,8 @@ import {
   EyeOutlined,
   UserOutlined,
   EditOutlined,
-  EllipsisOutlined,
   TeamOutlined,
+  MoreOutlined,
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
@@ -48,7 +48,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   const handleModalClose = () => {
     setOpenModal(false);
     setSelectedUser(null);
-    setUserGroups([]); // Clear user groups when modal is closed
+    setUserGroups([]);
   };
 
   const fetchUsers = async () => {
@@ -87,10 +87,10 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
       const transformedGroups = data.map((group: any) => ({
         id: group.groupId,
         name: group.groupName,
-        icon: <TeamOutlined />, // Use a default icon or map accordingly
+        icon: <TeamOutlined />, 
         description: group.description,
       }));
-      setUserGroups(transformedGroups); // Set transformed groups data
+      setUserGroups(transformedGroups); 
     } catch (error) {
       console.error("Error fetching groups data:", error);
     }
@@ -115,7 +115,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   const handleMenuClick = (e: any) => {
     const { key } = e;
     const record: RegisteredUser = e.item.props["data-record"];
-    console.log("Action clicked:", key, "for record:", record); // Add console log to check record data
+    console.log("Action clicked:", key, "for record:", record); 
     switch (key) {
       case "view":
         router.push(`/statement/user-management/users/user-profile?userId=${record.userId}`);
@@ -229,7 +229,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
             </div>
           )}
         >
-          <Button type="text" icon={<EllipsisOutlined rotate={90} />} />
+          <Button type="text" icon={<MoreOutlined/>} />
         </Dropdown>
       ),
     },
@@ -276,7 +276,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         onCancel={handleModalClose}
         footer={false}
         className={styles.modal}
-        width={600}
+        width={650}
       >
         {selectedUser && (
           <DeactivateUser

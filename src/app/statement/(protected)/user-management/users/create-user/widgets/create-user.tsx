@@ -19,13 +19,6 @@ const countryOptions = [
   { value: "+250", label: "+250" },
 ];
 
-type UserGroupOption = {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  description: string;
-};
-
 type CreateUserProps = {
   password: string;
   firstName: string;
@@ -225,19 +218,18 @@ const CreateUser = () => {
                 className="bodyr"
               >
                 <div className={`${styles.selectorRow} bodyr`}>
-                  <select
-                    className={`${styles.selectionStandard} bodyr`}
+                  <Select
+                    className={`${styles.selectionStandard} captionr`}
+                    style={{ width: 90, height: 40}}
                     value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    name="countryCode"
+                    onChange={(value) => setCountryCode(value)}
                   >
                     {countryOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
+                      <Select.Option key={option.value} value={option.value}>
                         {option.label}
-                      </option>
+                      </Select.Option >
                     ))}
-                  </select>
-                  <span className={`${styles.divider} h4r`}>/</span>
+                  </Select>
                   <Input
                     name="mobileNumber"
                     className={`${styles.selectorInput} bodyr`}
