@@ -1,3 +1,4 @@
+import { SingleRestrictionTypes } from "@/src/app/statement/(protected)/account-setup-self/restrictons/(delete-restriction)/delete.restriction";
 import { RestrictionTypes } from "@/src/app/statement/(protected)/account-setup-self/restrictons/(restrictions-table)/restrictions.table";
 import { RestrictionType } from "@/src/app/statement/(protected)/account-setup-self/restrictons/(select-restriction-modal)/select.restriction";
 import RestrictionHandler from "@/src/services/accountsetup/customer.restrictions";
@@ -27,4 +28,16 @@ export const getAllRestrictions =async ( page: number,size:number,sort:string):P
         restrictionDescription:data.description
     }))
     return allRestrictions
+}
+
+export const getSingleRestriction = async (restrictionId:number):Promise<SingleRestrictionTypes>=>{
+    const response:SingleRestriction = await handler.fetchSingleRestrictions(restrictionId);
+
+    const restriction:SingleRestrictionTypes ={
+        id: response.restrictionId,
+        name: response.name,
+        description: response.description
+    }   
+
+    return restriction;
 }

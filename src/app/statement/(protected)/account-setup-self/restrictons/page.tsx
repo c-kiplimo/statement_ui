@@ -7,67 +7,54 @@ import { SearchOutlined } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import SortButton from "@/src/components/widgets/sort-button/sort.button";
 import AddRestrictionButton from "@/src/components/widgets/add-restriction/add.restriction";
-import { Modal } from "antd";
+import { Modal, notification } from "antd";
 import SelectRestriction, { RestrictionType } from "./(select-restriction-modal)/select.restriction";
 import ConfirmFailure from "./(confirm-failure-modal)/confirm.failure";
 import useProfileId from "@/src/hooks/profileId";
 import { getAllRestrictions, getCustomerRestrictions } from "@/src/lib/actions/account-setup/customer.restrictions.actions";
 import RestrictionHandler from "@/src/services/accountsetup/customer.restrictions";
 
-const restriction = [
-  {
-    id: 1,
-    restrictionname: "View Statements",
-    restrictionDescription: "Restricted to withdraw 5,000,000 KES",
-  },
-  {
-    id: 2,
-    restrictionname: "Download Statement",
-    restrictionDescription: "Restricted to Transact 789,0000 KES",
-  },
-];
-
-
-
 const RestrictionsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openCreateErrorModal, setOpenCreateErrorModal] = useState(false);
   const [customerRestrictions, setcustomerRestrictions] = useState<RestrictionTypes[]>([]);
   const [allRestrictions, setAllRestrictions]= useState<RestrictionType[]>([]);
+  const [selectedOption, setSelectedOption] = useState<number[]>([]);
+  const handler = RestrictionHandler()
   const [loading, setLoading] = useState(true)
   const customerId = useProfileId();
 
+  const fetchRestrictions = async () => {
+    if (customerId) {
+      try {
+        const response = await getCustomerRestrictions(customerId);
+        setcustomerRestrictions(response);
+      } catch (error) {
+        console.error('Failed to fetch restrictions:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const fetchAllRestrictions = async () => {
+    if (customerId) {
+      try {
+        const response = await getAllRestrictions(0, 10, 'name');
+        setAllRestrictions(response);
+      } catch (error) {
+        console.error('Failed to fetch restrictions:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   useEffect(() => {
-    const fetchRestrictions = async () => {
-      if (customerId) {
-        try {
-          const response = await   getCustomerRestrictions(customerId)
-          setcustomerRestrictions(response)
-        } catch (error) {
-          console.error('Failed to fetch activities:', error)
-        } finally {
-          setLoading(false)
-        }
-      }
-    }
-
-    const fetchAllRestrictions = async () => {
-      if (customerId) {
-        try {
-          const response = await getAllRestrictions(0,10,'name');         
-          setAllRestrictions(response);
-        } catch (error) {
-          console.error('Failed to fetch activities:', error)
-        } finally {
-          setLoading(false)
-        }
-      }
-    }
-
-    fetchRestrictions(),
-    fetchAllRestrictions()
-  }, [customerId])
+    fetchRestrictions();
+    fetchAllRestrictions();
+  }, [customerId]);
 
 
   const handleSearchChange = (value: string) => {
@@ -77,19 +64,42 @@ const RestrictionsPage = () => {
     setOpenModal(true);
   };
 
+  const resetModalState = () => {
+    setSelectedOption([]); 
+    fetchAllRestrictions(); 
+  };
+
   const handleModalClose = () => {
+    resetModalState();
     setOpenModal(false);
   };
 
   const handleCreateModalClose = () => {
-    setOpenCreateModal(false);
+    setOpenCreateErrorModal(false);
   };
 
   const handleClick = () => {};
+  
+  const handleCreatePermission = async (selectedIds: number[]) => {
+    
+    try {
+      await handler.createCustomerRestriction(customerId!, selectedIds);
+      notification.success({
+        message: 'Creation Successful',
+        description: 'The restriction has been successfully created.',
+      });
 
-  const handleCreatePermission = () => {
-    setOpenCreateModal(true);
+    } catch (error) {
+      setOpenCreateErrorModal(true);
+    }
+    handleModalClose();
+    fetchRestrictions(); 
   };
+
+  const handleDeletionSuccess = () => {
+    fetchRestrictions();
+    setSelectedOption([]);
+};
 
   const filteredData = customerRestrictions.filter(
     (item) =>
@@ -97,6 +107,7 @@ const RestrictionsPage = () => {
       item.restrictionDescription.toLowerCase().includes(searchTerm) ||
       item.status.toLowerCase().includes(searchTerm)
   );
+  
 
   return (
     <div className={styles.container}>
@@ -118,7 +129,7 @@ const RestrictionsPage = () => {
           />
         </div>
       </div>
-      <RestrictionsTable restrictions={filteredData} />
+      <RestrictionsTable restrictions={filteredData} onDeletionSuccess={handleDeletionSuccess} />
       <>
         <Modal onCancel={handleModalClose} open={openModal} footer={false}>
           <SelectRestriction
@@ -131,7 +142,7 @@ const RestrictionsPage = () => {
       <>
         <Modal
           onCancel={handleCreateModalClose}
-          open={openCreateModal}
+          open={openCreateErrorModal}
           footer={false}
           width={380}
         >
@@ -140,7 +151,7 @@ const RestrictionsPage = () => {
             description={
               "We encountered an issue while creating the restriction. Please check your input and try again"
             }
-            onClick={handleCreatePermission}
+            onClick={() => handleCreatePermission}
             onCancel={handleCreateModalClose}
           />
         </Modal>

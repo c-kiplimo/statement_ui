@@ -213,5 +213,7 @@ export const CUSTOMER_ACTIVITIES=`${PROFILE_URL}/api/v1/activities`
 
 export const CUSTOMER_RESTRICTIONS = `${PROFILE_URL}/api/v1/restrictions`
 
+export const SINGLE_CUSTOMER_RESTRICTIONS = `${PROFILE_URL}/api/v1/restrictions/customer`
+
 
 
