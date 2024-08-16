@@ -28,3 +28,9 @@
   width: max-content;
   height: auto;
 }
+.closeicon{
+  color: #fff !important;
+  font-size: 12px !important;
+  margin-top: -15px;
+  line-height: 1.2; 
+}

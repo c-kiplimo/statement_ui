@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import styles from "./select.restriction.module.css";
 import SelectionCard from "@/src/components/widgets/card-info/card-info-radio";
 import Link from "next/link";
+import SelectionCardChecked from "@/src/components/widgets/select-checkbox/card-info-radio";
 
 export type RestrictionType = {
   id: number;
@@ -52,7 +53,7 @@ const SelectRestriction = ({
         {restrictions.map((restriction) => (
           <Link href={""} key={restriction.id}>
             <div className="mt-3">
-              <SelectionCard
+              <SelectionCardChecked
                 id={restriction.id.toString()}
                 icon={<img src={`/sort.svg`} />}
                 label={restriction.restrictionname}

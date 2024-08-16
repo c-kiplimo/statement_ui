@@ -5,7 +5,7 @@ import Image from "next/image";
 type ConfirmFailureProps = {
   title: string;
   description: string;
-  onClick: () => void;
+  onClick: (selectedIds:any) => void;
   onCancel: () => void;
 };
 
