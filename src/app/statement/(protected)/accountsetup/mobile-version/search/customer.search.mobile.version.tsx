@@ -19,11 +19,11 @@ const CustomerSearchPage = () => {
     setError(null);
 
     try {
-      const search: DataSearch[] = await customerCardDetailsAction(
-        searchOption,
-        searchValue
-      );
-      setData(search);
+      // const search: DataSearch[] = await customerCardDetailsAction(
+      //   searchOption,
+      //   searchValue
+      // );
+      // setData(search);
     } catch (error) {
       setError(<CustdetailsnotFound />);
       console.error("Error fetching customer details:", error);

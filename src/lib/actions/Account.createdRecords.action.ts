@@ -17,7 +17,7 @@ export const customerCardDetailsAction = async (onboardingtype: string, value: s
             industry: data.industry!,
             customerType: data.customerType,
             customerStatus: data.customerStatus!,
-            id:data.customerId
+            id:data.customerId!.toString()
         }];
 
         return account;
