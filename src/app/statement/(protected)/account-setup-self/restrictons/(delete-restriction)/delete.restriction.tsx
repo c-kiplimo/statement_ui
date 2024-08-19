@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './delete.restriction.module.css';
 import ConfirmFailure from '../(confirm-failure-modal)/confirm.failure';
-import { Modal, notification } from 'antd';
+import {Modal, notification } from 'antd';
 import RestrictionHandler from '@/src/services/accountsetup/customer.restrictions';
 import useProfileId from '@/src/hooks/profileId';
 import { getSingleRestriction } from '@/src/lib/actions/account-setup/customer.restrictions.actions';
+import { CheckCircleFilled, CloseOutlined } from '@ant-design/icons';
 
 export type SingleRestrictionTypes ={
     id:number,
@@ -37,10 +38,24 @@ const DeleteRestriction = ({ restrictionId, onCancel, onDeletionSuccess  }: Dele
         const response = await handler.deleteCustomerRestriction(Number(restrictionId));
         
         if (response) { 
-          notification.success({
-            message: 'Deletion Successful',
-            description: 'The restriction has been successfully deleted.',
-          });
+            notification.success({
+                message: <span style={{ color: '#fff', marginRight: '16px' }}>The restriction has been deleted successfully</span>,
+                icon: <CheckCircleFilled style={{ color: '#fff', marginRight: '8px' }} />,
+                placement: 'top',
+                style: {
+                  backgroundColor: '#52c41a',
+                  borderRadius: '8px',
+                  width: 'max-content',
+                  padding: '8px 16px',
+                  lineHeight: '1.2',
+                  display: 'flex',
+                  alignItems: 'center',
+                },
+                closeIcon: <CloseOutlined className={styles.closeicon}
+              />
+            });
+              
+              
           onDeletionSuccess();
           onCancel();
         } 

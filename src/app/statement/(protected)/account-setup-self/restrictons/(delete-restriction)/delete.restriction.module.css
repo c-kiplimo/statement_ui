@@ -102,6 +102,13 @@ border-radius: 4px;
 color: #6F7269;
 }
 
+.closeicon {
+  color: #fff !important;
+  font-size: 12px !important;
+  margin-top: -15px;
+  line-height: 1.2; 
+} 
+
 
 
 

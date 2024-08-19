@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RestrictionsTable, { RestrictionTypes } from "./(restrictions-table)/restrictions.table";
 import styles from "./restrictionpage.module.css";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
-import { SearchOutlined } from "@ant-design/icons";
+import { CheckCircleFilled, CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import SortButton from "@/src/components/widgets/sort-button/sort.button";
 import AddRestrictionButton from "@/src/components/widgets/add-restriction/add.restriction";
@@ -85,9 +85,21 @@ const RestrictionsPage = () => {
     try {
       await handler.createCustomerRestriction(customerId!, selectedIds);
       notification.success({
-        message: 'Creation Successful',
-        description: 'The restriction has been successfully created.',
-      });
+        message: <span style={{ color: '#fff', marginRight: '16px' }}>The restriction has been created successfully</span>,
+        icon: <CheckCircleFilled style={{ color: '#fff', marginRight: '8px' }} />,
+        placement: 'top',
+        style: {
+          backgroundColor: '#52c41a',
+          borderRadius: '8px',
+          width: 'max-content',
+          padding: '8px 16px',
+          lineHeight: '1.2',
+          display: 'flex',
+          alignItems: 'center',
+        },
+        closeIcon: <CloseOutlined className={styles.closeicon}
+      />
+    });
 
     } catch (error) {
       setOpenCreateErrorModal(true);
@@ -107,6 +119,14 @@ const RestrictionsPage = () => {
       item.restrictionDescription.toLowerCase().includes(searchTerm) ||
       item.status.toLowerCase().includes(searchTerm)
   );
+
+  if (loading) {
+    return (
+      <div className="">
+        Loading Restrictions.......
+      </div>
+    );
+  }
   
 
   return (
@@ -151,7 +171,7 @@ const RestrictionsPage = () => {
             description={
               "We encountered an issue while creating the restriction. Please check your input and try again"
             }
-            onClick={() => handleCreatePermission}
+            onClick={handleCreatePermission}
             onCancel={handleCreateModalClose}
           />
         </Modal>
