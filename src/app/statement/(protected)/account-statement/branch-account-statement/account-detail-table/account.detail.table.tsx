@@ -7,7 +7,6 @@ import BranchTransactionsHistory, { TransactionHistoryData } from "../transactio
 import { Modal, Spin, notification } from "antd";
 import SelectReportFormat from "../select-report-format/select.report.format";
 import { DateSearchAction, SingleDataEntriesAction, SingleStatementAction } from "@/src/lib/single.statement.action";
-import { DownloadDefaultTemplate } from "@/src/services/account/account";
 import { data } from "@/src/app/statement/(auth)/data";
 
 export interface AccountDetails {
@@ -170,7 +169,7 @@ function AccountDetailTable({itemId}:AccountDetailTableProps) {
           footer={null}
           
         >
-          <SelectReportFormat itemId={selectedItemId} onCancel={closeModal}/>
+          <SelectReportFormat itemId={selectedItemId} onCancel={closeModal} accountName={dataresulst?.accountName!}/>
         </Modal>
       </div>
     </div>

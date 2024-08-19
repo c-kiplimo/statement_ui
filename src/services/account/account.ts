@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCOUNT_STATEMENT_REQUEST_URL, DELETE_ACCOUNT_SCHEDULE, DOWNLOAD_DEFAULT_TEMPLATE, FIND_USER_ACCOUNT_BY_ID, GET_ACCOUNT_SCHEDULE, GET_ACCOUNT_STATUS, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
+import { ACCOUNT_STATEMENT_REQUEST_URL, DELETE_ACCOUNT_SCHEDULE, DOWNLOAD_EXCELL_TEMPLATE, DOWNLOAD_PDF_TEMPLATE, FIND_USER_ACCOUNT_BY_ID, GET_ACCOUNT_SCHEDULE, GET_ACCOUNT_STATUS, USER_ACCOUNTS_BY_ACCOUNTS_ID, USER_CARD_BY_CARD_NUMBER } from "@/src/constants/environment";
 import { notification } from "antd";
 
 export const getAccountById = async (accountId: string): Promise<Account> => {
@@ -114,8 +114,8 @@ export const fetchAccountDetailsById  = async (accountNumber:number):Promise<Acc
   }
   }
 
-  export const DownloadDefaultTemplate = async (accountId: number) => {
-    const accountRestrictionsUrl = `${DOWNLOAD_DEFAULT_TEMPLATE}/${accountId}`;
+  export const DownloadPdfTemplate = async (accountId: number) => {
+    const accountRestrictionsUrl = `${DOWNLOAD_PDF_TEMPLATE}/${accountId}`;
 
     try {
       const response = await axios.get(accountRestrictionsUrl, {
@@ -133,6 +133,27 @@ export const fetchAccountDetailsById  = async (accountNumber:number):Promise<Acc
   } catch (error) {
       throw error;
   }
+};
+
+export const DownloadExcelTemplate = async (accountId: number) => {
+  const accountRestrictionsUrl = `${DOWNLOAD_EXCELL_TEMPLATE}/${accountId}`;
+
+  try {
+    const response = await axios.get(accountRestrictionsUrl, {
+        headers: {
+            'X-RequestId': '2345678',
+        },
+        responseType: 'blob'
+    });
+
+    if (response.data) {
+        return response.data;
+    } else {
+        throw new Error('Empty response from the server');
+    }
+} catch (error) {
+    throw error;
+}
 };
 
 export const fetchAccountStatus  = async (accountNumber:number):Promise<AccountStatus>=>{
