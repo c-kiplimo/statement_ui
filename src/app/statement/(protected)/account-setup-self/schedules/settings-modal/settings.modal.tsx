@@ -16,7 +16,7 @@ import Successful from "@/src/components/widgets/success-widget/successfull/succ
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import AccountInfo from "../account-info/account.info";
 import { AccountInfoContext } from "../schedules-context/accountInforContext";
-import { AcctScheduleHandler } from "@/src/services/account-schedules/account.schedule.service";
+import { AcctScheduleHandler } from "@/src/services/account/post.account.schedule";
 
 export type acctData = {
   currency: string;
@@ -96,7 +96,7 @@ const SettingsModal = (props: contentProps) => {
       const response = await postAccountSchedules(statementData);
 
       showNotification(
-        "Success",
+        "",
         <Successful>
           <Successful.Icon style={{ color: "#17D05B" }}>
             <CheckOutlined />
@@ -122,7 +122,8 @@ const SettingsModal = (props: contentProps) => {
 
       notification.error({
         message: "Submission Failed",
-        description: "There was an error setting up your account. Please try again.",
+        description:
+          "There was an error setting up your account. Please try again.",
       });
 
       setIsModalVisible(true);
@@ -135,8 +136,6 @@ const SettingsModal = (props: contentProps) => {
     setFrequencyOption(e.target.value);
   const handleOnlineStatementChange = (e: any) =>
     setOnlineStatementOption(e.target.value);
-  const handleScheduledStatementsChange = (e: any) =>
-    setScheduledStatementsOption(e.target.value);
   const handleFileFormatChange = (value: string) => setFileFormatOption(value);
   const handleTemplateTypeChange = (value: string) =>
     setTemplateTypeOption(value);
@@ -169,14 +168,14 @@ const SettingsModal = (props: contentProps) => {
   const fileFormatMenu = (
     <Menu onClick={({ key }) => handleFileFormatChange(key)}>
       <Menu.Item key="PDF">PDF</Menu.Item>
-      <Menu.Item key="Swift">SWIFT</Menu.Item>
+      <Menu.Item key="SWIFT">SWIFT</Menu.Item>
     </Menu>
   );
 
   const templateTypeMenu = (
     <Menu onClick={({ key }) => handleTemplateTypeChange(key)}>
       <Menu.Item key="CORPORATE">CORPORATE</Menu.Item>
-      <Menu.Item key="Individual">INDIVIDUAL</Menu.Item>
+      <Menu.Item key="INDIVIDUAL">INDIVIDUAL</Menu.Item>
     </Menu>
   );
 
@@ -346,7 +345,7 @@ const SettingsModal = (props: contentProps) => {
             <img src={"/warning.svg"} width={56} height={56} alt="warning" />
           </FailureModal.Icon>
           <FailureModal.title title="Error Inviting User" />
-          <FailureModal.description description="There was an error inviting the user to the group. Please try again later." />
+          <FailureModal.description description="We encountered an error while setting up your account. Please try again later" />
         </FailureModal>
       </Modal>
     </div>

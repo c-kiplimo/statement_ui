@@ -6,6 +6,7 @@ import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
 import SchedulesTable from "../../../account-setup-self/schedules/schedules-table/schedules.table";
 import RestrictionsPage from "../../../account-setup-self/restrictons/restriction";
 import ActivitiesPage from "../../../account-setup-self/activity/activity";
+import { AccountInfoProvider } from "../../../account-setup-self/schedules/schedules-context/accountInforContext";
 
 const CustomerProfile = () => {
   const searchParams = useSearchParams();
@@ -13,13 +14,13 @@ const CustomerProfile = () => {
   let custId: string = "";
   if (customerId !== null && customerId !== undefined) {
     custId = customerId;
-    console.log(custId);
+    
   }
 
   const tabItems: TabItem[] = [
     {
       buttonName: "Schedule",
-      bodyContent: <SchedulesTable customerId={parseInt(custId!)} />,
+      bodyContent: <AccountInfoProvider><SchedulesTable customerId={parseInt(custId!)} /> </AccountInfoProvider> ,
     },
     {
       buttonName: "Activity",

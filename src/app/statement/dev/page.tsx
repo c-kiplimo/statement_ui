@@ -13,7 +13,7 @@ const Dev = () => {
   return (
     <Fragment>
       <AccountInfoProvider>
-        <SchedulesTable />
+        <SchedulesTable customerId={1}/>
       </AccountInfoProvider>
     </Fragment>
   );
