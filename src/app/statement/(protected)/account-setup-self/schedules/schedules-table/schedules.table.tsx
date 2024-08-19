@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   CloudDownloadOutlined,
   EyeOutlined,
+  SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { Table, Modal, notification } from "antd";
@@ -13,40 +14,50 @@ import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import SettingsModal from "../settings-modal/settings.modal";
 import { SchedulesAccountAction } from "@/src/lib/actions/schedules.accounts.action";
 import { AccountInfoContext } from "../schedules-context/accountInforContext";
+import Texter from "@/src/components/atoms/text/texter";
+import SearchButton from "@/src/components/widgets/search-button/search-button";
+import FilterButton from "@/src/components/widgets/filter-button/filter.button";
+import { ColumnsType } from "antd/lib/table";
 
-export interface SchedulesDataTypes {
-  id?: React.Key;
-  accountNumber: string;
-  accountName: string;
-  status: string;
-  currency: string;
-}
+// export interface SchedulesDataTypes {
+//   id?: React.Key;
+//   accountNumber: string;
+//   accountName: string;
+//   status: string;
+//   currency: string;
+// }
 
-const SchedulesTable = () => {
+type scheduleProps = {
+  customerId: number;
+};
+
+const SchedulesTable = ({ customerId }: scheduleProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [incomingData, setIncomingData] = useState<SchedulesDataTypes[]>([]);
+  const [incomingData, setIncomingData] = useState<SchedulesData[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const context = useContext(AccountInfoContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await SchedulesAccountAction(9);
-        setIncomingData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        notification.error({
-          message: "Data Fetch Error",
-          description: "Failed to fetch account data.",
-        });
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (customerId !== undefined && customerId !== null) {
+      const fetchData = async () => {
+        try {
+          const data = await SchedulesAccountAction(customerId);
+          setIncomingData(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          notification.error({
+            message: "Data Fetch Error",
+            description: "Failed to fetch account data.",
+          });
+        }
+      };
+      fetchData();
+    }
+  }, [customerId]);
 
   const handleSettingsClick = useCallback((id: number) => {
     setSelectedUserId(id);
@@ -79,7 +90,11 @@ const SchedulesTable = () => {
     setIsModalOpen(false);
   };
 
-  const columns = [
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
+  const columns: ColumnsType<SchedulesData> = [
     {
       key: "accountNumber",
       title: "Account Number",
@@ -112,7 +127,7 @@ const SchedulesTable = () => {
               status === "COMPLETE" ? styles.statusDone : styles.statusPending
             }`}
           ></span>
-          {status}
+          {capitalizeFirstLetter(status)}
         </span>
       ),
     },
@@ -153,20 +168,26 @@ const SchedulesTable = () => {
     },
   ];
 
+  const handleSearch = (terms: string) => {
+    setSearchTerm(terms);
+  };
+
+  const handleClick = () => {
+    console.log("Filter button clicked!");
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.tableHeader}>
         <div className={styles.headerdiv}>
-          <div className={`${styles.textdiv} h6b`}>Accounts</div>
+        <Texter text="Accounts" className={`${styles.textdiv} h6b`} />
           <div className={styles.atomsdiv}>
-            <Search
-              title="Search"
-              icon={<img src="/searchicon.svg" alt="searchicon" />}
-            />
-            <Filter
-              title="Filter"
-              icon={<img src="/funnel.svg" alt="funnel" />}
-            />
+          <SearchButton>
+            <SearchButton.Icon>
+              <SearchOutlined size={16} />
+            </SearchButton.Icon>
+            <SearchButton.Input text="Search" onSearch={handleSearch} />
+          </SearchButton>
+          <FilterButton onClick={handleClick} />
             <DownloadWidget>
               <DownloadWidget.Icon>
                 <CloudDownloadOutlined />
@@ -179,6 +200,7 @@ const SchedulesTable = () => {
         <Table
           dataSource={incomingData}
           columns={columns}
+           size="middle"
           pagination={{
             pageSize: pageSize,
             showSizeChanger: true,
@@ -207,7 +229,6 @@ const SchedulesTable = () => {
             />
           )}
         </Modal>
-      </div>
     </div>
   );
 };

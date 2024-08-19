@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import styles from "./widgets/page.module.css"
 import { QueryClient, QueryClientProvider } from "react-query";
-import CustomerSearch from "./widgets/customer-search/customer-search";
+import CustomerSearch from "./account-schedule/widgets/customer-search/customer-search";
 import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
 import CustdetailsnotFound from "@/src/components/widgets/customer-not-found/customer-not-found";
 import Image from "next/image";
@@ -57,7 +57,8 @@ const AccountSchedule = () => {
   const router = useRouter();
 
   const handleIconClick = (customerId: string) => {
-    router.push(`/statement/account-setup-branch/customerprofile?customerId=${customerId}`);
+    console.log(customerId)
+    router.push(`/statement/account-setup-branch/customer-profile?customerId=${customerId}`);
   };
 
   return (

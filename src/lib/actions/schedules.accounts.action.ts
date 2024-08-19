@@ -1,7 +1,6 @@
-import { SchedulesDataTypes } from "@/src/app/statement/(protected)/account-setup-self/schedules/schedules-table/schedules.table";
 import { AccountHandler } from "@/src/services/account/account.service";
 
-export const SchedulesAccountAction = async (value: number): Promise<SchedulesDataTypes[]> => {
+export const SchedulesAccountAction = async (value: number): Promise<SchedulesData[]> => {
   const handler = AccountHandler();
   const data = await handler.getAccountByCustomerId(value);
 

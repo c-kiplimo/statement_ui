@@ -59,6 +59,7 @@ const getAccountByCustomerId =async(
             throw new Error(apiResponse);
         }
         });
+        console.log("Fetched Accounts>>",response)
         return response;
     } catch (error) {
        throw error;
