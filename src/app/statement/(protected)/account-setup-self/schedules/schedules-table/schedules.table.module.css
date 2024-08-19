@@ -1,14 +1,4 @@
-/* .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0px;
-  align-self: flex-start;
-  gap: 24px;
-  width: 100%;
-  height: auto;
-} */
+
 
 .date {
   display: flex;
@@ -156,7 +146,7 @@
   align-items: center;
   padding: 0px;
   gap: 16px;
-  width: 100%;
+  width: fit-content;
   height: 32px;
 }
 
