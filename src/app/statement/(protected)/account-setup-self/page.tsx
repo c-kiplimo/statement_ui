@@ -8,19 +8,19 @@ import ActivitiesPage from "./activity/activity";
 import TabNav from "@/src/components/widgets/tab-nav/tab-.nav";
 import CompanyInfo from "../user-management/(company-info)/company-info";
 import SchedulesTable from "./schedules/schedules-table/schedules.table";
+import { AccountInfoProvider } from "./schedules/schedules-context/accountInforContext";
 
 const AccountSetupSelf = () => {
     const customerId = useProfileId();
     let custId: number = 0;
     if (customerId !== null && customerId !== undefined) {
       custId = customerId;
-      console.log(custId);
     }
 
     const tabItems: TabItem[] = [
       {
         buttonName: "Schedule",
-        bodyContent: <SchedulesTable customerId={custId!} />,
+        bodyContent: <AccountInfoProvider><SchedulesTable customerId={custId!} /> </AccountInfoProvider>,
       },
       {
         buttonName: "Activity",

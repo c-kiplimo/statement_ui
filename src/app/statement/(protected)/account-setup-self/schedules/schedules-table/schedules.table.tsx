@@ -9,13 +9,13 @@ import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
 import Link from "next/link";
 import DownloadWidget from "@/src/components/widgets/download-widget/download";
-import SettingsModal from "../settings-modal/settings.modal";
 import { SchedulesAccountAction } from "@/src/lib/actions/schedules.accounts.action";
-import { AccountInfoContext } from "../schedules-context/accountInforContext";
 import Texter from "@/src/components/atoms/text/texter";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import { ColumnsType } from "antd/lib/table";
+import SettingsModal from "../settings-modal/settings.modal";
+import { AccountInfoContext } from "../schedules-context/accountInforContext";
 
 type scheduleProps = {
   customerId: number;
@@ -31,43 +31,45 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
 
   const context = useContext(AccountInfoContext);
 
+  const fetchData = async () => {
+    try {
+      const data = await SchedulesAccountAction(customerId);
+      setIncomingData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      notification.error({
+        message: "Data Fetch Error",
+        description: "Failed to fetch account data.",
+      });
+    }
+  };
+
   useEffect(() => {
-    if (customerId !== undefined && customerId !== null) {
-      const fetchData = async () => {
-        try {
-          const data = await SchedulesAccountAction(customerId);
-          setIncomingData(data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          notification.error({
-            message: "Data Fetch Error",
-            description: "Failed to fetch account data.",
+      
+      fetchData();
+  }, []);
+
+  const handleSettingsClick = useCallback(
+    (id: number) => {
+      setSelectedUserId(id);
+      if (context) {
+        const selectedData = incomingData.find((item) => item.id === id);
+
+        if (selectedData) {
+          context.setAccountInfo({
+            accountName: selectedData.accountName,
+            accountNumber: selectedData.accountNumber,
+            currency: selectedData.currency,
           });
         }
-      };
-      fetchData();
-    }
-  }, [customerId]);
-
-  const handleSettingsClick = useCallback((id: number) => {
-    setSelectedUserId(id);
-    if (context) {
-      const selectedData = incomingData.find(item => item.id === id);
-
-      if (selectedData) {
-        context.setAccountInfo({
-          accountName: selectedData.accountName,
-          accountNumber: selectedData.accountNumber,
-          currency: selectedData.currency,
-        });
+      } else {
+        console.error("AccountInfoContext is not available");
       }
-    } else {
-      console.error("AccountInfoContext is not available");
-    }
 
-    setIsModalOpen(true);
-  }, [incomingData, context]);
-
+      setIsModalOpen(true);
+    },
+    [incomingData, context]
+  );
   const handleViewClick = useCallback((id: number) => {
     console.log("View clicked for ID:", id);
   }, []);
@@ -76,8 +78,9 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
     setIsModalOpen(false);
   };
 
-  const handleModalSuccess = () => {
+  const handleModalSuccess = async () => {
     setIsModalOpen(false);
+    await fetchData();
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -142,18 +145,16 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
       key: "icons",
       title: "",
       render: (text: any, record: any) => (
-        <Link href="/statement/accountsetup/users" key={`icons-${record.id}`}>
-          <button
-            className={`${styles.eyeIconDiv} captionr ${
-              selectedUserId === record.id
-                ? styles.viewButtonClicked
-                : styles.test
-            }`}
-            onClick={() => handleViewClick(record.id)}
-          >
-            <EyeOutlined />
-          </button>
-        </Link>
+        <button
+          className={`${styles.eyeIconDiv} captionr ${
+            selectedUserId === record.id
+              ? styles.viewButtonClicked
+              : styles.test
+          }`}
+          onClick={() => handleViewClick(record.id)}
+        >
+          <EyeOutlined />
+        </button>
       ),
     },
   ];
@@ -204,7 +205,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
         <Modal
           footer={null}
           width={"max-content"}
-          visible={isModalOpen}
+          open={isModalOpen}
           onCancel={handleCancel}
         >
           {selectedUserId !== null && (
