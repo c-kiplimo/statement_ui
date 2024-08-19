@@ -3,16 +3,17 @@ import styles from "./account.info.module.css";
 
 
 type CompanyInfoProps = {
-  accNumber: number;
+  accNumber: string;
   accName:string;
   currency:string;
+  abbreviation:string;
 };
 
-const AccountInfo = ({ accNumber,accName,currency }: CompanyInfoProps) => {
+const AccountInfo = ({ accNumber,accName,currency, abbreviation }: CompanyInfoProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.firstLatter}>
-        <div className={styles.icon}>M</div>
+        <div className={styles.icon}>{abbreviation}</div>
       </div>
       <div className={styles.details}>
         <div className={styles.accountInfo}>

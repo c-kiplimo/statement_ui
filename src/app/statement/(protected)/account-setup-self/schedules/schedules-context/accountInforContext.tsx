@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 export type AccountInfoType = {
   accountName: string;
@@ -19,6 +19,7 @@ export const AccountInfoProvider = ({ children }: { children: ReactNode }) => {
     accountNumber: "",
     currency: "",
   });
+
   useEffect(() => {
     console.log("Updated account info:", accountInfo);
   }, [accountInfo]);
