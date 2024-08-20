@@ -46,7 +46,7 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
 
     return (
       <div key={section.title} className={`${styles.acctpermissions} ${styles[sectionClass]}`}>
-        <div className={`${styles.cardName} h6r`}>{section.title}</div>
+        <div className={styles.cardName}>{section.title}</div>
         {section.permissions.map((permission) => (
           <CheckboxComponent
             key={permission.name}

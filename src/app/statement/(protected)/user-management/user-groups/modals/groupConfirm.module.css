@@ -285,4 +285,9 @@
   width: fit-content;
   height: auto;
   color: #1a2600;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
 }

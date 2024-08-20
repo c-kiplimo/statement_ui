@@ -115,7 +115,7 @@ const UserGroupsHomePage: React.FC = () => {
                 </Menu.Item>
                 <hr />
                 <Menu.Item key="2">
-                  <Button type="text">
+                  <Button type="text" style={{ background: "none" }}>
                     <span className={`${styles.menu}`}>
                       <EyeOutlined /> <span className={`bodyr`}>View</span>
                     </span>
@@ -129,7 +129,7 @@ const UserGroupsHomePage: React.FC = () => {
                   </Button>
                 </Menu.Item>
                 <Menu.Item key="4">
-                  <Button type="text">
+                  <Button type="text" style={{ background: "none" }}>
                     <span className={`${styles.menu}`}>
                       <EditFilled /> <span className={`bodyr`}>Update</span>
                     </span>
