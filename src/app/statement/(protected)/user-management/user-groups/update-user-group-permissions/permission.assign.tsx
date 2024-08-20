@@ -144,12 +144,7 @@ const PermissionAssign = ({ onCancel, groupId }: permissionsProp) => {
       <div className={styles.head}>
         <div className={`${styles.title} h6b`}>Update Permission</div>
         <div className={styles.download}>
-          <DownloadWidget>
-            <DownloadWidget.Icon>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
+          
         </div>
       </div>
       <div className={styles.body}>

@@ -192,12 +192,6 @@ const UserGroupsHomePage: React.FC = () => {
               <SearchButton.Input text="Search" onSearch={handleSearch} />
             </SearchButton>
             <FilterButton onClick={() => {}} />
-            <DownloadWidget>
-              <DownloadWidget.Icon>
-                <CloudDownloadOutlined />
-              </DownloadWidget.Icon>
-              <DownloadWidget.text text="Download" />
-            </DownloadWidget>
             <AddItems
               onClick={handleCreateGroupModalOpen}
               buttonStyles={{ backgroundColor: "#003A49", color: "white" }}

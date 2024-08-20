@@ -258,12 +258,6 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
           <FilterButton onClick={handleClick} />
-          <DownloadWidget>
-            <DownloadWidget.Icon>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
           <AddUserButton
             onClick={handleClick}
             buttonStyles={{ background: "#003A49", color: "#FFFFFF" }}

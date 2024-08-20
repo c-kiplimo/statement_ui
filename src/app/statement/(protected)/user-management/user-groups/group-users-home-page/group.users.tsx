@@ -377,7 +377,7 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
           titleDescription={
             "Are you sure you want to add this user to the group? Please review the details before proceeding."
           }
-          typeOfInvite={"Invite by email"}
+          typeOfInvite={"Invite by email:"}
           handleModalCancel={handleModalCancel}
           onSuccess={handleAddUserSuccess}
         />

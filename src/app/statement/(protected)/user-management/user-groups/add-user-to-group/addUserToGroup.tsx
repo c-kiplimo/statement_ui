@@ -224,7 +224,6 @@ const AddUserToGroup = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.cancel}></div>
       <div className={styles.body}>
         <div className={styles.haed}>
           <div className={`${styles.title} h4b`}>{title}</div>
@@ -243,8 +242,8 @@ const AddUserToGroup = ({
               value={searchEmail}
               onChange={(e) => setSearchEmail(e.target.value)}
             />
-            <button className={styles.adduserButton} onClick={handleSearch}>
-              Add user <PlusOutlined />
+            <button className={`${styles.adduserButton} bodyr`} onClick={handleSearch}>
+              Add User <PlusOutlined />
             </button>
           </div>
         </div>
@@ -275,7 +274,7 @@ const AddUserToGroup = ({
 
       <Modal
         visible={isModalVisible}
-        width={"fit-content"}
+        width={"max-content"}
         onCancel={handleCancel}
         footer={null}
       >

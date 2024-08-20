@@ -19,7 +19,6 @@ export const AccountInfoProvider = ({ children }: { children: ReactNode }) => {
     accountNumber: "",
     currency: "",
   });
-
   useEffect(() => {
     console.log("Updated account info:", accountInfo);
   }, [accountInfo]);

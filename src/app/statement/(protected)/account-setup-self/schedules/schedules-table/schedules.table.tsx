@@ -142,22 +142,6 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
         </button>
       ),
     },
-    {
-      key: "icons",
-      title: "",
-      render: (text: any, record: any) => (
-        <button
-          className={`${styles.eyeIconDiv} captionr ${
-            selectedUserId === record.id
-              ? styles.viewButtonClicked
-              : styles.test
-          }`}
-          onClick={() => handleViewClick(record.id)}
-        >
-          <EyeOutlined />
-        </button>
-      ),
-    },
   ];
 
   const handleSearch = (terms: string) => {
@@ -187,12 +171,6 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
               <SearchButton.Input text="Search" onSearch={handleSearch} />
             </SearchButton>
           <FilterButton onClick={handleClick} />
-            <DownloadWidget>
-              <DownloadWidget.Icon>
-                <CloudDownloadOutlined />
-              </DownloadWidget.Icon>
-              <DownloadWidget.text text="Download" />
-            </DownloadWidget>
           </div>
         </div>
 

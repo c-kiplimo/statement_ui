@@ -42,8 +42,7 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
     const section = permissionsData.find((sec) => sec.title === title);
     if (!section) return null;
 
-    // Add a specific class based on the title
-    const sectionClass = title.toLowerCase(); // e.g., 'account', 'loan', 'card'
+    const sectionClass = title.toLowerCase(); 
 
     return (
       <div key={section.title} className={`${styles.acctpermissions} ${styles[sectionClass]}`}>
@@ -61,16 +60,10 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
   };
 
   return (
-    <div className={styles.groupUsersContainer}>
+    <div className={styles.Container}>
       <div className={styles.header}>
         <div className={`${styles.title} h6b`}>Group Permissions</div>
         <div className={styles.components}>
-          <DownloadWidget>
-            <DownloadWidget.Icon iconStyles={{ color: "#4272DD" }}>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
           <AddItems
             onClick={onEditPermissions}
             buttonStyles={{ backgroundColor: "#003A49", color: "white" }}
@@ -84,8 +77,8 @@ const GroupsPermissions = ({ groupId, onEditPermissions }: PermissionsType) => {
       </div>
       <div className={styles.checkboxdiv}>
         <div className={styles.topdiv}>
+        {renderPermissionsSection("LOAN")}
           {renderPermissionsSection("ACCOUNT")}
-          {renderPermissionsSection("LOAN")}
         </div>
         <div className={styles.lowerdiv}>
           {renderPermissionsSection("CARD")}
