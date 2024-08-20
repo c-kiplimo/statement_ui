@@ -67,9 +67,11 @@ const SettingsModal = (props: contentProps) => {
 
   const { postAccountSchedules } = AcctScheduleHandler();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    if (e) {
+      e.preventDefault();
+    }
+  
     if (!accountId) {
       showNotification("Error", "Account ID is required.");
       return;
@@ -120,11 +122,7 @@ const SettingsModal = (props: contentProps) => {
     } catch (error) {
       console.error("Error submitting account schedule:", error);
 
-      notification.error({
-        message: "Submission Failed",
-        description:
-          "There was an error setting up your account. Please try again.",
-      });
+ 
 
       setIsModalVisible(true);
     }
@@ -163,7 +161,10 @@ const SettingsModal = (props: contentProps) => {
   };
 
   const handleCancel = () => setIsModalVisible(false);
-  const handleTryAgain = () => setIsModalVisible(false);
+  const handleTryAgain = () => {
+    setIsModalVisible(false);
+    handleSubmit();
+  };
 
   const fileFormatMenu = (
     <Menu onClick={({ key }) => handleFileFormatChange(key)}>

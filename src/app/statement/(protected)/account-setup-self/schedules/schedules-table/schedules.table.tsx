@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useState, useCallback, useEffect, useContext, useMemo } from "react";
 import {
   CloudDownloadOutlined,
   EyeOutlined,
   SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import Search from "@/src/components/atoms/search/search";
 import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
 import Link from "next/link";
@@ -47,7 +48,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   useEffect(() => {
       
       fetchData();
-  }, []);
+  }, [customerId]);
 
   const handleSettingsClick = useCallback(
     (id: number) => {
@@ -162,6 +163,13 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   const handleSearch = (terms: string) => {
     setSearchTerm(terms);
   };
+  const filteredData = useMemo(() => {
+    return incomingData.filter((item) => {
+      return Object.values(item).some((value) =>
+        value.toString().includes(searchTerm.toLowerCase())
+      );
+    });
+  }, [searchTerm, incomingData]);
 
   const handleClick = () => {
     console.log("Filter button clicked!");
@@ -173,11 +181,11 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
         <Texter text="Accounts" className={`${styles.textdiv} h6b`} />
           <div className={styles.atomsdiv}>
           <SearchButton>
-            <SearchButton.Icon>
-              <SearchOutlined size={16} />
-            </SearchButton.Icon>
-            <SearchButton.Input text="Search" onSearch={handleSearch} />
-          </SearchButton>
+              <SearchButton.Icon>
+                <SearchOutlined />
+              </SearchButton.Icon>
+              <SearchButton.Input text="Search" onSearch={handleSearch} />
+            </SearchButton>
           <FilterButton onClick={handleClick} />
             <DownloadWidget>
               <DownloadWidget.Icon>
@@ -189,7 +197,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
         </div>
 
         <Table
-          dataSource={incomingData}
+          dataSource={filteredData}
           columns={columns}
            size="middle"
           pagination={{
