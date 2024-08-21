@@ -10,7 +10,6 @@ import AddRestrictionButton from "@/src/components/widgets/add-restriction/add.r
 import { Modal, notification } from "antd";
 import SelectRestriction, { RestrictionType } from "./(select-restriction-modal)/select.restriction";
 import ConfirmFailure from "./(confirm-failure-modal)/confirm.failure";
-// import useProfileId from "@/src/hooks/profileId";
 import { getAllRestrictions, getCustomerRestrictions } from "@/src/lib/actions/account-setup/customer.restrictions.actions";
 import RestrictionHandler from "@/src/services/accountsetup/customer.restrictions";
 
@@ -27,7 +26,6 @@ const RestrictionsPage = ({customerId}:RestrictionProps) => {
   const [selectedOption, setSelectedOption] = useState<number[]>([]);
   const handler = RestrictionHandler()
   const [loading, setLoading] = useState(true)
-  // const customerId = useProfileId();
 
   const fetchRestrictions = async () => {
     if (customerId ) {
@@ -144,9 +142,6 @@ const RestrictionsPage = ({customerId}:RestrictionProps) => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearchChange} />
           </SearchButton>
-
-          <FilterButton onClick={handleClick} />
-          <SortButton onClick={handleClick} />
           <AddRestrictionButton
             onClick={handleAddRestriction}
             buttonStyles={{ background: "#003A49", color: "#FFFFFF" }}

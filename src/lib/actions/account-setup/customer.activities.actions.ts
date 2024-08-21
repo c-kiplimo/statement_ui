@@ -1,4 +1,5 @@
 import { ActivitiesTypes } from "@/src/app/statement/(protected)/account-setup-self/activity/(activity-table)/activity.table";
+import { CustomerStatus } from "@/src/app/statement/(protected)/account-setup-self/activity/activity";
 import ActivitiesHandler from "@/src/services/accountsetup/account.activities";
 
 export const getCustomerActivities = async (
@@ -16,3 +17,15 @@ export const getCustomerActivities = async (
   }));
   return activities;
 };
+
+
+export const getCustomerStatus =async (customerId:number):Promise<CustomerStatus[]>=>{
+  const handler = ActivitiesHandler();
+  const response: CustomerActivities[] = await handler.fetchCustomerActivities(customerId);
+  const status:CustomerStatus[]= response.map(data=>({
+    label:data.status,
+    value:data.status
+  }))
+
+  return status
+}
