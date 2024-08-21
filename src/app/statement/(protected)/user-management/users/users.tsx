@@ -4,7 +4,6 @@ import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-d
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import {
   CloseCircleOutlined,
-  CloudDownloadOutlined,
   SearchOutlined,
   EyeOutlined,
   UserOutlined,
@@ -13,7 +12,6 @@ import {
   MoreOutlined,
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
-import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import TableWidget from "@/src/components/widgets/table-widget/table-widget";
 import { RegisteredUserAction } from "@/src/lib/actions/registered.user.action";
 import { Modal, Dropdown, Button, Menu, notification } from "antd";
@@ -229,7 +227,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
             </div>
           )}
         >
-          <Button type="text" icon={<MoreOutlined/>} />
+          <Button type="text" className={styles.icon} icon={<MoreOutlined/>} />
         </Dropdown>
       ),
     },

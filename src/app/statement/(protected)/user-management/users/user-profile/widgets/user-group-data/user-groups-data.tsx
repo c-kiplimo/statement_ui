@@ -7,12 +7,10 @@ import Image from "next/image";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import {
-  CloudDownloadOutlined,
   PlusOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
-import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Button from "@/src/components/atoms/buttons/button";
 import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import AddUserToGroup from "../add-user-group/add-user-group";
@@ -184,12 +182,6 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
           <FilterButton onClick={handleClick} />
-          <DownloadWidget>
-            <DownloadWidget.Icon>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
           <Button
             onClick={handleAddUser}
             buttonStyle={{
@@ -267,4 +259,4 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
   );
 };
 
-export default UserGroups;
+export default UserGroups

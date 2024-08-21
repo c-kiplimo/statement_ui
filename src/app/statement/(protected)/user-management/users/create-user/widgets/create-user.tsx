@@ -6,11 +6,11 @@ import Texter from "@/src/components/atoms/text/texter";
 import { TeamOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { AUTH_URL_REGISTER } from "@/src/constants/environment";
-import ConfirmFail from "../../../permissions/(confirmfailure)/confirm.failure";
 import ConfirmRegistrationModal from "./(confirmUser)/confirmUser";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useProfileId from "@/src/hooks/profileId";
+import FailureModal from "@/src/components/widgets/failure-widget/failure";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -73,10 +73,6 @@ const CreateUser = () => {
     setSelectedGroup(group);
   };
 
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -125,16 +121,22 @@ const CreateUser = () => {
         setOpenModal(true);
       }
     }
-  };
-
-  useEffect(() => {
-    if (retry && formData) {
-      handleOk();
-    }
-  }, [retry]);
+  };  
 
   const handleCancel = () => {
     setOpen(false);
+  };
+
+  const handleTryAgain = () => {
+    console.log("Button clicked")
+    setOpenModal(false);
+      if (formData) {
+        handleOk();
+      }
+  };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -318,17 +320,21 @@ const CreateUser = () => {
       </Modal>
       <Modal
         open={openModal}
-        onCancel={handleModalClose}
-        footer={false}
+        width={"max-content"}
         className={styles.modal}
-        width={350}
+        onCancel={handleModalClose}
+        footer={null}
       >
-        <ConfirmFail
-          title={"Error Creating New User"}
-          description={`Unable to create user ${formData?.firstName} ${formData?.lastName}. The username already exists! Please try again.`}
-          onClick={() =>setRetry(true)}
-          onCancel={handleModalClose}
-        />
+        <FailureModal
+          onCancelClick={handleModalClose}
+          onTryAgainClick={handleTryAgain}
+        >
+          <FailureModal.Icon>
+            <img src={"/warning.svg"} width={56} height={56} alt="warning" />
+          </FailureModal.Icon>
+          <FailureModal.title title="Error Creating New User" />
+          <FailureModal.description description={`Unable to create user ${formData?.firstName} ${formData?.lastName}. The username already exists! Please try again.`} />
+        </FailureModal>
       </Modal>
     </div>
   );
