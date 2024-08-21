@@ -1,3 +1,16 @@
+.icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 8px;
+  width: 28px;
+  height: 28px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
