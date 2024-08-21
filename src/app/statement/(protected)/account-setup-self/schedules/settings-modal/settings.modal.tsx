@@ -345,7 +345,7 @@ const SettingsModal = (props: contentProps) => {
           <FailureModal.Icon>
             <img src={"/warning.svg"} width={56} height={56} alt="warning" />
           </FailureModal.Icon>
-          <FailureModal.title title="Error Inviting User" />
+          <FailureModal.title title="Account Setup Failed" />
           <FailureModal.description description="We encountered an error while setting up your account. Please try again later" />
         </FailureModal>
       </Modal>
