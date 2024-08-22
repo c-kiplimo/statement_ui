@@ -215,7 +215,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
         onCancel={handleModalClose}
         footer={false}
         className={styles.modal}
-        width={"45%"}
+        width={"max-content"}
       >
         <AddUserToGroup
           userId={userId}

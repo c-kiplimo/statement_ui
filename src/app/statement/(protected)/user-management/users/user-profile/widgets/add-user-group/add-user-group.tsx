@@ -229,6 +229,7 @@ const AddUserToGroup = ({
       </div>
       <Modal
         visible={isModalVisible}
+        className={styles.modal}
         width={"30%"}
         onCancel={handleCancel}
         footer={null}

@@ -222,7 +222,7 @@ const CreateUser = () => {
                 <div className={`${styles.selectorRow} bodyr`}>
                   <Select
                     className={`${styles.selectionStandard} captionr`}
-                    style={{ width: 90, height: 40}}
+                    style={{ width: 100, height: 40 ,border: '0.5px solid #979992',borderRadius: '4px'}}
                     value={countryCode}
                     onChange={(value) => setCountryCode(value)}
                   >
