@@ -11,7 +11,6 @@ import {
   TeamOutlined,
   MoreOutlined,
 } from "@ant-design/icons";
-import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import TableWidget from "@/src/components/widgets/table-widget/table-widget";
 import { RegisteredUserAction } from "@/src/lib/actions/registered.user.action";
 import { Modal, Dropdown, Button, Menu, notification } from "antd";
@@ -53,7 +52,12 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     if (customerId !== null && customerId !== undefined) {
       setLoading(true);
       try {
-        const response = await RegisteredUserAction(customerId, platformId.toString(), 0, 10);
+        const response = await RegisteredUserAction(
+          customerId,
+          platformId.toString(),
+          0,
+          10
+        );
         const usersWithKey = response.map((user: RegisteredUser) => ({
           ...user,
           key: user.userId || user.email,
@@ -62,7 +66,8 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
       } catch (error) {
         console.error("Error fetching data:", error);
         notification.error({
-          message: "There was an error while fetching users. Please try again later.",
+          message:
+            "There was an error while fetching users. Please try again later.",
           description: "",
           icon: <CloseCircleOutlined style={{ color: "white" }} />,
           className: "bodyr failure-notification",
@@ -85,10 +90,10 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
       const transformedGroups = data.map((group: any) => ({
         id: group.groupId,
         name: group.groupName,
-        icon: <TeamOutlined />, 
+        icon: <TeamOutlined />,
         description: group.description,
       }));
-      setUserGroups(transformedGroups); 
+      setUserGroups(transformedGroups);
     } catch (error) {
       console.error("Error fetching groups data:", error);
     }
@@ -113,10 +118,12 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   const handleMenuClick = (e: any) => {
     const { key } = e;
     const record: RegisteredUser = e.item.props["data-record"];
-    console.log("Action clicked:", key, "for record:", record); 
+    console.log("Action clicked:", key, "for record:", record);
     switch (key) {
       case "view":
-        router.push(`/statement/user-management/users/user-profile?userId=${record.userId}`);
+        router.push(
+          `/statement/user-management/users/user-profile?userId=${record.userId}`
+        );
         break;
       case "update":
         router.push(
@@ -133,13 +140,13 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     }
   };
 
-  const handleDeactivate = async (userId:string) => {
+  const handleDeactivate = async (userId: string) => {
     if (selectedUser) {
       console.log("Deactivating user:", selectedUser.userId);
       try {
         const response = await deactivateUserService(selectedUser.userId!);
-        console.log(response)        
-          setSuccessModalVisible(true);
+        console.log(response);
+        setSuccessModalVisible(true);
       } catch (error) {
         console.error("Error deactivating user:", error);
         setFailureModalVisible(true);
@@ -197,14 +204,23 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     {
       title: "User Name",
       dataIndex: "userName",
+      render: (text: string) => (
+        <span className={`${styles.rowStyles} bodyr`}>{text}</span>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "mobileNumber",
+      render: (text: string) => (
+        <span className={`${styles.rowStyles} bodyr`}>{text}</span>
+      ),
     },
     {
       title: "Email",
       dataIndex: "email",
+      render: (text: string) => (
+        <span className={`${styles.rowStyles} bodyr`}>{text}</span>
+      ),
     },
     {
       title: "Joined On",
@@ -223,11 +239,13 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
               <div className={`${styles.dropDownTitle} bodyb`}>
                 Choose Action
               </div>
+              <div className={styles.dropDownContent}>
               {menu}
+              </div>
             </div>
           )}
         >
-          <Button type="text" className={styles.icon} icon={<MoreOutlined/>} />
+          <Button type="text" className={styles.icon} icon={<MoreOutlined />} />
         </Dropdown>
       ),
     },
@@ -255,7 +273,6 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
-          <FilterButton onClick={handleClick} />
           <AddUserButton
             onClick={handleClick}
             buttonStyles={{ background: "#003A49", color: "#FFFFFF" }}
@@ -293,7 +310,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         <CreationSuccess
           title="User Deactivation Successful"
           description="The user has been successfully deactivated. Their account will be permanently deleted after 30 days. During this period, the account can be reactivated if needed."
-          onClick={handleSuccessModalClose} 
+          onClick={handleSuccessModalClose}
         />
       </Modal>
       <Modal
@@ -303,14 +320,14 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         className={styles.modal}
         width={350}
       >
-        {selectedUser &&(
-        <ConfirmFail
-          title="User Deactivation Failed"
-          description={`There was an error while trying to deactivate the user, ${selectedUser?.username!}. Please try again`}
-          onClick={() => setRetryDeactivate(true)}
-          onCancel={handleCancel}
-        />
-      )}
+        {selectedUser && (
+          <ConfirmFail
+            title="User Deactivation Failed"
+            description={`There was an error while trying to deactivate the user, ${selectedUser?.username!}. Please try again`}
+            onClick={() => setRetryDeactivate(true)}
+            onCancel={handleCancel}
+          />
+        )}
       </Modal>
     </div>
   );

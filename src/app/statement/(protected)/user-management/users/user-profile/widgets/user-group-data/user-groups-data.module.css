@@ -1,3 +1,12 @@
+.rowStyles {
+  display: flex;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: fit-content;
+  height: auto;
+}
+
 .actionBtn {
   box-sizing: border-box;
   display: flex;
@@ -27,8 +36,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 0px 16px 16px;
-  gap: 280px;
+  padding: 32px 0px 16px 4px;
+  gap: 285px;
   width: 100%;
   height: auto;
 }
@@ -40,7 +49,7 @@
   padding: 0px;
   gap: 16px;
   margin: 0 auto;
-  width: auto;
+  width: 542px;
   height: auto;
 }
 
@@ -52,14 +61,11 @@
 .modal {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 4px;
   position: relative;
   width: 100%;
   left: 10vw;
   top: 4vh;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 @media (max-width: 768px) {

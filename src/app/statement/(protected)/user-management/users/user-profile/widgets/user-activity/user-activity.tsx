@@ -1,25 +1,20 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./user-activity.module.css";
-import {
-  CloudDownloadOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
-import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import Texter from "@/src/components/atoms/text/texter";
 import { fetchActivityLogAction } from "@/src/lib/actions/activity.log.action";
 import moment from "moment";
-
-
 
 type ActivityProps = {
   userId: string;
 };
 
 const UserActivity = ({ userId }: ActivityProps) => {
+  console.log(userId);
   const [activity, setActivity] = useState<ActivityData[]>([]);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,10 +30,10 @@ const UserActivity = ({ userId }: ActivityProps) => {
       render: (createdOn: string) => {
         const date = moment(createdOn).format("DD-MM-YYYY");
         const time = moment(createdOn).format("HH:MM a");
-        
+
         return (
           <div className={`${styles.date} bodyr`}>
-            {date} 
+            {date}
             <span className="captionr">{time}</span>
           </div>
         );
@@ -47,19 +42,23 @@ const UserActivity = ({ userId }: ActivityProps) => {
     {
       title: "Activity Name",
       dataIndex: "activityName",
-      render: (activity:string) => <span className={`${styles.activityName} bodyr`}>{activity}</span>,
+      render: (activity: string) => (
+        <span className={`${styles.activityName} bodyr`}>{activity}</span>
+      ),
     },
     {
       title: "Description",
       dataIndex: "description",
-      render: (description:string) => <span className={`${styles.description} bodyr`}>{description}</span>,
+      render: (description: string) => (
+        <span className={`${styles.description} bodyr`}>{description}</span>
+      ),
     },
     {
       title: "Status",
       dataIndex: "status",
-      render: (status:string, record) => {
-        let dotColor = "";       
-  
+      render: (status: string, record) => {
+        let dotColor = "";
+
         switch (record.status) {
           case "COMPLETED":
             dotColor = "green";
@@ -70,19 +69,19 @@ const UserActivity = ({ userId }: ActivityProps) => {
           case "FAILED":
             dotColor = "orange";
             break;
-            
+
           default:
             break;
         }
-  
+
         return (
           <div className={`${styles.status} bodyr`}>
-          <div
-            className={styles.dotStatus}
-            style={{ backgroundColor: dotColor }}
-          />
-          {capitalizeFirstLetter(status)}
-        </div>
+            <div
+              className={styles.dotStatus}
+              style={{ backgroundColor: dotColor }}
+            />
+            {capitalizeFirstLetter(status)}
+          </div>
         );
       },
     },
@@ -94,7 +93,7 @@ const UserActivity = ({ userId }: ActivityProps) => {
         if (userId !== undefined) {
           const data = await fetchActivityLogAction(parseInt(userId));
           setActivity(data);
-          console.log(activity)
+          console.log(activity);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -132,12 +131,6 @@ const UserActivity = ({ userId }: ActivityProps) => {
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
           <FilterButton onClick={handleClick} />
-          <DownloadWidget>
-            <DownloadWidget.Icon>
-              <CloudDownloadOutlined />
-            </DownloadWidget.Icon>
-            <DownloadWidget.text text="Download" />
-          </DownloadWidget>
         </div>
       </div>
       <div className={styles.table}>

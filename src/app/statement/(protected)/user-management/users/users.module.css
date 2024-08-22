@@ -11,17 +11,6 @@
   border-radius: 4px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 32px 16px 0px;
-  gap: 24px;
-  width: 100%;
-  height: auto;
-  background: #ffffff;
-}
-
 .rowStyles {
   display: flex;
   align-items: flex-start;
@@ -34,34 +23,57 @@
 .dropDown {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 1px 8px;
+  width: fit-content;
   height: auto;
   position: relative;
   left: auto;
-  background: #ffffff;
+  background: #FFFFFF;
   border-radius: 4px;
 }
 
 .dropDownTitle {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   padding: 8px 16px;
   gap: 8px;
+  width:100%;
+  height:auto;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E6E6E6;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.dropDownContent{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px 4px;
+width: 100%;
+height: auto;
+
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 0px;
+  gap: 24px;
   width: 100%;
   height: auto;
   background: #ffffff;
-  border-bottom: 1px solid #e6e6e6;
-  border-radius: 4px 4px 0px 0px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 0px 16px 16px;
-  gap: 285px;
+  padding-left: 4px;
+  gap: auto;
   width: 100%;
   height: auto;
 }
