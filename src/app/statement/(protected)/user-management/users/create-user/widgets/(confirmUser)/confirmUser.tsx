@@ -11,7 +11,7 @@ type ConfirmRegistrationModalProps = {
   email: string;
   mobileNumber: string;
   userGroups: User_Group[];
-  handleOk: (e:any) => void;
+  handleOk: (e: any) => void;
 };
 
 const ConfirmRegistrationModal = ({
@@ -26,15 +26,19 @@ const ConfirmRegistrationModal = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <VerticalInfoDescription
-          title={"Confirm New User Creation"}
-          titleStyle={{ fontWeight: "700", fontSize: "25px" }}
-        />
-        <VerticalInfoDescription
-          title={
-            "Please review the user details below before confirming the creation of a new user account. Ensure all information is accurate"
-          }
-        />
+        <div className={styles.heading}>
+          <VerticalInfoDescription
+            title={"Confirm New User Creation"}
+            titleStyle={{ fontWeight: "700", fontSize: "25px" }}
+          />
+        </div>
+        <div className={styles.description}>
+          <VerticalInfoDescription
+            title={
+              "Please review the user details below before confirming the creation of a new user account. Ensure all information is accurate"
+            }
+          />
+        </div>
       </div>
       <div className={styles.body}>
         <div className={styles.userDetails}>

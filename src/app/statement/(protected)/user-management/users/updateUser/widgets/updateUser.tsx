@@ -341,8 +341,8 @@ const UpdateUser = () => {
         width={350}
       >
         <CreationSuccess
-          title="User Deactivation Successful"
-          description="The user has been successfully deactivated. Their account will be permanently deleted after 30 days. During this period, the account can be reactivated if needed."
+          title="User Update Successful"
+          description="The user's information has been successfully updated."
           onClick={() => setSuccessModalVisible(false)}
         />
       </Modal>

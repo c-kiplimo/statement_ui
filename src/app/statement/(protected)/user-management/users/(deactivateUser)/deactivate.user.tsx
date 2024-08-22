@@ -27,15 +27,19 @@ const DeactivateUser = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <VerticalInfoDescription
-          title={"Confirm User Deactivation"}
-          titleStyle={{ fontWeight: "700", fontSize: "25px" }}
-        />
-        <VerticalInfoDescription
-          title={
-            "Are you sure you want to deactivate this user? This action will restrict their access and may affect their ongoing activities. Please confirm your decision"
-          }
-        />
+        <div className={styles.heading}>
+          <VerticalInfoDescription
+            title={"Confirm User Deactivation"}
+            titleStyle={{ fontWeight: "700", fontSize: "25px" }}
+          />
+        </div>
+        <div className={styles.description}>
+          <VerticalInfoDescription
+            title={
+              "Are you sure you want to deactivate this user? This action will restrict their access and may affect their ongoing activities. Please confirm your decision"
+            }
+          />
+        </div>
       </div>
       <div className={styles.body}>
         <div className={styles.userDetails}>

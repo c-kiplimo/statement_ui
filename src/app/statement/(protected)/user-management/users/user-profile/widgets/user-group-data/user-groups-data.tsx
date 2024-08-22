@@ -10,7 +10,6 @@ import {
   PlusOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import Button from "@/src/components/atoms/buttons/button";
 import { fetchUserGroupsAction } from "@/src/lib/actions/fetch.groups.action";
 import AddUserToGroup from "../add-user-group/add-user-group";
@@ -69,10 +68,16 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
     {
       title: "Group Name",
       dataIndex: "groupName",
+      render: (text: string) => (
+        <span className={`${styles.rowStyles} bodyr`}>{text}</span>
+      ),
     },
     {
       title: "Description",
       dataIndex: "description",
+      render: (text: string) => (
+        <span className={`${styles.rowStyles} bodyr`}>{text}</span>
+      ),
     },
     {
       title: "Date Created",
@@ -137,15 +142,12 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
   };
 
   const handleModalVisible = () => {
-    setModalOpen(true);
+    setModalOpen(false);
   };
 
   const handleDelete = (group: UserGroupData) => {
     setSelectedGroup(group);
     setModalOpen(true);
-  };
-  const handleClick = () => {
-    console.log("Filtere items");
   };
 
   const handleConfirmDelete = async () => {
@@ -181,7 +183,6 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
-          <FilterButton onClick={handleClick} />
           <Button
             onClick={handleAddUser}
             buttonStyle={{
@@ -214,7 +215,7 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
         onCancel={handleModalClose}
         footer={false}
         className={styles.modal}
-        width={"45%"}
+        width={"max-content"}
       >
         <AddUserToGroup
           userId={userId}
@@ -232,27 +233,13 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
         onCancel={handleModalVisible}
         footer={false}
         className={styles.modal}
-        width={600}
+        width={"max-content"}
       >
         <RemoveUser
           onCancel={handleModalVisible}
           handleOk={handleConfirmDelete}
           groupName={selectedGroup.groupName}
           description={selectedGroup.description}
-        />
-      </Modal>
-      <Modal
-        open={errorModalVisible}
-        onCancel={() => setErrorModalVisible(false)}
-        footer={false}
-        className={styles.modal}
-        width={600}
-      >
-        <ConfirmFail
-          title="Error Removing User"
-          description="There was an error Removing the user from the group. Please try again later"
-          onClick={handleRetry}
-          onCancel={() => setErrorModalVisible(false)}
         />
       </Modal>
     </div>
