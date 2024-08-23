@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useContext } from "react";
+import React, { ReactNode, useState, useContext, useEffect } from "react";
 import styles from "./settings.modal.module.css";
 import {
   Radio,
@@ -8,6 +8,7 @@ import {
   Menu,
   notification,
   Modal,
+  message,
 } from "antd";
 import { CheckOutlined, CloseOutlined, DownOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -32,6 +33,7 @@ type contentProps = {
   timeIcon: ReactNode;
   onSuccess?: () => void;
   onClick?: () => void;
+  resetOptionsOnOpen?: boolean;
 };
 
 const SettingsModal = (props: contentProps) => {
@@ -66,6 +68,20 @@ const SettingsModal = (props: contentProps) => {
   const { accountId } = props;
 
   const { postAccountSchedules } = AcctScheduleHandler();
+  useEffect(() => {
+    if (props.resetOptionsOnOpen) {
+      setMTStatementsOption(undefined);
+      setOnlineStatementOption(undefined);
+      setScheduledStatementsOption(undefined);
+      setFrequencyOption(undefined);
+      setFileFormatOption("PDF");
+      setTemplateTypeOption("CORPORATE");
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setNotificationOption(undefined);
+    }
+  }, [props.resetOptionsOnOpen]);
+
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) {
@@ -76,9 +92,15 @@ const SettingsModal = (props: contentProps) => {
       showNotification("Error", "Account ID is required.");
       return;
     }
-
     if (!selectedDate || !selectedTime) {
-      showNotification("Error", "Please select both date and time.");
+      notification.info({
+        message: "Incomplete Selection",
+        description: "Please input both date and time.",
+        className: styles.customNotification,
+        icon: null,
+       
+        closeIcon: null,
+      });
       return;
     }
 
@@ -115,15 +137,21 @@ const SettingsModal = (props: contentProps) => {
           </Successful.Icon>
         </Successful>
       );
-
+      setMTStatementsOption(undefined);
+      setOnlineStatementOption(undefined);
+      setScheduledStatementsOption(undefined);
+      setFrequencyOption(undefined);
+      setFileFormatOption("PDF");
+      setTemplateTypeOption("CORPORATE");
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setNotificationOption(undefined);
+  
       if (props.onSuccess) {
         props.onSuccess();
       }
     } catch (error) {
       console.error("Error submitting account schedule:", error);
-
- 
-
       setIsModalVisible(true);
     }
   };
@@ -160,7 +188,8 @@ const SettingsModal = (props: contentProps) => {
     });
   };
 
-  const handleCancel = () => setIsModalVisible(false);
+  const handleCancel = () => {
+  setIsModalVisible(false);}
   const handleTryAgain = () => {
     setIsModalVisible(false);
     handleSubmit();

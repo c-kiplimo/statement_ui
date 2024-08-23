@@ -1,15 +1,10 @@
 import React, { useState, useCallback, useEffect, useContext, useMemo } from "react";
 import {
-  CloudDownloadOutlined,
-  EyeOutlined,
   SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import Search from "@/src/components/atoms/search/search";
 import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
-import Link from "next/link";
-import DownloadWidget from "@/src/components/widgets/download-widget/download";
 import { SchedulesAccountAction } from "@/src/lib/actions/schedules.accounts.action";
 import Texter from "@/src/components/atoms/text/texter";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
@@ -71,13 +66,12 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
     },
     [incomingData, context]
   );
-  const handleViewClick = useCallback((id: number) => {
-    console.log("View clicked for ID:", id);
-  }, []);
+ 
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  
 
   const handleModalSuccess = async () => {
     setIsModalOpen(false);
@@ -131,10 +125,10 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
       render: (text: any, record: any) => (
         <button
           className={`${styles.settingsButton} captionr ${
-            selectedUserId === record.id
-              ? styles.settingsButtonClicked
-              : styles.test
-          }`}
+            record.status === "COMPLETE"
+              ? styles.settingsButtonComplete
+              : styles.settingsButton
+          } ${selectedUserId === record.id ? styles.settingsButtonClicked : ""}`}
           onClick={() => handleSettingsClick(record.id)}
         >
           <SettingOutlined />

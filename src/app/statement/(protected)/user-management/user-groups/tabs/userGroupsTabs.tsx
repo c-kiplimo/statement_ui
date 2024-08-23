@@ -95,6 +95,7 @@ const GroupsTabs = () => {
         <TabNav tabItems={tabItems} />
       </div>
     </div>
-  );}  
+  );
+};
 
 export default GroupsTabs;
