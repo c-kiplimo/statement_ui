@@ -74,9 +74,8 @@
   gap: 32px;
   width: 697px;
   height: 24px;
-  margin: 16px;
+  margin-top: 16px;
 }
-
 .fretimedate {
   display: flex;
   flex-direction: column;

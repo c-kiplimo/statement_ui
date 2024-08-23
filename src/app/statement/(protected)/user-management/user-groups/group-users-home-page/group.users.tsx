@@ -154,16 +154,18 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
 
   const handleConfirmDelete = useCallback(async () => {
     try {
-      if (userToRemove) {
-        await handler.deleteGroupMembers(
-          platformId.toString(),
-          groupId,
-          userToRemove
-        );
-        setData((prevData) =>
-          prevData.filter((item) => item.key !== userToRemove)
-        );
-        setRemoveUserModal(false);
+        if (userToRemove) {
+            await handler.deleteGroupMembers(
+                platformId.toString(),
+                groupId,
+                userToRemove
+            );
+            setData((prevData) => {
+                const updatedData = prevData.filter((item) => item.key !== userToRemove);
+                setTotalUsers(updatedData.length); 
+                return updatedData;
+            });
+            setRemoveUserModal(false);
 
         showNotification(
           "",
