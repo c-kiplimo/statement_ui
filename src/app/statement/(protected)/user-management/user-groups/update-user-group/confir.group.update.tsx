@@ -6,7 +6,6 @@ import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import SuccessModal from "@/src/components/widgets/success-widget/success";
 import { CheckOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useGroup } from "../context/permissionsContext";
 
 interface Permission {
   name: string;
@@ -17,7 +16,6 @@ export interface GroupDatas {
   permissions: Permission[];
 }
 
-
 type GroupUpdateConfirmProps = {
   groupName: string;
   description: string;
@@ -26,8 +24,6 @@ type GroupUpdateConfirmProps = {
   onCancel: () => void;
 };
 
-
-
 const GroupUpdateConfirm: React.FC<GroupUpdateConfirmProps> = ({
   groupName,
   description,
@@ -35,14 +31,13 @@ const GroupUpdateConfirm: React.FC<GroupUpdateConfirmProps> = ({
   onConfirm,
   onCancel,
 }) => {
-
   const [isSuccessVisible, setIsSuccessVisible] = useState(false);
   const [isFailureVisible, setIsFailureVisible] = useState(false);
   const router = useRouter();
 
-
   const handleConfirm = async () => {
     try {
+      // Simulate success
       setIsSuccessVisible(true);
       onConfirm();
     } catch (error) {
@@ -55,14 +50,58 @@ const GroupUpdateConfirm: React.FC<GroupUpdateConfirmProps> = ({
     router.push("/statement/user-management");
   };
 
+  const renderPermissionsSection = () => {
+    const topSections = ["LOAN", "ACCOUNT"];
+    const lowerSections = ["CARD"];
+
+    return (
+      <>
+        <div className={styles.topdiv}>
+          {permissions
+            .filter((section) => topSections.includes(section.title))
+            .map((section) => (
+              <div key={section.title} className={styles[section.title.toLowerCase()]}>
+                <div className={styles.cardName}>{section.title}</div>
+                {section.permissions.map((permission) => (
+                  <CheckboxComponent
+                    key={permission.name}
+                    text={permission.name}
+                    checked={true}
+                    disabled={true}
+                  />
+                ))}
+              </div>
+            ))}
+        </div>
+        <div className={styles.lowerdiv}>
+          {permissions
+            .filter((section) => lowerSections.includes(section.title))
+            .map((section) => (
+              <div key={section.title} className={styles[section.title.toLowerCase()]}>
+                <div className={styles.cardName}>{section.title}</div>
+                {section.permissions.map((permission) => (
+                  <CheckboxComponent
+                    key={permission.name}
+                    text={permission.name}
+                    checked={true}
+                    disabled={true}
+                  />
+                ))}
+              </div>
+            ))}
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.cancelButton}></div>
       <div className={styles.header}>
         <div className={`${styles.title} h5b`}>Confirm Update</div>
         <div className={`${styles.description} bodyr`}>
-          Are you sure you want to update this group’s Information? Please
-          review the details before confirming
+          Are you sure you want to update this group’s information? Please
+          review the details before confirming.
         </div>
       </div>
       <div className={styles.body}>
@@ -88,47 +127,14 @@ const GroupUpdateConfirm: React.FC<GroupUpdateConfirmProps> = ({
             </div>
             <div className={styles.permissions}>
               <div className={styles.checkboxdiv}>
-                <div className={styles.topdiv}>
-                  {permissions.slice(0, 2).map((section) => (
-                    <div key={section.title} className={styles.acctpermissions}>
-                      <div className={`${styles.cardName} h6r`}>
-                        {section.title}
-                      </div>
-                      {section.permissions.map((permission) => (
-                        <CheckboxComponent
-                          key={permission.name}
-                          text={permission.name}
-                          checked={true}
-                          disabled={true}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-                <div className={styles.lowerdiv}>
-                  {permissions.slice(2).map((section) => (
-                    <div key={section.title} className={styles.acctpermissions}>
-                      <div className={`${styles.cardName} h6r`}>
-                        {section.title}
-                      </div>
-                      {section.permissions.map((permission) => (
-                        <CheckboxComponent
-                          key={permission.name}
-                          text={permission.name}
-                          checked={true}
-                          disabled={true}
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
+                {renderPermissionsSection()}
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.buttonsdiv}>
-        <button className={`${styles.cancelBtton} bodyr`} onClick={onCancel}>
+        <button className={`${styles.cancelButton} bodyr`} onClick={onCancel}>
           Cancel
         </button>
         <button

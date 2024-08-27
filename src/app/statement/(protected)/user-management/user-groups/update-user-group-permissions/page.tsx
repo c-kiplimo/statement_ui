@@ -7,7 +7,7 @@ import PermissionAssign from "./permission.assign";
 const Dev = () => {
   return (
     <Fragment>
-      <PermissionAssign/>
+      <PermissionAssign groupId={""}/>
     </Fragment>
   );
 };
