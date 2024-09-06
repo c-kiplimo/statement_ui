@@ -3,7 +3,7 @@ import styles from "./select.report.format.module.css";
 import { GlobalOutlined } from "@ant-design/icons";
 import CustomSearchInput from "@/src/components/atoms/input/custom-search-input";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
-import { DownloadExcelTemplate, DownloadPdfTemplate } from "@/src/services/account/account";
+import { DownloadSelfStatement } from "@/src/services/account/account";
 import { notification } from "antd";
 import { AxiosError } from "axios";
 
@@ -19,23 +19,19 @@ const SelectReportFormat = ({ itemId,accountName, onCancel }: SelectReportFormat
   const data = [
     {
       id: 1,
-      image: <img src="/safaricom.svg" />,
-      name: "EXCELL",
-      description: "EXCELL Format",
+      image: <img src="/excel.svg" height={24} width={32} />,
+      name: "EXCEL",
+      description: "EXCEL Format",
       onClick: () => {
         async function Downloaddata() {
           try {
             if (itemId != null) {
-              const downloadData = await DownloadExcelTemplate(itemId); 
-              const blob = new Blob([downloadData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = `${accountName}.xlsx`; 
-              document.body.appendChild(a);
-              a.click();
-              window.URL.revokeObjectURL(url);
-              document.body.removeChild(a);
+              const downloadData = await DownloadSelfStatement(itemId,"EXCEL"); 
+              if(downloadData){
+                notification.success({
+                  message:'The Statement Have been sent to your Email.'
+                })
+              }
               onCancel();
             } else {
               throw new Error("itemId is not defined");
@@ -73,25 +69,19 @@ const SelectReportFormat = ({ itemId,accountName, onCancel }: SelectReportFormat
 
     {
       id: 2,
-      image: <img src="/default.svg" />,
+      image: <img src="/pdf.svg" height={24} width={32}/>,
       name: "PDF",
       description: "PDF Format",
       onClick: () => {
         async function Downloaddata() {
           try {
             if (itemId != null) {
-              const downloadData = await DownloadPdfTemplate(itemId);
-              const blob = new Blob([downloadData], {
-                type: "application/pdf",
-              });
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = `${accountName}.pdf`;
-              document.body.appendChild(a);
-              a.click();
-              window.URL.revokeObjectURL(url);
-              document.body.removeChild(a);
+              const downloadData = await DownloadSelfStatement(itemId,"PDF"); 
+              if(downloadData){
+                notification.success({
+                  message:'The Statement Have been sent to your Email.'
+                })
+              }
               onCancel();
             } else {
               throw new Error("itemId is not defined");

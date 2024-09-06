@@ -3,9 +3,10 @@ import styles from "./select.report.format.module.css";
 import { GlobalOutlined } from "@ant-design/icons";
 import CustomSearchInput from "@/src/components/atoms/input/custom-search-input";
 import VerticalInfoDescription from "@/src/components/atoms/text/vertical-info-description";
-import { DownloadExcelTemplate, DownloadPdfTemplate } from "@/src/services/account/account";
+import { DownloadBranchStatement } from "@/src/services/account/account";
 import { notification } from "antd";
 import { AxiosError } from "axios";
+import Image from "next/image";
 
 interface SelectReportFormatProps {
   itemId?: number;
@@ -19,14 +20,15 @@ const SelectReportFormat = ({ itemId,accountName, onCancel }: SelectReportFormat
   const data = [
     {
       id: 1,
-      image: <img src="/safaricom.svg" />,
-      name: "EXCELL",
-      description: "EXCELL Format",
+      image: <Image src="/excel.svg" alt="excell format" height={24} width={32}/>,
+      name: "EXCEL",
+      description: "EXCEL Format",
+
       onClick: () => {
         async function Downloaddata() {
           try {
             if (itemId != null) {
-              const downloadData = await DownloadExcelTemplate(itemId); 
+              const downloadData = await DownloadBranchStatement(itemId,"EXCEL"); 
               const blob = new Blob([downloadData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
               const url = window.URL.createObjectURL(blob);
               const a = document.createElement("a");
@@ -73,14 +75,14 @@ const SelectReportFormat = ({ itemId,accountName, onCancel }: SelectReportFormat
 
     {
       id: 2,
-      image: <img src="/default.svg" />,
+      image: <Image src="/pdf.svg" alt="excell format" height={24} width={32}/>,
       name: "PDF",
       description: "PDF Format",
       onClick: () => {
         async function Downloaddata() {
           try {
             if (itemId != null) {
-              const downloadData = await DownloadPdfTemplate(itemId);
+              const downloadData = await DownloadBranchStatement(itemId,"PDF"); 
               const blob = new Blob([downloadData], {
                 type: "application/pdf",
               });
