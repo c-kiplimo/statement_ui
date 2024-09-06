@@ -131,9 +131,9 @@ export const FIND_USER_ACCOUNT_BY_ID = `${PROFILE_URL}/api/v1/account-overview`;
 
 export const VIEW_MORE_ACCOUNT_BY_CUSTID = `${PROFILE_URL}/api/v1/accounts/summary`;
 
-export const DOWNLOAD_PDF_TEMPLATE = `${PROFILE_URL}/api/v1/statement/download/pdf`;
+export const DOWNLOAD_SELF_STATEMENT = `${PROFILE_URL}/api/v1/statement/download`;
 
-export const DOWNLOAD_EXCELL_TEMPLATE = `${PROFILE_URL}/api/v1/statement/download/excel`;
+export const DOWNLOAD_BRANCH_STATEMENT = `${PROFILE_URL}/api/v1/statement/download`;
 
 export const GET_ACCOUNT_STATUS = `${PROFILE_URL}/api/v1/accounts`;
 
