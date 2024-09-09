@@ -73,6 +73,12 @@ export const MenuData: SideNavMenu[] = [
         icon: SwiftStatementIcon,
         opened: false,
       },
+      {
+        title: "Template",
+        path: "/statement/template",
+        icon: LoanStatementIcon,
+        opened: false,
+      },
     ],
   },
 
