@@ -1,0 +1,37 @@
+.customTable thead > tr > th {
+  background-color: transparent !important;
+}
+
+.customTable td {
+  font-size: 16px;
+}
+
+.icon {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.moreicon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 10px;
+  width: 28px;
+  height: 28px;
+  border: 0.5px solid #979992;
+  border-radius: 4px;
+  color: #979992;
+  cursor: pointer;
+}
+
+.dateTime {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.time {
+  font-size: 12px;
+}
