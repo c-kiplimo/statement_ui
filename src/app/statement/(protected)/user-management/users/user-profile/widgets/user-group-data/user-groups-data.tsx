@@ -188,7 +188,6 @@ const UserGroups = ({ userId, platformId }: userGroupProps) => {
             buttonStyle={{
               background: "#003A49",
               color: "#FFFFFF",
-              width: "192px",
             }}
           >
             <Button.Icon>

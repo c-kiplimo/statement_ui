@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0px 24px;
-  gap: 32px;
+  gap: 24px;
   position: relative;
   width: 100%;
   max-width: 694px;
@@ -106,11 +106,17 @@
 .selectionStandard {
   display: flex;
   align-items: center;
-  padding: 0px 8px;
   height: 40px;
-  border-radius: 8px;
-  color: var(--Text-Text-Description-01);
-  opacity: 0.8;
+  border: none;
+  outline: none;
+}
+
+.selectPlaceholder {
+  color: #e6e6e6;
+}
+
+.selectActive {
+  color: #000;
 }
 
 .selectorInput {
@@ -127,8 +133,6 @@
 
 .dropDown {
   display: flex;
-  width: 100%;
-  height: 40px;
   border: 1px solid #e6e6e6;
   border-radius: 8px;
 }

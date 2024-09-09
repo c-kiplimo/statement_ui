@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 16px 0px;
-  gap: 24px;
+  padding:24px 16px 0px;
+  gap: 16px;
   width: 100%;
   height: auto;
   background: #ffffff;
@@ -64,7 +64,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 16px 24px;
   gap: 16px;
   width: 100%;
   height: auto;
