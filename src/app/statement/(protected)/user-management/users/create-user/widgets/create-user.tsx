@@ -11,6 +11,8 @@ import { createUserHandler } from "@/src/services/usermanagement/create.user.ser
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import useProfileId from "@/src/hooks/profileId";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
+import { searchGroupsData } from "@/src/lib/actions/user.groups.action";
+import { usePlatformId } from "@/src/hooks/platformId";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -26,47 +28,55 @@ type CreateUserProps = {
   mobileNumber: string;
   email: string;
   groupId: string;
-  customerId:string;
+  customerId: string;
 };
 
 const CreateUser = () => {
   const profId = useProfileId();
+  const platformId = usePlatformId();
   const [form] = Form.useForm();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const { createUserService, fetchPlatformGroupService } = createUserHandler();
+  const { createUserService } = createUserHandler();
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState<CreateUserProps | null>(null);
   const [countryCode, setCountryCode] = useState(countryOptions[0].value);
   const [userGroups, setUserGroups] = useState<User_Group[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<User_Group | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [retry, setRetry] = useState(false);
 
   const fetchGroups = async () => {
+    let customerId = profId ? profId.toString() : "";
+    console.log("Customer ID:", customerId);
+
     try {
-      setLoading(true);
-      const platformGroups = await fetchPlatformGroupService(1);
-      const user_groups = platformGroups.map((platformGroup) => ({
-        id: platformGroup.groupId.toString(),
-        name: platformGroup.groupName,
+      const groups = await searchGroupsData(
+        customerId,
+        platformId.toString(),
+        0,
+        100,
+        ""
+      );
+      const userGroupsData = groups.map((group) => ({
+        id: group.groupId.toString(),
+        name: group.groupName,
         icon: <TeamOutlined />,
-        description: platformGroup.description,
+        description: group.description,
       }));
-      console.log("User group list>>", user_groups);
-      setUserGroups(user_groups);
-      setLoading(false);
+      console.log("Fetched groups", userGroupsData);
+      setUserGroups(userGroupsData);
     } catch (error) {
+      console.error("Failed to fetch user groups:", error);
       setError("Failed to fetch user groups");
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchGroups();
-  }, []);
+    if (profId && platformId) {
+      fetchGroups();
+    }
+  }, [profId, platformId]);
 
   const handleGroupChange = (value: string) => {
     const group = userGroups.find((group) => group.id === value) || null;
@@ -80,10 +90,10 @@ const CreateUser = () => {
   const onFinish = (values: CreateUserProps) => {
     let customerId = "";
 
-  if (profId !== null && profId !== undefined) {
-    customerId = profId.toString();
-  }
-    console.log(customerId)
+    if (profId !== null && profId !== undefined) {
+      customerId = profId.toString();
+    }
+    console.log(customerId);
     const fullMobileNumber = `${countryCode}${values.mobileNumber}`;
     const updatedFormData = {
       ...values,
@@ -107,11 +117,11 @@ const CreateUser = () => {
         console.log("User registered successfully", response);
         notification.success({
           message: `User has been created successfully`,
-          description: '',
+          description: "",
           icon: <CheckCircleOutlined style={{ color: "white" }} />,
-          className: 'bodyr success-notification',
-          style:{color: "white"},
-          placement: 'topRight',
+          className: "bodyr success-notification",
+          style: { color: "white" },
+          placement: "topRight",
           duration: 1,
         });
         form.resetFields();
@@ -121,18 +131,18 @@ const CreateUser = () => {
         setOpenModal(true);
       }
     }
-  };  
+  };
 
   const handleCancel = () => {
     setOpen(false);
   };
 
   const handleTryAgain = () => {
-    console.log("Button clicked")
+    console.log("Button clicked");
     setOpenModal(false);
-      if (formData) {
-        handleOk();
-      }
+    if (formData) {
+      handleOk();
+    }
   };
 
   const handleModalClose = () => {
@@ -221,15 +231,18 @@ const CreateUser = () => {
               >
                 <div className={`${styles.selectorRow} bodyr`}>
                   <Select
-                    className={`${styles.selectionStandard} captionr`}
-                    style={{ width: 100, height: 40 ,border: '0.5px solid #979992',borderRadius: '4px'}}
+                    className={`${styles.selectionStandard} ${countryCode ? styles.selectActive : styles.selectPlaceholder} captionr`}
+                    style={{
+                      width: 100,
+                      height: 40,
+                    }}
                     value={countryCode}
                     onChange={(value) => setCountryCode(value)}
                   >
                     {countryOptions.map((option) => (
                       <Select.Option key={option.value} value={option.value}>
                         {option.label}
-                      </Select.Option >
+                      </Select.Option>
                     ))}
                   </Select>
                   <Input
@@ -276,7 +289,7 @@ const CreateUser = () => {
               >
                 <Select
                   allowClear
-                  style={{ width: "100%" }}
+                  style={{ width: "100%",  height: 40}}
                   className={styles.dropDown}
                   placeholder="Select User Group"
                   onChange={handleGroupChange}
@@ -333,7 +346,9 @@ const CreateUser = () => {
             <img src={"/warning.svg"} width={56} height={56} alt="warning" />
           </FailureModal.Icon>
           <FailureModal.title title="Error Creating New User" />
-          <FailureModal.description description={`Unable to create user ${formData?.firstName} ${formData?.lastName}. The username already exists! Please try again.`} />
+          <FailureModal.description
+            description={`Unable to create user ${formData?.firstName} ${formData?.lastName}. The username already exists! Please try again.`}
+          />
         </FailureModal>
       </Modal>
     </div>
