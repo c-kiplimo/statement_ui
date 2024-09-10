@@ -1,11 +1,12 @@
 "use client";
 import SearchButton from "@/src/components/widgets/search-button/search-button";
-import styles from "./add.template.module.css";
 import AddTemplateButton from "@/src/components/widgets/add-template/add.template";
 import { SearchOutlined } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
 import TemplatesTable from "./(template-table)/template.table";
 import { useState } from "react";
+import { Modal } from "antd";
+import AddTemplateModal from "./(add-template-modal)/add.template.modal";
 
 const data = [
   {
@@ -31,9 +32,41 @@ const data = [
   },
 ];
 
+const templateData = [
+  {
+    id: 1,
+    templateName: "Bank Statement Summary",
+    templateDescription:
+      "Finance template Includes opening and closing balances, detailed transaction list",
+  },
+  {
+    id: 2,
+    templateName: "Detailed Transaction Log",
+    templateDescription:
+      "Comprehensive log of all transactions within a specific period",
+  },
+  {
+    id: 3,
+    templateName: "Account Activity Report",
+    templateDescription:
+      "Tracks all account activities for monitoring and compliance",
+  },
+  {
+    id: 4,
+    templateName: "Year-End Summary Report",
+    templateDescription:
+      "Annual summary of financial activities and account status",
+  },
+];
+
 const AddTemplate = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredTemplates, setFilteredTemplates] = useState(data);
+  const [open, setOpen] = useState(false);
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const handleSearchChange = (searchvalue: any) => {
     const value = searchvalue.toLowerCase();
@@ -47,15 +80,21 @@ const AddTemplate = () => {
     setFilteredTemplates(filteredData);
   };
 
-  const handleAddTemplate = () => {};
+  const handleAddTemplate = () => {
+    setOpen(true);
+  };
 
   const handleClick = () => {};
 
   return (
-    <main className={styles.container}>
-      <div className={styles.header}>
+    <main className={"flex flex-col justify-center items-start w-full gap-6"}>
+      <div
+        className={
+          "flex items-center justify-between pt-8 pr-6 pb-4 pl-4 w-full"
+        }
+      >
         <p className={`h6b`}>TEMPLATE</p>
-        <div className={styles.headerButtons}>
+        <div className={"flex flex-row justify-end items-center gap-4"}>
           <SearchButton>
             <SearchButton.Icon>
               <SearchOutlined size={16} />
@@ -70,8 +109,18 @@ const AddTemplate = () => {
           />
         </div>
       </div>
-      <div className={styles.body}>
+      <div className={"w-full"}>
         <TemplatesTable templates={filteredTemplates} />
+      </div>
+      <div>
+        <Modal
+          onCancel={handleCancel}
+          open={open}
+          footer={false}
+          width={"max-content"}
+        >
+          <AddTemplateModal onCancel={handleCancel} templates={templateData} />
+        </Modal>
       </div>
     </main>
   );
