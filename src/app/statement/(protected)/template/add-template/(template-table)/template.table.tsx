@@ -4,8 +4,8 @@ import type { TableColumnsType } from "antd";
 import { MoreOutlined } from "@ant-design/icons";
 import styles from "./template.table.module.css";
 
-export interface TemplatesTypes {
-  key?: React.Key;
+export interface TemplatesTypesData {
+  key: string;
   dateCreated: string;
   templateName: string;
   category: string;
@@ -13,7 +13,7 @@ export interface TemplatesTypes {
 }
 
 type TemplatesTableProps = {
-  templates: TemplatesTypes[];
+  templates: TemplatesTypesData[];
 };
 
 const TemplatesTable: React.FC<TemplatesTableProps> = ({
@@ -33,7 +33,7 @@ const TemplatesTable: React.FC<TemplatesTableProps> = ({
     return { date: datePart, time: timePart };
   };
 
-  const columns: TableColumnsType<TemplatesTypes> = [
+  const columns: TableColumnsType<TemplatesTypesData> = [
     {
       title: "Date Created",
       dataIndex: "dateCreated",

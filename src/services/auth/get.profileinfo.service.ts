@@ -1,7 +1,7 @@
 import { GET_PROFILE_DETAILS } from "@/src/constants/environment";
 import axios from "axios";
 
-export const getUserProfileDetails = async (userId:number):Promise<CustomerProfile> => {
+export const getUserProfileDetails = async (userId:string):Promise<CustomerProfile> => {
     const apiUrl = `${GET_PROFILE_DETAILS}/${userId}`;
 
     try {

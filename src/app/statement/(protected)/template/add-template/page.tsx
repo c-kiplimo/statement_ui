@@ -3,66 +3,54 @@ import SearchButton from "@/src/components/widgets/search-button/search-button";
 import AddTemplateButton from "@/src/components/widgets/add-template/add.template";
 import { SearchOutlined } from "@ant-design/icons";
 import FilterButton from "@/src/components/widgets/filter-button/filter.button";
-import TemplatesTable from "./(template-table)/template.table";
-import { useState } from "react";
-import { Modal } from "antd";
-import AddTemplateModal from "./(add-template-modal)/add.template.modal";
+import TemplatesTable, { TemplatesTypesData } from "./(template-table)/template.table";
+import { useEffect, useState } from "react";
+import { Checkbox, Modal, Popover } from "antd";
+import AddTemplateModal, { TemplateTypes } from "./(add-template-modal)/add.template.modal";
+import { allTemplatesAction, fetchTemplatesCategory, fetchUserTemplates } from "@/src/lib/actions/templates/templates.action";
+import useProfileId from "@/src/hooks/profileId";
 
-const data = [
-  {
-    key: "1",
-    dateCreated: "2024-08-25T10:45:23.043",
-    templateName: "Statement Summary",
-    category: "Finance",
-    dateModified: "2024-09-01T10:23:23.043",
-  },
-  {
-    key: "2",
-    dateCreated: "2024-07-18T14:00:23.043",
-    templateName: "Transaction Log",
-    category: "Transactions",
-    dateModified: "2024-08-29T10:23:23.043",
-  },
-  {
-    key: "3",
-    dateCreated: "2024-05-04T08:30:23.043",
-    templateName: "Account Activity Report",
-    category: "Monitoring",
-    dateModified: "2024-06-21T10:23:23.043",
-  },
-];
-
-const templateData = [
-  {
-    id: 1,
-    templateName: "Bank Statement Summary",
-    templateDescription:
-      "Finance template Includes opening and closing balances, detailed transaction list",
-  },
-  {
-    id: 2,
-    templateName: "Detailed Transaction Log",
-    templateDescription:
-      "Comprehensive log of all transactions within a specific period",
-  },
-  {
-    id: 3,
-    templateName: "Account Activity Report",
-    templateDescription:
-      "Tracks all account activities for monitoring and compliance",
-  },
-  {
-    id: 4,
-    templateName: "Year-End Summary Report",
-    templateDescription:
-      "Annual summary of financial activities and account status",
-  },
-];
+export type TemplateCategory ={
+  label:string;
+  value:string;
+}
 
 const AddTemplate = () => {
   const [searchText, setSearchText] = useState("");
-  const [filteredTemplates, setFilteredTemplates] = useState(data);
   const [open, setOpen] = useState(false);
+  const [allTemplates, setAllTemplates]= useState<TemplateTypes[]>([]);
+  const [userTemplates, setUserTemplates]= useState<TemplatesTypesData[]>([])
+  const [filteredTemplates, setFilteredTemplates] = useState<TemplatesTypesData[]>(userTemplates);
+  const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+  const [categories, setCategories]= useState<TemplateCategory[]>([])
+  const customerId = useProfileId();
+  
+  async function getAllTemplates() {
+    const templates:TemplateTypes[] = await allTemplatesAction(1,20);
+    setAllTemplates(templates);
+  }
+
+  async function getUserTemplates() {
+    const response = await fetchUserTemplates(customerId!);
+    setUserTemplates(response);
+    setFilteredTemplates(response);
+  }
+
+  async function getCategories() {
+    const response = await fetchTemplatesCategory(customerId!);
+    setCategories(response);
+  }
+
+  useEffect(()=>{
+        getAllTemplates();
+    if(customerId){
+    getUserTemplates();
+    getCategories();
+    }
+  }, [customerId])
+
+
+  
 
   const handleCancel = () => {
     setOpen(false);
@@ -72,13 +60,35 @@ const AddTemplate = () => {
     const value = searchvalue.toLowerCase();
     setSearchText(value);
 
-    const filteredData = data.filter(
+    const filteredData = userTemplates.filter(
       (template) =>
         template.templateName.toLowerCase().includes(value) ||
         template.category.toLowerCase().includes(value)
     );
     setFilteredTemplates(filteredData);
   };
+
+  const handleCategoryChange = (checkedValues: any) => {
+    setCategoryFilter(checkedValues);
+    if (checkedValues.length === 0) {
+      setFilteredTemplates(userTemplates);
+    } else {
+      const filteredData = userTemplates.filter((template) =>
+        checkedValues.includes(template.category)
+      );
+      setFilteredTemplates(filteredData);
+    }
+  };
+
+  const filterContent = (
+    <div className="flex flex-col">
+      <Checkbox.Group
+        options={categories}
+        value={categoryFilter}
+        onChange={handleCategoryChange}
+      />
+    </div>
+  );
 
   const handleAddTemplate = () => {
     setOpen(true);
@@ -101,8 +111,14 @@ const AddTemplate = () => {
             </SearchButton.Icon>
             <SearchButton.Input text="Search" onSearch={handleSearchChange} />
           </SearchButton>
-          <FilterButton onClick={handleClick} />
 
+          <Popover
+            content={filterContent}
+            title="Category"
+            trigger="click"
+          >
+            <FilterButton onClick={handleClick}/>
+          </Popover>
           <AddTemplateButton
             onClick={handleAddTemplate}
             buttonStyles={{ background: "#003A49", color: "#FFFFFF" }}
@@ -117,9 +133,9 @@ const AddTemplate = () => {
           onCancel={handleCancel}
           open={open}
           footer={false}
-          width={"max-content"}
+          style={{ top: 10 }}
         >
-          <AddTemplateModal onCancel={handleCancel} templates={templateData} />
+          <AddTemplateModal onCancel={handleCancel} templates={allTemplates} onFetch={getUserTemplates}/>
         </Modal>
       </div>
     </main>

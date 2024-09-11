@@ -219,5 +219,7 @@ export const CUSTOMER_RESTRICTIONS = `${PROFILE_URL}/api/v1/restrictions`
 
 export const SINGLE_CUSTOMER_RESTRICTIONS = `${PROFILE_URL}/api/v1/restrictions/customer`
 
+export const TEMPLATES = `${PROFILE_URL}/api/v1/templates`
 
+export const USER_TEMPLATES = `${PROFILE_URL}/api/v1/templates/customers`
 
