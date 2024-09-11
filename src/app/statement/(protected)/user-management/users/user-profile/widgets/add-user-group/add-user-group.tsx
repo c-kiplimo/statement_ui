@@ -102,8 +102,8 @@ const AddUserToGroup = ({
       notification.success({
         message: "User successfully added to the selected groups",
       });
-      onSuccess();
-      onCancel();
+      onSuccess!();
+      onCancel!();
       setGroupData([]);
     } catch (error) {
       console.error("Error adding user to group:", error);
