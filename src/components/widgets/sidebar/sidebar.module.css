@@ -152,6 +152,15 @@ padding: 8px 0px;
   width: fit-content;
 }
 
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.disabledText {
+  color: #999;
+}
+
 @media (max-width: 550px) {
   .container {
     background: var(--Brand-Brand-Secondary, #003a49);
