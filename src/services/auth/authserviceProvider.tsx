@@ -62,7 +62,7 @@ const AuthServiceProvider = () => {
           lastName: userInfo.lastName,
           userName: userInfo.userName,
           email: userInfo.email,
-          mobileNumber: userInfo.email,
+          mobileNumber: userInfo.mobileNumber,
           mfaEnabled: userInfo.mfaEnabled,
           mfaRegistered: userInfo.mfaRegistered,
           securityQuestionEnabled: userInfo.securityQuestionEnabled,

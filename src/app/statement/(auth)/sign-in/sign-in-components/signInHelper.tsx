@@ -58,7 +58,6 @@ const SignInHelper = () => {
           expiresIn: response.data?.expires_in,
         };
         storeToken(tokenData, rememberMe);
-        console.log("Stored token data>>", tokenData);
         return tokenData;
       })
       .then((tokenData) => {

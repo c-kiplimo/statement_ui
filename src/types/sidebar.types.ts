@@ -5,6 +5,7 @@ export declare type SideNavItem = {
   path: string;
   icon?: ReactNode;
   opened: boolean;
+  disabled?:boolean,
   hasSubMenu?: boolean;
   submenuItems?: SideNavItem[];
 };

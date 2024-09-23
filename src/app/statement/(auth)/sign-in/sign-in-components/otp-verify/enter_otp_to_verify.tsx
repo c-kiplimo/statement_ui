@@ -38,7 +38,7 @@ const EnterOtpToVerify = () => {
       await verifyOtpService(tokenPayload.accessToken, otp)
         .then((response) => {
           storeToken(response);
-          console.log("Otp verified", response);
+          // console.log("Otp verified", response);
           notification.success({
             message: 'Your OTP has been successfully verified.',
             description: '',
@@ -94,7 +94,7 @@ const EnterOtpToVerify = () => {
   }, [value]);
 
   useEffect(() => {
-    console.log("User's details==>" + JSON.stringify(getLoggedInUser()));
+    // console.log("User's details==>" + JSON.stringify(getLoggedInUser()));
     const data = getLoggedInUser();
     profileStatus = data.profileComplete!;
     setMyUser(getLoggedInUser);
@@ -155,12 +155,12 @@ const EnterOtpToVerify = () => {
         <div className={styles.otpBody}>
           <div className={styles.otpPrompt}>
             <p className="bodyr">
-              Please enter the verification code just sent to your email
+              Please enter the verification code just sent to your mobileNumber
               <span
                 className="otp-email-link-text bodyr"
                 style={{ margin: "5px" }}
               >
-                {myUser?.email}
+                {myUser?.mobileNumber}
               </span>
             </p>
           </div>

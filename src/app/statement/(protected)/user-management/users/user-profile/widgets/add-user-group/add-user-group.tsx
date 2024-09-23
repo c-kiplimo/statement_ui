@@ -175,7 +175,7 @@ const AddUserToGroup = ({
       ),
     },
   ];
-
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -192,6 +192,9 @@ const AddUserToGroup = ({
             placeholder="Select a group"
             className={styles.selectGroup}
             onChange={handleSelectGroup}
+            style={{
+              height: 40,
+            }}
           >
             {allGroups.map(group => (
               <Option key={group.groupId} value={group.groupId}>
@@ -205,6 +208,7 @@ const AddUserToGroup = ({
         </div>
       </div>
       <div className={styles.table}>
+        {groupData.length>0 && 
         <Table
           className={`${styles.antdtable} bodyr`}
           columns={columns}
@@ -212,6 +216,7 @@ const AddUserToGroup = ({
           size="middle"
           pagination={false}
         />
+      }
         <div className={styles.buttons}>
           <button className={`${styles.canceButton} bodym`} onClick={onCancel}>
             Cancel
