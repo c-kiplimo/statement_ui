@@ -1,11 +1,12 @@
 "use client";
 import React, { Suspense } from "react";
+import styles from "./widgets/page.module.css";
 import UpdateUser from "./widgets/updateUser";
 
 const UpdateUserPage = () => {
   return (
     <Suspense>
-      <div className="flex flex-col p-8 w-full bg-[var(--Background-Background-Primary)] h-auto overflow-hidden">
+      <div className={styles.container}>
         <UpdateUser/>
       </div>
     </Suspense>

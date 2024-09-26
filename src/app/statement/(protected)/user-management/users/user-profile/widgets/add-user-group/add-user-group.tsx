@@ -37,6 +37,7 @@ const AddUserToGroup = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [groupData, setGroupData] = useState<UserGroupData[]>([]);
   const [allGroups, setAllGroups] = useState<UserGroupData[]>([]);
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const platformId = usePlatformId();
 
   const showNotification = (message: string, description: ReactNode) => {
@@ -74,9 +75,16 @@ const AddUserToGroup = ({
   }, [profId, platformId]);
 
   const handleSelectGroup = (value: string) => {
-    const selectedGroup = allGroups.find(group => group.groupId === value);
+    setSelectedGroup(value);
+  };
+
+  const handleAddSelectedGroup = () => {
     if (selectedGroup) {
-      setGroupData(prevData => [...prevData, selectedGroup]);
+      const selectedGroupData = allGroups.find(group => group.groupId === selectedGroup);
+      if (selectedGroupData) {
+        setGroupData(prevData => [...prevData, selectedGroupData]);
+        setSelectedGroup(null);
+      }
     }
   };
 
@@ -192,6 +200,7 @@ const AddUserToGroup = ({
             placeholder="Select a group"
             className={styles.selectGroup}
             onChange={handleSelectGroup}
+            value={selectedGroup || undefined}
             style={{
               height: 40,
             }}
@@ -202,7 +211,7 @@ const AddUserToGroup = ({
               </Option>
             ))}
           </Select>
-          <button className={styles.adduserButton} onClick={handleAddUser}>
+          <button className={styles.adduserButton} onClick={handleAddSelectedGroup}>
             Add group <PlusOutlined />
           </button>
         </div>
