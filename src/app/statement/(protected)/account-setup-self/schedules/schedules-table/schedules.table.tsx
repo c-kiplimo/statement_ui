@@ -1,8 +1,11 @@
-import React, { useState, useCallback, useEffect, useContext, useMemo } from "react";
-import {
-  SearchOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  useMemo,
+} from "react";
+import { SearchOutlined, SettingOutlined } from "@ant-design/icons";
 import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
 import { SchedulesAccountAction } from "@/src/lib/actions/schedules.accounts.action";
@@ -28,21 +31,22 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   const context = useContext(AccountInfoContext);
 
   const fetchData = async () => {
-    try {
-      const data = await SchedulesAccountAction(customerId);
-      setIncomingData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      notification.error({
-        message: "Data Fetch Error",
-        description: "Failed to fetch account data.",
-      });
+    if (customerId !== null && customerId !== undefined) {
+      try {
+        const data = await SchedulesAccountAction(customerId);
+        setIncomingData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        notification.error({
+          message: "Data Fetch Error",
+          description: "Failed to fetch account data.",
+        });
+      }
     }
   };
 
   useEffect(() => {
-      
-      fetchData();
+    fetchData();
   }, [customerId]);
 
   const handleSettingsClick = useCallback(
@@ -66,12 +70,10 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
     },
     [incomingData, context]
   );
- 
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  
 
   const handleModalSuccess = async () => {
     setIsModalOpen(false);
@@ -155,51 +157,51 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
 
   return (
     <div className={styles.container}>
-        <div className={styles.headerdiv}>
+      <div className={styles.headerdiv}>
         <Texter text="Accounts" className={`${styles.textdiv} h6b`} />
-          <div className={styles.atomsdiv}>
+        <div className={styles.atomsdiv}>
           <SearchButton>
-              <SearchButton.Icon>
-                <SearchOutlined />
-              </SearchButton.Icon>
-              <SearchButton.Input text="Search" onSearch={handleSearch} />
-            </SearchButton>
+            <SearchButton.Icon>
+              <SearchOutlined />
+            </SearchButton.Icon>
+            <SearchButton.Input text="Search" onSearch={handleSearch} />
+          </SearchButton>
           <FilterButton onClick={handleClick} />
-          </div>
         </div>
+      </div>
 
-        <Table
-          dataSource={filteredData}
-          columns={columns}
-           size="middle"
-          pagination={{
-            pageSize: pageSize,
-            showSizeChanger: true,
-            onShowSizeChange: (_, size) => setPageSize(size),
-            onChange: (page) => setCurrentPage(page),
-          }}
-          rowKey="id"
-          className={styles.customTable}
-        />
+      <Table
+        dataSource={filteredData}
+        columns={columns}
+        size="middle"
+        pagination={{
+          pageSize: pageSize,
+          showSizeChanger: true,
+          onShowSizeChange: (_, size) => setPageSize(size),
+          onChange: (page) => setCurrentPage(page),
+        }}
+        rowKey="id"
+        className={styles.customTable}
+      />
 
-        <Modal
-          footer={null}
-          width={"max-content"}
-          open={isModalOpen}
-          onCancel={handleCancel}
-        >
-          {selectedUserId !== null && (
-            <SettingsModal
-              date={"Start date"}
-              time={"Time"}
-              onClick={handleCancel}
-              dateIcon={<img src="/calendar.svg" alt="calendar" />}
-              timeIcon={<img src="/time.svg" alt="time" />}
-              onSuccess={handleModalSuccess}
-              accountId={selectedUserId}
-            />
-          )}
-        </Modal>
+      <Modal
+        footer={null}
+        width={"max-content"}
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+        {selectedUserId !== null && (
+          <SettingsModal
+            date={"Start date"}
+            time={"Time"}
+            onClick={handleCancel}
+            dateIcon={<img src="/calendar.svg" alt="calendar" />}
+            timeIcon={<img src="/time.svg" alt="time" />}
+            onSuccess={handleModalSuccess}
+            accountId={selectedUserId}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

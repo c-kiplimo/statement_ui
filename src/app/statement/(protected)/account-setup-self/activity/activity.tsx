@@ -28,7 +28,7 @@ const ActivitiesPage = ({customerId}:ActivityProps) => {
 
   useEffect(() => {
     const fetchActivities = async () => {
-      if (customerId) {
+      if (customerId !== null && customerId !== undefined) {
         try {
           const response = await getCustomerActivities(customerId)
           setActivities(response)

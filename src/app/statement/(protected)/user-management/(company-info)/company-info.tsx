@@ -19,13 +19,10 @@ const CompanyInfo = ({ customerId }: CompanyInfoProps) => {
   useEffect(() => {
     if (customerId !== null && customerId !== undefined) {
       const fetchProfileDetails = async () => {
+        setLoading(true);
+        setError(null);
         console.log(customerId);
-        if (!customerId) {
-          setError("Customer Id is not provided");
-          setLoading(false);
-          return;
-        }
-
+        
         try {
           const profileData = await profileDetails(customerId.toString());
           setProfile(profileData);

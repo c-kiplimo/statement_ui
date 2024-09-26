@@ -266,8 +266,9 @@ const UpdateUser = () => {
                 <div className={`${styles.selectorRow} bodyr`}>
                   <Select
                     value={countryCode}
+                    className={styles.selectionStandard}
                     onChange={(value) => setCountryCode(value)}
-                    style={{ width: 90, height: 40 }}
+                    style={{ width: 100, height: 40}}
                   >
                     {countryOptions.map((option) => (
                       <Select.Option key={option.value} value={option.value}>
@@ -279,7 +280,6 @@ const UpdateUser = () => {
                     name="mobileNumber"
                     type="text"
                     className={`${styles.selectorInput} bodyr`}
-                    placeholder="712345678"
                     value={form.getFieldValue('mobileNumber') || ""}
                   />
                 </div>

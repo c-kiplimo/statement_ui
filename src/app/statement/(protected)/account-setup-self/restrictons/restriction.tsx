@@ -28,7 +28,7 @@ const RestrictionsPage = ({customerId}:RestrictionProps) => {
   const [loading, setLoading] = useState(true)
 
   const fetchRestrictions = async () => {
-    if (customerId ) {
+    if (customerId !== null && customerId !== undefined) {
       try {
         const response = await getCustomerRestrictions(customerId);
         setcustomerRestrictions(response);

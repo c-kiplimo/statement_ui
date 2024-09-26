@@ -20,41 +20,29 @@
   height: auto;
 }
 
-.dropDown {
+.icons {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 1px 8px;
-  width: fit-content;
-  height: auto;
-  position: relative;
-  left: auto;
-  background: #FFFFFF;
+  align-items: center;
+  padding: 10px 8px;
+  gap: 10px;
+  width: 32px;
+  height: 28px;
+  border: 0.5px solid #979992;
   border-radius: 4px;
 }
 
-.dropDownTitle {
-  box-sizing: border-box;
+.menu {
+  color: #6f7269;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  padding: 8px 16px;
-  gap: 8px;
-  width:100%;
-  height:auto;
-  background: #FFFFFF;
-  border-bottom: 1px solid #E6E6E6;
-  border-radius: 4px 4px 0px 0px;
-}
-
-.dropDownContent{
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 0px 4px;
-width: 100%;
-height: auto;
-
+  gap: 16px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
 }
 
 .container {

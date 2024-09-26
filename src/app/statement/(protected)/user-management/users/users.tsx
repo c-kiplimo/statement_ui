@@ -10,10 +10,11 @@ import {
   EditOutlined,
   TeamOutlined,
   MoreOutlined,
+  GlobalOutlined,
 } from "@ant-design/icons";
 import TableWidget from "@/src/components/widgets/table-widget/table-widget";
 import { RegisteredUserAction } from "@/src/lib/actions/registered.user.action";
-import { Modal, Dropdown, Button, Menu, notification } from "antd";
+import { Modal, Dropdown, Button, Menu, notification, Spin } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import AddUserButton from "@/src/components/widgets/add.user.button/add.user.button";
@@ -32,7 +33,8 @@ type userProps = {
 const UsersHome = ({ customerId, platformId }: userProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<RegisteredUser | null>(null);
-  const [openModal, setOpenModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [openDeactivateModal, setOpenDeactivateModal] = useState(false);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [failureModalVisible, setFailureModalVisible] = useState(false);
   const [retryDeactivate, setRetryDeactivate] = useState(false);
@@ -43,7 +45,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   const [users, setUsers] = useState<RegisteredUser[]>([]);
 
   const handleModalClose = () => {
-    setOpenModal(false);
+    setOpenDeactivateModal(false);
     setSelectedUser(null);
     setUserGroups([]);
   };
@@ -100,10 +102,10 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   };
 
   useEffect(() => {
-    if (openModal && selectedUser) {
+    if (openDeactivateModal && selectedUser) {
       fetchGroups(selectedUser?.userId);
     }
-  }, [openModal, selectedUser]);
+  }, [openDeactivateModal, selectedUser]);
 
   const filteredUsers = useMemo(() => {
     if (!searchTerm) return users;
@@ -115,28 +117,22 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     );
   }, [searchTerm, users]);
 
-  const handleMenuClick = (e: any) => {
-    const { key } = e;
-    const record: RegisteredUser = e.item.props["data-record"];
-    console.log("Action clicked:", key, "for record:", record);
-    switch (key) {
-      case "view":
-        router.push(
-          `/statement/user-management/users/user-profile?userId=${record.userId}`
-        );
-        break;
-      case "update":
-        router.push(
-          `/statement/user-management/users/updateUser?userId=${record.userId}`
-        );
-        break;
-      case "deactivate":
-        console.log("Selected user for deactivation:", record);
-        setSelectedUser(record);
-        setOpenModal(true);
-        break;
-      default:
-        break;
+  const handleMenuClicks = (e: any, user: RegisteredUser) => {
+    if (e.key === "3") {
+      setSelectedUser(user);
+      setOpenDeactivateModal(true);
+    } else if (e.key === "2") {
+      setSelectedUserId(user.userId);
+      router.push(
+        `/statement/user-management/users/user-profile?userId=${user.userId}`
+      );
+    } else if (e.key === "4") {
+      setSelectedUserId(user.userId);
+      router.push(
+        `/statement/user-management/users/updateUser?userId=${user.userId}`
+      );
+    } else {
+      return;
     }
   };
 
@@ -165,7 +161,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
   const handleCancel = () => {
     setFailureModalVisible(false);
     setSelectedUser(null);
-    setOpenModal(false);
+    setOpenDeactivateModal(false);
   };
 
   useEffect(() => {
@@ -173,32 +169,6 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
       handleDeactivate(selectedUser?.userId);
     }
   }, [retryDeactivate]);
-
-  const menuItems = (record: RegisteredUser) => [
-    {
-      key: "view",
-      label: "View",
-      icon: <EyeOutlined />,
-      onClick: handleMenuClick,
-      "data-record": record,
-    },
-    {
-      key: "deactivate",
-      label: "Deactivate",
-      icon: <UserOutlined />,
-      onClick: handleMenuClick,
-      "data-record": record,
-    },
-    {
-      key: "update",
-      label: "Update",
-      icon: <EditOutlined />,
-      onClick: handleMenuClick,
-      "data-record": record,
-    },
-  ];
-
-  const menu = (record: RegisteredUser) => <Menu items={menuItems(record)} />;
 
   const userColumns: ColumnsType<RegisteredUser> = [
     {
@@ -230,23 +200,54 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     {
       title: "",
       dataIndex: "action",
-      render: (_, record) => (
-        <Dropdown
-          menu={{ items: menuItems(record) }}
-          trigger={["click"]}
-          dropdownRender={(menu) => (
-            <div className={styles.dropDown}>
-              <div className={`${styles.dropDownTitle} bodyb`}>
-                Choose Action
-              </div>
-              <div className={styles.dropDownContent}>
-              {menu}
-              </div>
-            </div>
-          )}
-        >
-          <Button type="text" className={styles.icon} icon={<MoreOutlined />} />
-        </Dropdown>
+      render: (_, record: RegisteredUser) => (
+        <div className={styles.icons}>
+          <Dropdown
+            overlay={
+              <Menu onClick={(e) => handleMenuClicks(e, record)}>
+                <Menu.Item key="1">
+                  <span className={styles.menu}>
+                    <GlobalOutlined />{" "}
+                    <h1 className={`bodyb`}>Choose Action</h1>
+                  </span>
+                </Menu.Item>
+                <hr />
+                <Menu.Item key="2">
+                  <Button type="text" style={{ background: "none" }}>
+                    <span className={styles.menu}>
+                      <EyeOutlined />{" "}
+                      <span className={`bodyr`}>View</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item key="3">
+                  <Button type="text" style={{ background: "none" }}>
+                    <span className={styles.menu}>
+                      <UserOutlined />{" "}
+                      <span className={`bodyr`}>Deactivate</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item key="4">
+                  <Button type="text" style={{ background: "none" }}>
+                    <span className={styles.menu}>
+                      <EditOutlined />{" "}
+                      <span className={`bodyr`}>Update</span>
+                    </span>
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
+            trigger={["click"]}
+            placement="bottom"
+          >
+            <Button
+              type="text"
+              className={styles.icon}
+              icon={<MoreOutlined />}
+            />
+          </Dropdown>
+        </div>
       ),
     },
   ];
@@ -255,9 +256,17 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
     setSearchTerm(terms);
   };
 
-  const handleClick = () => {
+  const handleCreateUser = () => {
     router.push("/statement/user-management/users/create-user");
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -274,18 +283,18 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
             <SearchButton.Input text="Search" onSearch={handleSearch} />
           </SearchButton>
           <AddUserButton
-            onClick={handleClick}
+            onClick={handleCreateUser}
             buttonStyles={{ background: "#003A49", color: "#FFFFFF" }}
           />
         </div>
       </div>
       <TableWidget columns={userColumns} data={filteredUsers} />
       <Modal
-        open={openModal}
+        open={openDeactivateModal}
         onCancel={handleModalClose}
         footer={false}
         className={styles.modal}
-        width={650}
+        width={"max-content"}
       >
         {selectedUser && (
           <DeactivateUser
@@ -305,7 +314,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         onCancel={handleSuccessModalClose}
         footer={null}
         className={styles.modal}
-        width={350}
+        width={"max-content"}
       >
         <CreationSuccess
           title="User Deactivation Successful"
@@ -318,7 +327,7 @@ const UsersHome = ({ customerId, platformId }: userProps) => {
         onCancel={handleCancel}
         footer={null}
         className={styles.modal}
-        width={350}
+        width={"max-content"}
       >
         {selectedUser && (
           <ConfirmFail

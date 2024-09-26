@@ -11,30 +11,26 @@ import SchedulesTable from "./schedules/schedules-table/schedules.table";
 import { AccountInfoProvider } from "./schedules/schedules-context/accountInforContext";
 
 const AccountSetupSelf = () => {
-    const customerId = useProfileId();
-    let custId: number = 0;
-    if (customerId !== null && customerId !== undefined) {
-      custId = customerId;
-    }
-
+    const profId = useProfileId();
+    
     const tabItems: TabItem[] = [
       {
         buttonName: "Schedule",
-        bodyContent: <AccountInfoProvider><SchedulesTable customerId={custId!} /> </AccountInfoProvider>,
+        bodyContent: <AccountInfoProvider><SchedulesTable customerId={profId!} /> </AccountInfoProvider>,
       },
       {
         buttonName: "Activity",
-        bodyContent: <ActivitiesPage customerId={custId!} />,
+        bodyContent: <ActivitiesPage customerId={profId!} />,
       },
       {
         buttonName: "Restrictions",
-        bodyContent: <RestrictionsPage customerId={custId!} />,
+        bodyContent: <RestrictionsPage customerId={profId!} />,
       },
     ];
   return (
     <div className={styles.container}>
       <div className={styles.details}>
-        <CompanyInfo customerId={custId!} />
+        <CompanyInfo customerId={profId!} />
       </div>
       <div className={styles.tabs}>
         <TabNav tabItems={tabItems} />
