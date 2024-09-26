@@ -12,7 +12,7 @@ const useProfileId = () => {
     const fetchData = async () => {
       if (userId) { 
         try {
-          const response = await loggedInProfileDetails(parseInt(userId));
+          const response = await loggedInProfileDetails(userId);          
           setProfileDetails(response);
         } catch (error) {
           console.error('Failed to fetch profile details:', error);
@@ -24,7 +24,6 @@ const useProfileId = () => {
   }, [userId]);
 
   const customerId = profileDetails?.customerId;
-
   return customerId;
 };
 

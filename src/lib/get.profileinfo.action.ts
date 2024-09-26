@@ -2,7 +2,7 @@ import { UserInformationDetails } from "../app/statement/(protected)/settings/pr
 import { getUserProfileDetails } from "../services/auth/get.profileinfo.service";
 import { getUserDetails } from "../services/auth/get.user.byUserId";
 //endpoint to get profile information
-export const loggedInProfileDetails =async (userId:number):Promise<CustomerProfile> =>{
+export const loggedInProfileDetails =async (userId:string):Promise<CustomerProfile> =>{
     const response:CustomerProfile = await getUserProfileDetails(userId);
 
     let responseData:CustomerProfile = {
