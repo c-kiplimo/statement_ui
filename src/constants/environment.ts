@@ -54,6 +54,10 @@ export const ACCOUNT_SCHEDULES_URL = `${PROFILE_URL}/api/v1/accounts/schedule`;
 
 export const SCHEDULE_ACCOUNT_URL = `${PROFILE_URL}/api/v1/accounts/configure/schedule`;
 
+export const SCHEDULE_UPDATE_URL = `${PROFILE_URL}/api/v1/accounts/configure/schedule`;
+
+export const SCHEDULE_FETCH_URL = `${PROFILE_URL}/api/v1/accounts/configure/schedule`;
+
 export const CARDS_URL = `${PROFILE_URL}/api/v1/cards`;
 
 export const CUSTOMER_ACTIVITIES_URL = `${PROFILE_URL}/api/v1/activities`;

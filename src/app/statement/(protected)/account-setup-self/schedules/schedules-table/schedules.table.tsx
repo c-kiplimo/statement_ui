@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useContext,
-  useMemo,
-} from "react";
+import React, { useState, useCallback, useEffect, useContext, useMemo } from "react";
 import { SearchOutlined, SettingOutlined } from "@ant-design/icons";
 import { Table, Modal, notification } from "antd";
 import styles from "./schedules.table.module.css";
@@ -27,6 +21,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [incomingData, setIncomingData] = useState<SchedulesData[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [setupStatus, setSetupStatus] = useState<{ [key: number]: boolean }>({});
 
   const context = useContext(AccountInfoContext);
 
@@ -50,11 +45,11 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   }, [customerId]);
 
   const handleSettingsClick = useCallback(
-    (id: number) => {
+    (id: number, isUpdate: boolean) => {
       setSelectedUserId(id);
       if (context) {
         const selectedData = incomingData.find((item) => item.id === id);
-
+  
         if (selectedData) {
           context.setAccountInfo({
             accountName: selectedData.accountName,
@@ -65,7 +60,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
       } else {
         console.error("AccountInfoContext is not available");
       }
-
+  
       setIsModalOpen(true);
     },
     [incomingData, context]
@@ -75,9 +70,13 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
     setIsModalOpen(false);
   };
 
-  const handleModalSuccess = async () => {
+  const handleModalSuccess = async (accountId: number) => {
     setIsModalOpen(false);
     await fetchData();
+    setSetupStatus((prevStatus) => ({
+      ...prevStatus,
+      [accountId]: true,
+    }));
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -92,9 +91,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
       render: (text: string, record: any) => (
         <span className={styles.date}>
           <span className={`${styles.account} bodyr`}>{text}</span>
-          <span className={`${styles.currency} captionl`}>
-            {record.currency}
-          </span>
+          <span className={`${styles.currency} captionl`}>{record.currency}</span>
         </span>
       ),
     },
@@ -102,9 +99,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
       key: "accountName",
       title: "Account Name",
       dataIndex: "accountName",
-      render: (text: string) => (
-        <span className={`${styles.ActivityName} bodyr`}>{text}</span>
-      ),
+      render: (text: string) => <span className={`${styles.ActivityName} bodyr`}>{text}</span>,
     },
     {
       key: "status",
@@ -131,10 +126,10 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
               ? styles.settingsButtonComplete
               : styles.settingsButton
           } ${selectedUserId === record.id ? styles.settingsButtonClicked : ""}`}
-          onClick={() => handleSettingsClick(record.id)}
+          onClick={() => handleSettingsClick(record.id, record.status === "COMPLETE")}
         >
           <SettingOutlined />
-          Setup
+          {record.status === "COMPLETE" ? "Update" : "Setup"}
         </button>
       ),
     },
@@ -143,10 +138,11 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   const handleSearch = (terms: string) => {
     setSearchTerm(terms);
   };
+
   const filteredData = useMemo(() => {
     return incomingData.filter((item) => {
       return Object.values(item).some((value) =>
-        value.toString().includes(searchTerm.toLowerCase())
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
   }, [searchTerm, incomingData]);
@@ -197,7 +193,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
             onClick={handleCancel}
             dateIcon={<img src="/calendar.svg" alt="calendar" />}
             timeIcon={<img src="/time.svg" alt="time" />}
-            onSuccess={handleModalSuccess}
+            onSuccess={() => handleModalSuccess(selectedUserId)}
             accountId={selectedUserId}
           />
         )}

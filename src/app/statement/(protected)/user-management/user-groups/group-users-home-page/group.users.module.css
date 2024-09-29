@@ -56,8 +56,8 @@
   align-items: flex-start;
   padding: 0px 5px;
   gap: 10px;
-  width: 155px;
-  height: 32px;
+  width: fit-content;
+  height: auto;
 }
 
 .deleteButton {
