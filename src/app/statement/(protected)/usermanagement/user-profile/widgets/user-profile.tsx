@@ -30,7 +30,7 @@ const UserProfile = () => {
         try {
           const response = await fetchUserByUserId(userId as string);
           setUserDetails(response);
-          const profileResponse = await loggedInProfileDetails(parseInt(userId));
+          const profileResponse = await loggedInProfileDetails(userId);
           setCustomerId(profileResponse.customerId!);
           console.log(response);
         } catch (error) {
