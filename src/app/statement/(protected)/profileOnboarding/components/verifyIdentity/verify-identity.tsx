@@ -19,7 +19,7 @@ const VerifyIdentity = () => {
 
   const IdentityCard = [
     {
-      id: "MOBILE_NUMBER",
+      id: "SMS",
       icon: <UserAddOutlined />,
       CardTitle: "Mobile Number",
       CardDescription: profile.mobileNumber ? `${profile.mobileNumber}` : "Configured Mobile Number",
@@ -43,14 +43,14 @@ const VerifyIdentity = () => {
   const handleOptionChange = async (newValue: string | null) => {
     setSelectedOption(newValue);
     if (newValue && accessToken && profile && user) {
-      let option: "EMAIL" | "MOBILE_NUMBER";
+      let option: "EMAIL" | "SMS";
       let contactValue: string;
 
       if (newValue === "EMAIL") {
         option = "EMAIL";
         contactValue = profile.email;
-      } else if (newValue === "MOBILE_NUMBER") {
-        option = "MOBILE_NUMBER";
+      } else if (newValue === "SMS") {
+        option = "SMS";
         contactValue = profile.mobileNumber;
       } else {
         return;
@@ -95,7 +95,7 @@ const VerifyIdentity = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Texter text="Congratulations your profile was found" className="h6m" />
+        <Texter text="Customer Details Found" className="h6m" />
         <Texter
           text="Where would you want your OTP notification delivered?"
           className="captionr"

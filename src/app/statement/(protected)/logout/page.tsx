@@ -13,7 +13,9 @@ const Setting = () => {
   const router = useRouter();
   const profile = useProfileCreated();
   const userId = profile?.userId;
-
+  const {data} = useSession();
+  
+ 
   const handleCancelLogout = () => {
     router.push("/statement/dashboard");
   };

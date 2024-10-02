@@ -92,7 +92,7 @@ const fetchStatementRequestStatementId = async (
 
     
         const fetchStatementRequestByUserId = async (
-            userId: number
+            userId: string
             ): Promise<AccountStatementRequest[]> => {
             const accountStatementRequestUrl = `${ACCOUNT_STATEMENT_BY_USER_ID}/${userId}`;
             try {
