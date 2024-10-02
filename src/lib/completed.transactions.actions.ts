@@ -27,7 +27,7 @@ export const completeTransactionAction = async (
 };
 
 export const completeTransactionActionByUserId = async (
-  userId: number
+  userId: string
 ): Promise<CompleteTransactions[]> => {
   const handler = AccountStatementRequestHandler();
   const result: AccountStatementRequest[] =

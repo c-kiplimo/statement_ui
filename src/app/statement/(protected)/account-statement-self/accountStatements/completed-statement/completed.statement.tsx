@@ -18,7 +18,7 @@ function CompletedStatement() {
 
   const { data: completedStatement, error, isLoading } = useQuery(
     ['completedStatement', userId],
-    () => completeTransactionActionByUserId(parseInt(userId!)),
+    () => completeTransactionActionByUserId(userId!),
     {
       enabled: !!userId,
       retry: false,

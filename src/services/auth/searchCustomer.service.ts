@@ -31,7 +31,7 @@ const SearchCustomerHandler = () => {
   };
 
   const onBoardingOtpService = async (
-    contactType: "EMAIL" | "MOBILE_NUMBER",
+    contactType: "EMAIL" | "SMS",
     accessToken: string,
     userId:string,
     value:string,
