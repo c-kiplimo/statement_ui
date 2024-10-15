@@ -51,7 +51,7 @@ export type GroupUserInformation = {
 
 type PermissionsType = {
   groupId: string;
-  setTotalUsers: (count: number) => void;
+  setTotalUsers: (count: (prevCount: number) => number) => void;
 };
 
 const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
@@ -105,7 +105,7 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
             platformId
           );
           setData(membersData);
-          setTotalUsers(membersData.length);
+          setTotalUsers(() => membersData.length);
         }
       } catch (error) {}
     };
@@ -154,18 +154,20 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
 
   const handleConfirmDelete = useCallback(async () => {
     try {
-        if (userToRemove) {
-            await handler.deleteGroupMembers(
-                platformId.toString(),
-                groupId,
-                userToRemove
-            );
-            setData((prevData) => {
-                const updatedData = prevData.filter((item) => item.key !== userToRemove);
-                setTotalUsers(updatedData.length); 
-                return updatedData;
-            });
-            setRemoveUserModal(false);
+      if (userToRemove) {
+        await handler.deleteGroupMembers(
+          platformId.toString(),
+          groupId,
+          userToRemove
+        );
+        setData((prevData) => {
+          const updatedData = prevData.filter(
+            (item) => item.key !== userToRemove
+          );
+          setTotalUsers(() => updatedData.length);
+          return updatedData;
+        });
+        setRemoveUserModal(false);
 
         showNotification(
           "",
@@ -216,14 +218,14 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
   };
 
   const ConfirmUserDeletion = () => {
-    alert("Clicked");
+    
   };
   const handleAddUserSuccess = async () => {
     try {
       if (groupId && platformId) {
         const membersData = await fetchGroupUsers(Number(groupId), platformId);
         setData(membersData);
-        setTotalUsers(membersData.length);
+        setTotalUsers(() => membersData.length);
       }
     } catch (error) {}
   };
@@ -313,6 +315,52 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
     },
   ];
 
+  const handleDeleteCheckedUsers = useCallback(async () => {
+    const checkedUsers = data.filter((item) => item.checked);
+
+    if (checkedUsers.length === 0) {
+      setGroupFailOpen(true);
+      return;
+    }
+
+    const userKeys = checkedUsers.map((item) => item.key);
+
+    try {
+      await Promise.all(
+        userKeys.map(async (key) => {
+          await handler.deleteGroupMembers(platformId.toString(), groupId, key);
+        })
+      );
+
+    
+      setData((prevData) => prevData.filter((item) => !item.checked));
+      setTotalUsers((prevCount: number) => prevCount - checkedUsers.length);
+
+      showNotification(
+        "",
+        <Successful>
+          <Successful.Icon style={{ color: "#17D05B" }}>
+            <CheckOutlined />
+          </Successful.Icon>
+          <Successful.Text
+            text={`Selected users have been deleted successfully.`}
+          />
+          <Successful.Icon
+            style={{
+              color: "white",
+              background: "none",
+              justifyContent: "flex-end",
+            }}
+          >
+            <CloseOutlined />
+          </Successful.Icon>
+        </Successful>
+      );
+    } catch (error) {
+      console.error("Error deleting users:", error);
+    }
+  }, [data, groupId, platformId]);
+
   return (
     <div className={styles.groupUsersContainer}>
       <div className={styles.header}>
@@ -326,7 +374,7 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
           </SearchButton>
           <FilterButton onClick={() => {}} />
           <Sort title={"Sort"} icon={<img src="/swap.svg" alt="swap" />} />
-          <Delete onClick={() => console.log("Deleted!")}>
+          <Delete onClick={handleDeleteCheckedUsers}>
             <Delete.Icon style={{ color: "#6F7269" }}>
               <img src="/trashbin.svg" alt="trashbin" />
             </Delete.Icon>
@@ -399,7 +447,11 @@ const GroupUsers = ({ groupId, setTotalUsers }: PermissionsType) => {
         />
       </Modal>
 
-      <Modal open={groupFailOpen} onCancel={handleGroupFailClose}>
+      <Modal 
+      open={groupFailOpen}
+       onCancel={handleGroupFailClose}
+       footer={null}
+       >
         <DeleteGroupUsersFail
           title={"Error Removing User"}
           description={
