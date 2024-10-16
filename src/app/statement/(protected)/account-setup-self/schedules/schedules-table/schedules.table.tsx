@@ -17,6 +17,8 @@ type scheduleProps = {
 const SchedulesTable = ({ customerId }: scheduleProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [isUpdateMode, setIsUpdateMode] = useState<boolean>(false);
+  const [existingAccountSchedule, setExistingAccountSchedule] = useState<any | null>(null);
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [incomingData, setIncomingData] = useState<SchedulesData[]>([]);
@@ -47,20 +49,21 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
   const handleSettingsClick = useCallback(
     (id: number, isUpdate: boolean) => {
       setSelectedUserId(id);
-      if (context) {
-        const selectedData = incomingData.find((item) => item.id === id);
-  
-        if (selectedData) {
-          context.setAccountInfo({
-            accountName: selectedData.accountName,
-            accountNumber: selectedData.accountNumber,
-            currency: selectedData.currency,
-          });
-        }
+      setIsUpdateMode(isUpdate); 
+
+      const selectedData = incomingData.find((item) => item.id === id);
+
+      if (context && selectedData) {
+        context.setAccountInfo({
+          accountName: selectedData.accountName,
+          accountNumber: selectedData.accountNumber,
+          currency: selectedData.currency,
+        });
       } else {
-        console.error("AccountInfoContext is not available");
+        console.error("AccountInfoContext is not available or no data found.");
       }
-  
+
+
       setIsModalOpen(true);
     },
     [incomingData, context]
@@ -68,6 +71,7 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    
   };
 
   const handleModalSuccess = async (accountId: number) => {
@@ -195,6 +199,9 @@ const SchedulesTable = ({ customerId }: scheduleProps) => {
             timeIcon={<img src="/time.svg" alt="time" />}
             onSuccess={() => handleModalSuccess(selectedUserId)}
             accountId={selectedUserId}
+            resetOptionsOnOpen={true} // Adjust based on your need
+            isUpdateMode={isUpdateMode} // Ensures the modal is aware if it's in update mode
+            existingAccountSchedule={existingAccountSchedule}
           />
         )}
       </Modal>
