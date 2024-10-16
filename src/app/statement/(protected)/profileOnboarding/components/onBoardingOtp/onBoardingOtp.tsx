@@ -17,7 +17,11 @@ import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 let profileStatus: boolean;
 
-const OnboardingOtp = () => {
+type OtpProps ={
+  selectedOption:string | null;
+}
+
+const OnboardingOtp = ({selectedOption}:OtpProps) => {
   const [value, valueChanged] = useState("");
   const [myUser, setMyUser] = useState<User>();
   const [timer, timerChanged] = useState(300);
@@ -108,28 +112,19 @@ const OnboardingOtp = () => {
     }
   };
 
-  const formatTime = (time: number) => {
-    const secs = Math.floor(time) % 60;
-    const mins = Math.floor(time / 60) % 60;
-    return `${mins}:${secs}`;
-  };
+  const formatTime = (time: number) =>
+    `${Math.floor(time / 60)}:${Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0")}`;
 
   const stopTimer = () => {
     window.clearInterval(interValRef.current);
   };
 
   useEffect(() => {
-    console.log("Logged in User:", getLoggedInUser());
-    let data = getLoggedInUser();
-    profileStatus = data.profileComplete!;
-    setMyUser(getLoggedInUser());
-  }, []);
-
-  useEffect(() => {
     interValRef.current = window.setInterval(() => {
       timerChanged((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : prevTimer));
-    }, 300);
-
+    }, 1000);
     return () => {
       stopTimer();
     };
@@ -190,7 +185,8 @@ const OnboardingOtp = () => {
         </div>
         <div className={styles.otpBody}>
           <div className={styles.otpPrompt}>
-            <p className="bodyr">
+          {selectedOption === "EMAIL"?(
+              <p className="bodyr">
               Please enter the verification code just sent to your email
               <span
                 className="otp-email-link-text bodyr"
@@ -199,6 +195,18 @@ const OnboardingOtp = () => {
                 {profile?.email}
               </span>
             </p>
+            ):
+            (
+              <p className="bodyr">
+              Please enter the verification code just sent to your mobile number
+              <span
+                className="otp-email-link-text bodyr"
+                style={{ margin: "5px" }}
+              >
+                {profile?.mobileNumber}
+              </span>
+            </p>
+            )}  
           </div>
           <div className={styles.otpInput}>
             <OtpInput
