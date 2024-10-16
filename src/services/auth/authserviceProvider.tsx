@@ -49,9 +49,7 @@ const AuthServiceProvider = () => {
   }
 
   const getLoggedInUser:()=> User = ()=>{
-
-    const token = getToken()
-    
+    const token = getToken()    
     if(token){
       let decodedjwt = jwtDecode<MyToken>(token.accessToken);
       let userInfo =decodedjwt.userInfo;
@@ -73,8 +71,7 @@ const AuthServiceProvider = () => {
       }
       console.log("Decoded user'sInfo>>",decodedjwt?.userInfo)
     }
-    throw new Error("Invalid User , please login ")
-    
+    throw new Error("Invalid User , please login ")    
   }
 
   const logout = () => {

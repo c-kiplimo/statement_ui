@@ -55,7 +55,7 @@ const VerifyIdentity = () => {
       } else {
         return;
       }
-
+      console.log(selectedOption)
       try {
 
         const response = await onBoardingOtpService(option, accessToken,user?.id, contactValue);
@@ -121,7 +121,7 @@ const VerifyIdentity = () => {
             footer={null}
             className={styles.modal}
           >
-            <OnboardingOtp />
+            <OnboardingOtp selectedOption={selectedOption}/>
           </Modal>
         )}
       </div>
