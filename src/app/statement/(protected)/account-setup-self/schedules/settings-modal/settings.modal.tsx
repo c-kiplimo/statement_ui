@@ -1,24 +1,25 @@
 import React, { ReactNode, useState, useContext, useEffect } from "react";
 import styles from "./settings.modal.module.css";
 import {
-  Radio,
   DatePicker,
   TimePicker,
-  Dropdown,
-  Menu,
   notification,
+  Menu,
+  Dropdown,
   Modal,
   message,
+  Radio,
 } from "antd";
 import { CheckOutlined, CloseOutlined, DownOutlined } from "@ant-design/icons";
 import moment from "moment";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import Successful from "@/src/components/widgets/success-widget/successfull/successful";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
 import AccountInfo from "../account-info/account.info";
 import { AccountInfoContext } from "../schedules-context/accountInforContext";
-import { AcctScheduleHandler } from "@/src/services/account/post.account.schedule";
 import { getAccountScheduleSettings } from "@/src/lib/actions/scheduleSettings.action";
+import { AcctScheduleHandler } from "@/src/services/account/post.account.schedule";
+import { UpdateAccountSchedules } from "@/src/services/account/account.sche.update.service";
 
 export type acctData = {
   currency: string;
@@ -47,20 +48,32 @@ type contentProps = {
   onSuccess?: () => void;
   onClick?: () => void;
   resetOptionsOnOpen?: boolean;
-  isUpdateMode?: boolean; 
+  isUpdateMode?: boolean;
   existingAccountSchedule?: SheduleData;
 };
 
 const SettingsModal = (props: contentProps) => {
-  const [mtStatementsOption, setMTStatementsOption] = useState<boolean | undefined>(undefined);
-  const [onlineStatementOption, setOnlineStatementOption] = useState<boolean | undefined>(undefined);
-  const [scheduledStatementsOption, setScheduledStatementsOption] = useState<boolean | undefined>(undefined);
-  const [frequencyOption, setFrequencyOption] = useState<string | undefined>(undefined);
+  const [mtStatementsOption, setMTStatementsOption] = useState<
+    boolean | undefined
+  >(undefined);
+  const [onlineStatementOption, setOnlineStatementOption] = useState<
+    boolean | undefined
+  >(undefined);
+  const [scheduledStatementsOption, setScheduledStatementsOption] = useState<
+    boolean | undefined
+  >(undefined);
+  const [frequencyOption, setFrequencyOption] = useState<string | undefined>(
+    undefined
+  );
   const [fileFormatOption, setFileFormatOption] = useState<string>("PDF");
-  const [templateTypeOption, setTemplateTypeOption] = useState<string>("CORPORATE");
+  const [templateTypeOption, setTemplateTypeOption] =
+    useState<string>("CORPORATE");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [notificationOption, setNotificationOption] = useState<boolean | undefined>(undefined);
+  const [notificationOption, setNotificationOption] = useState<
+    boolean | undefined
+  >(undefined);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const context = useContext(AccountInfoContext);
@@ -70,7 +83,8 @@ const SettingsModal = (props: contentProps) => {
 
   const { accountInfo } = context;
   const { accountId } = props;
-  const { postAccountSchedules, updateAccountSchedules } = AcctScheduleHandler();
+  const { postAccountSchedules } =
+    AcctScheduleHandler();
 
   useEffect(() => {
     if (props.resetOptionsOnOpen) {
@@ -99,9 +113,8 @@ const SettingsModal = (props: contentProps) => {
         setNotificationOption(result.notificationType === "SMS");
         setSelectedDate(dayjs(result.time).format("YYYY-MM-DD"));
         setSelectedTime(dayjs(result.date).format("HH:mm:ss"));
-        
       } catch (error) {
-        message.error("Failed to fetch schedule settings.");
+        
       }
     };
 
@@ -119,13 +132,11 @@ const SettingsModal = (props: contentProps) => {
       showNotification("Error", "Account ID is required.");
       return;
     }
+  
     if (!selectedDate || !selectedTime) {
       notification.info({
         message: "Incomplete Selection",
         description: "Please input both date and time.",
-        className: styles.customNotification,
-        icon: null,
-        closeIcon: null,
       });
       return;
     }
@@ -144,15 +155,19 @@ const SettingsModal = (props: contentProps) => {
   
     try {
       let response;
-      if (props.isUpdateMode && props.existingAccountSchedule) {
-        // Update mode - update the existing schedule
-        response = await updateAccountSchedules({
-          ...props.existingAccountSchedule, // Include existing schedule data
-          ...statementData, // Apply updated data
+      let successMessage;
+  
+      if (props.isUpdateMode) {
+        console.log("Updating account schedule...", { ...props.existingAccountSchedule, ...statementData });
+        response = await UpdateAccountSchedules({
+          ...props.existingAccountSchedule,
+          ...statementData,
         });
+        successMessage = "Your account has been successfully updated.";
       } else {
-        // Create mode - create a new schedule
+        console.log("Creating new account schedule...", statementData);
         response = await postAccountSchedules(statementData);
+        successMessage = "Your account has been successfully set up.";
       }
   
       showNotification(
@@ -161,7 +176,7 @@ const SettingsModal = (props: contentProps) => {
           <Successful.Icon style={{ color: "#17D05B" }}>
             <CheckOutlined />
           </Successful.Icon>
-          <Successful.Text text="Your account has been successfully updated" />
+          <Successful.Text text={successMessage} />
           <Successful.Icon
             style={{
               color: "white",
@@ -174,9 +189,6 @@ const SettingsModal = (props: contentProps) => {
         </Successful>
       );
   
-      // // Reset the form options
-      // resetFormOptions();
-  
       if (props.onSuccess) {
         props.onSuccess();
       }
@@ -185,20 +197,26 @@ const SettingsModal = (props: contentProps) => {
       setIsModalVisible(true);
     }
   };
-
-
-
-
-  const handleMTStatementsChange = (e: any) => setMTStatementsOption(e.target.value);
-  const handleFrequencyOptionChange = (e: any) => setFrequencyOption(e.target.value);
-  const handleOnlineStatementChange = (e: any) => setOnlineStatementOption(e.target.value);
-  const handleFileFormatChange = (value: string) => setFileFormatOption(value);
-  const handleTemplateTypeChange = (value: string) => setTemplateTypeOption(value);
-  const handleDateChange = (date: dayjs.Dayjs | null) => setSelectedDate(date ? date.format("YYYY-MM-DD") : null);
-  const handleTimeChange = (time: dayjs.Dayjs | null) => setSelectedTime(time ? time.format("HH:mm:ss") : null);
   
+  
+  
+  
+
+  const handleMTStatementsChange = (e: any) =>
+    setMTStatementsOption(e.target.value);
+  const handleFrequencyOptionChange = (e: any) =>
+    setFrequencyOption(e.target.value);
+  const handleOnlineStatementChange = (e: any) =>
+    setOnlineStatementOption(e.target.value);
+  const handleFileFormatChange = (value: string) => setFileFormatOption(value);
+  const handleTemplateTypeChange = (value: string) =>
+    setTemplateTypeOption(value);
+  const handleDateChange = (date: dayjs.Dayjs | null) =>
+    setSelectedDate(date ? date.format("YYYY-MM-DD") : null);
+  const handleTimeChange = (time: dayjs.Dayjs | null) =>
+    setSelectedTime(time ? time.format("HH:mm:ss") : null);
   const handleNotificationChange = (e: any) => {
-    const value = e.target.value === "true";
+    const value = e.target.value === true;
     setNotificationOption(value);
   };
 
@@ -328,32 +346,30 @@ const SettingsModal = (props: contentProps) => {
                   onChange={handleFrequencyOptionChange}
                   value={frequencyOption}
                 >
-                  <Radio value="MONTHLY">Monthly</Radio>
-                  <Radio value="BIWEEKLY">Bi Weekly</Radio>
-                  <Radio value="WEEKLY">Weekly</Radio>
                   <Radio value="DAILY">Daily</Radio>
+                  <Radio value="WEEKLY">Weekly</Radio>
+                  <Radio value="BIWEEKLY">Bi Weekly</Radio>
+                  <Radio value="MONTHLY">Monthly</Radio>
                   <Radio value="YEARLY">Yearly</Radio>
                 </Radio.Group>
               </div>
 
               <div className={styles.dateTime}>
-              <DatePicker
-  className={styles.date}
-  suffixIcon={props.dateIcon}
-  onChange={handleDateChange}
-  value={selectedDate ? dayjs(selectedDate) : null}
-/>
+                <DatePicker
+                  className={styles.date}
+                  suffixIcon={props.dateIcon}
+                  onChange={handleDateChange}
+                  value={selectedDate ? dayjs(selectedDate) : null}
+                />
 
-<TimePicker
-  className={styles.time}
-  suffixIcon={props.timeIcon}
-  onChange={handleTimeChange}
-  value={selectedTime ? dayjs(selectedTime, "HH:mm:ss") : null}
-/>
+                <TimePicker
+                  className={styles.time}
+                  suffixIcon={props.timeIcon}
+                  onChange={handleTimeChange}
+                  value={selectedTime ? dayjs(selectedTime, "HH:mm:ss") : null}
+                />
               </div>
             </div>
-
-            
 
             <div className={styles.files}>
               <div className={styles.fileFormart}>
