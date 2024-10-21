@@ -1,5 +1,5 @@
-export const API_URL = "http://41.80.34.214:9001";
-export const PROFILE_URL = "http://41.80.34.214:9002";
+export const API_URL = "http://45.79.252.234:9001";
+export const PROFILE_URL = "http://45.79.252.234:9002";
 export const DOWNLOAD_URL = "http://41.80.34.214:9003";
 
 

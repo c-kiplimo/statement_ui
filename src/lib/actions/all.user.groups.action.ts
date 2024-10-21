@@ -1,7 +1,6 @@
-import { allgroupsTypes } from "@/src/app/statement/(protected)/accountsetup/users/user-group/add-user-group/add.user.groups";
 import { UserGroupsHandler } from "@/src/services/account/accounts.user.groups.service";
 
-export const CustomerAllUserGroupsAction = async (value: number): Promise<allgroupsTypes[]> => {
+export const CustomerAllUserGroupsAction = async (value: number) => {
     const handler = UserGroupsHandler();
 
     try {
@@ -11,7 +10,7 @@ export const CustomerAllUserGroupsAction = async (value: number): Promise<allgro
             return [];
         }
 
-        const result: allgroupsTypes[] = data.map(account => ({
+        const result = data.map(account => ({
             groupId: account.groupId,
             platformId: account.platformId,
             groupName: account.groupName,

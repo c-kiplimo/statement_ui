@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./user-group-branch.module.css";
 import { CustomerUserGroupsAction} from "@/src/lib/actions/customer.user.groups.action";
-import { DataFetcher } from "@/src/app/statement/(protected)/accountsetup/widgets/table/table";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Modal, Table, notification } from "antd";
 import PrimaryButton from "@/src/components/atoms/button/primary-button/primary-button";

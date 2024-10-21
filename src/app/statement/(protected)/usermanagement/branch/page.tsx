@@ -5,7 +5,6 @@ import styles from "./widgets/page.module.css";
 import { SearchOutlined } from "@ant-design/icons";
 import { Spin } from "antd"; 
 import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
-import CustdetailsnotFound from "../../accountsetup/search-pages/search-not-found/cust.details.notFound";
 import { EyeIcon } from "lucide-react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import dynamic from "next/dynamic";
@@ -29,7 +28,7 @@ const useCustomerSearch = () => {
       const search: DataSearch[] = await customerCardDetailsAction(searchOption, searchValue);
       setData(search);
     } catch (error) {
-      setError(<CustdetailsnotFound />);
+      setError('');
       console.error(error);
     } finally {
       setLoading(false);

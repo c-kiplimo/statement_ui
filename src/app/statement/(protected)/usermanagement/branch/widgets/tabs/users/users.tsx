@@ -1,4 +1,3 @@
-import { DataFetcher } from "@/src/app/statement/(protected)/accountsetup/widgets/table/table";
 import { RegisteredUsersAction } from "@/src/lib/actions/registered.users.actions";
 import { UserDetails } from "@/src/types/user.type";
 import { useRouter } from "next/navigation";

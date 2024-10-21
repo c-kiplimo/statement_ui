@@ -152,12 +152,12 @@ const EnterOtpToVerify = () => {
         <div className={styles.otpBody}>
           <div className={styles.otpPrompt}>
             <p className="bodyr">
-              Please enter the verification code just sent to your mobile number
+              Please enter the verification code just sent to your email
               <span
                 className="otp-email-link-text bodyr"
                 style={{ margin: "5px" }}
               >
-                {myUser?.mobileNumber}
+                {myUser?.email}
               </span>
             </p>
           </div>

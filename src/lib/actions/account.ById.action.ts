@@ -1,14 +1,13 @@
-import { acctData } from "@/src/app/statement/(protected)/accountsetup/widgets/configuration-form/accounts.configuration";
 import { fetchAccountStatus } from "@/src/services/account/account.byId.service";
 
 
-export const AccountsStmtConfig = async (accountNo:number):Promise<acctData> =>{
+export const AccountsStmtConfig = async (accountNo:number) =>{
   const accountStatus:AccountById = await fetchAccountStatus(accountNo);
   if(!accountStatus){
       alert('Account Doesnt Exist')
   }
   
-  let statusresult:acctData = {
+  let statusresult = {
       currency:accountStatus.currency,
       name:accountStatus.accountTitle,
       account:accountStatus.accountId,

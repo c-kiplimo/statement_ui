@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import styles from "./customer-profile.module.css";
 import GroupDetails from "@/src/components/widgets/user-management/tabs/user-group/group-details/group-details";
 import { profileDetails } from "@/src/lib/actions/customer.profile.action";
-import ActivitiesStatus from "../../../../accountsetup/activities/activities.status";
 import UserGroupBranch from "../../widgets/tabs/user-group/user-group-branch";
 import CreateRole from "../../../page-components/create-roles/create-stepper/create-stepper";
 import BranchUsersTable from "../../widgets/users-table/users.table";
@@ -79,7 +78,7 @@ const CustomerProfile = ({ customerId }: UserProfileProps) => {
     },
     {
       buttonName: "Permissions",
-      bodyContent: <ActivitiesStatus userId={customerId} key="activities" />,
+      bodyContent: <></>,
     },
   ];
 

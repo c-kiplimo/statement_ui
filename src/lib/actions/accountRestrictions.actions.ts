@@ -1,4 +1,3 @@
-import  {DataFetcher} from "@/src/app/statement/(protected)/accountsetup/widgets/table/table";
 import { CustomerRestrictionsHandler } from "@/src/services/account/account.restrictions.service";
 
 

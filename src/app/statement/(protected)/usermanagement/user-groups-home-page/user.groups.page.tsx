@@ -5,7 +5,6 @@ import styles from "./user.groups.page.module.css";
 import Search from "@/src/components/atoms/search/search";
 import { EyeOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import AddItem from "@/src/components/atoms/add-item/add.item";
-import CustomTable from "../../accountsetup/widgets/table/table";
 
 const columns = [
   {
@@ -134,7 +133,6 @@ const UserGroupsHomePage = ({ userId }: IdProps) => {
           </div>
         </div>
       </div>
-      <CustomTable columns={columns} data={data} />
     </div>
   );
 };

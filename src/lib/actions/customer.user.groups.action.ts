@@ -1,4 +1,3 @@
-import { DataFetcher } from "@/src/app/statement/(protected)/accountsetup/widgets/table/table";
 import { UserGroupsHandler } from "@/src/services/account/accounts.user.groups.service";
 
 export const CustomerUserGroupsAction = async (value: number): Promise<DataFetcher[]> => {

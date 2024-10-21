@@ -16,6 +16,7 @@ import { usePlatformId } from "@/src/hooks/platformId";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
+  { value: "+234", label: "+234" },
   { value: "+256", label: "+256" },
   { value: "+255", label: "+255" },
   { value: "+250", label: "+250" },

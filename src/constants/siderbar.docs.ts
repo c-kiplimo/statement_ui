@@ -31,35 +31,29 @@ export const MenuData: SideNavMenu[] = [
         icon: AccountStatementIcon,
         opened: false,
       },
-      {
-        title: "Loan Statement",
-        path: "/statement/loan",
-        icon: LoanStatementIcon,
-        hasSubMenu: true,
-        opened: false,
-        submenuItems: [
-          {
-            title: "Cards",
-            path: "/path",
-            opened: false,
-          },
-          {
-            title: "Template",
-            path: "/path",
-            opened: false,
-          },
-          {
-            title: "Widget",
-            path: "/path",
-            opened: false,
-          },
-        ],
-      },
       // {
-      //   title: "Account Setup",
-      //   path: "/statement/accountsetup",
-      //   icon: SwiftStatementIcon,
+      //   title: "Loan Statement",
+      //   path: "/statement/loan",
+      //   icon: LoanStatementIcon,
+      //   hasSubMenu: true,
       //   opened: false,
+      //   submenuItems: [
+      //     {
+      //       title: "Cards",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //     {
+      //       title: "Template",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //     {
+      //       title: "Widget",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //   ],
       // },
       {
         title: "Account Setup Self",
@@ -73,12 +67,12 @@ export const MenuData: SideNavMenu[] = [
         icon: SwiftStatementIcon,
         opened: false,
       },
-      {
-        title: "Template",
-        path: "/statement/template",
-        icon: LoanStatementIcon,
-        opened: false,
-      },
+      // {
+      //   title: "Template",
+      //   path: "/statement/template",
+      //   icon: LoanStatementIcon,
+      //   opened: false,
+      // },
     ],
   },
 
