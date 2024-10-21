@@ -8,7 +8,7 @@ type PrimaryButtonProps = ButtonProps & {
   size?: SizeType | "small" | "middle" | "large" | undefined;
   shape?: ButtonProps["shape"];
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
-  iconPosition?: "left" | "right";
+  iconPosition?: "left" | "right" | undefined;
   customStyles?: React.CSSProperties;
   iconStyle?: CSSPerspective;
   buttonType?: "primary" | "default" | "dashed" | "link" | "text" | undefined;
@@ -17,14 +17,14 @@ type PrimaryButtonProps = ButtonProps & {
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 };
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = (props) => {
-  const { size, customStyles, buttonType, htmlType, iconStyle, iconPosition } =
-    props;
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({size, shape,onClick, customStyles, icon, children, buttonType, htmlType, iconStyle, iconPosition }:PrimaryButtonProps) => {
+  // const { size, customStyles, buttonType, htmlType, iconStyle, iconPosition } =
+  //   props;
 
   return (
     <Button
       htmlType={htmlType}
-      shape={props.shape || "default"}
+      shape={shape || "default"}
       type={buttonType}
       size={size as SizeType}
       style={{
@@ -33,19 +33,19 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = (props) => {
         justifyContent: "center",
         ...customStyles,
       }}
-      onClick={props.onClick}
+      onClick={onClick}
       aria-label={
-        typeof props.children === "string" ? props.children : undefined
+        typeof children === "string" ? children : undefined
       }
     >
-      {iconPosition === "left" && props.icon && (
-        <span style={{ margin: 4, ...iconStyle }}>{props.icon}</span>
+      {iconPosition === "left" && icon && (
+        <span style={{ margin: 4, ...iconStyle }}>{icon}</span>
       )}
 
-      {props.children}
+      {children}
 
-      {iconPosition === "right" && props.icon && (
-        <span style={{ margin: 4 }}>{props.icon}</span>
+      {iconPosition === "right" && icon && (
+        <span style={{ margin: 4 }}>{icon}</span>
       )}
     </Button>
   );
