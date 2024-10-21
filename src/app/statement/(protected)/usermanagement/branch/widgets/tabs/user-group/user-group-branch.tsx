@@ -92,7 +92,7 @@ type GroupProps = {
           <div className={styles.actionBtn}>
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={editIcon}
@@ -104,7 +104,7 @@ type GroupProps = {
             />
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={deleteIcon}

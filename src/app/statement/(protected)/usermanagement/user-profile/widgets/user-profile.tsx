@@ -162,7 +162,7 @@ UserProfile.DisplayTable = ({customerId}:tableProps) => {
         <div className={styles.actionBtn}>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={editIcon}
@@ -174,7 +174,7 @@ UserProfile.DisplayTable = ({customerId}:tableProps) => {
           />
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={deleteIcon}

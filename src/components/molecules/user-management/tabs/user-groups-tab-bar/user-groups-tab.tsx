@@ -136,7 +136,7 @@ const UserGroup = React.memo(({ setActive }: any) => {
         <SearchInput onSearch={handleSearch}></SearchInput>
         <PrimaryButton
           buttonType="default"
-          iconPosition="right"
+          // iconPosition="right"
           shape="default"
           customStyles={{
             background: tokenColor.accent.success,
@@ -260,7 +260,7 @@ const DisplayTable = () => {
           <div style={{ display: "flex", gap: "1rem" }}>
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={editIcon}
@@ -272,7 +272,7 @@ const DisplayTable = () => {
             ></PrimaryButton>
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={deleteIcon}

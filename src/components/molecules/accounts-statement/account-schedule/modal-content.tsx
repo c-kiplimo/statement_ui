@@ -89,7 +89,7 @@ const ModalContent = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -102,7 +102,7 @@ const ModalContent = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

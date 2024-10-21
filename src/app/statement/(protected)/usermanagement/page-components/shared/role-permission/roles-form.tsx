@@ -52,7 +52,7 @@ const RolesForm = ({ setActiveStep }: RolesFormProps) => {
               <PrimaryButton
                 htmlType="submit"
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

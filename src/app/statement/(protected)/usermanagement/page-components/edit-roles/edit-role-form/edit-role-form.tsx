@@ -84,7 +84,7 @@ const EditRolesForm = ({ setActiveStep,groupId }: EditRolesFormProps) => {
             <PrimaryButton
               htmlType="submit"
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="large"
               customStyles={{

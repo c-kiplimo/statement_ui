@@ -175,7 +175,7 @@ const RegisterUserModalContent = ({
                 <PrimaryButton
                   htmlType="submit"
                   buttonType="default"
-                  iconPosition="right"
+                  // iconPosition="right"
                   shape="default"
                   size="large"
                   customStyles={{
@@ -241,7 +241,7 @@ const RegisterUserModalContent = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -255,7 +255,7 @@ const RegisterUserModalContent = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

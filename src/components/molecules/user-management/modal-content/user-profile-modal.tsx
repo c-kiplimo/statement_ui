@@ -72,7 +72,7 @@ const UserProfileModal = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -86,7 +86,7 @@ const UserProfileModal = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

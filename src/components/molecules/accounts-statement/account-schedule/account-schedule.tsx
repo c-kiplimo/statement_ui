@@ -163,7 +163,7 @@ const AccountScheduleTable = () => {
           <div style={{ display: 'flex', gap: '1rem' }}>
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={minusIcon}
@@ -176,7 +176,7 @@ const AccountScheduleTable = () => {
 
             <PrimaryButton
               buttonType="default"
-              iconPosition="right"
+              // iconPosition="right"
               shape="default"
               size="small"
               icon={editIcon}
@@ -231,7 +231,7 @@ const AccountScheduleTable = () => {
       >
         <PrimaryButton
           buttonType="default"
-          iconPosition="right"
+          // iconPosition="right"
           shape="default"
           size="small"
           icon={addIcon}

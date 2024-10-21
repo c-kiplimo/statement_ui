@@ -62,7 +62,7 @@ const RoleTable = ({ setActive }: any) => {
         <Space>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             customStyles={{
@@ -76,7 +76,7 @@ const RoleTable = ({ setActive }: any) => {
 
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             customStyles={{

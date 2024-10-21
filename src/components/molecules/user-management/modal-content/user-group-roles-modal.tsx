@@ -71,7 +71,7 @@ const UserGroupRolesModal = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -85,7 +85,7 @@ const UserGroupRolesModal = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

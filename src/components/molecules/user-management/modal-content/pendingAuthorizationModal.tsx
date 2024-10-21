@@ -78,7 +78,7 @@ const PendingAuthorizationModalContent = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -92,7 +92,7 @@ const PendingAuthorizationModalContent = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -154,7 +154,7 @@ const PendingAuthorizationModalContent = ({
             >
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{
@@ -168,7 +168,7 @@ const PendingAuthorizationModalContent = ({
               </PrimaryButton>
               <PrimaryButton
                 buttonType="default"
-                iconPosition="right"
+                // iconPosition="right"
                 shape="default"
                 size="large"
                 customStyles={{

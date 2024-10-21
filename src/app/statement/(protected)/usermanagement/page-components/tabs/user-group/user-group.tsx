@@ -202,7 +202,7 @@ const DisplayTable = ({onGroupSelect,setSelectedGroupId}:DisplayTableProps) => {
         <div className={styles.actionBtn}>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={editIcon}
@@ -214,7 +214,7 @@ const DisplayTable = ({onGroupSelect,setSelectedGroupId}:DisplayTableProps) => {
           />
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={deleteIcon}

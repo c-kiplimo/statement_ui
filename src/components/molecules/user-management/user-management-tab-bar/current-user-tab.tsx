@@ -109,7 +109,7 @@ const UsersTab = () => {
         <div style={{ display: "flex", gap: "1rem" }}>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={eyeIcon}
@@ -123,7 +123,7 @@ const UsersTab = () => {
           ></PrimaryButton>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={deleteIcon}
@@ -177,7 +177,7 @@ const UsersTab = () => {
         <div style={{ display: "flex", gap: "1rem" }}>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={eyeIcon}
@@ -191,7 +191,7 @@ const UsersTab = () => {
           ></PrimaryButton>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={tickIcon}
@@ -204,7 +204,7 @@ const UsersTab = () => {
           ></PrimaryButton>
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="small"
             icon={xIcon}
@@ -291,7 +291,7 @@ const UsersTab = () => {
               {selectedTab === 0 && (
                 <PrimaryButton
                   buttonType="default"
-                  iconPosition="right"
+                  // iconPosition="right"
                   shape="default"
                   size="large"
                   customStyles={{

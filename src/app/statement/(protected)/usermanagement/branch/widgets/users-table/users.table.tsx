@@ -318,7 +318,7 @@ const BranchUsersTable = ({ customerId }: userProps) => {
         {selectedTab === 0 && (
           <PrimaryButton
             buttonType="default"
-            iconPosition="right"
+            // iconPosition="right"
             shape="default"
             size="large"
             customStyles={{
