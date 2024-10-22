@@ -10,7 +10,7 @@ type ConfirmRegistrationModalProps = {
   lastName: string;
   email: string;
   mobileNumber: string;
-  userGroups: User_Group[];
+  // userGroups: User_Group[];
   handleOk: (e: any) => void;
 };
 
@@ -20,7 +20,7 @@ const ConfirmRegistrationModal = ({
   lastName,
   email,
   mobileNumber,
-  userGroups,
+  // userGroups,
   handleOk,
 }: ConfirmRegistrationModalProps) => {
   return (
@@ -88,7 +88,7 @@ const ConfirmRegistrationModal = ({
               titleStyle={{ fontWeight: "500" }}
             />
           </div>
-          <div className={styles.content}>
+          {/* <div className={styles.content}>
             {userGroups.map((group, index) => (
               <ConfirmationDetails
                 key={index}
@@ -98,7 +98,7 @@ const ConfirmRegistrationModal = ({
                 <TeamOutlined size={16} />
               </ConfirmationDetails>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.buttons}>

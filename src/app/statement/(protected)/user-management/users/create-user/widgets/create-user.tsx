@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./create-user.module.css";
 import { Form, Input, Modal, notification, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
-import { TeamOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { AUTH_URL_REGISTER } from "@/src/constants/environment";
 import ConfirmRegistrationModal from "./(confirmUser)/confirmUser";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import useProfileId from "@/src/hooks/profileId";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
-import { searchGroupsData } from "@/src/lib/actions/user.groups.action";
-import { usePlatformId } from "@/src/hooks/platformId";
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -22,19 +19,32 @@ const countryOptions = [
   { value: "+250", label: "+250" },
 ];
 
+const roleOptions = [
+  { value: "INDIVIDUAL", label: "Individual" },
+  { value: "CORPORATE", label: "Corporate" },
+  { value: "ADMIN", label: "Admin" },
+];
+
+const country = [
+  { value: "Kenya", label: "Kenya" },
+  { value: "Burundi", label: "Burundi" },
+  { value: "Uganda", label: "Uganda" },
+  { value: "Tanzania", label: "Tanzania" },
+  { value: "Rwanda", label: "Rwanda" },
+];
+
 type CreateUserProps = {
-  password: string;
   firstName: string;
   lastName: string;
+  role: string;
+  country: string;
+  customerId: string;
+  password: string;
   mobileNumber: string;
   email: string;
-  groupId: string;
-  customerId: string;
 };
 
 const CreateUser = () => {
-  const profId = useProfileId();
-  const platformId = usePlatformId();
   const [form] = Form.useForm();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -43,64 +53,17 @@ const CreateUser = () => {
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState<CreateUserProps | null>(null);
   const [countryCode, setCountryCode] = useState(countryOptions[0].value);
-  const [userGroups, setUserGroups] = useState<User_Group[]>([]);
-  const [selectedGroup, setSelectedGroup] = useState<User_Group | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const fetchGroups = async () => {
-    let customerId = profId ? profId.toString() : "";
-    console.log("Customer ID:", customerId);
-
-    try {
-      const groups = await searchGroupsData(
-        customerId,
-        platformId.toString(),
-        0,
-        100,
-        ""
-      );
-      const userGroupsData = groups.map((group) => ({
-        id: group.groupId.toString(),
-        name: group.groupName,
-        icon: <TeamOutlined />,
-        description: group.description,
-      }));
-      console.log("Fetched groups", userGroupsData);
-      setUserGroups(userGroupsData);
-    } catch (error) {
-      console.error("Failed to fetch user groups:", error);
-      setError("Failed to fetch user groups");
-    }
-  };
-
-  useEffect(() => {
-    if (profId && platformId) {
-      fetchGroups();
-    }
-  }, [profId, platformId]);
-
-  const handleGroupChange = (value: string) => {
-    const group = userGroups.find((group) => group.id === value) || null;
-    setSelectedGroup(group);
-  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   const onFinish = (values: CreateUserProps) => {
-    let customerId = "";
-
-    if (profId !== null && profId !== undefined) {
-      customerId = profId.toString();
-    }
-    console.log(customerId);
     const fullMobileNumber = `${countryCode}${values.mobileNumber}`;
     const updatedFormData = {
       ...values,
       mobileNumber: fullMobileNumber,
-      groupId: selectedGroup?.id || "",
-      customerId,
     };
     setFormData(updatedFormData);
     console.log("Registered user data>>", updatedFormData);
@@ -224,6 +187,51 @@ const CreateUser = () => {
                 />
               </Form.Item>
             </div>
+
+            <div className={styles.vertical}>
+              <label htmlFor="customerId" className="bodyr">
+                Customer ID
+              </label>
+              <Form.Item
+                name="customerId"
+                rules={[{ required: true, message: "Please enter the Customer ID" }]}
+              >
+                <Input
+                  type="text"
+                  className={`${styles.input} bodyr`}
+                  placeholder="Please enter Customer ID"
+                />
+              </Form.Item>
+            </div>
+
+            <div className={styles.vertical}>
+            <label htmlFor="country" className="bodyr">
+                Country
+              </label>
+              <Form.Item
+                name="country"
+              >
+                <Select
+                  placeholder="Select country"
+                  className={`${styles.input} bodyr`}
+                  options={country}
+                />
+              </Form.Item>
+            </div>
+
+            <div className={styles.vertical}>
+              <label htmlFor="role" className="bodyr">
+                User Role
+              </label>
+              <Form.Item name="role">
+                <Select
+                  placeholder="Select role"
+                  className={`${styles.input} bodyr`}
+                  options={roleOptions}
+                />
+              </Form.Item>
+            </div>
+
             <div className={styles.vertical}>
               <Form.Item
                 name="mobileNumber"
@@ -283,25 +291,7 @@ const CreateUser = () => {
                 />
               </Form.Item>
             </div>
-            <div className={styles.vertical}>
-              <Form.Item
-                name="groupId"
-                label="Which group does the user belong to?"
-              >
-                <Select
-                  allowClear
-                  style={{ width: "100%",  height: 40}}
-                  className={styles.dropDown}
-                  placeholder="Select User Group"
-                  onChange={handleGroupChange}
-                  options={userGroups.map((group) => ({
-                    value: group.id,
-                    label: group.name,
-                  }))}
-                />
-                {error && <p className="captionr">{error}</p>}
-              </Form.Item>
-            </div>
+            <div className={styles.vertical}></div>
           </div>
         </div>
         <Form.Item>
@@ -327,7 +317,7 @@ const CreateUser = () => {
             lastName={formData.lastName}
             email={formData.email}
             mobileNumber={formData.mobileNumber}
-            userGroups={selectedGroup ? [selectedGroup] : []}
+            // userGroups={selectedGroup ? [selectedGroup] : []}
             handleOk={handleOk}
           />
         )}

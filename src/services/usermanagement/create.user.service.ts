@@ -10,18 +10,19 @@ const createUserHandler = () => {
 
   type CreateUserProps = {
     register: {
-      password: string;
       firstName: string;
       lastName: string;
+      role: string;
+      country: string;
+      customerId: string;
+      password: string;
       mobileNumber: string;
       email: string;
-      groupId: string;
-      customerId:string;
     };
   };
 
   type DeactivateUserResponse = {
-    message: string; 
+    message: string;
   };
 
   type DeactivateUserError = {
@@ -48,17 +49,26 @@ const createUserHandler = () => {
   };
 
   const createUserService = async (URL: string, PAYLOAD: CreateUserProps) => {
-    const { password, firstName, lastName, mobileNumber, email, groupId,customerId } =
-      PAYLOAD.register;
-
-    const payload = {
-      password,
+    const {
       firstName,
       lastName,
-      mobileNumber,
-      email,
-      groupId,
+      role,
+      country,
       customerId,
+      password,
+      mobileNumber,
+      email,      
+    } = PAYLOAD.register;
+
+    const payload = {
+      firstName,
+      lastName,
+      role,
+      country,
+      customerId,
+      password,
+      mobileNumber,
+      email,   
     };
 
     try {
@@ -104,32 +114,35 @@ const createUserHandler = () => {
     }
   };
 
-const updateUserService = async (userId: string, data: UpdateUserData): Promise<any> => {
-  const config: AxiosRequestConfig = {
-    method: 'put',
-    maxBodyLength: Infinity,
-    url: `${UPDATE_USER_URL}/${userId}`,
-    headers: { 
-      'X-RequestId': '34567890-', 
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify(data)
-  };
+  const updateUserService = async (
+    userId: string,
+    data: UpdateUserData
+  ): Promise<any> => {
+    const config: AxiosRequestConfig = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: `${UPDATE_USER_URL}/${userId}`,
+      headers: {
+        "X-RequestId": "34567890-",
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(data),
+    };
 
-  try {
-    const response = await axios.request(config);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+    try {
+      const response = await axios.request(config);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
   return {
     fetchPlatformGroupService,
     createUserService,
     deactivateUserService,
-    updateUserService
+    updateUserService,
   };
 };
 

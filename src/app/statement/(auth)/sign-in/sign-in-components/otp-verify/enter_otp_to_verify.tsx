@@ -46,11 +46,13 @@ const EnterOtpToVerify = () => {
             placement: 'topRight',
             duration: 1,
           });
-          {
-            profileStatus
-              ? router.push("/statement/dashboard")
-              : router.push("/statement/profileOnboarding");
-          }
+          console.log("Profile status>>>",profileStatus);
+          router.push("/statement/dashboard");
+          // {
+          //   profileStatus
+          //     ? router.push("/statement/dashboard")
+          //     : router.push("/statement/profileOnboarding");
+          // }
         })
         .catch((error) => {
           if (error.response.status === 400) {

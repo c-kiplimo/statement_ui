@@ -48,6 +48,16 @@ const SignInHelper = () => {
     setRememberMe(e.target.checked);
   };
 
+  const validateEmailOrPhone = (_: any, value: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10,15}$/; 
+
+    if (emailPattern.test(value) || phonePattern.test(value)) {
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("Please enter a valid email address or phone number"));
+  };
+
   const onSubmit = async (values: LoginProps) => {
     await loginService(AUTH_URL_LOGIN, values)
       .then((response) => {
@@ -114,22 +124,21 @@ const SignInHelper = () => {
         <div>
           <MyFormItemGroup prefix={["login"]}>
             <div className={styles.formItem}>
-              <MyFormItem
+            <MyFormItem
+                name="username"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter your Email address",
+                    message: "Please enter your Email or Phone number",
                   },
                   {
-                    type: "email",
-                    message: "Please enter a valid Email address",
+                    validator: validateEmailOrPhone,
                   },
                 ]}
-                name="username"
               >
                 <Input
                   className={`${styles.customInput} bodyr`}
-                  placeholder="Email"
+                  placeholder="Email or Phone number"
                 />
               </MyFormItem>
               <MyFormItem
@@ -189,20 +198,6 @@ const SignInHelper = () => {
           </MyFormItemGroup>
         </div>
       </Form>
-      <div className={styles.footer}>
-        <p className="captionr">
-          Don't have an account?
-          <span>
-            <Link
-              className="sign-up-link"
-              href="/statement/sign-up"
-              onClick={redirectToCreateAccount}
-            >
-              Create Account.
-            </Link>
-          </span>
-        </p>
-      </div>
       {showModal && (
         <Modal
           open={showModal}
