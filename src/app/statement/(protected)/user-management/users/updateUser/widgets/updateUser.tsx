@@ -324,14 +324,12 @@ const UpdateUser = () => {
         onCancel={handleCancel}
       >
         <ConfirmRegistrationModal
-          onCancel={handleCancel}
-          firstName={form.getFieldValue('firstName')}
-          lastName={form.getFieldValue('lastName')}
-          email={form.getFieldValue('email')}
-          mobileNumber={`${countryCode}${form.getFieldValue('mobileNumber')}`}
-          userGroups={selectedGroupDetails}
-          handleOk={handleOk}
-        />
+            onCancel={handleCancel}
+            firstName={form.getFieldValue('firstName')}
+            lastName={form.getFieldValue('lastName')}
+            email={form.getFieldValue('email')}
+            mobileNumber={`${countryCode}${form.getFieldValue('mobileNumber')}`}
+            handleOk={handleOk} customerId={0} country={""} role={""}        />
       </Modal>
       <Modal
         open={successModalVisible}

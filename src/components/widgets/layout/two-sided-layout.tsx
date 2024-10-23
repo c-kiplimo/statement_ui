@@ -15,7 +15,7 @@ const TwosidedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div style={{ "display": "flex", "height": "100vh"}}>
     <nav>
-      <AuthFlowSideBar title={"Simba"}
+      <AuthFlowSideBar title={"Meraki"}
          description={"Portal"}
           icon={logo}/>
     </nav>

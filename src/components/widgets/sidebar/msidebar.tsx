@@ -32,7 +32,7 @@ export const MulaPaySideBar = (props: SideBarProp) => {
         <>
             <div className={className}>
 
-                <SiderBarTitle opened={opened} title='Simba' description='Portal' icon={logo} onClick={onOpened} />
+                <SiderBarTitle opened={opened} title='Meraki' description='Portal' icon={logo} onClick={onOpened} />
                 <div className={styles.menucontainer}>
                     {
                         props.items.map(sect => {

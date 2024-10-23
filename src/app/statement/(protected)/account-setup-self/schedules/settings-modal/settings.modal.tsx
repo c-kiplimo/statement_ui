@@ -359,7 +359,7 @@ const SettingsModal = (props: contentProps) => {
                   ? "Enter preferred phone number"
                   : "Enter preferred email"
               }
-              style={{width:"100%"}}
+              style={{width:"48%"}}
             />
 
             <div className={styles.fretimedate}>
