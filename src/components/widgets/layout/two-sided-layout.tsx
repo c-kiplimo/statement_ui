@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 import styles from "./two-sided-layout.module.css";
 import { AuthFlowSideBar } from "../sidebar/common.sidebar";
 import simbaPic from "@/src/components/widgets/sidebar/simbaportallogo.svg";
+import logo from '@/public/merakilogo.png'
+
 
 type LayoutProps = {
   sidebar: ReactNode;
@@ -15,7 +17,7 @@ const TwosidedLayout = ({ children }: { children: React.ReactNode }) => {
     <nav>
       <AuthFlowSideBar title={"Simba"}
          description={"Portal"}
-          icon={simbaPic}/>
+          icon={logo}/>
     </nav>
     <main style={{width:"100%"}}>
       {children}

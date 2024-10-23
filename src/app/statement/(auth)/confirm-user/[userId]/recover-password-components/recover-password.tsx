@@ -52,11 +52,6 @@ const ConfirmUser = ({userId}:any) => {
         message:'An Error Occured.'
       })
     }
-
-    // Optionally, redirect after a successful password reset
-    // setTimeout(() => {
-    //   router.replace("/statement/sign-in");
-    // }, 1200);
   };
 
   return (
