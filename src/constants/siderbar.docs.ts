@@ -102,6 +102,84 @@ export const MenuData: SideNavMenu[] = [
   },
 ];
 
+export const MenusData: SideNavMenu[] = [
+  {
+    section: "DASHBOARD",
+    menu: [
+      {
+        title: "Dashboard",
+        path: "/statement/dashboard",
+        icon: DashboardIcon,
+        opened: false,
+      },
+      
+      {
+        title: "Account Statement Self",
+        path: "/statement/account-statement-self",
+        icon: AccountStatementIcon,
+        opened: false,
+      },
+      // {
+      //   title: "Loan Statement",
+      //   path: "/statement/loan",
+      //   icon: LoanStatementIcon,
+      //   hasSubMenu: true,
+      //   opened: false,
+      //   submenuItems: [
+      //     {
+      //       title: "Cards",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //     {
+      //       title: "Template",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //     {
+      //       title: "Widget",
+      //       path: "/path",
+      //       opened: false,
+      //     },
+      //   ],
+      // },
+      {
+        title: "Account Setup Self",
+        path: "/statement/account-setup-self",
+        icon: SwiftStatementIcon,
+        opened: false,
+      },
+      
+      // {
+      //   title: "Template",
+      //   path: "/statement/template",
+      //   icon: LoanStatementIcon,
+      //   opened: false,
+      // },
+    ],
+  },
+
+  {
+    section: "PROFILE",
+    menu: [
+      
+      {
+        title: "Settings",
+        path: "/statement/settings",
+        icon: SettingsIcon,
+        opened: false,
+      },
+
+      {
+        title: "Log out",
+        path: "/statement/logout",
+        icon: LogoutIcon,
+        opened: false,
+      },
+    ],
+  },
+];
+
 export const SideNavItemsData: SideNavMenu[] = [
   {
     section: "DASHBOARD",
