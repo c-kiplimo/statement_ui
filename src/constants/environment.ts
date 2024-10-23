@@ -227,3 +227,6 @@ export const TEMPLATES = `${PROFILE_URL}/api/v1/templates`
 
 export const USER_TEMPLATES = `${PROFILE_URL}/api/v1/templates/customers`
 
+export const CONFIRM_USER_PASSWORD = `${API_URL}/api/v1/user/confirm`
+
+
