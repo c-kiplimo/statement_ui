@@ -8,6 +8,8 @@ import simbaPic from '@/src/components/widgets/sidebar/simbaportallogo.svg'
 import { SideNavItem, SideNavMenu } from '@/src/types/sidebar.types'
 import { SiderBarTitle } from './sidebar.title'
 import { usePathname } from 'next/navigation' 
+import logo from '@/public/merakilogo.png'
+
 
 
 type SideBarProp = {
@@ -30,7 +32,7 @@ export const MulaPaySideBar = (props: SideBarProp) => {
         <>
             <div className={className}>
 
-                <SiderBarTitle opened={opened} title='Simba' description='Portal' icon={simbaPic} onClick={onOpened} />
+                <SiderBarTitle opened={opened} title='Simba' description='Portal' icon={logo} onClick={onOpened} />
                 <div className={styles.menucontainer}>
                     {
                         props.items.map(sect => {
