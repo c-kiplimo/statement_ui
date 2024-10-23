@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "rimraf .next &&  next dev -p 3001",
+    "dev": "rimraf .next &&  next dev",
     "test": "jest ",
     "build": "next build",
     "start": "next start",
