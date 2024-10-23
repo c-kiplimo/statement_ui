@@ -14,8 +14,8 @@ const createUserHandler = () => {
       lastName: string;
       role: string;
       country: string;
-      customerId: string;
-      password: string;
+      customerId: number;
+      // password: string;
       mobileNumber: string;
       email: string;
     };
@@ -55,7 +55,7 @@ const createUserHandler = () => {
       role,
       country,
       customerId,
-      password,
+      // password,
       mobileNumber,
       email,      
     } = PAYLOAD.register;
@@ -66,7 +66,7 @@ const createUserHandler = () => {
       role,
       country,
       customerId,
-      password,
+      // password,
       mobileNumber,
       email,   
     };

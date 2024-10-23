@@ -3,13 +3,15 @@ import styles from "./create-user.module.css";
 import { Form, Input, Modal, notification, Select } from "antd";
 import CustomButton from "@/src/components/atoms/button/customButton";
 import Texter from "@/src/components/atoms/text/texter";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { AUTH_URL_REGISTER } from "@/src/constants/environment";
 import ConfirmRegistrationModal from "./(confirmUser)/confirmUser";
 import { createUserHandler } from "@/src/services/usermanagement/create.user.service";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import FailureModal from "@/src/components/widgets/failure-widget/failure";
+import { customerCardDetailsAction } from "@/src/lib/actions/Account.createdRecords.action";
+
+const { Search } = Input;
 
 const countryOptions = [
   { value: "+254", label: "+254" },
@@ -38,8 +40,7 @@ type CreateUserProps = {
   lastName: string;
   role: string;
   country: string;
-  customerId: string;
-  password: string;
+  customerId: number;
   mobileNumber: string;
   email: string;
 };
@@ -47,7 +48,10 @@ type CreateUserProps = {
 const CreateUser = () => {
   const [form] = Form.useForm();
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+  const [onboardingType, setOnboardingType] = useState("ACCOUNT_NUMBER");
+  const [searchValue, setSearchValue] = useState("");
+  const [customerId, setCustomerid] = useState("");
+  const [loading, setLoading] = useState(false);
   const { createUserService } = createUserHandler();
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -55,16 +59,62 @@ const CreateUser = () => {
   const [countryCode, setCountryCode] = useState(countryOptions[0].value);
   const [error, setError] = useState<string | null>(null);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleSearchCustomer = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const customerData = await customerCardDetailsAction(
+        onboardingType,
+        searchValue
+      );
+      if (customerData.length > 0) {
+        const foundCustomer = customerData[0];
+        setCustomerid(foundCustomer.id?.toString()!);
+        notification.success({
+          message: `Account details found.`,
+          description: `Account under ${foundCustomer.customerName} of ${foundCustomer.id}`,
+          icon: <CheckCircleOutlined style={{ color: "white" }} />,
+          className: "bodyr success-notification",
+          style: { color: "white" },
+          placement: "topRight",
+          duration: 1,
+        });
+      } else {
+        setError("No customer found with the provided details.");
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      notification.error({
+        message: `Account details not found.`,
+        icon: <CloseCircleOutlined style={{ color: "white" }} />,
+        className: "bodyr failure-notification",
+        style: { color: "white" },
+        placement: "topRight",
+        duration: 1,
+      });
+      setError(
+        "Error occurred while searching for the customer. Please try again."
+      );
+    }
   };
 
   const onFinish = (values: CreateUserProps) => {
     const fullMobileNumber = `${countryCode}${values.mobileNumber}`;
+    if (!customerId) {
+      notification.error({
+        message: "Please search and select a customer first.",
+      });
+      return;
+    }
+
     const updatedFormData = {
       ...values,
       mobileNumber: fullMobileNumber,
+      customerId: Number(customerId),
     };
+
     setFormData(updatedFormData);
     console.log("Registered user data>>", updatedFormData);
     setOpen(true);
@@ -189,31 +239,49 @@ const CreateUser = () => {
             </div>
 
             <div className={styles.vertical}>
-              <label htmlFor="customerId" className="bodyr">
-                Customer ID
+              <label htmlFor="search" className="bodyr">
+                Search account details by
               </label>
+              <Form.Item name="search">
+                <Select
+                  value={onboardingType}
+                  onChange={(value) => setOnboardingType(value)}
+                  style={{ width: "100%", height: 40 }}
+                  defaultValue={"ACCOUNT_NUMBER"}
+                >
+                  <Select.Option value="ACCOUNT_NUMBER">
+                    Account Number
+                  </Select.Option>
+                  <Select.Option value="CUSTOMER_NUMBER">
+                    Customer ID
+                  </Select.Option>
+                </Select>
+              </Form.Item>
+
               <Form.Item
-                name="customerId"
-                rules={[{ required: true, message: "Please enter the Customer ID" }]}
+                label={`Enter ${onboardingType === "ACCOUNT_NUMBER" ? "Account Number" : "Customer ID"}`}
+                className="bodyr"
               >
-                <Input
-                  type="text"
-                  className={`${styles.input} bodyr`}
-                  placeholder="Please enter Customer ID"
+                <Search
+                  value={searchValue}
+                  onSearch={handleSearchCustomer}
+                  style={{height:40}}
+                  placeholder={`Enter ${onboardingType === "ACCOUNT_NUMBER" ? "Account Number" : "Customer ID"}`}
+                  loading={loading}
+                  onChange={(e) => setSearchValue(e.target.value)}
                 />
               </Form.Item>
             </div>
 
             <div className={styles.vertical}>
-            <label htmlFor="country" className="bodyr">
+              <label htmlFor="country" className="bodyr">
                 Country
               </label>
-              <Form.Item
-                name="country"
-              >
+              <Form.Item name="country">
                 <Select
                   placeholder="Select country"
-                  className={`${styles.input} bodyr`}
+                  style={{ width: "100%", height: 40 }}
+                  className={`${styles.dropDown} bodyr`}
                   options={country}
                 />
               </Form.Item>
@@ -226,7 +294,8 @@ const CreateUser = () => {
               <Form.Item name="role">
                 <Select
                   placeholder="Select role"
-                  className={`${styles.input} bodyr`}
+                  style={{ width: "100%", height: 40 }}
+                  className={`${styles.dropDown} bodyr`}
                   options={roleOptions}
                 />
               </Form.Item>
@@ -240,7 +309,7 @@ const CreateUser = () => {
               >
                 <div className={`${styles.selectorRow} bodyr`}>
                   <Select
-                    className={`${styles.selectionStandard} ${countryCode ? styles.selectActive : styles.selectPlaceholder} captionr`}
+                    className={`${styles.selectionStandard} ${countryCode ? styles.selectActive : styles.selectPlaceholder} bodyr`}
                     style={{
                       width: 100,
                       height: 40,
@@ -263,35 +332,6 @@ const CreateUser = () => {
                 </div>
               </Form.Item>
             </div>
-
-            <div className={styles.vertical}>
-              <label htmlFor="password" className="bodyr">
-                Password
-              </label>
-              <Form.Item name="password">
-                <Input
-                  className={`${styles.input} bodyr`}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter Password"
-                  suffix={
-                    <span
-                      onClick={togglePasswordVisibility}
-                      className={styles.passwordToggleIcon}
-                    >
-                      {showPassword ? (
-                        <AiOutlineEyeInvisible
-                          style={{ color: "#c9c9cc" }}
-                          size={16}
-                        />
-                      ) : (
-                        <AiOutlineEye style={{ color: "#c9c9cc" }} size={16} />
-                      )}
-                    </span>
-                  }
-                />
-              </Form.Item>
-            </div>
-            <div className={styles.vertical}></div>
           </div>
         </div>
         <Form.Item>
@@ -317,7 +357,9 @@ const CreateUser = () => {
             lastName={formData.lastName}
             email={formData.email}
             mobileNumber={formData.mobileNumber}
-            // userGroups={selectedGroup ? [selectedGroup] : []}
+            customerId={formData.customerId}
+            role={formData.role}
+            country={formData.country}
             handleOk={handleOk}
           />
         )}

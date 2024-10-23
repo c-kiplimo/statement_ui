@@ -10,6 +10,9 @@ type ConfirmRegistrationModalProps = {
   lastName: string;
   email: string;
   mobileNumber: string;
+  customerId:number;
+  country:string;
+  role:string;
   // userGroups: User_Group[];
   handleOk: (e: any) => void;
 };
@@ -20,6 +23,9 @@ const ConfirmRegistrationModal = ({
   lastName,
   email,
   mobileNumber,
+  customerId,
+  country,
+  role,
   // userGroups,
   handleOk,
 }: ConfirmRegistrationModalProps) => {
@@ -61,16 +67,6 @@ const ConfirmRegistrationModal = ({
             </div>
             <div className={styles.userDesc}>
               <VerticalInfoDescription
-                title={"Phone Number"}
-                titleStyle={{ color: "var(--Text-Text-Description-01)" }}
-              />
-              <VerticalInfoDescription
-                title={mobileNumber}
-                titleStyle={{ fontWeight: "600" }}
-              />
-            </div>
-            <div className={styles.userDesc}>
-              <VerticalInfoDescription
                 title={"Email Address:"}
                 titleStyle={{ color: "var(--Text-Text-Description-01)" }}
               />
@@ -79,16 +75,56 @@ const ConfirmRegistrationModal = ({
                 titleStyle={{ fontWeight: "600" }}
               />
             </div>
+            <div className={styles.userDesc}>
+              <VerticalInfoDescription
+                title={"Customer ID:"}
+                titleStyle={{ color: "var(--Text-Text-Description-01)" }}
+              />
+              <VerticalInfoDescription
+                title={customerId.toString()}
+                titleStyle={{ fontWeight: "600" }}
+              />
+            </div>
+            <div className={styles.userDesc}>
+              <VerticalInfoDescription
+                title={"Country:"}
+                titleStyle={{ color: "var(--Text-Text-Description-01)" }}
+              />
+              <VerticalInfoDescription
+                title={country}
+                titleStyle={{ fontWeight: "600" }}
+              />
+            </div>
+            <div className={styles.userDesc}>
+              <VerticalInfoDescription
+                title={"User role:"}
+                titleStyle={{ color: "var(--Text-Text-Description-01)" }}
+              />
+              <VerticalInfoDescription
+                title={role}
+                titleStyle={{ fontWeight: "600" }}
+              />
+            </div>
+            <div className={styles.userDesc}>
+              <VerticalInfoDescription
+                title={"Phone Number"}
+                titleStyle={{ color: "var(--Text-Text-Description-01)" }}
+              />
+              <VerticalInfoDescription
+                title={mobileNumber}
+                titleStyle={{ fontWeight: "600" }}
+              />
+            </div>
           </div>
         </div>
-        <div className={styles.groupBody}>
+        {/* <div className={styles.groupBody}>
           <div className={styles.title}>
             <VerticalInfoDescription
               title={"ASSIGNED GROUPS"}
               titleStyle={{ fontWeight: "500" }}
             />
           </div>
-          {/* <div className={styles.content}>
+          <div className={styles.content}>
             {userGroups.map((group, index) => (
               <ConfirmationDetails
                 key={index}
@@ -98,8 +134,8 @@ const ConfirmRegistrationModal = ({
                 <TeamOutlined size={16} />
               </ConfirmationDetails>
             ))}
-          </div> */}
-        </div>
+          </div>
+        </div> */}
       </div>
       <div className={styles.buttons}>
         <button className={styles.cancelButton} onClick={onCancel}>

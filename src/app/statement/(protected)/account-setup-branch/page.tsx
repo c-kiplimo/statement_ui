@@ -29,6 +29,7 @@ const useCustomerSearch = () => {
         searchValue
       );
       setData(search);
+      console.log("Customerdetails>>",data)
     } catch (error) {
       setError(
         <CustdetailsnotFound>
