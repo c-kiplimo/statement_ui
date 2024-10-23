@@ -27,7 +27,7 @@ export const AuthFlowSideBar = ({
         opened={opened}
       />
       <div className={styles.content}>
-        <span className="main-text h3r">Welcome to simba portal.</span>
+        <span className="main-text h3r">Welcome to Meraki portal.</span>
         <span className="description bodyl">
           Empowering you with easy access to your financial statements.View
           account statement, Loan statement, Card statement and Swift statement
