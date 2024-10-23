@@ -8,6 +8,7 @@ import {
   Dropdown,
   Modal,
   message,
+  Input,
   Radio,
 } from "antd";
 import { CheckOutlined, CloseOutlined, DownOutlined } from "@ant-design/icons";
@@ -53,6 +54,8 @@ type contentProps = {
 };
 
 const SettingsModal = (props: contentProps) => {
+  const [preferredNotificationContact, setpreferredNotificationContact] =
+    useState<string | undefined>(undefined);
   const [mtStatementsOption, setMTStatementsOption] = useState<
     boolean | undefined
   >(undefined);
@@ -83,8 +86,7 @@ const SettingsModal = (props: contentProps) => {
 
   const { accountInfo } = context;
   const { accountId } = props;
-  const { postAccountSchedules } =
-    AcctScheduleHandler();
+  const { postAccountSchedules } = AcctScheduleHandler();
 
   useEffect(() => {
     if (props.resetOptionsOnOpen) {
@@ -97,6 +99,7 @@ const SettingsModal = (props: contentProps) => {
       setSelectedDate(null);
       setSelectedTime(null);
       setNotificationOption(undefined);
+      setpreferredNotificationContact(undefined);
     }
   }, [props.resetOptionsOnOpen]);
 
@@ -113,9 +116,7 @@ const SettingsModal = (props: contentProps) => {
         setNotificationOption(result.notificationType === "SMS");
         setSelectedDate(dayjs(result.time).format("YYYY-MM-DD"));
         setSelectedTime(dayjs(result.date).format("HH:mm:ss"));
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     };
 
     if (accountId) {
@@ -127,12 +128,12 @@ const SettingsModal = (props: contentProps) => {
     if (e) {
       e.preventDefault();
     }
-  
+
     if (!accountId) {
       showNotification("Error", "Account ID is required.");
       return;
     }
-  
+
     if (!selectedDate || !selectedTime) {
       notification.info({
         message: "Incomplete Selection",
@@ -140,25 +141,35 @@ const SettingsModal = (props: contentProps) => {
       });
       return;
     }
-  
+
+    const notificationType =
+      preferredNotificationContact && preferredNotificationContact.trim() !== ""
+        ? preferredNotificationContact
+        : notificationOption
+          ? "SMS"
+          : "Email";
+
     const statementData = {
       accountId: accountId.toString(),
       allowSwiftStatement: mtStatementsOption || false,
       allowOnlineStatement: onlineStatementOption || false,
       scheduleStatement: scheduledStatementsOption || false,
       statementFrequency: frequencyOption || "",
-      notificationType: notificationOption ? "SMS" : "Email",
+      notificationType: notificationType,
       fileFormat: fileFormatOption,
       templateType: templateTypeOption,
       startDateTime: `${moment(selectedDate).format("YYYY-MM-DD")}T${selectedTime}`,
     };
-  
+
     try {
       let response;
       let successMessage;
-  
+
       if (props.isUpdateMode) {
-        console.log("Updating account schedule...", { ...props.existingAccountSchedule, ...statementData });
+        console.log("Updating account schedule...", {
+          ...props.existingAccountSchedule,
+          ...statementData,
+        });
         response = await UpdateAccountSchedules({
           ...props.existingAccountSchedule,
           ...statementData,
@@ -169,7 +180,7 @@ const SettingsModal = (props: contentProps) => {
         response = await postAccountSchedules(statementData);
         successMessage = "Your account has been successfully set up.";
       }
-  
+
       showNotification(
         "",
         <Successful>
@@ -188,7 +199,7 @@ const SettingsModal = (props: contentProps) => {
           </Successful.Icon>
         </Successful>
       );
-  
+
       if (props.onSuccess) {
         props.onSuccess();
       }
@@ -197,10 +208,6 @@ const SettingsModal = (props: contentProps) => {
       setIsModalVisible(true);
     }
   };
-  
-  
-  
-  
 
   const handleMTStatementsChange = (e: any) =>
     setMTStatementsOption(e.target.value);
@@ -218,6 +225,12 @@ const SettingsModal = (props: contentProps) => {
   const handleNotificationChange = (e: any) => {
     const value = e.target.value === true;
     setNotificationOption(value);
+  };
+
+  const handlepreferredNotificationContactChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setpreferredNotificationContact(e.target.value);
   };
 
   const showNotification = (message: string, description: ReactNode) => {
@@ -337,6 +350,17 @@ const SettingsModal = (props: contentProps) => {
                 </Radio>
               </Radio.Group>
             </div>
+
+            <Input
+              value={preferredNotificationContact}
+              onChange={handlepreferredNotificationContactChange}
+              placeholder={
+                notificationOption === true
+                  ? "Enter preferred phone number"
+                  : "Enter preferred email"
+              }
+              style={{width:"100%"}}
+            />
 
             <div className={styles.fretimedate}>
               <div className={`${styles.desHeader} bodyr`}>
